@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Udema a modern educational site template">
+    <meta name="author" content="Ansonika">
+    <title>UDEMA | Register</title>
+
+	<!-- Favicons-->
+	<link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" th:href="@{/img/favicon.ico}">
+	<link rel="apple-touch-icon" type="image/x-icon" href="../static/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/apple-touch-icon-57x57-precomposed.png}">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/apple-touch-icon-72x72-precomposed.png}">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/apple-touch-icon-114x114-precomposed.png}">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/apple-touch-icon-144x144-precomposed.png}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+	<!-- BASE CSS -->
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+	<link href="../static/css/vendors.css" rel="stylesheet" th:href="@{/css/vendors.css}">
+	<link href="../static/css/icon_fonts/css/all_icons.min.css" rel="stylesheet" th:href="@{/css/icon_fonts/css/all_icons.min.css}">
+
+    <!-- YOUR CUSTOM CSS -->
+	<link href="../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.cs}">
+	<style>.has-error {color: #D8000C; background-color: #FFBABA;}</style>
+	<style>.center_b{display: flex; justify-content: center;}</style>
+
+
+</head>
+
+<body id="register_bg">
+
+	<nav id="menu" class="fake_menu"></nav>
+
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div>
+	<!-- End Preload -->
+
+	<div id="login">
+		<aside>
+			<figure>
+				<a href="../"><img src="img/logo.png" width="149" height="42" alt=""></a>
+			</figure>
+
+			<form th:action="@{/registration}" method="post" th:object="${userForm}" autocomplete="off">
+				<div class="form-group">
+					<span class="input">
+					<input class="input_field" type="text" th:field="*{name}">
+						<label class="input_label">
+						<span class="input__label-content">Name</span>
+						</label>
+					</span>
+					<span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+					<span class="input">
+					<input class="input_field" type="text" th:field="*{surname}">
+						<label class="input_label">
+						<span class="input__label-content">Last Name</span>
+					</label>
+					</span>
+					<span class="has-error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+
+					<span class="input">
+					<input class="input_field" type="text" th:field="*{username}">
+						<label class="input_label">
+						<span class="input__label-content">Username</span>
+					</label>
+					</span>
+					<span class="has-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+
+					<span class="input">
+					<input class="input_field" type="password" id="password1"  th:field="*{password}">
+						<label class="input_label">
+						<span class="input__label-content">Password</span>
+					</label>
+					</span>
+					<span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+					<span class="input">
+					<input class="input_field" type="password" id="password2" th:field="*{passwordConfirm}">
+						<label class="input_label">
+						<span class="input__label-content">Confirm password</span>
+					</label>
+					</span>
+					<span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+					<span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+
+					<div id="pass-info" class="clearfix"></div>
+
+					<div class="center_b switch-field">
+						<input type="radio" value="a" id="a" th:field="*{role}">
+						<label for="a">Student</label>
+
+						<!--value="a,b"-->
+						<input type="radio" value="b" id="b" th:field="*{role}">
+						<label for="b">Teacher</label>
+					</div>
+
+				</div>
+				<input class="btn_1 rounded full-width add_top_30" type="submit" value="Register"/>
+<!--				<a href="#0" class="btn_1 rounded full-width add_top_30">Register to Udema</a>-->
+				<div class="text-center add_top_10">Already have an acccount? <strong><a href="login">Sign In</a></strong></div>
+			</form>
+			<div class="copy">© 2021 Udema</div>
+		</aside>
+	</div>
+	<!-- /login -->
+
+	<!-- COMMON SCRIPTS -->
+	<script src="../static/js/jquery-3.6.0.min.js" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script src="../static/js/common_scripts.js" th:src="@{/js/common_scripts.js}"></script>
+	<script src="../static/js/main.js" th:src="@{/js/main.js}" ></script>
+	<script src="../static/assets/validate.js" th:src="@{/assets/validate.js}"></script>
+
+	<!-- SPECIFIC SCRIPTS -->
+	<script src="../static/js/pw_strenght.js" th:src="@{/js/pw_strenght.js}"></script>
+	<!--  SCRIPT -->
+	<script>document.getElementById("a").setAttribute("checked","checked")</script>
+
+</body>
+</html>
