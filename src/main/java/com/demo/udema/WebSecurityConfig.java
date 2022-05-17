@@ -25,19 +25,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//    a - student
-//    b - teacher
-//    c - admin
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
                 .antMatchers("/assets/**", "/coming_soon/**", "/css/**", "/img/**", "/js/**", "/layerslider/**", "/sass/**", "/video/**", "/registration" ,"/login").permitAll()
 //                .anyRequest().authenticated()
-                .antMatchers("/adminPage/**").hasAnyRole("a","b", "c")
-                .antMatchers("/userPage/**").hasAnyRole("a", "c")
-                .antMatchers("/teacherPage/**").hasAnyRole("b", "c")
-//                .antMatchers("/adminPage/**").access("hasRole('0') and hasRole('1')")
+                .antMatchers("/adminPage/**").hasAnyRole("admin")
+                .antMatchers("/userPage/**").hasAnyRole("student", "admin")
+                .antMatchers("/teacherPage/**").hasAnyRole("teacher", "admin")
                 .and()
             .formLogin()
                 .loginPage("/login")

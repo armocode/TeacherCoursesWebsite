@@ -37,13 +37,26 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        userService.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-        return "redirect:/adminPage"; // welcome
+        if(userForm.getRole().equals("student")) {
+            userService.save(userForm);
+            securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+            return "redirect:/userPage";
+        }
+        if(userForm.getRole().equals("teacher")) {
+            userService.save(userForm);
+            securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+            return "redirect:/teacherPage"; // welcome
+        }
+//        if(userForm.getRole().equals("admin")) {
+//            userService.save(userForm);
+//            securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+//            return "redirect:/adminPage";
+//        }
+        return "registration";
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error, String logout, User user) {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -71,12 +84,12 @@ public class UserController {
 
     @GetMapping("/teacherPage")
     public String teacherPage() {
-        return "admin-page/teacher-profile";
+        return "teacher-page/teacher-profile";
     }
 
     @GetMapping("/userPage")
     public String userPage() {
-        return "admin-page/user-profile";
+        return "user-page/user-profile";
     }
 
     @GetMapping("/404")

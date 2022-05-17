@@ -24,7 +24,7 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private char[] role;
+    private String role;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Course> courses;
@@ -88,11 +88,13 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public char[] getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(char[] role) {
+    public void setRole(String role) {
         this.role = role;
     }
+
+
 }
