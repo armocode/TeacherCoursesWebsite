@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "vartotojai")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "vardas")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "pavarde")
+    @Column(name = "surname")
     private String surname;
 
-    @Column(name = "prisijungimoVardas")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "slaptazodis")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "role")
@@ -28,6 +28,10 @@ public class User {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Course> courses;
+
+
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private CourseReviews courseReviews;
 
     @Transient
     private String passwordConfirm;
@@ -39,6 +43,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
 
     public int getId() {
         return id;

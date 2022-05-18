@@ -38,10 +38,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //            String userSrole = role + userS;
 //            grantedAuthorities.add(new SimpleGrantedAuthority(userSrole));
 //        }
-//        String user1 = user.getRole();
-//        String users = "ROLE_"+user1;
 
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
+
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+user.getRole()));
 
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);

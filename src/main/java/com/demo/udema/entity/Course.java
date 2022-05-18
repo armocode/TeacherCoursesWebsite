@@ -3,7 +3,7 @@ package com.demo.udema.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "kursai")
+@Table(name = "courses")
 public class Course {
 
     @Id
@@ -15,17 +15,17 @@ public class Course {
     private String data;
 
     @ManyToOne()
-    @JoinColumn(name = "mokytojo_id") //FK
+    @JoinColumn(name = "teacher_id") //FK
     private User users;
 
-    @Column(name = "pavadinimas")
+    @Column(name = "title")
     private String title;
 
     @OneToOne
-    @JoinColumn(name = "kategorijos_id") //FK
+    @JoinColumn(name = "category_id") //FK
     private Category category;
 
-    @Column(name = "kaina")
+    @Column(name = "price")
     private double price;
 
     public Course() {}
