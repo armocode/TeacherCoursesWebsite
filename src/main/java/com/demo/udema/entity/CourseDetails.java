@@ -1,6 +1,7 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "course_details")
@@ -11,8 +12,8 @@ public class CourseDetails {
     @Column(name = "id")
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "course_id") //FK )
+    @ManyToOne()
+    @JoinColumn(name = "course_id") //FK
     private Course course;
 
     @Column(name = "description")
@@ -24,34 +25,31 @@ public class CourseDetails {
     @Column(name = "lessons_total_length")
     private int lessonTotalLength;
 
-    @ManyToOne()
-    @JoinColumn(name = "lesson_topic_id") //FK
-    private LessonTopics lessonTopics;
+    // Mapping
+    @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL)
+    private List<LessonTopics> lessonTopics;
 
-    @ManyToOne()
-    @JoinColumn(name = "review_id") //FK
-    private CourseReviews courseReviews;
+    @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL)
+    private List<CourseReviews> courseReviews;
 
 
     public CourseDetails() {}
 
-    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, LessonTopics lessonTopics, CourseReviews courseReviews) {
+    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
         this.id = id;
         this.course = course;
         this.description = description;
         this.lessonTotalNumber = lessonTotalNumber;
         this.lessonTotalLength = lessonTotalLength;
         this.lessonTopics = lessonTopics;
-        this.courseReviews = courseReviews;
     }
 
-    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, LessonTopics lessonTopics, CourseReviews courseReviews) {
+    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
         this.course = course;
         this.description = description;
         this.lessonTotalNumber = lessonTotalNumber;
         this.lessonTotalLength = lessonTotalLength;
         this.lessonTopics = lessonTopics;
-        this.courseReviews = courseReviews;
     }
 
     public int getId() {
@@ -94,19 +92,11 @@ public class CourseDetails {
         this.lessonTotalLength = lessonTotalLength;
     }
 
-    public LessonTopics getLessonTopics() {
+    public List<LessonTopics> getLessonTopics() {
         return lessonTopics;
     }
 
-    public void setLessonTopics(LessonTopics lessonTopics) {
+    public void setLessonTopics(List<LessonTopics> lessonTopics) {
         this.lessonTopics = lessonTopics;
-    }
-
-    public CourseReviews getCourseReviews() {
-        return courseReviews;
-    }
-
-    public void setCourseReviews(CourseReviews courseReviews) {
-        this.courseReviews = courseReviews;
     }
 }

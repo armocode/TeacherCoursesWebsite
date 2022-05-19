@@ -11,24 +11,29 @@ public class LessonTopics {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @ManyToOne()
+    @JoinColumn(name = "course_details_id") //FK
+    private CourseDetails courseDetails;
+
+    @Column(name = "name", unique=true)
     private String name;
 
-    @ManyToOne()
-    @JoinColumn(name = "lesson_id") //FK
-    private Lessons lessons;
+    @Column(name = "list_number", unique=true)
+    private int listNumber;
 
 public LessonTopics(){}
 
-    public LessonTopics(int id, String name, Lessons lessons) {
+    public LessonTopics(int id, CourseDetails courseDetails, String name, int listNumber) {
         this.id = id;
+        this.courseDetails = courseDetails;
         this.name = name;
-        this.lessons = lessons;
+        this.listNumber = listNumber;
     }
 
-    public LessonTopics(String name, Lessons lessons) {
+    public LessonTopics(CourseDetails courseDetails, String name, int listNumber) {
+        this.courseDetails = courseDetails;
         this.name = name;
-        this.lessons = lessons;
+        this.listNumber = listNumber;
     }
 
     public int getId() {
@@ -39,6 +44,14 @@ public LessonTopics(){}
         this.id = id;
     }
 
+    public CourseDetails getCourseDetails() {
+        return courseDetails;
+    }
+
+    public void setCourseDetails(CourseDetails courseDetails) {
+        this.courseDetails = courseDetails;
+    }
+
     public String getName() {
         return name;
     }
@@ -47,11 +60,11 @@ public LessonTopics(){}
         this.name = name;
     }
 
-    public Lessons getLessons() {
-        return lessons;
+    public int getListNumber() {
+        return listNumber;
     }
 
-    public void setLessons(Lessons lessons) {
-        this.lessons = lessons;
+    public void setListNumber(int listNumber) {
+        this.listNumber = listNumber;
     }
 }

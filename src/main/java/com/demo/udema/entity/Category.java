@@ -3,7 +3,7 @@ package com.demo.udema.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
 
     @Id
@@ -11,7 +11,7 @@ public class Category {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "title")
+    @Column(name = "title", unique=true)
     private String title;
 
     @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)

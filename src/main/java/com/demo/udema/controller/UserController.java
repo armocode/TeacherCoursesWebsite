@@ -47,11 +47,6 @@ public class UserController {
             securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
             return "redirect:/teacherPage"; // welcome
         }
-//        if(userForm.getRole().equals("admin")) {
-//            userService.save(userForm);
-//            securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-//            return "redirect:/adminPage";
-//        }
         return "registration";
     }
 
@@ -90,6 +85,10 @@ public class UserController {
     @GetMapping("/userPage")
     public String userPage() {
         return "user-page/user-profile";
+    }
+    @GetMapping("/aboutPage")
+    public String aboutPage() {
+        return "about";
     }
 
     @GetMapping("/404")

@@ -1,6 +1,10 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -11,52 +15,57 @@ public class Course {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "data")
-    private String data;
-
     @ManyToOne()
     @JoinColumn(name = "teacher_id") //FK
     private User users;
-
-    @Column(name = "title")
-    private String title;
 
     @OneToOne
     @JoinColumn(name = "category_id") //FK
     private Category category;
 
+    @Column(name = "data")
+    private Date date;
+
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "price")
     private double price;
 
-    public Course() {}
+    //Mapping
+    @OneToMany(mappedBy = "course")
+    private List<CourseDetails> courseDetails;
+    //       -----------ManyToMany---users-orders-courses---------------
+    @ManyToMany(mappedBy = "courses")
+    private Set<User> user = new HashSet<>();
+    // -----------------------------------------------------------------
 
-    public Course(int id, String data, User users, String title, Category category, double price) {
+
+    public Course() {
+    }
+
+    public Course(int id, User users, Category category, Date date, String title, double price, Set<User> user) {
         this.id = id;
-        this.data = data;
         this.users = users;
-        this.title = title;
         this.category = category;
+        this.date = date;
+        this.title = title;
         this.price = price;
+        this.user = user;
     }
 
-    public Course(String data, User users, String title, Category category, double price) {
-        this.data = data;
+    public Course(User users, Category category, Date date, String title, double price, Set<User> user) {
         this.users = users;
-        this.title = title;
         this.category = category;
+        this.date = date;
+        this.title = title;
         this.price = price;
+        this.user = user;
     }
 
-    public Course(User users, String title, Category category, double price) {
-        this.users = users;
-        this.title = title;
+    public Course(Category category, String title, double price) {
         this.category = category;
-        this.price = price;
-    }
-
-    public Course(String title, Category category, double price) {
         this.title = title;
-        this.category = category;
         this.price = price;
     }
 
@@ -68,28 +77,12 @@ public class Course {
         this.id = id;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
     public User getUsers() {
         return users;
     }
 
     public void setUsers(User users) {
         this.users = users;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Category getCategory() {
@@ -100,11 +93,43 @@ public class Course {
         this.category = category;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Set<User> getUser() {
+        return user;
+    }
+
+    public void setUser(Set<User> user) {
+        this.user = user;
+    }
+
+    public List<CourseDetails> getCourseDetails() {
+        return courseDetails;
+    }
+
+    public void setCourseDetails(List<CourseDetails> courseDetails) {
+        this.courseDetails = courseDetails;
     }
 }

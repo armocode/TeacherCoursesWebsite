@@ -12,33 +12,38 @@ public class CourseReviews {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "data")
-    private Date date;
-
     @OneToOne
     @JoinColumn(name = "user_id") //FK
     private User users;
 
-    @Column(name = "rating")
+    @ManyToOne()
+    @JoinColumn(name = "course_details_id") //FK
+    private CourseDetails courseDetails;
+
+    @Column(name = "data")
+    private Date date;
+    @Column(name = "rating", nullable=true)
     private double rating;
 
-    @Column(name = "review")
+    @Column(name = "review", nullable=true)
     private String review;
 
     public CourseReviews() {
     }
 
-    public CourseReviews(int id, Date date, User users, double rating, String review) {
+    public CourseReviews(int id, User users, CourseDetails courseDetails, Date date, double rating, String review) {
         this.id = id;
-        this.date = date;
         this.users = users;
+        this.courseDetails = courseDetails;
+        this.date = date;
         this.rating = rating;
         this.review = review;
     }
 
-    public CourseReviews(Date date, User users, double rating, String review) {
-        this.date = date;
+    public CourseReviews(User users, CourseDetails courseDetails, Date date, double rating, String review) {
         this.users = users;
+        this.courseDetails = courseDetails;
+        this.date = date;
         this.rating = rating;
         this.review = review;
     }
@@ -51,20 +56,28 @@ public class CourseReviews {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public User getUsers() {
         return users;
     }
 
     public void setUsers(User users) {
         this.users = users;
+    }
+
+    public CourseDetails getCourseDetails() {
+        return courseDetails;
+    }
+
+    public void setCourseDetails(CourseDetails courseDetails) {
+        this.courseDetails = courseDetails;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public double getRating() {
