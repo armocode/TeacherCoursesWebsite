@@ -1,6 +1,7 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Course {
     private Category category;
 
     @Column(name = "data")
-    private Date date;
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
     @Column(name = "title", unique = true)
     private String title;
@@ -43,22 +44,24 @@ public class Course {
     public Course() {
     }
 
-    public Course(int id, User users, Category category, Date date, String title, double price, Set<User> user) {
+    public Course(int id, User users, Category category, String timeStamp, String title, double price, List<CourseDetails> courseDetails, Set<User> user) {
         this.id = id;
         this.users = users;
         this.category = category;
-        this.date = date;
+        this.timeStamp = timeStamp;
         this.title = title;
         this.price = price;
+        this.courseDetails = courseDetails;
         this.user = user;
     }
 
-    public Course(User users, Category category, Date date, String title, double price, Set<User> user) {
+    public Course(User users, Category category, String timeStamp, String title, double price, List<CourseDetails> courseDetails, Set<User> user) {
         this.users = users;
         this.category = category;
-        this.date = date;
+        this.timeStamp = timeStamp;
         this.title = title;
         this.price = price;
+        this.courseDetails = courseDetails;
         this.user = user;
     }
 
@@ -92,12 +95,12 @@ public class Course {
         this.category = category;
     }
 
-    public Date getDate() {
-        return date;
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public String getTitle() {
@@ -116,19 +119,19 @@ public class Course {
         this.price = price;
     }
 
-    public Set<User> getUser() {
-        return user;
-    }
-
-    public void setUser(Set<User> user) {
-        this.user = user;
-    }
-
     public List<CourseDetails> getCourseDetails() {
         return courseDetails;
     }
 
     public void setCourseDetails(List<CourseDetails> courseDetails) {
         this.courseDetails = courseDetails;
+    }
+
+    public Set<User> getUser() {
+        return user;
+    }
+
+    public void setUser(Set<User> user) {
+        this.user = user;
     }
 }

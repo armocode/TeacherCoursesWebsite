@@ -1,6 +1,7 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -21,7 +22,7 @@ public class CourseReviews {
     private CourseDetails courseDetails;
 
     @Column(name = "data")
-    private Date date;
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
     @Column(name = "rating", nullable=true)
     private double rating;
 
@@ -31,19 +32,19 @@ public class CourseReviews {
     public CourseReviews() {
     }
 
-    public CourseReviews(int id, User users, CourseDetails courseDetails, Date date, double rating, String review) {
+    public CourseReviews(int id, User users, CourseDetails courseDetails, String timeStamp, double rating, String review) {
         this.id = id;
         this.users = users;
         this.courseDetails = courseDetails;
-        this.date = date;
+        this.timeStamp = timeStamp;
         this.rating = rating;
         this.review = review;
     }
 
-    public CourseReviews(User users, CourseDetails courseDetails, Date date, double rating, String review) {
+    public CourseReviews(User users, CourseDetails courseDetails, String timeStamp, double rating, String review) {
         this.users = users;
         this.courseDetails = courseDetails;
-        this.date = date;
+        this.timeStamp = timeStamp;
         this.rating = rating;
         this.review = review;
     }
@@ -72,12 +73,12 @@ public class CourseReviews {
         this.courseDetails = courseDetails;
     }
 
-    public Date getDate() {
-        return date;
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public double getRating() {

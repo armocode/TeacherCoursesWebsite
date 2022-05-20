@@ -1,6 +1,8 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +17,7 @@ public class User {
     private int id;
 
     @Column(name = "data")
-    private Date date;
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
     @Column(name = "name", length = 64)
     private String name;
@@ -47,7 +49,7 @@ public class User {
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(name = "orders",                                // Table
     joinColumns = { @JoinColumn(name = "user_id") },           //PK FK
-    inverseJoinColumns = { @JoinColumn(name = "course_id") } ) //PK FK
+    inverseJoinColumns = { @JoinColumn(name = "course_id") } ) // FK
 
     Set<Course> courses = new HashSet<>();
     //----------------------------------------------------------------
@@ -69,12 +71,13 @@ public class User {
         this.role = role;
     }
 
-    public User(int id, Date date, String name, String surname, String username, String role, String password, boolean isEnabled, List<Course> courses2, CourseReviews courseReviews, Set<Course> courses) {
+    public User(int id, String timeStamp, String name, String surname, String username, String email, String role, String password, boolean isEnabled, List<Course> courses2, CourseReviews courseReviews, Set<Course> courses) {
         this.id = id;
-        this.date = date;
+        this.timeStamp = timeStamp;
         this.name = name;
         this.surname = surname;
         this.username = username;
+        this.email = email;
         this.role = role;
         this.password = password;
         this.isEnabled = isEnabled;
@@ -83,14 +86,18 @@ public class User {
         this.courses = courses;
     }
 
-    public User(Date date, String name, String surname, String username, String role, String password, boolean isEnabled) {
-        this.date = date;
+    public User(String timeStamp, String name, String surname, String username, String email, String role, String password, boolean isEnabled, List<Course> courses2, CourseReviews courseReviews, Set<Course> courses) {
+        this.timeStamp = timeStamp;
         this.name = name;
         this.surname = surname;
         this.username = username;
+        this.email = email;
         this.role = role;
         this.password = password;
         this.isEnabled = isEnabled;
+        this.courses2 = courses2;
+        this.courseReviews = courseReviews;
+        this.courses = courses;
     }
 
     public int getId() {
@@ -101,12 +108,12 @@ public class User {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public String getName() {
@@ -131,6 +138,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {
