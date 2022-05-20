@@ -26,17 +26,16 @@ public class Course {
     @Column(name = "data")
     private Date date;
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
     @Column(name = "price")
     private double price;
 
-    //Mapping
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course") // PK
     private List<CourseDetails> courseDetails;
     //       -----------ManyToMany---users-orders-courses---------------
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses") // 2x PK
     private Set<User> user = new HashSet<>();
     // -----------------------------------------------------------------
 

@@ -1,6 +1,7 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "lesson_topics")
@@ -15,11 +16,15 @@ public class LessonTopics {
     @JoinColumn(name = "course_details_id") //FK
     private CourseDetails courseDetails;
 
-    @Column(name = "name", unique=true)
+    @Column(name = "name", unique=true, length = 512)
     private String name;
 
-    @Column(name = "list_number", unique=true)
+    @Column(name = "list_number", unique=true, length = 3)
     private int listNumber;
+
+    @OneToMany(mappedBy = "lessonTopics", cascade = CascadeType.ALL) //PK
+    private List<Lessons> lessonsList;
+
 
 public LessonTopics(){}
 

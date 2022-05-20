@@ -6,17 +6,13 @@ import java.util.Date;
 @Entity
 @Table(name = "orders")
 public class Orders {
-
     @Id
     @GeneratedValue
-
-
-    @Column(name = "user_id")
+    @Column(name = "user_id")  // PK
     private int userId;
 
-    @Column(name = "course_id")
+    @Column(name = "course_id") // FK
     private int courseId;
-
 
     @Column(name = "data")
     private Date date;
@@ -24,7 +20,7 @@ public class Orders {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "certificate_url")
+    @Column(name = "certificate_url", length = 512)
     private String certificate_url;
 
 public Orders() {}

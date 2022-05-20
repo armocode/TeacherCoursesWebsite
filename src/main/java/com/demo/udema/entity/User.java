@@ -17,35 +17,37 @@ public class User {
     @Column(name = "data")
     private Date date;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 64)
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "surname", length = 64)
     private String surname;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username", unique = true, length = 64)
     private String username;
 
-    @Column(name = "role")
+    @Column(name = "email", unique = true, length = 128)
+    private String email;
+
+    @Column(name = "role", length = 16)
     private String role;
 
-    @Column(name = "password")
+    @Column(name = "password", length = 128)
     private String password;
 
     @Column(name = "isEnabled")
     private boolean isEnabled;
 
-    // Mapping
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)// PK
     private List<Course> courses2;
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL) // PK
     private CourseReviews courseReviews;
 
     //-----------ManyToMany---users-orders-courses--------------------
     @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "orders",
+    @JoinTable(name = "orders",                                // Table
     joinColumns = { @JoinColumn(name = "user_id") },           //PK FK
-    inverseJoinColumns = { @JoinColumn(name = "course_id") } ) //FK
+    inverseJoinColumns = { @JoinColumn(name = "course_id") } ) //PK FK
 
     Set<Course> courses = new HashSet<>();
     //----------------------------------------------------------------

@@ -14,7 +14,7 @@ public class Category {
     @Column(name = "title", unique=true)
     private String title;
 
-    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL) // PK
     private Course course;
 
     public Category() {}

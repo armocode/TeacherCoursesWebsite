@@ -16,20 +16,19 @@ public class CourseDetails {
     @JoinColumn(name = "course_id") //FK
     private Course course;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @Column(name = "lessons_total_number")
+    @Column(name = "lessons_total_number", length = 3)
     private int lessonTotalNumber;
 
     @Column(name = "lessons_total_length")
     private int lessonTotalLength;
 
-    // Mapping
-    @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL) // PK
     private List<LessonTopics> lessonTopics;
 
-    @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL) // PK
     private List<CourseReviews> courseReviews;
 
 

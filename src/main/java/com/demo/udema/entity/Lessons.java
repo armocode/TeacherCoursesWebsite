@@ -12,19 +12,19 @@ public class Lessons {
     private int id;
 
     @ManyToOne()
-    @JoinColumn(name = "lesson_topic_id")
+    @JoinColumn(name = "lesson_topic_id") //FK
     private LessonTopics lessonTopics;
 
-    @Column(name = "name", unique=true)
+    @Column(name = "name", unique=true, length = 512)
     private String name;
 
     @Column(name = "length")
     private Time length;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", length = 512)
     private String videoUrl;
 
     @Column(name = "is_free")
