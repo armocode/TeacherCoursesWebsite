@@ -9,37 +9,43 @@
   <meta name="author" content="Ansonika">
   <title>UDEMA - Admin dashboard</title>
 
-  <!-- Favicons-->
-  <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon" th:href="@{/admin_section/img/favicon.ico}">
-  <link rel="apple-touch-icon" type="image/x-icon" href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
-  <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
-  <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
-  <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon" th:href="@{/admin_section/img/favicon.ico}">
+    <link rel="apple-touch-icon" type="image/x-icon" href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
 
   <!-- GOOGLE WEB FONT -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
-	
-  <!-- Bootstrap core CSS-->
-  <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
-  <!-- Main styles -->
-  <link href="../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">
-  <!-- Icon fonts-->
-  <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
-  <!-- Plugin styles -->
-  <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">
-  <!-- Your custom styles -->
-  <link href="../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">
-	
+
+    <!-- Bootstrap core CSS-->
+    <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Main styles -->
+    <link href="../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">
+    <!-- Icon fonts-->
+    <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
+    <!-- Plugin styles -->
+    <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">
+    <!-- Your custom styles -->
+    <link href="../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+    <style>.has-error {color: #D8000C; background-color: #FFBABA;}</style>
+    <style>.has-error-e {color: #ffffff; background-color: #f36942}</style>
+    <style>.has-message-m {color: #ffffff; background-color: #f3a542;}</style>
+    <style>.center_b{display: flex; justify-content: center;}</style>
+
 </head>
 
 <body sec:authorize="isAuthenticated()" class="fixed-nav sticky-footer" id="page-top">
-  <!-- Logout form-->
-  <form id="logoutForm" method="POST" th:action="@{/logout}">
+<!-- Logout form-->
+<form id="logoutForm" method="POST" th:action="@{/logout}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-  </form>
-  <!-- Navigation-->
+</form>
+<!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+    <a class="navbar-brand" href="/"><img src="../static/admin_section/img/logo.png"  th:src="@{/admin_section/img/logo.png}" data-retina="true" alt="" width="163" height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -87,9 +93,9 @@
             <span class="nav-link-text">My profile</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseProfile">
-              <li>
-                <a th:href="@{/userPage}"> User profile</a>
-              </li>
+            <li>
+              <a href="/userPage">User profile</a>
+            </li>
 			<li>
               <a href="/teacherPage">Teacher profile</a>
             </li>
@@ -215,93 +221,147 @@
     </div>
   </nav>
   <!-- /Navigation-->
-  <div class="content-wrapper">
+  <form  th:action="@{/userPage/update}" method="post" th:object = "${user}" class="content-wrapper" >
+      <input type="hidden" th:field="*{id}">
+      <input type="hidden" th:field="*{email}">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
+        <li class="breadcrumb-item active">Add listing</li>
       </ol>
-	  <!-- Icon Cards-->
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card dashboard text-white bg-primary o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-envelope-open"></i>
-              </div>
-              <div class="mr-5"><h5>26 New Messages!</h5></div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="messages.html">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card dashboard text-white bg-warning o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-star"></i>
-              </div>
-				<div class="mr-5"><h5>11 New Reviews!</h5></div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="reviews.html">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card dashboard text-white bg-success o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-calendar-check-o"></i>
-              </div>
-              <div class="mr-5"><h5>10 New Courses!</h5></div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="bookings.html">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card dashboard text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-heart"></i>
-              </div>
-              <div class="mr-5"><h5>10 New Bookmarks!</h5></div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="bookmarks.html">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-		</div>
-		<!-- /cards -->
-		<h2></h2>
 		<div class="box_general padding_bottom">
 			<div class="header_box version_2">
-				<h2><i class="fa fa-bar-chart"></i>Statistic</h2>
+				<h2><i class="fa fa-user"></i>Profile details</h2>
 			</div>
-		 <canvas id="myAreaChart" width="100%" height="30" style="margin:45px 0 15px 0;"></canvas>
+
+                    <span class="center_b has-error-e" th:text="${error}"></span>
+                    <span class="center_b has-message-m" th:text="${message}"></span>
+
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+					<label>Your photo</label>
+						<form action="/file-upload" class="dropzone"></form>
+				    </div>
+				</div>
+				<div class="col-md-8 add_top_30">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" >
+								<label>Name</label>
+								<input type="text" class="form-control" placeholder="Your name" th:field="*{name}">
+                                <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                            </div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Last name</label>
+								<input type="text" class="form-control" placeholder="Your last name" th:field="*{surname}">
+                                <span class="has-error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+							</div>
+						</div>
+					</div>
+					<!-- /row-->
+					<div class="row">
+<!--						<div class="col-md-6">-->
+<!--							<div class="form-group">-->
+<!--								<label>Telephone</label>-->
+<!--								<input type="text" class="form-control" placeholder="Your telephone number">-->
+<!--							</div>-->
+<!--						</div>-->
+                        <div class="col-md-6">
+                        	<div class="form-group">
+                        		<label>Username</label>
+                        		<input type="text" class="form-control" th:field="*{username}" readonly="readonly">
+                        	</div>
+                        </div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Role</label>
+								<input type="text" class="form-control" th:field="*{role}" readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<!-- /row-->
+<!--					<div class="row">-->
+<!--						<div class="col-md-12">-->
+<!--							<div class="form-group">-->
+<!--								<label>Personal info</label>-->
+<!--								<textarea style="height:100px;" class="form-control" placeholder="Personal info"></textarea>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+					<!-- /row-->
+				</div>
+			</div>
 		</div>
+		<!-- /box_general-->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="box_general padding_bottom">
+					<div class="header_box version_2">
+						<h2><i class="fa fa-lock"></i>Change password</h2>
+					</div>
+					<div class="form-group">
+						<label>Old password</label>
+						<input class="form-control" type="password" th:field="*{oldPassword}">
+					</div>
+                    <span class="has-error" th:if="${#fields.hasErrors('oldPassword')}" th:errors="*{oldPassword}"></span>
+
+                    <div class="form-group">
+						<label>New password</label>
+						<input class="form-control" type="password" id="password1" th:field="*{newPassword}">
+                        <span class="has-error" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></span>
+
+                    </div>
+					<div class="form-group">
+						<label>Confirm new password</label>
+						<input class="form-control" type="password" id="password2"  th:field="*{passwordNewConfirm}">
+                        <div id="pass-info" class="clearfix"></div>
+                        <span class="has-error" th:if="${#fields.hasErrors('passwordNewConfirm')}" th:errors="*{passwordNewConfirm}"></span>
+                        <span class="has-error" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="box_general padding_bottom">
+					<div class="header_box version_2">
+						<h2><i class="fa fa-envelope"></i>Change email</h2>
+					</div>
+
+					<div class="form-group">
+						<label>Old email</label>
+						<input class="form-control" name="old_email" id="old_email" type="email" th:field="*{oldEmail}">
+					</div>
+                    <span class="has-error" th:if="${#fields.hasErrors('oldEmail')}" th:errors="*{oldEmail}"></span>
+
+
+                    <div class="form-group">
+						<label>New email</label>
+						<input class="form-control" name="new_email" id="new_email" type="email" th:field="*{newEmail}">
+					</div>
+                    <span class="has-error" th:if="${#fields.hasErrors('newEmail')}" th:errors="*{newEmail}"></span>
+
+                    <div class="form-group">
+						<label>Confirm new email</label>
+						<input class="form-control" name="confirm_new_email" id="confirm_new_email" type="email" th:field="*{emailConfirm}">
+					</div>
+                    <span class="has-error" th:if="${#fields.hasErrors('emailConfirm')}" th:errors="*{emailConfirm}"></span>
+                    <span class="has-error" th:if="${#fields.hasErrors('newEmail')}" th:errors="*{newEmail}"></span>
+
+				</div>
+			</div>
+		</div>
+		<!-- /row-->
+<!--		<p><a href="#0" class="btn_1 medium">Save</a></p>-->
+        <input class="btn_1 medium" type="submit" value="Save"/>
 	  </div>
 	  <!-- /.container-fluid-->
-   	</div>
+   	</form>
     <!-- /.container-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
@@ -332,22 +392,28 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../static/admin_section/vendor/jquery/jquery.min.js" th:src="@{/admin_section/vendor/jquery/jquery.min.js}"></script>
-    <script src="../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../static/admin_section/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/admin_section/vendor/jquery-easing/jquery.easing.min.js}"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="../static/admin_section/vendor/chart.js/Chart.js" th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
-    <script src="../static/admin_section/vendor/datatables/jquery.dataTables.js" th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
-    <script src="../static/admin_section/vendor/datatables/dataTables.bootstrap4.js" th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
-	<script src="../static/admin_section/vendor/jquery.selectbox-0.2.js" th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
-	<script src="../static/admin_section/vendor/retina-replace.min.js" th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
-	<script src="../static/admin_section/vendor/jquery.magnific-popup.min.js" th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
-	<!-- Custom scripts for this page-->
-    <script src="../static/admin_section/js/admin-charts.js" th:src="@{/admin_section/js/admin-charts.js}"></script>
-	
+  <!-- Bootstrap core JavaScript-->
+  <script src="../static/admin_section/vendor/jquery/jquery.min.js" th:src="@{/admin_section/vendor/jquery/jquery.min.js}"></script>
+  <script src="../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="../static/admin_section/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/admin_section/vendor/jquery-easing/jquery.easing.min.js}"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="../static/admin_section/vendor/chart.js/Chart.js" th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
+  <script src="../static/admin_section/vendor/datatables/jquery.dataTables.js" th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
+  <script src="../static/admin_section/vendor/datatables/dataTables.bootstrap4.js" th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
+  <script src="../static/admin_section/vendor/jquery.selectbox-0.2.js" th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
+  <script src="../static/admin_section/vendor/retina-replace.min.js" th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
+  <script src="../static/admin_section/vendor/jquery.magnific-popup.min.js" th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
+  <!-- Custom scripts for this page-->
+  <script src="../static/admin_section/js/admin-charts.js" th:src="@{/admin_section/js/admin-charts.js}"></script>
+  <!-- Custom scripts for this page-->
+  <script src="../static/admin_section/vendor/dropzone.min.js" th:src="@{/admin_section/vendor/dropzone.min.js}"></script>
+
+    <!-- SPECIFIC SCRIPTS -->
+  <script src="../static/js/pw_strenght.js" th:src="@{/js/pw_strenght.js}"></script>
+
+
 </body>
 </html>

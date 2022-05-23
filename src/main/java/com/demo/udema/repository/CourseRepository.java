@@ -4,6 +4,5 @@ import com.demo.udema.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-    Course findCourseByTitle(String title);
-
+    Course findByTitle(String title);
 }

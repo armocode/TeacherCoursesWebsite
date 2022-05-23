@@ -16,7 +16,7 @@ public class Orders {
     private int courseId;
 
     @Column(name = "data")
-    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 
     @Column(name = "price")
     private double price;

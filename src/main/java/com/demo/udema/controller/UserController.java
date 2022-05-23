@@ -1,13 +1,16 @@
 package com.demo.udema.controller;
 
 import com.demo.udema.entity.User;
-import com.demo.udema.service.SecurityService;
-import com.demo.udema.service.UserService;
+import com.demo.udema.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class UserController {
@@ -31,27 +34,18 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-//        System.out.println(userForm.getRole());
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if(userForm.getRole().equals("student")) {
-            userService.save(userForm);
-            securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-            return "redirect:/userPage";
-        }
-        if(userForm.getRole().equals("teacher")) {
-            userService.save(userForm);
-            securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-            return "redirect:/teacherPage"; // welcome
-        }
-        return "registration";
+        userService.save(userForm);
+        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        return "redirect:/adminPage";
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout, User user) {
+    public String login(Model model, String error, String logout) {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -62,37 +56,93 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/" )
-    public String index(Model model) {
+    @GetMapping("/userPage")
+    public String viewDetails(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
+        String username = loggerUser.getUsername();
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+        return "/admin-page/user-profile";
+    }
+
+    @PostMapping("/userPage/update")
+    public String updateDetails(@ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        userValidator.validate(user, bindingResult);
+        if (user.getOldPassword().equals("") && user.getNewPassword().equals("") && user.getPasswordNewConfirm().equals("")) {
+            if (!(user.getOldEmail().equals("") || user.getNewEmail().equals("") || user.getEmailConfirm().equals(""))) {
+                if (bindingResult.hasFieldErrors("name") || bindingResult.hasFieldErrors("surname") || bindingResult.hasFieldErrors("newEmail") || bindingResult.hasFieldErrors("emailConfirm") || bindingResult.hasFieldErrors("oldEmail")) {
+                    redirectAttributes.addFlashAttribute("error", "An error occurred while saving the changes (name, surname, email)");
+                    return "redirect:/userPage";
+                }
+                redirectAttributes.addFlashAttribute("message", "Name and Email saved successfully");
+                user.setEmail(user.getNewEmail()); // Naudojam, nes front end kilo problema
+                userService.saveNoPassword(user);
+                return "redirect:/userPage";
+            } else {
+                if (bindingResult.hasFieldErrors("name") || bindingResult.hasFieldErrors("surname")) {
+                    redirectAttributes.addFlashAttribute("error", "An error occurred while saving the changes (name, surname)");
+                    return "redirect:/userPage";
+                }
+                redirectAttributes.addFlashAttribute("message", "Name saved successfully");
+                userService.saveNoPassword(user);
+                return "redirect:/userPage";
+            }
+        } else if (user.getOldEmail().equals("") || user.getNewEmail().equals("") || user.getEmailConfirm().equals("")) {
+            if (!(user.getOldPassword().equals("") || user.getNewPassword().equals("") || user.getPasswordNewConfirm().equals(""))) {
+                if (bindingResult.hasFieldErrors("name") || bindingResult.hasFieldErrors("surname") || bindingResult.hasFieldErrors("newPassword") || bindingResult.hasFieldErrors("passwordNewConfirm") || bindingResult.hasFieldErrors("oldPassword")) {
+                    redirectAttributes.addFlashAttribute("error", "An error occurred while saving the changes (name, surname, password)");
+                    return "redirect:/userPage";
+                }
+                user.setPassword(user.getNewPassword());
+                userService.save(user);
+                redirectAttributes.addFlashAttribute("message", "Name and Password saved successfully");
+                return "redirect:/userPage";
+            } else {
+                if (bindingResult.hasFieldErrors("name") || bindingResult.hasFieldErrors("surname")) {
+                    redirectAttributes.addFlashAttribute("error", "An error occurred while saving the changes (name, surname)");
+                    return "redirect:/userPage";
+                }
+                userService.saveNoPassword(user);
+                redirectAttributes.addFlashAttribute("message", "Name saved successfully");
+                return "redirect:/userPage";
+            }
+        } else {
+            if (bindingResult.hasFieldErrors("name") || bindingResult.hasFieldErrors("surname") || bindingResult.hasFieldErrors("newPassword") || bindingResult.hasFieldErrors("passwordNewConfirm") || bindingResult.hasFieldErrors("oldPassword") || bindingResult.hasFieldErrors("newEmail") || bindingResult.hasFieldErrors("emailConfirm") || bindingResult.hasFieldErrors("oldEmail")) {
+                redirectAttributes.addFlashAttribute("error", "An error occurred while saving the changes (ALL)");
+                return "redirect:/userPage";
+            }
+            user.setEmail(user.getNewEmail()); // Naudojam, nes front end kilo problema
+            user.setPassword(user.getNewPassword());
+            userService.save(user);
+            redirectAttributes.addFlashAttribute("message", "Saved successfully");
+            return "redirect:/userPage";
+        }
+    }
+
+    @GetMapping("/")
+    public String index() {
         return "index";
     }
 
     @GetMapping("/welcome")
-    public String welcome(Model model) {
+    public String welcome() {
         return "welcome";
     }
 
     @GetMapping("/adminPage")
-    public String adminPage(Model model) {
+    public String adminPage() {
         return "admin-page/index";
     }
 
     @GetMapping("/teacherPage")
     public String teacherPage() {
-        return "teacher-page/teacher-profile";
-    }
-
-    @GetMapping("/userPage")
-    public String userPage() {
-        return "user-page/user-profile";
-    }
-    @GetMapping("/aboutPage")
-    public String aboutPage() {
-        return "about";
+        return "admin-page/teacher-profile";
     }
 
     @GetMapping("/404")
-    public String accessDenied(){
+    public String accessDenied() {
         return "404";
     }
 }
+
+
+

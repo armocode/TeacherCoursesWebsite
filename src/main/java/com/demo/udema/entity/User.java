@@ -1,9 +1,7 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,14 +26,14 @@ public class User {
     @Column(name = "username", unique = true, length = 64)
     private String username;
 
+    @Column(name = "password", length = 128)
+    private String password;
+
     @Column(name = "email", unique = true, length = 128)
     private String email;
 
     @Column(name = "role", length = 16)
     private String role;
-
-    @Column(name = "password", length = 128)
-    private String password;
 
     @Column(name = "isEnabled")
     private boolean isEnabled;
@@ -45,17 +43,37 @@ public class User {
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL) // PK
     private CourseReviews courseReviews;
 
-    //-----------ManyToMany---users-orders-courses--------------------
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "orders",                                // Table
-    joinColumns = { @JoinColumn(name = "user_id") },           //PK FK
-    inverseJoinColumns = { @JoinColumn(name = "course_id") } ) // FK
 
-    Set<Course> courses = new HashSet<>();
+    //-----------ManyToMany---users-orders-courses--------------------
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "orders",                                         // Table
+            joinColumns = {@JoinColumn(name = "user_id")},              //PK FK
+            inverseJoinColumns = {@JoinColumn(name = "course_id")})     // FK
+
+            Set<Course> courses = new HashSet<>();
     //----------------------------------------------------------------
+
 
     @Transient
     private String passwordConfirm;
+
+    @Transient
+    private String oldPassword;
+
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String passwordNewConfirm;
+
+    @Transient
+    private String oldEmail;
+
+    @Transient
+    private String newEmail;
+
+    @Transient
+    private String emailConfirm;
 
     public User() {
     }
@@ -108,14 +126,6 @@ public class User {
         this.id = id;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
     public String getName() {
         return name;
     }
@@ -140,6 +150,14 @@ public class User {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -156,12 +174,69 @@ public class User {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getPasswordNewConfirm() {
+        return passwordNewConfirm;
+    }
+
+    public void setPasswordNewConfirm(String passwordNewConfirm) {
+        this.passwordNewConfirm = passwordNewConfirm;
+    }
+
+    public String getOldEmail() {
+        return oldEmail;
+    }
+
+    public void setOldEmail(String oldEmail) {
+        this.oldEmail = oldEmail;
+    }
+
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
+    }
+
+    public String getEmailConfirm() {
+        return emailConfirm;
+    }
+
+    public void setEmailConfirm(String emailConfirm) {
+        this.emailConfirm = emailConfirm;
+    }
+
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public boolean isEnabled() {
@@ -194,13 +269,5 @@ public class User {
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 }

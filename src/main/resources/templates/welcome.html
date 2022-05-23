@@ -14,16 +14,17 @@
 
         <h2>Welcome <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
 
+        <span th:text="${#authentication.name}"</span>
 
-        <div sec:authorize="hasAuthority('ROLE_student')" >
-            Student<br>
+        <div sec:authorize="hasAuthority('ROLE_STUDENT')" >
+            student<br>
         </div>
 
-        <div sec:authorize="hasAuthority('ROLE_teacher')" >
+        <div sec:authorize="hasAuthority('ROLE_TEACHER')" >
             Teacher<br>
         </div>
 
-        <div sec:authorize="hasAuthority('ROLE_admin')" >
+        <div sec:authorize="hasAuthority('ROLE_ADMIN')" >
             Admin<br>
         </div>
 

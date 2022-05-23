@@ -4,5 +4,5 @@ import com.demo.udema.entity.Course;
 
 public interface CourseService {
     void save(Course course);
-    Course findCourseByTitle(String title);
+    Course findByTitle(String title);
 }
