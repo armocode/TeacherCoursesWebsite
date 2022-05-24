@@ -118,10 +118,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String index() {
+//        return "index";
+//    }
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -141,6 +141,26 @@ public class UserController {
     @GetMapping("/404")
     public String accessDenied() {
         return "404";
+    }
+
+    @GetMapping("/coursesGrid")
+    public String coursesGrid() {
+        return "courses-grid";
+    }
+
+    @GetMapping("/courseDetail")
+    public String courseDetail() {
+        return "course-detail";
+    }
+
+    @GetMapping("/coursesGridSidebar")
+    public String coursesGridSidebar() {
+        return "courses-grid-sidebar";
+    }
+
+    @GetMapping("/coursesList")
+    public String coursesList() {
+        return "courses-list";
     }
 }
 

@@ -20,9 +20,12 @@ public class Course {
     @JoinColumn(name = "teacher_id") //FK
     private User users;
 
-    @OneToOne
+//    @OneToOne
+    @ManyToOne()
     @JoinColumn(name = "category_id") //FK
     private Category category;
+
+
 
     @Column(name = "data")
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());

@@ -1,6 +1,7 @@
 package com.demo.udema.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -11,21 +12,23 @@ public class Category {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "title", unique=true)
+    @Column(name = "title", unique = true)
     private String title;
 
-    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL) // PK
-    private Course course;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) //// PK
+    private List<Course> course;
 
-    public Category() {}
 
-    public Category(String title, Course course) {
+    public Category() {
+    }
+
+    public Category(int id, String title, List<Course> course) {
+        this.id = id;
         this.title = title;
         this.course = course;
     }
 
-    public Category(int id, String title, Course course) {
-        this.id = id;
+    public Category(String title, List<Course> course) {
         this.title = title;
         this.course = course;
     }
@@ -46,11 +49,11 @@ public class Category {
         this.title = title;
     }
 
-    public Course getCourse() {
+    public List<Course> getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
+    public void setCourse(List<Course> course) {
         this.course = course;
     }
 }
