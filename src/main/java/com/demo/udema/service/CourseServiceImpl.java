@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl implements CourseService{
 
-    private CourseRepository courseRepository;
+    public CourseRepository courseRepository;
 
     public CourseServiceImpl(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
+    }
+
+    @Override
+    public List<Course> findAllByCategoryId(int id) {
+        return  courseRepository.findAllByCategoryId(id);
     }
 
     @Override
@@ -22,17 +27,16 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void save(Course course) {
-        courseRepository.save(course);
+    courseRepository.save(course);
     }
 
     @Override
     public Course findByTitle(String title) {
-//        Optional<Course> result =courseRepository.findAllByTitle(title);
+        //        Optional<Course> result =courseRepository.findAllByTitle(title);
 //        Course course = null;
 //        if(result.isPresent()){
 //course =result.get();
 //        }
-
         return null;
     }
 

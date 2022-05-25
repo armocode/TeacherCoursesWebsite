@@ -12,23 +12,21 @@ public class Category {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "title", unique = true)
+    @Column(name = "title", unique=true)
     private String title;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) //// PK
     private List<Course> course;
 
+    public Category() {}
 
-    public Category() {
-    }
-
-    public Category(int id, String title, List<Course> course) {
-        this.id = id;
+    public Category(String title, List<Course> course) {
         this.title = title;
         this.course = course;
     }
 
-    public Category(String title, List<Course> course) {
+    public Category(int id, String title, List<Course> course) {
+        this.id = id;
         this.title = title;
         this.course = course;
     }
@@ -55,5 +53,12 @@ public class Category {
 
     public void setCourse(List<Course> course) {
         this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "title='" + title + '\'' +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CourseService {
 
+    List<Course> findAllByCategoryId(int id);
     List<Course> findAll();
     void save(Course course);
     Course findByTitle(String title);

@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-//    @Query(value = "SELECT title FROM Category title")
-
+    @Query("SELECT DISTINCT u FROM Category u JOIN u.course")
     List<Category> findAll();
+    
+
+
 }

@@ -118,11 +118,6 @@ public class UserController {
         }
     }
 
-//    @GetMapping("/")
-//    public String index() {
-//        return "index";
-//    }
-
     @GetMapping("/welcome")
     public String welcome() {
         return "welcome";
@@ -142,6 +137,7 @@ public class UserController {
     public String accessDenied() {
         return "404";
     }
+
 }
 
 

@@ -34,22 +34,22 @@ public class CourseDetails {
 
     public CourseDetails() {}
 
-    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
-        this.id = id;
-        this.course = course;
-        this.description = description;
-        this.lessonTotalNumber = lessonTotalNumber;
-        this.lessonTotalLength = lessonTotalLength;
-        this.lessonTopics = lessonTopics;
-    }
-
-    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
-        this.course = course;
-        this.description = description;
-        this.lessonTotalNumber = lessonTotalNumber;
-        this.lessonTotalLength = lessonTotalLength;
-        this.lessonTopics = lessonTopics;
-    }
+//    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
+//        this.id = id;
+//        this.course = course;
+//        this.description = description;
+//        this.lessonTotalNumber = lessonTotalNumber;
+//        this.lessonTotalLength = lessonTotalLength;
+//        this.lessonTopics = lessonTopics;
+//    }
+//
+//    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
+//        this.course = course;
+//        this.description = description;
+//        this.lessonTotalNumber = lessonTotalNumber;
+//        this.lessonTotalLength = lessonTotalLength;
+//        this.lessonTopics = lessonTopics;
+//    }
 
     public int getId() {
         return id;
@@ -97,5 +97,20 @@ public class CourseDetails {
 
     public void setLessonTopics(List<LessonTopics> lessonTopics) {
         this.lessonTopics = lessonTopics;
+    }
+
+    public List<CourseReviews> getCourseReviews() {
+        return courseReviews;
+    }
+
+    public void setCourseReviews(List<CourseReviews> courseReviews) {
+        this.courseReviews = courseReviews;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseDetails{" +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
