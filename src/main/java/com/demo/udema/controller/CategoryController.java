@@ -18,7 +18,7 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
+// Nauja kodo eilute
     @GetMapping("/")
     public String index(Model model){
         List<Category> categoryList = categoryService.findAll();
