@@ -179,28 +179,29 @@
                     <div class="box_grid">
                         <figure>
                             <a href="#0" class="wish_bt"></a>
-                            <a href="course-detail.html">
+                            <a href="/courseDetail">
                                 <div class="preview"><span>Preview course</span></div>
                                 <img src="http://via.placeholder.com/800x533/ccc/fff/course__list_1.jpg"
                                      class="img-fluid" alt=""></a>
-                            <div class="price">$39</div>
+                            <div class="price"> <p th:text="${cs.price}"></p></div>
 
                         </figure>
 
-                            <div class="wrapper">
-                                <small>Category</small>
-                                <h3 th:text="${cs.title}"></h3>
-                                <p th:text="${cs.price}"></p>
+                        <div class="wrapper">
+                            <small><p th:text="${cs.category.title}"></p></small>
+                            <h5 th:text="${cs.title}"></h5>
+                            <p th:text="${cs.timeStamp}"></p>
 
-                            <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
+                            <!--                                th:each="cr: ${coursesReview}"-->
+                            <div class="rating" ><i class="icon_star voted"></i><i class="icon_star voted"></i><i
                                     class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-                                <small>(145)</small></div>
+                                <small>(145) </small></div>
                         </div>
 
                         <ul>
                             <li><i class="icon_clock_alt"></i> 1h 30min</li>
                             <li><i class="icon_like"></i> 890</li>
-                            <li><a href="course-detail.html">Enroll now</a></li>
+                            <li><a href="/courseDetail">Enroll now</a></li>
                         </ul>
                     </div>
                 </div>
@@ -209,7 +210,7 @@
             </div>
             <!-- /carousel -->
             <div class="container">
-                <p class="btn_home_align"><a href="courses-grid.html" class="btn_1 rounded">View all courses</a></p>
+                <p class="btn_home_align"><a href="/coursesGrid" class="btn_1 rounded">View all courses</a></p>
             </div>
             <!-- /container -->
             <hr>

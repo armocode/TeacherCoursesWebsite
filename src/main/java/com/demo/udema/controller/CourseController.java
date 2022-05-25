@@ -25,23 +25,28 @@ public class CourseController {
     @GetMapping("/list")
     public String coursesList(Model model) {
         List<Course> courseList = courseService.findAll();
+//        List<CourseReviews> reviewsList = courseService.findAllByOrderByTitleAsc();
         model.addAttribute("courses", courseList);
+//        model.addAttribute("coursesReview", reviewsList);
         return "index";
     }
+    @GetMapping("/coursesGrid")
+    public String coursesGrid() {
+        return "courses-grid";
+    }
 
+    @GetMapping("/courseDetail")
+    public String courseDetail() {
+        return "course-detail";
+    }
 
-//    @GetMapping("/searchForCourse")
-//   public String searchForCourse(@ModelAttribute("courseForm") Course course, Model model, RedirectAttributes redirectAttributes) {
-//        model.addAttribute("courseForm", course);
-//        if(course.getTitle().toLowerCase(Locale.ROOT).equals("java")) {
-//            redirectAttributes.addFlashAttribute("error", "case 1");
-//            return "redirect:/list";
-//        } else if (course.getTitle().toLowerCase(Locale.ROOT).equals("")) {
-//            redirectAttributes.addFlashAttribute("error", "case 2");
-//            return "redirect:/index";
-//        }
-//       redirectAttributes.addFlashAttribute("error", "case 3");
-//       return "redirect:/index";
-//   }
+    @GetMapping("/coursesGridSidebar")
+    public String coursesGridSidebar() {
+        return "courses-grid-sidebar";
+    }
 
+    @GetMapping("/coursesList")
+    public String coursesList() {
+        return "courses-list";
+    }
 }

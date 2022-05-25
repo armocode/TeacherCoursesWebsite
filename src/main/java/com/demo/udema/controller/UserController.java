@@ -142,26 +142,6 @@ public class UserController {
     public String accessDenied() {
         return "404";
     }
-
-    @GetMapping("/coursesGrid")
-    public String coursesGrid() {
-        return "courses-grid";
-    }
-
-    @GetMapping("/courseDetail")
-    public String courseDetail() {
-        return "course-detail";
-    }
-
-    @GetMapping("/coursesGridSidebar")
-    public String coursesGridSidebar() {
-        return "courses-grid-sidebar";
-    }
-
-    @GetMapping("/coursesList")
-    public String coursesList() {
-        return "courses-list";
-    }
 }
 
 
