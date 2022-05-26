@@ -175,15 +175,29 @@
 							<div class="price"> <p th:text="${cs.price}">€</p></div>
 						</figure>
 
+<!--						<div class="wrapper">-->
+<!--							<small><p th:text="${cs.category.title}"></p></small>-->
+<!--							<h5 th:text="${cs.title}"></h5>-->
+<!--							<p th:text="${cs.timeStamp}"></p>-->
+<!--							&lt;!&ndash;                                th:each="cr: ${coursesReview}"&ndash;&gt;-->
+
+<!--							<div class="rating" ><i class="icon_star voted"></i><i class="icon_star voted"></i><i-->
+<!--									class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>-->
+<!--								<small>(145)</small></div>-->
+<!--						</div>-->
+
 						<div class="wrapper">
 							<small><p th:text="${cs.category.title}"></p></small>
 							<h5 th:text="${cs.title}"></h5>
-							<p th:text="${cs.timeStamp}"></p>
-							<!--                                th:each="cr: ${coursesReview}"-->
-
-							<div class="rating" ><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-									class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></div>
+							<div th:each="csdet: ${cs.courseDetails}">
+								<p th:text="${csdet.description}"></p>
+								<div th:each="csDetRev: ${csdet.courseReviews}">
+									<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
+											class="icon_star voted"></i><i class="icon_star"></i><i
+											class="icon_star"></i>
+										<small th:text="${csDetRev.rating}">(145)</small></div>
+								</div>
+							</div>
 						</div>
 
 						<ul>

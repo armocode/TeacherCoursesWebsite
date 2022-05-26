@@ -23,10 +23,12 @@ public class HomeController {
     private CourseReviewService courseReviewService;
 
     @Autowired
-    public HomeController(CategoryService categoryService, CourseService courseService) {
+    public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService) {
         this.categoryService = categoryService;
         this.courseService = courseService;
+        this.courseReviewService = courseReviewService;
     }
+
 
     @GetMapping("/")
     public String index(Model model){
@@ -73,5 +75,15 @@ public class HomeController {
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {
         return "courses-grid-sidebar";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/contacts")
+    public String contact() {
+        return "contacts";
     }
 }

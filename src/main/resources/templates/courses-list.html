@@ -10,23 +10,31 @@
     <title>UDEMA | Modern Educational site template</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+	<link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" th:href="@{/img/favicon.ico}">
+	<link rel="apple-touch-icon" type="image/x-icon" href="../static/img/apple-touch-icon-57x57-precomposed.png"
+		  th:href="@{/img/apple-touch-icon-57x57-precomposed.png}">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+		  href="../static/img/apple-touch-icon-72x72-precomposed.png"
+		  th:href="@{/img/apple-touch-icon-72x72-precomposed.png}">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+		  href="../static/img/apple-touch-icon-114x114-precomposed.png"
+		  th:href="@{/img/apple-touch-icon-114x114-precomposed.png}">
+	<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+		  href="../static/img/apple-touch-icon-144x144-precomposed.png"
+		  th:href="@{/img/apple-touch-icon-144x144-precomposed.png}">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-	<link href="css/vendors.css" rel="stylesheet">
-	<link href="css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+	<link href="../static/css/vendors.css" rel="stylesheet" th:href="@{/css/vendors.css}">
+	<link href="../static/css/icon_fonts/css/all_icons.min.css" rel="stylesheet"
+		  th:href="@{/css/icon_fonts/css/all_icons.min.css}">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css" rel="stylesheet">
+	<link href="../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.css}">
 
 </head>
 
@@ -37,12 +45,12 @@
 	<header class="header menu_2">
 		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
 		<div id="logo">
-			<a href="index.html"><img src="img/logo.png" width="149" height="42" alt=""></a>
+			<a href="/"><img src="img/logo.png" width="149" height="42" alt=""></a>
 		</div>
 		<ul id="top_menu">
-			<li><a href="login.html" class="login">Login</a></li>
+			<li><a href="/login" class="login">Login</a></li>
 			<li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
-			<li class="hidden_tablet"><a href="admission.html" class="btn_1 rounded">Admission</a></li>
+			<li class="hidden_tablet"><a href="/login" class="btn_1 rounded">Admission</a></li>
 		</ul>
 		<!-- /top_menu -->
 		<a href="#menu" class="btn_mobile">
@@ -79,12 +87,12 @@
 				<li><span><a href="#0">Pages</a></span>
 					<ul>
 						<li><a href="#0">Menu 2</a></li>
-						<li><a href="about.html">About</a></li>
+						<li><a href="/about">About</a></li>
 						<li><a href="blog.html">Blog</a></li>
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="contacts.html">Contacts</a></li>
-						<li><a href="404.html">404 page</a></li>
+						<li><a href="/login">Login</a></li>
+						<li><a href="/registration">Register</a></li>
+						<li><a href="/contacts">Contacts</a></li>
+						<li><a href="/404">404 page</a></li>
 						<li><a href="agenda-calendar.html">Agenda Calendar</a></li>
 						<li><a href="faq.html">Faq</a></li>
 						<li><a href="help.html">Help</a></li>
@@ -188,7 +196,7 @@
 						</div>
 						<ul th:each="courD:${cour.courseDetails}">
 								<li><i class="icon_clock_alt"></i><span th:text="${' ' + courD.lessonTotalLength}" ></span></li>
-								<li><a href="course-detail.html">Enroll now</a></li>
+								<li><a href="/courseDetail">Enroll now</a></li>
 						</ul>
 					</div>
 				</div>
@@ -251,12 +259,12 @@
 				<div class="col-lg-3 col-md-6 ml-lg-auto">
 					<h5>Useful links</h5>
 					<ul class="links">
-						<li><a href="#0">Admission</a></li>
-						<li><a href="#0">About</a></li>
-						<li><a href="#0">Login</a></li>
-						<li><a href="#0">Register</a></li>
+						<li><a href="/login">Admission</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="/login">Login</a></li>
+						<li><a href="/registration">Register</a></li>
 						<li><a href="#0">News &amp; Events</a></li>
-						<li><a href="#0">Contacts</a></li>
+						<li><a href="/contacts">Contacts</a></li>
 					</ul>
 				</div>
 				<div class="col-lg-3 col-md-6">
@@ -297,10 +305,10 @@
 	<!-- page -->
 
 	<!-- COMMON SCRIPTS -->
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/common_scripts.js"></script>
-    <script src="js/main.js"></script>
-	<script src="assets/validate.js"></script>
+	<script src="../static/js/jquery-3.6.0.min.js" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script src="../static/js/common_scripts.js" th:src="@{/js/common_scripts.js}"></script>
+	<script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+	<script src="../static/assets/validate.js" th:src="@{/assets/validate.js}"></script>
   
 </body>
 </html>
