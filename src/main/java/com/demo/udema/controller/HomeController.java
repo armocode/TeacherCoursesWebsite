@@ -26,6 +26,7 @@ public class HomeController {
         this.courseService = courseService;
     }
 
+//    A
     @GetMapping("/")
     public String index(Model model){
         List<Category> categoryList = categoryService.findAll();
