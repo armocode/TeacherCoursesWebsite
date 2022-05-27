@@ -12,7 +12,7 @@ public class CourseDetails {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne()
+    @OneToOne
     @JoinColumn(name = "course_id") //FK
     private Course course;
 
@@ -34,22 +34,24 @@ public class CourseDetails {
 
     public CourseDetails() {}
 
-//    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
-//        this.id = id;
-//        this.course = course;
-//        this.description = description;
-//        this.lessonTotalNumber = lessonTotalNumber;
-//        this.lessonTotalLength = lessonTotalLength;
-//        this.lessonTopics = lessonTopics;
-//    }
-//
-//    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
-//        this.course = course;
-//        this.description = description;
-//        this.lessonTotalNumber = lessonTotalNumber;
-//        this.lessonTotalLength = lessonTotalLength;
-//        this.lessonTopics = lessonTopics;
-//    }
+    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics, List<CourseReviews> courseReviews) {
+        this.id = id;
+        this.course = course;
+        this.description = description;
+        this.lessonTotalNumber = lessonTotalNumber;
+        this.lessonTotalLength = lessonTotalLength;
+        this.lessonTopics = lessonTopics;
+        this.courseReviews = courseReviews;
+    }
+
+    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics, List<CourseReviews> courseReviews) {
+        this.course = course;
+        this.description = description;
+        this.lessonTotalNumber = lessonTotalNumber;
+        this.lessonTotalLength = lessonTotalLength;
+        this.lessonTopics = lessonTopics;
+        this.courseReviews = courseReviews;
+    }
 
     public int getId() {
         return id;
@@ -105,12 +107,5 @@ public class CourseDetails {
 
     public void setCourseReviews(List<CourseReviews> courseReviews) {
         this.courseReviews = courseReviews;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseDetails{" +
-                ", description='" + description + '\'' +
-                '}';
     }
 }
