@@ -29,7 +29,6 @@ public class HomeController {
         this.courseReviewService = courseReviewService;
     }
 
-
     @GetMapping("/")
     public String index(Model model){
         List<Category> categoryList = categoryService.findAll();

@@ -42,6 +42,9 @@ INSERT INTO lessons VALUES(7, 'Masyvai',0, 155333,'dinaminiai masyvai','url',3);
 INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
 
 INSERT INTO course_reviews VALUES(1,0,'neivienos pazystamos neatradau','2023-12-12',1,2);
+INSERT INTO course_reviews VALUES(2, 5, 'Puikus kursai','2023-12-13',1, 4);
+INSERT INTO course_reviews VALUES(3, 4, 'puikus java funkciju kursas', '2023-12-14', 2,4);
+
 
 __________________________________________________
 
