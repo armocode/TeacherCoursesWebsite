@@ -46,6 +46,7 @@ public class HomeController {
         model.addAttribute("categories", category);
         List<Course> course = courseService.findAllByCategoryId(id);
         model.addAttribute("courses", course);
+
         return "courses-list";
     }
 
@@ -65,10 +66,6 @@ public class HomeController {
         return "courses-grid";
     }
 
-    @GetMapping("/courseDetail")
-    public String courseDetail() {
-        return "course-detail";
-    }
 
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {
