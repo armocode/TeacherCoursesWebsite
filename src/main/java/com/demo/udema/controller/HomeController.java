@@ -9,9 +9,8 @@ import com.demo.udema.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -57,6 +56,24 @@ public class HomeController {
         model.addAttribute("coursesList", courseList);
         return "course-detail";
     }
+    @GetMapping("/addListing")
+    public String addListing(@ModelAttribute("course") Course course) {
+        courseService.save(course);
+        return "admin-page/add-listing";
+    }
+    @PostMapping("/addListing/update")
+    public String addListing(@ModelAttribute("courseUpd") Course course, BindingResult bindingResult) {
+        courseService.save(course);
+//        Course course = courseService.findByTitle(title);
+//        model.addAttribute("coursesTit", course);
+//        List<Course> courseListTit = courseService.findAllByTitle(title);
+//        model.addAttribute("coursesListTit", courseListTit);
+//        List<Category> categoryList = categoryService.findAll();
+//        model.addAttribute("categoriesList", categoryList);
+//        List<Course> courseList = courseService.findAll();
+//        model.addAttribute("coursesList", courseList);
+        return "redirect:/admin-page/add-listing";
+    }
 
     @GetMapping("/coursesGrid")
     public String coursesGrid( Model model) {
@@ -64,10 +81,7 @@ public class HomeController {
         model.addAttribute("courses", courseList);
         return "courses-grid";
     }
-    @GetMapping("/addListing")
-    public String addListing() {
-        return "admin-page/add-listing";
-    }
+
 
 
     @GetMapping("/coursesGridSidebar")

@@ -213,7 +213,8 @@
     </div>
   </nav>
   <!-- /Navigation-->
-  <div class="content-wrapper">
+<!--  th:action="@{/addListing/update}" method="post" th:object="${course}"-->
+  <form  class="content-wrapper" th:action="@{/addListing}" method="post" th:object="${course}">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
@@ -230,13 +231,14 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Course title</label>
-						<input type="text" class="form-control" placeholder="Course title">
+						<input type="text" class="form-control" placeholder="Course title" th:field="*{title}">
+                        <span class="has-error" th:if="${#fields.hasErrors('title')}"></span>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Course price</label>
-						<input type="text" class="form-control" placeholder="Course category">
+						<input type="text" class="form-control" placeholder="Course price" th:field="*{price}">
 					</div>
 				</div>
 			</div>
@@ -245,13 +247,14 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Course start</label>
-						<input type="text" class="form-control date-pick" placeholder="Course start">
+						<input readonly="readonly" type="text" class="form-control date-pick" placeholder="Course start">
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Course expire</label>
-						<input type="email" class="form-control date-pick" placeholder="Your email">
+<!--                        th:disabled="${menu.id == null}"-->
+						<input readonly="readonly" type="email" class="form-control date-pick" placeholder="Course expire">
 					</div>
 				</div>
 			</div>
@@ -294,7 +297,7 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<label>Category <a href="#0" data-toggle="tooltip" data-placement="top" title="Separated by commas"><i class="fa fa-fw fa-question-circle"></i></a></label>
-						<input type="text" class="form-control" placeholder="Ex: Science, Biology...">
+						<input type="text" class="form-control" placeholder="Ex: Science, Biology..." th:field="*{category}">
 					</div>
 				</div>
 			</div>
@@ -346,7 +349,7 @@
 		<p><a href="#0" class="btn_1 medium">Save</a></p>
 	  </div>
 	  <!-- /.container-fluid-->
-   	</div>
+   	</form>
     <!-- /.container-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
