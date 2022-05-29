@@ -2,10 +2,11 @@ INSERT users(...) Antanas teacher id 1
 INSERT users(...) Petras student id 2
 _____________________________________
 
-INSERT INTO users VALUES(1,'email@email.com',1,'Antanas','slaptazodis','teacher','Antanaitis', '2022.05.20','antanas');
-INSERT INTO users VALUES(2,'gmail@email.com',0,'Petras','petras123','student','Petraitis', '2022.05.20','petras123');
-INSERT INTO users VALUES(3,'asdf@email.com',0,'Jonas','jonas123','teacher','Jonaitis', '2022.05.23','jonas123');
-INSERT INTO users VALUES(4,'linas@email.com',0,'Linas','bronius123','student','linas', '2022.05.24','linas123');
+INSERT INTO users VALUES(1,'email@email.com',1,'Antanas','slaptazodis','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas');
+INSERT INTO users VALUES(2,'gmail@email.com',0,'Petras','petras123','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
+INSERT INTO users VALUES(3,'asdf@email.com',0,'Jonas','jonas123','ROLE_TEACHER','Jonaitis', '2022.05.23','jonas123');
+INSERT INTO users VALUES(4,'linas@email.com',0,'Linas','bronius123','ROLE_STUDENT','linas', '2022.05.24','linas123');
+INSERT INTO users VALUES(5,'random@gmail.com',0,'name','$2a$12$LuwVfc1u.rIRAT1wA794UOonvd.KXBrLuUTimx6YhV701cxpMqsAG','ROLE_ADMIN','surname','2000.05.05','admin123');
 
 INSERT INTO categories VALUES(1, 'JAVA');
 INSERT INTO categories VALUES(2, 'JavaScript');
@@ -41,8 +42,8 @@ INSERT INTO lessons VALUES(7, 'Masyvai',0, 155333,'dinaminiai masyvai','url',3);
 
 INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
 
-INSERT INTO course_reviews VALUES(1,0,'neivienos pazystamos neatradau','2023-12-12',1,2);
-INSERT INTO course_reviews VALUES(2, 5, 'Puikus kursai','2023-12-13',1, 4);
+INSERT INTO course_reviews VALUES(1,1,'neivienos pazystamos neatradau','2023-12-12',1,2);
+INSERT INTO course_reviews VALUES(2, 5, 'Puikus java pagrindu kursas','2023-12-13',1, 4);
 INSERT INTO course_reviews VALUES(3, 4, 'puikus java funkciju kursas', '2023-12-14', 2,4);
 
 
@@ -103,6 +104,15 @@ ON course_reviews.user_id = users.id;
 
 
 _________________________________________
+SELECT * FROM `lessons` 
+JOIN lesson_topics
+ON lessons.lesson_topic_id = lesson_topics.id
+JOIN course_details
+ON lesson_topics.course_details_id = course_details.id
+JOIN courses
+ON course_details.course_id = courses.id
+WHERE courses.title LIKE 'JAVA%';
+
 
 
 

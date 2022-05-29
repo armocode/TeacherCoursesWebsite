@@ -144,19 +144,18 @@
                     </ul>
                 </div>
             </nav>
-            <div class="container margin_60_35" th:object="${coursesTit}">
-                <div class="row">
-                    <!--					th:each="cl:${coursesList}"-->
-                    <div class="col-lg-8">
-                        <!--						th:each="clDet :${cl.courseDetails}"-->
+            <div class="container margin_60_35" th:object="${coursesTit}" >
+                <div class="row" >
+                    <div class="col-lg-8" >
 
-                        <section id="description">
+                        <section id="description" >
                             <h2 th:text="${coursesTit.title}">Description</h2>
                             <p th:text="${coursesTit.category.title}">Per consequat adolescens ex, cu nibh commune
                                 temporibus vim, ad sumo viris eloquentiam sed. Mea appareat omittantur eloquentiam ad,
                                 nam ei quas oportere democritum. Prima causae admodum id est, ei timeam inimicus sed.
                                 Sit an meis aliquam, cetero inermis vel ut. An sit illum euismod facilisis, tamquam
                                 vulputate pertinacia eum at.</p>
+
                             <h5>What will you learn</h5>
                             <ul class="list_ok" th:each="cl: ${coursesList}">
                                 <li th:each="clDet: ${cl.courseDetails}">
@@ -170,151 +169,54 @@
                                     </div>
                                 </li>
                             </ul>
-                            <hr>
-                            <p th:text="${coursesTit.category.title}">Mea appareat omittantur eloquentiam ad, nam ei quas oportere democritum. Prima causae
-                                admodum id est, ei timeam inimicus sed. Sit an meis aliquam, cetero inermis vel ut. An
-                                sit illum euismod facilisis, tamquam vulputate pertinacia eum at.</p>
-                            <div class="row" th:each="cls : ${coursesTit.courseDetails}">
-                                <div class="col-lg-6">
-                                    <ul class="bullets">
-                                        <li th:text="${cls.description}">Dolorem mediocritatem</li>
-                                    </ul>
-                                </div>
-                            </div>
+<!--                            <hr>-->
+<!--                            <p th:text="${coursesTit.category.title}">Mea appareat omittantur eloquentiam ad, nam ei quas oportere democritum. Prima causae-->
+<!--                                admodum id est, ei timeam inimicus sed. Sit an meis aliquam, cetero inermis vel ut. An-->
+<!--                                sit illum euismod facilisis, tamquam vulputate pertinacia eum at.</p>-->
+<!--                            <div class="row" th:each="cls : ${coursesTit.courseDetails}">-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <ul class="bullets">-->
+<!--                                        <li th:text="${cls.description}">Dolorem mediocritatem</li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <!-- /row -->
                         </section>
                         <!-- /section -->
 
                         <section id="lessons" >
                             <div class="intro_title" >
-                                <h2>Lessons</h2 >
+                                <h2 >Lessons</h2 >
                                 <ul >
                                     <li >18 lessons</li>
                                     <li >01:02:10</li>
                                 </ul>
                             </div>
-                            <div id="accordion_lessons" role="tablist" class="add_bottom_45">
-                                <div class="card">
+                            <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each="cles: ${coursesTit.courseDetails}">
+                                <div class="card" th:each="clesTop: ${cles.lessonTopics}">
                                     <div class="card-header" role="tab" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <a data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
-                                               aria-controls="collapseOne"><i class="indicator ti-minus"></i>
-                                                Introdocution</a>
+                                        <h5 class="mb-0" >
+                                            <a th:text="${clesTop.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
+                                               aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
                                     </div>
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
-                                         aria-labelledby="headingOne" data-bs-parent="#accordion_lessons">
-                                        <div class="card-body">
+                                         aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >
+                                        <div class="card-body" >
                                             <div class="list_lessons">
-                                                <ul>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health Science</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health and Social Care</a><span>00:59</span>
-                                                    </li>
-                                                    <li><a href="#0" class="txt_doc">Audiology</a><span>00:59</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /card -->
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingTwo">
-                                        <h5 class="mb-0">
-                                            <a class="collapsed" data-bs-toggle="collapse" href="#collapseTwo"
-                                               aria-expanded="false" aria-controls="collapseTwo">
-                                                <i class="indicator ti-plus"></i>Generative Modeling Review
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
-                                         data-bs-parent="#accordion_lessons">
-                                        <div class="card-body">
-                                            <div class="list_lessons">
-                                                <ul>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health Science</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health and Social Care</a><span>00:59</span>
-                                                    </li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">History</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Healthcare Science</a><span>00:59</span></li>
-                                                    <li><a href="#0" class="txt_doc">Audiology</a><span>00:59</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /card -->
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingThree">
-                                        <h5 class="mb-0">
-                                            <a class="collapsed" data-bs-toggle="collapse" href="#collapseThree"
-                                               aria-expanded="false" aria-controls="collapseThree">
-                                                <i class="indicator ti-plus"></i>Variational Autoencoders
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" role="tabpanel"
-                                         aria-labelledby="headingThree" data-bs-parent="#accordion_lessons">
-                                        <div class="card-body">
-                                            <div class="list_lessons">
-                                                <ul>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health Science</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health and Social Care</a><span>00:59</span>
-                                                    </li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">History</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Healthcare Science</a><span>00:59</span></li>
-                                                    <li><a href="#0" class="txt_doc">Audiology</a><span>00:59</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /card -->
+                                                <ul >
 
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingFourth">
-                                        <h5 class="mb-0">
-                                            <a class="collapsed" data-bs-toggle="collapse" href="#collapseFourth"
-                                               aria-expanded="false" aria-controls="collapseFourth">
-                                                <i class="indicator ti-plus"></i>Gaussian Mixture Model Review
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseFourth" class="collapse" role="tabpanel"
-                                         aria-labelledby="headingFourth" data-bs-parent="#accordion_lessons">
-                                        <div class="card-body">
-                                            <div class="list_lessons">
-                                                <ul>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health Science</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health and Social Care</a><span>00:59</span>
-                                                    </li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">History</a><span>00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Healthcare Science</a><span>00:59</span></li>
-                                                    <li><a href="#0" class="txt_doc">Audiology</a><span>00:59</span>
+                                                    <li><a th:text="${cles.description}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
+                                                           class="video">Health Science</a><span th:text="${cles.lessonTotalLength+'min'}"></span></li>
+                                                    <li><a th:text="${'pamoku skaicius: '+cles.lessonTotalNumber}" href="#0" class="txt_doc">Audiology</a><span th:text="${cles.lessonTotalLength+'min'}"></span>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /card -->
+
                             </div>
                             <!-- /accordion -->
                         </section>
@@ -396,19 +298,19 @@
                             <hr>
 
                             <div class="reviews-container" th:each="csDets :${coursesTit.courseDetails}">
-
                                 <div class="review-box clearfix" th:each="crevs : ${csDets.courseReviews}">
                                     <figure class="rev-thumb"><img
                                             src="http://via.placeholder.com/150x150/ccc/fff/avatar1.jpg" alt="">
                                     </figure>
                                     <div class="rev-content">
                                         <div class="rating">
+                                            <span th:text="${crevs.rating}"></span>
                                             <i class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                 class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
+                                                class="icon_star" ></i>
                                         </div>
                                         <div class="rev-info">
-                                            <h5 th:text="${crevs.users.name}"></h5>
+                                            <h5 th:text="${crevs.users.username}"></h5>
                                             <p th:text="${crevs.timeStamp}"></p>
                                         </div>
                                         <div class="rev-text" th:text="${crevs.review}">
@@ -482,12 +384,12 @@
                 <div class="col-lg-3 col-md-6 ml-lg-auto">
                     <h5>Useful links</h5>
                     <ul class="links">
-                        <li><a href="#0">Admission</a></li>
-                        <li><a href="#0">About</a></li>
-                        <li><a href="#0">Login</a></li>
-                        <li><a href="#0">Register</a></li>
+                        <li><a href="/login">Admission</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/registration">Register</a></li>
                         <li><a href="#0">News &amp; Events</a></li>
-                        <li><a href="#0">Contacts</a></li>
+                        <li><a href="/contacts">Contacts</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6">

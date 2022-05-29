@@ -34,22 +34,22 @@ public class CourseDetails {
 
     public CourseDetails() {}
 
-//    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
-//        this.id = id;
-//        this.course = course;
-//        this.description = description;
-//        this.lessonTotalNumber = lessonTotalNumber;
-//        this.lessonTotalLength = lessonTotalLength;
-//        this.lessonTopics = lessonTopics;
-//    }
-//
-//    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
-//        this.course = course;
-//        this.description = description;
-//        this.lessonTotalNumber = lessonTotalNumber;
-//        this.lessonTotalLength = lessonTotalLength;
-//        this.lessonTopics = lessonTopics;
-//    }
+    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
+        this.id = id;
+        this.course = course;
+        this.description = description;
+        this.lessonTotalNumber = lessonTotalNumber;
+        this.lessonTotalLength = lessonTotalLength;
+        this.lessonTopics = lessonTopics;
+    }
+
+    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
+        this.course = course;
+        this.description = description;
+        this.lessonTotalNumber = lessonTotalNumber;
+        this.lessonTotalLength = lessonTotalLength;
+        this.lessonTopics = lessonTopics;
+    }
 
     public int getId() {
         return id;
