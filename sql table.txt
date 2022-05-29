@@ -22,7 +22,7 @@ INSERT INTO courses VALUES(5,19.99,'2022-05-24','JS pagrindai',2,2);
 INSERT INTO courses VALUES(6,25.99,'2022-05-24','JS pazengusiems',2,2);
 
 INSERT INTO course_details VALUES(1,'Cia ismoksite JAVA pagrindu', 35, 6,1);
-INSERT INTO course_details VALUES(2,'Cia ismoksite Java funkcijas', 45, 4,1);
+INSERT INTO course_details VALUES(2,'Cia ismoksite kurti Java funkcijas', 45, 4,1);
 INSERT INTO course_details VALUES(3,'Cia ismoksite kurti masyvus', 42, 5,1);
 
 INSERT INTO lesson_topics VALUES(1,10,'Pirmoji programa',1);
