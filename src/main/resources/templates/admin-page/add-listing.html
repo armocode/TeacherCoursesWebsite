@@ -239,6 +239,7 @@
 					<div class="form-group">
 						<label>Course price</label>
 						<input type="text" class="form-control" placeholder="Course price" th:field="*{price}">
+                        <span class="has-error" th:if="${#fields.hasErrors('price')}"></span>
 					</div>
 				</div>
 			</div>
@@ -298,6 +299,7 @@
 					<div class="form-group">
 						<label>Category <a href="#0" data-toggle="tooltip" data-placement="top" title="Separated by commas"><i class="fa fa-fw fa-question-circle"></i></a></label>
 						<input type="text" class="form-control" placeholder="Ex: Science, Biology..." th:field="*{category}">
+                        <span class="has-error" th:if="${#fields.hasErrors('category')}"></span>
 					</div>
 				</div>
 			</div>

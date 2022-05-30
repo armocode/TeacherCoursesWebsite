@@ -72,4 +72,12 @@ public LessonTopics(){}
     public void setListNumber(int listNumber) {
         this.listNumber = listNumber;
     }
+
+    public List<Lessons> getLessonsList() {
+        return lessonsList;
+    }
+
+    public void setLessonsList(List<Lessons> lessonsList) {
+        this.lessonsList = lessonsList;
+    }
 }

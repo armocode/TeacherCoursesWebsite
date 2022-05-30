@@ -204,12 +204,12 @@
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
                                          aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >
                                         <div class="card-body" >
-                                            <div class="list_lessons">
+                                            <div class="list_lessons" th:each="lesold: ${clesTop.lessonsList}">
                                                 <ul >
+<!--                                                    th:each="lesson:${lessonList}"-->
+<!--                                                    <li><a th:text="${lesson.name}" href="#0" class="txt_doc">Audiology</a><span th:text="${cles.lessonTotalLength+'min'}"></span>-->
+                                                    <li><a th:text="${lesold.name}" href="#0" class="txt_doc">Audiology</a>
 
-                                                    <li><a th:text="${cles.description}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw"
-                                                           class="video">Health Science</a><span th:text="${cles.lessonTotalLength+'min'}"></span></li>
-                                                    <li><a th:text="${'pamoku skaicius: '+cles.lessonTotalNumber}" href="#0" class="txt_doc">Audiology</a><span th:text="${cles.lessonTotalLength+'min'}"></span>
                                                     </li>
                                                 </ul>
                                             </div>

@@ -1,7 +1,7 @@
 package com.demo.udema.service;
 
 import com.demo.udema.entity.CourseReviews;
-import com.demo.udema.repository.CourseReviewRepository;
+import com.demo.udema.repositoryDAO.CourseReviewRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

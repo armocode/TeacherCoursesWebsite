@@ -1,7 +1,7 @@
 package com.demo.udema.service;
 
 import com.demo.udema.entity.User;
-import com.demo.udema.repository.UserRepository;
+import com.demo.udema.repositoryDAO.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

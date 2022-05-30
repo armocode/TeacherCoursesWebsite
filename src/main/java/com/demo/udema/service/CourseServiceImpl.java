@@ -1,11 +1,10 @@
 package com.demo.udema.service;
 
 import com.demo.udema.entity.Course;
-import com.demo.udema.repository.CourseRepository;
+import com.demo.udema.repositoryDAO.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService{

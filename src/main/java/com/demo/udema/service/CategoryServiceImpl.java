@@ -1,7 +1,7 @@
 package com.demo.udema.service;
 
 import com.demo.udema.entity.Category;
-import com.demo.udema.repository.CategoryRepository;
+import com.demo.udema.repositoryDAO.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

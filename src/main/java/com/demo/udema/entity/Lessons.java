@@ -19,7 +19,8 @@ public class Lessons {
     private String name;
 
     @Column(name = "length")
-    private Time length;
+    private String length;
+    // private Time length;
 
     @Column(name = "description", columnDefinition = "text")
     private String description;
@@ -32,7 +33,7 @@ public class Lessons {
 
     public Lessons()  {}
 
-    public Lessons(int id, LessonTopics lessonTopics, String name, Time length, String description, String videoUrl, boolean isFree) {
+    public Lessons(int id, LessonTopics lessonTopics, String name, String length, String description, String videoUrl, boolean isFree) {
         this.id = id;
         this.lessonTopics = lessonTopics;
         this.name = name;
@@ -42,7 +43,7 @@ public class Lessons {
         this.isFree = isFree;
     }
 
-    public Lessons(LessonTopics lessonTopics, String name, Time length, String description, String videoUrl, boolean isFree) {
+    public Lessons(LessonTopics lessonTopics, String name, String length, String description, String videoUrl, boolean isFree) {
         this.lessonTopics = lessonTopics;
         this.name = name;
         this.length = length;
@@ -75,11 +76,11 @@ public class Lessons {
         this.name = name;
     }
 
-    public Time getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(Time length) {
+    public void setLength(String length) {
         this.length = length;
     }
 

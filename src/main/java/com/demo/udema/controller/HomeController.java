@@ -3,9 +3,11 @@ package com.demo.udema.controller;
 import com.demo.udema.entity.Category;
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseReviews;
+import com.demo.udema.entity.Lessons;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseReviewService;
 import com.demo.udema.service.CourseService;
+import com.demo.udema.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +22,14 @@ public class HomeController {
     private CategoryService categoryService;
     private CourseService courseService;
     private CourseReviewService courseReviewService;
+    private LessonService lessonService;
 
     @Autowired
-    public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService) {
+    public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
         this.courseService = courseService;
         this.courseReviewService = courseReviewService;
+        this.lessonService = lessonService;
     }
 
     @GetMapping("/")
@@ -50,19 +54,22 @@ public class HomeController {
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
+        // String title = "Java pagrindai";
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
         List<Course> courseList = courseService.findAllByTitle(title);
         model.addAttribute("coursesList", courseList);
+        List<Lessons> lessonsList = lessonService.findAllByTitle(title);
+        model.addAttribute("lessonList", lessonsList);
         return "course-detail";
     }
     @GetMapping("/addListing")
-    public String addListing(@ModelAttribute("course") Course course) {
+    public String addListing(@ModelAttribute("course") Course course, BindingResult bindingResult) {
         courseService.save(course);
         return "admin-page/add-listing";
     }
     @PostMapping("/addListing/update")
-    public String addListing(@ModelAttribute("courseUpd") Course course, BindingResult bindingResult) {
+    public String addListing(@ModelAttribute("courseUpd") Course course) {
         courseService.save(course);
 //        Course course = courseService.findByTitle(title);
 //        model.addAttribute("coursesTit", course);
@@ -81,7 +88,6 @@ public class HomeController {
         model.addAttribute("courses", courseList);
         return "courses-grid";
     }
-
 
 
     @GetMapping("/coursesGridSidebar")

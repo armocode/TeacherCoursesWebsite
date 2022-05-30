@@ -72,6 +72,14 @@ public class Course {
         this.price = price;
     }
 
+    public Course(User users, Category category, String timeStamp, String title, double price) {
+        this.users = users;
+        this.category = category;
+        this.timeStamp = timeStamp;
+        this.title = title;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }

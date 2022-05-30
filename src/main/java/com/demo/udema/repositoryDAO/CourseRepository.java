@@ -1,9 +1,7 @@
-package com.demo.udema.repository;
+package com.demo.udema.repositoryDAO;
 
 import com.demo.udema.entity.Course;
-import com.demo.udema.entity.CourseReviews;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
