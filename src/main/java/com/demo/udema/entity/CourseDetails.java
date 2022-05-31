@@ -12,7 +12,7 @@ public class CourseDetails {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne()
+    @OneToOne
     @JoinColumn(name = "course_id") //FK
     private Course course;
 

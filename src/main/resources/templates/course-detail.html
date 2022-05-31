@@ -150,85 +150,68 @@
 
                         <section id="description" >
                             <h2 th:text="${coursesTit.title}">Description</h2>
-                            <p th:text="${coursesTit.category.title}">Per consequat adolescens ex, cu nibh commune
-                                temporibus vim, ad sumo viris eloquentiam sed. Mea appareat omittantur eloquentiam ad,
-                                nam ei quas oportere democritum. Prima causae admodum id est, ei timeam inimicus sed.
-                                Sit an meis aliquam, cetero inermis vel ut. An sit illum euismod facilisis, tamquam
-                                vulputate pertinacia eum at.</p>
+                            <p th:text="${coursesTit.courseDetails.description}"></p>
 
                             <h5>What will you learn</h5>
-                            <ul class="list_ok" th:each="cl: ${coursesList}">
-                                <li th:each="clDet: ${cl.courseDetails}">
-
-                                    <div th:each="lesnTop: ${clDet.lessonTopics}">
-
-                                        <h6 th:text="${lesnTop.name}"></h6>
-                                        <span th:text="${clDet.description}"> </span>
-                                        <p th:text="${'Viso kurso ilgis: '+clDet.lessonTotalLength}"></p>
-
+                            <ul class="list_ok">
+                                <li>
+                                    <div>
+                                        <h6 th:text="${coursesTit.title}"></h6>
+                                        <span th:text="${coursesTit.courseDetails.description}"> </span>
                                     </div>
                                 </li>
                             </ul>
-<!--                            <hr>-->
-<!--                            <p th:text="${coursesTit.category.title}">Mea appareat omittantur eloquentiam ad, nam ei quas oportere democritum. Prima causae-->
-<!--                                admodum id est, ei timeam inimicus sed. Sit an meis aliquam, cetero inermis vel ut. An-->
-<!--                                sit illum euismod facilisis, tamquam vulputate pertinacia eum at.</p>-->
-<!--                            <div class="row" th:each="cls : ${coursesTit.courseDetails}">-->
-<!--                                <div class="col-lg-6">-->
-<!--                                    <ul class="bullets">-->
-<!--                                        <li th:text="${cls.description}">Dolorem mediocritatem</li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                            <!-- /row -->
                         </section>
-                        <!-- /section -->
 
                         <section id="lessons" >
                             <div class="intro_title" >
-                                <h2 >Lessons</h2 >
+                                <h2>Lessons</h2 >
                                 <ul >
-                                    <li >18 lessons</li>
-                                    <li >01:02:10</li>
+                                    <li th:text="${coursesTit.courseDetails.lessonTotalNumber+' lessons'}">18 lessons</li>
+                                    <li th:text="${coursesTit.courseDetails.lessonTotalLength+'min. length'}">01:02:10</li>
                                 </ul>
                             </div>
-                            <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each="cles: ${coursesTit.courseDetails}">
-                                <div class="card" th:each="clesTop: ${cles.lessonTopics}">
+                            <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">
+                                <div class="card" >
                                     <div class="card-header" role="tab" id="headingOne">
-                                        <h5 class="mb-0" >
-                                            <a th:text="${clesTop.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
+                                        <h5 class="mb-0">
+                                            <a data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
                                                aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
+
                                     </div>
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
-                                         aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >
+                                         aria-labelledby="headingOne" data-bs-parent="#accordion_lessons">
                                         <div class="card-body" >
-                                            <div class="list_lessons" th:each="lesold: ${clesTop.lessonsList}">
+                                            <div class="list_lessons">
+<!--                                                th:each="ccltl:${cclt.lessonsList}"-->
                                                 <ul >
-<!--                                                    th:each="lesson:${lessonList}"-->
-<!--                                                    <li><a th:text="${lesson.name}" href="#0" class="txt_doc">Audiology</a><span th:text="${cles.lessonTotalLength+'min'}"></span>-->
-                                                    <li><a th:text="${lesold.name}" href="#0" class="txt_doc">Audiology</a>
+<!--                                                    <li><a th:text="${ccltl.name}" href="#0" class="txt_doc">Audiology</a><span th:text="${ccltl.length+'min'}"></span></li>-->
+<!--                                                    <li><a    th:text="${ccltl.description}">" href="#0" class="txt_doc">Audiology</a> </li>-->
 
-                                                    </li>
+                                                    <li><a th:text="${cclt.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health Science</a><span th:text="${cclt.listNumber}">00:59</span></li>
+                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span>00:59</span></li>
+                                                    <li><a href="#0" class="txt_doc">Audiology</a><span>00:59</span></li>
+
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <!-- /accordion -->
                         </section>
                         <!-- /section -->
 
-                        <section id="reviews" th:each="clist: ${coursesList}">
+                        <section id="reviews" >
                             <h2>Reviews</h2>
-                            <div class="reviews-container" th:each="cdet: ${clist.courseDetails}">
-                                <div class="row" th:each="crev: ${cdet.courseReviews}">
-                                    <div class="col-lg-3">
-                                        <div id="review_summary">
-                                            <strong th:text="${crev.rating}">4.7</strong>
+                            <div class="reviews-container" >
+                                <div class="row" >
+                                    <div class="col-lg-3" >
+                                        <div id="review_summary" >
+<!--                                            th:each="ls: ${lessonList}"-->
+                                            <strong >4.7</strong>
+<!--                                            th:text="${ls.name}"-->
                                             <!--											<strong th:text="${#aggregates.avg(crev.rating)}"></strong>-->
 
                                             <div class="rating">
@@ -297,23 +280,27 @@
 
                             <hr>
 
-                            <div class="reviews-container" th:each="csDets :${coursesTit.courseDetails}">
-                                <div class="review-box clearfix" th:each="crevs : ${csDets.courseReviews}">
+                            <div class="reviews-container" >
+                                <div class="review-box clearfix" >
                                     <figure class="rev-thumb"><img
                                             src="http://via.placeholder.com/150x150/ccc/fff/avatar1.jpg" alt="">
                                     </figure>
                                     <div class="rev-content">
                                         <div class="rating">
-                                            <span th:text="${crevs.rating}"></span>
+                                            <span ></span>
+<!--                                            th:text="${crevs.rating}"-->
                                             <i class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                 class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                 class="icon_star" ></i>
                                         </div>
                                         <div class="rev-info">
-                                            <h5 th:text="${crevs.users.username}"></h5>
-                                            <p th:text="${crevs.timeStamp}"></p>
+                                            <h5 >username</h5>
+<!--                                            th:text="${crevs.users.username}"-->
+                                            <p >review</p>
+<!--                                            th:text="${crevs.timeStamp}"-->
                                         </div>
-                                        <div class="rev-text" th:text="${crevs.review}">
+                                        <div class="rev-text" >
+<!--                                            th:text="${crevs.review}"-->
                                             <p>
                                                 Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
                                                 hendrerit. Cum sociis natoque penatibus et magnis dis

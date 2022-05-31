@@ -20,7 +20,6 @@ public class Course {
     @JoinColumn(name = "teacher_id") //FK
     private User users;
 
-    // @OneToOne
     @ManyToOne()
     @JoinColumn(name = "category_id") //FK
     private Category category;
@@ -34,18 +33,17 @@ public class Course {
     @Column(name = "price")
     private double price;
 
-    @OneToMany(mappedBy = "course") // PK
-    private List<CourseDetails> courseDetails;
+    @OneToOne(mappedBy = "course") // PK
+    private CourseDetails courseDetails;
     //       -----------ManyToMany---users-orders-courses---------------
     @ManyToMany(mappedBy = "courses") // 2x PK
     private Set<User> user = new HashSet<>();
     // -----------------------------------------------------------------
 
-
     public Course() {
     }
 
-    public Course(int id, User users, Category category, String timeStamp, String title, double price, List<CourseDetails> courseDetails, Set<User> user) {
+    public Course(int id, User users, Category category, String timeStamp, String title, double price, CourseDetails courseDetails, Set<User> user) {
         this.id = id;
         this.users = users;
         this.category = category;
@@ -56,7 +54,7 @@ public class Course {
         this.user = user;
     }
 
-    public Course(User users, Category category, String timeStamp, String title, double price, List<CourseDetails> courseDetails, Set<User> user) {
+    public Course(User users, Category category, String timeStamp, String title, double price, CourseDetails courseDetails, Set<User> user) {
         this.users = users;
         this.category = category;
         this.timeStamp = timeStamp;
@@ -64,20 +62,6 @@ public class Course {
         this.price = price;
         this.courseDetails = courseDetails;
         this.user = user;
-    }
-
-    public Course(Category category, String title, double price) {
-        this.category = category;
-        this.title = title;
-        this.price = price;
-    }
-
-    public Course(User users, Category category, String timeStamp, String title, double price) {
-        this.users = users;
-        this.category = category;
-        this.timeStamp = timeStamp;
-        this.title = title;
-        this.price = price;
     }
 
     public int getId() {
@@ -128,11 +112,11 @@ public class Course {
         this.price = price;
     }
 
-    public List<CourseDetails> getCourseDetails() {
+    public CourseDetails getCourseDetails() {
         return courseDetails;
     }
 
-    public void setCourseDetails(List<CourseDetails> courseDetails) {
+    public void setCourseDetails(CourseDetails courseDetails) {
         this.courseDetails = courseDetails;
     }
 
@@ -142,14 +126,5 @@ public class Course {
 
     public void setUser(Set<User> user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "category=" + category +
-                ", title='" + title + '\'' +
-                ", courseDetails=" + courseDetails +
-                '}';
     }
 }
