@@ -7,7 +7,7 @@ import java.util.List;
 public interface LessonService {
 //    List<Lessons> findAll();
 
-    List<Lessons> findAllByTitle(String title);
+    Lessons findAllByTitle(String title);
 
     Lessons findById(int id);
 }

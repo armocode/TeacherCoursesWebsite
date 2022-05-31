@@ -23,7 +23,11 @@ INSERT INTO courses VALUES(5,19.99,'2022-05-24','JS pagrindai',2,2);
 INSERT INTO courses VALUES(6,25.99,'2022-05-24','JS pazengusiems',2,2);
 
 INSERT INTO course_details VALUES(1,'Cia galite ismokti Java pagrindu', 35, 6,1);
-INSERT INTO course_details VALUES(2,'Cia galite susipazinti su Java pazengusiuju kursu', 45, 4,3);
+INSERT INTO course_details VALUES(2,'Cia galite ismokti Java pazengusiuju pagrindu', 45, 4,3);
+INSERT INTO course_details VALUES(3,'Cia galite ismokti C pazengusiuju pagrindu', 32, 4, 4);
+INSERT INTO course_details VALUES(4,'Cia galite ismokti C pagrindu', 63, 4, 2);
+INSERT INTO course_details VALUES(5,'Cia galite ismokti JS pazengusiuju pagrindu', 32, 4, 6);
+INSERT INTO course_details VALUES(6,'Cia galite ismokti JS pagrindu', 63, 4, 5);
 
 INSERT INTO lesson_topics VALUES(1,10,'Pirmoji programa',1);
 INSERT INTO lesson_topics VALUES(2,20,'Funkcijos',2);

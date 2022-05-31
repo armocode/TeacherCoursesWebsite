@@ -59,8 +59,8 @@ public class HomeController {
         model.addAttribute("coursesTit", course);
         List<Course> courseList = courseService.findAllByTitle(title);
         model.addAttribute("coursesList", courseList);
-        List<Lessons> lessonsList = lessonService.findAllByTitle(title);
-        model.addAttribute("lessonList", lessonsList);
+//        Lessons lesson = lessonService.findAllByTitle(title);
+//        model.addAttribute("lessonTit", lesson);
         return "course-detail";
     }
     @GetMapping("/addListing")

@@ -174,25 +174,18 @@
                             <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">
                                 <div class="card" >
                                     <div class="card-header" role="tab" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <a data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
+                                        <h5  class="mb-0">
+                                            <a th:text="${cclt.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
                                                aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
 
                                     </div>
-
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
-                                         aria-labelledby="headingOne" data-bs-parent="#accordion_lessons">
+                                         aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >
                                         <div class="card-body" >
-                                            <div class="list_lessons">
-<!--                                                th:each="ccltl:${cclt.lessonsList}"-->
+                                            <div class="list_lessons" th:each="ccltles: ${cclt.lessonsList}">
                                                 <ul >
-<!--                                                    <li><a th:text="${ccltl.name}" href="#0" class="txt_doc">Audiology</a><span th:text="${ccltl.length+'min'}"></span></li>-->
-<!--                                                    <li><a    th:text="${ccltl.description}">" href="#0" class="txt_doc">Audiology</a> </li>-->
-
-                                                    <li><a th:text="${cclt.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health Science</a><span th:text="${cclt.listNumber}">00:59</span></li>
-                                                    <li><a href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span>00:59</span></li>
-                                                    <li><a href="#0" class="txt_doc">Audiology</a><span>00:59</span></li>
+                                                    <li><a th:text="${ccltles.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span th:text="${ccltles.length+' length'}">00:59</span></li>
 
                                                 </ul>
                                             </div>
@@ -209,10 +202,14 @@
                                 <div class="row" >
                                     <div class="col-lg-3" >
                                         <div id="review_summary" >
-<!--                                            th:each="ls: ${lessonList}"-->
+
                                             <strong >4.7</strong>
-<!--                                            th:text="${ls.name}"-->
-                                            <!--											<strong th:text="${#aggregates.avg(crev.rating)}"></strong>-->
+
+<!--                                            <p th:text="${coursesTit.users.courses2}"></p>-->
+
+
+<!--                                            th:text="${lessonList.name}"-->
+                                            <!--<strong th:text="${#aggregates.avg(crev.rating)}"></strong>-->
 
                                             <div class="rating">
                                                 <i class="icon_star voted"></i><i class="icon_star voted"></i><i

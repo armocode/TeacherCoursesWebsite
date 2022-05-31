@@ -8,23 +8,18 @@ import java.util.List;
 
 public interface LessonRepository extends JpaRepository<Lessons, Integer> {
 
-
-//    @Query(value = "SELECT DISTINCT c FROM Lessons l " +
-//            "JOIN l.lessonTopics lt" +
-//            " JOIN lt.courseDetails cd" +
-//            " JOIN cd.course c")
-
-
 //    @Query(value = "SELECT * FROM lessons JOIN lesson_topics" +
 //            " JOIN course_details JOIN courses" +
 //            " WHERE courses.title=?1", nativeQuery = true)
 
 
 //    @Query(value = "SELECT * FROM lessons", nativeQuery = true)
-    @Query("SELECT l FROM Lessons l")
-//    @Query("SELECT l FROM Lessons l JOIN l.lessonTopics lt JOIN CourseDetails cd" +
-//            " JOIN cd.courseReviews cr")
-    List<Lessons> findAllByTitle(String title);
+//    @Query("SELECT l FROM Lessons l")
+
+
+    @Query("SELECT c FROM Lessons l JOIN l.lessonTopics lt JOIN lt.courseDetails cd" +
+            " JOIN cd.course c WHERE c.title =?1")
+    Lessons findAllByTitle(String title);
 
 
 }
