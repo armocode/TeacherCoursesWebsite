@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CourseReviewServiceImpl implements CourseReviewService{
+public class CourseReviewServiceImpl implements CourseReviewService {
 
     public CourseReviewRepository courseReviewRepository;
 
@@ -16,7 +16,12 @@ public class CourseReviewServiceImpl implements CourseReviewService{
     }
 
     @Override
-    public List<CourseReviews> findAll() {
-        return courseReviewRepository.findAll();
+    public CourseReviews findByTitle(String title) {
+        return courseReviewRepository.findByTitle(title);
+    }
+
+    @Override
+    public List<CourseReviews> findAllByTitle(String title) {
+        return null;
     }
 }

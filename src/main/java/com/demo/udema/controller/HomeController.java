@@ -59,8 +59,15 @@ public class HomeController {
         model.addAttribute("coursesTit", course);
         List<Course> courseList = courseService.findAllByTitle(title);
         model.addAttribute("coursesList", courseList);
-//        Lessons lesson = lessonService.findAllByTitle(title);
+
+//        Lessons lesson = lessonService.findByTitle(title);
 //        model.addAttribute("lessonTit", lesson);
+        CourseReviews courseReviews = courseReviewService.findByTitle(title);
+        model.addAttribute("ivertinimai", courseReviews);
+
+
+        //model.addatribute(ivertinimai, reiksme(double))
+
         return "course-detail";
     }
     @GetMapping("/addListing")

@@ -5,5 +5,6 @@ import com.demo.udema.entity.CourseReviews;
 import java.util.List;
 
 public interface CourseReviewService {
-    List<CourseReviews> findAll();
+    CourseReviews findByTitle(String title);
+    List<CourseReviews> findAllByTitle(String title);
 }

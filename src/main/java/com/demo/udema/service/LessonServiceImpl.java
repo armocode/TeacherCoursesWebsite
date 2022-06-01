@@ -18,8 +18,8 @@ public class LessonServiceImpl implements LessonService{
 
 
     @Override
-    public Lessons findAllByTitle(String title) {
-        return lessonRepository.findAllByTitle(title);
+    public Lessons findByTitle(String title) {
+        return lessonRepository.findByTitle(title);
     }
 
     @Override
