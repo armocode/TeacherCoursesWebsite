@@ -39,15 +39,6 @@ public class HomeController {
         return "index";
     }
 
-//    @GetMapping("/coursesList")
-//    public String coursesList(@RequestParam("categoryId") int id, Model model){
-//        Category category = categoryService.findById(id);
-//        model.addAttribute("categories", category);
-//
-//        List<Course> course = courseService.findAllByCategoryId(id);
-//        model.addAttribute("courses", course);
-//        return "courses-list";
-//    }
 
     @GetMapping("/coursesList")
     public String coursesList(@RequestParam("categoryId") int id, Model model) {
