@@ -207,7 +207,7 @@
                                     <div class="col-lg-3" >
                                         <div id="review_summary" >
 
-                                            <strong >4.7</strong>
+                                            <strong th:text="${ivertinimas}">4.7</strong>
 
 
 
@@ -287,29 +287,27 @@
                                     </figure>
                                     <div class="rev-content">
                                         <div class="rating">
-                                            <span ></span>
-<!--                                            th:text="${crevs.rating}"-->
-                                            <i class="icon_star voted"></i><i class="icon_star voted"></i><i
+                                            <span th:text="${review?.rating}"></span>
+                                            <i  class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                 class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                 class="icon_star" ></i>
                                         </div>
                                         <div class="rev-info">
-                                            <h5 >username</h5>
+                                            <h5 th:text="${review?.users?.username}">username</h5>
 
-                                            <!--                                                th:text="${ivertinimai}"-->
 
-                                            <h3 th:text="${ivertinimai.review}"></h3>
 
-<!--                                            th:text="${crevs.users.username}"-->
                                             <p >review</p>
-<!--                                            th:text="${crevs.timeStamp}"-->
                                         </div>
                                         <div class="rev-text" >
-<!--                                            th:text="${crevs.review}"-->
-                                            <p>
+
+                                            <p th:text="${review?.review}">
+<!--                                            <p th:text="${iv.review}"></p>-->
+
                                                 Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
                                                 hendrerit. Cum sociis natoque penatibus et magnis dis
                                             </p>
+                                            <span th:text="${review?.timeStamp}"></span>
                                         </div>
                                     </div>
                                 </div>

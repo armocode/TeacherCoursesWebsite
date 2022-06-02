@@ -3,7 +3,6 @@ package com.demo.udema.controller;
 import com.demo.udema.entity.Category;
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseReviews;
-import com.demo.udema.entity.Lessons;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseReviewService;
 import com.demo.udema.service.CourseService;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -54,21 +52,29 @@ public class HomeController {
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
-        // String title = "Java pagrindai";
+
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
         List<Course> courseList = courseService.findAllByTitle(title);
         model.addAttribute("coursesList", courseList);
 
+        CourseReviews courseReviews = courseReviewService.findByTitle(title);
+        model.addAttribute("review", courseReviews);
+
+        double courseRev = courseReviewService.findRatingByTitle(title);
+        model.addAttribute("ivertinimas", courseRev);
+
+        return "course-detail";
+
+
+//        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+//        model.addAttribute("ivertinimuList", courseReviewsList);
+
 //        Lessons lesson = lessonService.findByTitle(title);
 //        model.addAttribute("lessonTit", lesson);
-        CourseReviews courseReviews = courseReviewService.findByTitle(title);
-        model.addAttribute("ivertinimai", courseReviews);
-
 
         //model.addatribute(ivertinimai, reiksme(double))
 
-        return "course-detail";
     }
     @GetMapping("/addListing")
     public String addListing(@ModelAttribute("course") Course course, BindingResult bindingResult) {
