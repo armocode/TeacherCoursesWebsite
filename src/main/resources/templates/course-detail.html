@@ -149,15 +149,15 @@
                     <div class="col-lg-8" >
 
                         <section id="description" >
-                            <h2 th:text="${coursesTit.title}">Description</h2>
-                            <p th:text="${coursesTit.courseDetails.description}"></p>
+                            <h2 th:text="${coursesTit?.title}">Description</h2>
+                            <p th:text="${coursesTit?.courseDetails?.description}"></p>
 
                             <h5>What will you learn</h5>
                             <ul class="list_ok">
                                 <li>
                                     <div>
-                                        <h6 th:text="${coursesTit.title}"></h6>
-                                        <span th:text="${coursesTit.courseDetails.description}"> </span>
+                                        <h6 th:text="${coursesTit?.title}"></h6>
+                                        <span th:text="${coursesTit?.courseDetails?.description}"> </span>
                                     </div>
                                 </li>
                             </ul>
@@ -167,15 +167,15 @@
                             <div class="intro_title" >
                                 <h2>Lessons</h2 >
                                 <ul >
-                                    <li th:text="${coursesTit.courseDetails.lessonTotalNumber+' lessons'}">18 lessons</li>
-                                    <li th:text="${coursesTit.courseDetails.lessonTotalLength+'min. length'}">01:02:10</li>
+                                    <li th:text="${coursesTit?.courseDetails?.lessonTotalNumber+' lessons'}">18 lessons</li>
+                                    <li th:text="${coursesTit?.courseDetails?.lessonTotalLength+'min. length'}">01:02:10</li>
                                 </ul>
                             </div>
                             <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">
                                 <div class="card" >
                                     <div class="card-header" role="tab" id="headingOne">
                                         <h5 class="mb-0">
-                                            <a th:text="${cclt.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
+                                            <a th:text="${cclt?.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
                                                aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
 
@@ -183,9 +183,9 @@
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
                                          aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >
                                         <div class="card-body" >
-                                            <div class="list_lessons" th:each="ccltles: ${cclt.lessonsList}">
+                                            <div class="list_lessons" th:each="ccltles: ${cclt?.lessonsList}">
                                                 <ul >
-                                                    <li><a th:text="${ccltles.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span th:text="${ccltles.length+' length'}">00:59</span></li>
+                                                    <li><a th:text="${ccltles?.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span th:text="${ccltles.length+' length'}">00:59</span></li>
 
 
 
@@ -206,10 +206,7 @@
                                 <div class="row" >
                                     <div class="col-lg-3" >
                                         <div id="review_summary" >
-
-                                            <strong th:text="${ivertinimas}">4.7</strong>
-
-
+                                            <strong th:text="${rating}" >4.7</strong>
 
 <!--                                            th:text="${lessonList.name}"-->
                                             <!--<strong th:text="${#aggregates.avg(crev.rating)}"></strong>-->

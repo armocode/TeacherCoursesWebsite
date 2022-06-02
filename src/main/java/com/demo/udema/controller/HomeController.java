@@ -36,6 +36,7 @@ public class HomeController {
         model.addAttribute("categories", categoryList);
         List<Course> courseList = courseService.findAll();
         model.addAttribute("courses", courseList);
+
 //        List<CourseReviews> courseReviews = courseReviewService.findAll();
 //        model.addAttribute("coursesReview", courseReviews);
         return "index";
@@ -55,14 +56,12 @@ public class HomeController {
 
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
-        List<Course> courseList = courseService.findAllByTitle(title);
-        model.addAttribute("coursesList", courseList);
 
         CourseReviews courseReviews = courseReviewService.findByTitle(title);
         model.addAttribute("review", courseReviews);
 
         double courseRev = courseReviewService.findRatingByTitle(title);
-        model.addAttribute("ivertinimas", courseRev);
+        model.addAttribute("rating", courseRev);
 
         return "course-detail";
 
@@ -72,8 +71,6 @@ public class HomeController {
 
 //        Lessons lesson = lessonService.findByTitle(title);
 //        model.addAttribute("lessonTit", lesson);
-
-        //model.addatribute(ivertinimai, reiksme(double))
 
     }
     @GetMapping("/addListing")
