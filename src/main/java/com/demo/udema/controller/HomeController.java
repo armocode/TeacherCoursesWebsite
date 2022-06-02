@@ -22,7 +22,8 @@ public class HomeController {
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
 
-    //TEST V5 and
+
+    // Konfliktai ispresti 
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
