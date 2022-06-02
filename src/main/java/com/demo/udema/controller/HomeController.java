@@ -21,10 +21,7 @@ public class HomeController {
     private CourseService courseService;
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
-
-
-    //DELETE THIS COMMENT
-    //HOME CONTROLLER 
+    
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
