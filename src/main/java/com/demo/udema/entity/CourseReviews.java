@@ -13,7 +13,7 @@ public class CourseReviews {
     @Column(name = "id")
     private int id;
 
-    @OneToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id") //FK
     private User users;
 

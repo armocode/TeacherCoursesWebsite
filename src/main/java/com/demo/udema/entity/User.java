@@ -40,8 +40,8 @@ public class User {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)// PK
     private List<Course> courses2;
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL) // PK
-    private CourseReviews courseReviews;
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL) // PK
+    private List<CourseReviews> courseReviews;
 
 
     //-----------ManyToMany---users-orders-courses--------------------
@@ -89,29 +89,29 @@ public class User {
         this.role = role;
     }
 
-    public User(int id, String timeStamp, String name, String surname, String username, String email, String role, String password, boolean isEnabled, List<Course> courses2, CourseReviews courseReviews, Set<Course> courses) {
+    public User(int id, String timeStamp, String name, String surname, String username, String password, String email, String role, boolean isEnabled, List<Course> courses2, List<CourseReviews> courseReviews, Set<Course> courses) {
         this.id = id;
         this.timeStamp = timeStamp;
         this.name = name;
         this.surname = surname;
         this.username = username;
+        this.password = password;
         this.email = email;
         this.role = role;
-        this.password = password;
         this.isEnabled = isEnabled;
         this.courses2 = courses2;
         this.courseReviews = courseReviews;
         this.courses = courses;
     }
 
-    public User(String timeStamp, String name, String surname, String username, String email, String role, String password, boolean isEnabled, List<Course> courses2, CourseReviews courseReviews, Set<Course> courses) {
+    public User(String timeStamp, String name, String surname, String username, String password, String email, String role, boolean isEnabled, List<Course> courses2, List<CourseReviews> courseReviews, Set<Course> courses) {
         this.timeStamp = timeStamp;
         this.name = name;
         this.surname = surname;
         this.username = username;
+        this.password = password;
         this.email = email;
         this.role = role;
-        this.password = password;
         this.isEnabled = isEnabled;
         this.courses2 = courses2;
         this.courseReviews = courseReviews;
@@ -124,6 +124,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public String getName() {
@@ -172,6 +180,38 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public List<Course> getCourses2() {
+        return courses2;
+    }
+
+    public void setCourses2(List<Course> courses2) {
+        this.courses2 = courses2;
+    }
+
+    public List<CourseReviews> getCourseReviews() {
+        return courseReviews;
+    }
+
+    public void setCourseReviews(List<CourseReviews> courseReviews) {
+        this.courseReviews = courseReviews;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 
     public String getPasswordConfirm() {
@@ -228,46 +268,5 @@ public class User {
 
     public void setEmailConfirm(String emailConfirm) {
         this.emailConfirm = emailConfirm;
-    }
-
-
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    public List<Course> getCourses2() {
-        return courses2;
-    }
-
-    public void setCourses2(List<Course> courses2) {
-        this.courses2 = courses2;
-    }
-
-    public CourseReviews getCourseReviews() {
-        return courseReviews;
-    }
-
-    public void setCourseReviews(CourseReviews courseReviews) {
-        this.courseReviews = courseReviews;
-    }
-
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
     }
 }
