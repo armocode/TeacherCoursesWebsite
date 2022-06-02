@@ -24,6 +24,7 @@ public class HomeController {
 
 
     //DELETE THIS COMMENT
+    //HOME CONTROLLER 
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
