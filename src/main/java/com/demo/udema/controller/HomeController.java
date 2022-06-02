@@ -22,6 +22,8 @@ public class HomeController {
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
 
+
+    //DELETE THIS COMMENT
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
@@ -129,9 +131,9 @@ public class HomeController {
         return "contacts";
     }
 
+
     /**
      * Course average rating
-     *
      * @param courses
      */
     public void courseRatingAvg(List<Course> courses) {
