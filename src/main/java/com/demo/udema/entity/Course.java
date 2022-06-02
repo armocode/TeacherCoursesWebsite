@@ -33,6 +33,9 @@ public class Course {
     @Column(name = "price")
     private double price;
 
+    @Transient
+    private double avgRating;
+
     @OneToOne(mappedBy = "course") // PK
     private CourseDetails courseDetails;
     //       -----------ManyToMany---users-orders-courses---------------
@@ -43,23 +46,25 @@ public class Course {
     public Course() {
     }
 
-    public Course(int id, User users, Category category, String timeStamp, String title, double price, CourseDetails courseDetails, Set<User> user) {
+    public Course(int id, User users, Category category, String timeStamp, String title, double price, double avgRating, CourseDetails courseDetails, Set<User> user) {
         this.id = id;
         this.users = users;
         this.category = category;
         this.timeStamp = timeStamp;
         this.title = title;
         this.price = price;
+        this.avgRating = avgRating;
         this.courseDetails = courseDetails;
         this.user = user;
     }
 
-    public Course(User users, Category category, String timeStamp, String title, double price, CourseDetails courseDetails, Set<User> user) {
+    public Course(User users, Category category, String timeStamp, String title, double price, double avgRating, CourseDetails courseDetails, Set<User> user) {
         this.users = users;
         this.category = category;
         this.timeStamp = timeStamp;
         this.title = title;
         this.price = price;
+        this.avgRating = avgRating;
         this.courseDetails = courseDetails;
         this.user = user;
     }
@@ -110,6 +115,14 @@ public class Course {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
     }
 
     public CourseDetails getCourseDetails() {

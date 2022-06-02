@@ -66,9 +66,9 @@
 				</li>
 				<li><span><a href="#0">Courses</a></span>
 					<ul>
-						<li><a href="/coursesGrid">Courses grid</a></li>
+						<li><a href="/coursesGridAll">Courses grid</a></li>
 						<li><a href="/coursesGridSidebar">Courses grid sidebar</a></li>
-						<li><a href="/coursesList">Courses list</a></li>
+						<li><a href="/coursesListAll">Courses list</a></li>
 						<li><a href="/courseDetail">Course detail</a></li>
 						<li><a href="#">Courses list sidebar</a></li>
 						<li><a href="#">Course detail working form</a></li>
@@ -132,28 +132,31 @@
 			<div class="container">
 				<ul class="clearfix">
 					<li>
-						<div class="switch-field">
-							<input type="radio" id="all" name="listing_filter" value="all" checked>
-							<label for="all">All</label>
-							<input type="radio" id="popular" name="listing_filter" value="popular">
-							<label for="popular">Popular</label>
-							<input type="radio" id="latest" name="listing_filter" value="latest">
-							<label for="latest">Latest</label>
-						</div>
+<!--						<div class="switch-field">-->
+<!--							<input type="radio" id="all" name="listing_filter" value="all" checked>-->
+<!--							<label for="all">All</label>-->
+<!--							<input type="radio" id="popular" name="listing_filter" value="popular">-->
+<!--							<label for="popular">Popular</label>-->
+<!--							<input type="radio" id="latest" name="listing_filter" value="latest">-->
+<!--							<label for="latest">Latest</label>-->
+<!--						</div>-->
 					</li>
 					<li>
 						<div class="layout_view">
-							<a href="#0" class="active"><i class="icon-th"></i></a>
-							<a href="courses-list.html"><i class="icon-th-list"></i></a>
+							<span th:if="${catId == null}">
+								<a th:href="@{/coursesListAll}" class="active"><i class="icon-th-list"></i></a>
+							</span>
+							<span th:unless="${catId < 0}">
+								<a th:href="@{/coursesList(categoryId=${catId})}" class="active"><i class="icon-th-list"></i></a>
+							</span>
+							<a href="#0" ><i class="icon-th-list"></i></a>
 						</div>
 					</li>
 					<li>
-						<select name="orderby" class="selectbox">
-							<option value="category">Category</option>
-							<option value="category 2">Literature</option>
-							<option value="category 3">Architecture</option>
-							<option value="category 4">Economy</option>
-							</select>
+						<select name="orderby" class="selectbox" th:onchange="'window.location.href = \'' + @{/coursesGrid} + '?categoryId=\' + this.value ' ">
+							<option disabled SELECTED>Categories</option>
+							<option th:each="list : ${categoriesList}" th:text="${list.title}"  th:value="${list.id}"></option>
+						</select>
 					</li>
 				</ul>
 			</div>
@@ -177,9 +180,8 @@
 							<h3 th:text="${cour.title}">Persius delenit has cu</h3>
 							<div th:each="courD:${cour.courseDetails}">
 								<p th:text="${courD.description}">Dicam dice...</p>
-								<div th:each="courDDet:${courD.courseReviews}">
-									<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-										<small th:text="${' (' + courDDet.rating + ') '}">(145)</small></div>
+								<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
+									<small th:text="${' (' + cour.avgRating + ') '}"></small>
 								</div>
 							</div>
 						</div>

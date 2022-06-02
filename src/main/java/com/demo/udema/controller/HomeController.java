@@ -36,42 +36,45 @@ public class HomeController {
         model.addAttribute("categories", categoryList);
         List<Course> courseList = courseService.findAll();
         model.addAttribute("courses", courseList);
-
-//        List<CourseReviews> courseReviews = courseReviewService.findAll();
-//        model.addAttribute("coursesReview", courseReviews);
         return "index";
     }
 
+//    @GetMapping("/coursesList")
+//    public String coursesList(@RequestParam("categoryId") int id, Model model){
+//        Category category = categoryService.findById(id);
+//        model.addAttribute("categories", category);
+//
+//        List<Course> course = courseService.findAllByCategoryId(id);
+//        model.addAttribute("courses", course);
+//        return "courses-list";
+//    }
+
     @GetMapping("/coursesList")
-    public String coursesList(@RequestParam("categoryId") int id, Model model){
+    public String coursesList(@RequestParam("categoryId") int id, Model model) {
+        model.addAttribute("catId", id);
         Category category = categoryService.findById(id);
         model.addAttribute("categories", category);
         List<Course> course = courseService.findAllByCategoryId(id);
+        courseRatingAvg(course);
         model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
         return "courses-list";
     }
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
-
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
 
-        CourseReviews courseReviews = courseReviewService.findByTitle(title);
-        model.addAttribute("review", courseReviews);
+        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+        model.addAttribute("reviewList", courseReviewsList);
 
         double courseRev = courseReviewService.findRatingByTitle(title);
         model.addAttribute("rating", courseRev);
 
         return "course-detail";
-
-
-//        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-//        model.addAttribute("ivertinimuList", courseReviewsList);
-
-//        Lessons lesson = lessonService.findByTitle(title);
-//        model.addAttribute("lessonTit", lesson);
-
     }
     @GetMapping("/addListing")
     public String addListing(@ModelAttribute("course") Course course, BindingResult bindingResult) {
@@ -81,24 +84,44 @@ public class HomeController {
     @PostMapping("/addListing/update")
     public String addListing(@ModelAttribute("courseUpd") Course course) {
         courseService.save(course);
-//        Course course = courseService.findByTitle(title);
-//        model.addAttribute("coursesTit", course);
-//        List<Course> courseListTit = courseService.findAllByTitle(title);
-//        model.addAttribute("coursesListTit", courseListTit);
-//        List<Category> categoryList = categoryService.findAll();
-//        model.addAttribute("categoriesList", categoryList);
-//        List<Course> courseList = courseService.findAll();
-//        model.addAttribute("coursesList", courseList);
         return "redirect:/admin-page/add-listing";
     }
 
-    @GetMapping("/coursesGrid")
-    public String coursesGrid( Model model) {
-        List<Course> courseList = courseService.findAll();
-        model.addAttribute("courses", courseList);
+    @GetMapping("/coursesListAll")
+    public String coursesListAll(Model model) {
+        List<Course> course = courseService.findAll();
+        courseRatingAvg(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+        return "courses-list";
+    }
+
+    @GetMapping("/coursesGridAll")
+    public String coursesGridAll(Model model) {
+        List<Course> course = courseService.findAll();
+        courseRatingAvg(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
         return "courses-grid";
     }
 
+    @GetMapping("/coursesGrid")
+    public String coursesGrid(@RequestParam("categoryId") int id, Model model) {
+        model.addAttribute("catId", id);
+        Category category = categoryService.findById(id);
+        model.addAttribute("categories", category);
+        List<Course> course = courseService.findAllByCategoryId(id);
+        courseRatingAvg(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+        return "courses-grid";
+    }
 
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {
@@ -113,5 +136,26 @@ public class HomeController {
     @GetMapping("/contacts")
     public String contact() {
         return "contacts";
+    }
+
+    /**
+     * Course average rating
+     *
+     * @param courses
+     */
+    public void courseRatingAvg(List<Course> courses) {
+        for (Course c : courses) {
+            double sum = 0;
+            int k = 0;
+            double average = 0;
+            if (c.getCourseDetails() != null) {
+                for (CourseReviews cD : c.getCourseDetails().getCourseReviews()) {
+                    sum += cD.getRating();
+                    k++;
+                }
+                average = sum / k;
+                c.setAvgRating(average);
+            }
+        }
     }
 }
