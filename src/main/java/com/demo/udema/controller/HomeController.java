@@ -22,8 +22,6 @@ public class HomeController {
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
 
-
-
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
@@ -40,7 +38,6 @@ public class HomeController {
         model.addAttribute("courses", courseList);
         return "index";
     }
-
 
     @GetMapping("/coursesList")
     public String coursesList(@RequestParam("categoryId") int id, Model model) {

@@ -211,8 +211,6 @@
 
                         </ul>
                     </div>
-
-
                 </div>
             </div>
             <!-- /item -->
@@ -234,8 +232,8 @@
         <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
     </div>
     <div class="row">
-        <div action="#" class="col-lg-4 col-md-6 wow" data-wow-offset="150" th:each="cat:${categories}"
-             th:object="${categories}">
+
+        <div action="#" class="col-lg-4 col-md-6 wow" data-wow-offset="150" th:each="cat, ind :${categories}" th:if="${ind.index+1 < 7}" th:object="${categories}" >
             <a th:href="@{/coursesList(categoryId=${cat.id})}" class="grid_item">
                 <figure class="block-reveal">
                     <div class="block-horizzontal"></div>
@@ -243,18 +241,19 @@
                     <div class="info">
                         <h3 th:text="${cat.title}"></h3>
                         <p th:each="cours, custStat : ${cat.course}">
-										<span th:if="${custStat.last == true}">
-											<small><i class="ti-layers"></i>
-												<span th:text="${custStat.count}">1</span>
-												<span> courses</span>
-											</small>
-										</span>
+							<span th:if="${custStat.last == true}">
+								<small><i class="ti-layers"></i>
+									<span th:text="${custStat.count}">1</span>
+									<span> courses</span>
+                                </small>
+							</span>
                         </p>
                     </div>
                 </figure>
             </a>
         </div>
         <!-- /grid_item -->
+
     </div>
     <!-- /row -->
 </div>
