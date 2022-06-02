@@ -21,7 +21,7 @@ public class HomeController {
     private CourseService courseService;
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
-    
+
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
@@ -88,6 +88,14 @@ public class HomeController {
         model.addAttribute("categoriesList", categoriesList);
         return "courses-list";
     }
+
+    /// Tairono pakeitimas
+    /// Tairono pakeitimas
+    /// Tairono pakeitimas
+    /// Tairono pakeitimas
+    /// Tairono pakeitimas
+    /// Tairono pakeitimas
+    /// Tairono pakeitimas
 
     @GetMapping("/coursesGridAll")
     public String coursesGridAll(Model model) {
