@@ -23,7 +23,7 @@ public class HomeController {
     private LessonService lessonService;
 
 
-    // Konfliktai ispresti 
+
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
         this.categoryService = categoryService;
