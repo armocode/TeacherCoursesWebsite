@@ -8,11 +8,13 @@ import com.demo.udema.service.CourseReviewService;
 import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -31,7 +33,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         List<Category> categoryList = categoryService.findAll();
         model.addAttribute("categories", categoryList);
         List<Course> courseList = courseService.findAll();
@@ -53,6 +55,7 @@ public class HomeController {
         return "courses-list";
     }
 
+    @Nullable
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
         Course course = courseService.findByTitle(title);
@@ -61,16 +64,19 @@ public class HomeController {
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);
 
-        double courseRev = courseReviewService.findRatingByTitle(title);
-        model.addAttribute("rating", courseRev);
+        courseReviewRatingByTitle(title, model);
 
         return "course-detail";
     }
+
+
+
     @GetMapping("/addListing")
     public String addListing(@ModelAttribute("course") Course course, BindingResult bindingResult) {
         courseService.save(course);
         return "admin-page/add-listing";
     }
+
     @PostMapping("/addListing/update")
     public String addListing(@ModelAttribute("courseUpd") Course course) {
         courseService.save(course);
@@ -146,6 +152,18 @@ public class HomeController {
                 average = sum / k;
                 c.setAvgRating(average);
             }
+        }
+    }
+
+    /**
+     * @param title Selecting AVG(rating) FROM Reviews WHERE course.title LIKE c.title
+     * @param model If null, default rating is 0
+     */
+    public void courseReviewRatingByTitle(String title, Model model) {
+        if(courseReviewService.findRatingByTitle(title)==null) {
+            model.addAttribute("rating", 0);
+        } else {
+            model.addAttribute("rating", courseReviewService.findRatingByTitle(title));
         }
     }
 }

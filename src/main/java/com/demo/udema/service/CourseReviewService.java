@@ -7,5 +7,5 @@ import java.util.List;
 public interface CourseReviewService {
 //    CourseReviews findByTitle(String title);
     List<CourseReviews> findAllByTitle(String title);
-    double findRatingByTitle(String title);
+    Double findRatingByTitle(String title);
 }

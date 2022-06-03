@@ -23,8 +23,9 @@ public class CourseReviews {
 
     @Column(name = "data")
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    @Column(name = "rating", nullable=true)
-    private double rating;
+
+    @Column(name = "rating", columnDefinition = "double default 0")
+    private Double rating;
 
     @Column(name = "review", nullable=true)
     private String review;

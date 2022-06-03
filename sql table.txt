@@ -123,49 +123,6 @@ admin comment
 INSERT INTO course_reviews VALUES(4, 5, 'Puikus java pagrindu kursass','2023-12-14',1, 5);
 
 _______test__________________________________
-SELECT AVG(cr.rating) 
-FROM course_reviews AS cr
- JOIN course_details AS cd ON cr.course_details_id = cd.id
- WHERE cr.course_details_id =
- (SELECT course_details_id FROM course_details
- WHERE course_details.course_id = 
- (SELECT courses.id FROM courses
- WHERE courses.title = 'Java%'))
-
-SELECT users.name, courses.title, orders.price 
-FROM Users INNER JOIN orders ON users.id = user_id
-  			 INNER JOIN courses ON courses.id = course_id
-             WHERE courses.title LIKE 'Java%';
-
-
-SELECT users.name, courses.title, orders.price
-  FROM Users JOIN orders ON users.id = user_id
-  			 JOIN courses ON courses.id = course_id
-             JOIN course_reviews ON course_reviews.user_id = users.id
-             WHERE courses.title LIKE 'Java%';
-
-
- @Query(value = "SELECT users.name, courses.title, orders.price" +
-            "  FROM Users JOIN orders ON users.id = user_id" +
-            " JOIN courses ON courses.id = course_id" +
-            " WHERE courses.title LIKE '?1'", nativeQuery = true)
-
-
-SELECT AVG(cr.rating) 
-FROM course_reviews AS cr 
-JOIN course_details AS cd ON cr.course_details_id = cd.id
-WHERE cd.course_id = 
-(SELECT courses.id FROM courses WHERE courses.title LIKE 'Java%')
-
-SELECT cr.rating
-FROM course_reviews AS cr 
-JOIN course_details AS cd ON cr.course_details_id = cd.id
-WHERE AVG(cr.rating) = 
-(SELECT course_reviews.rating FROM courses 
- JOIN course_details ON course_details.course_id = courses.id
- JOIN course_reviews ON course_details.id = course_reviews.course_details_id
- WHERE courses.title LIKE 'Java%')
-
 
 
 SELECT cr.rating FROM course_reviews AS cr 

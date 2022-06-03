@@ -21,7 +21,7 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     }
 
     @Override
-    public double findRatingByTitle(String title) {
+    public Double findRatingByTitle(String title) {
         return courseReviewRepository.findRatingByTitle(title);
     }
 }
