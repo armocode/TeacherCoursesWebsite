@@ -37,12 +37,12 @@
 	<header class="header menu_2">
 		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
 		<div id="logo">
-			<a href="index.html"><img src="img/logo.png" width="149" height="42" alt=""></a>
+			<a href="/"><img src="img/logo.png" width="149" height="42" alt=""></a>
 		</div>
 		<ul id="top_menu">
-			<li><a href="login.html" class="login">Login</a></li>
+			<li><a href="/login" class="login">Login</a></li>
 			<li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
-			<li class="hidden_tablet"><a href="admission.html" class="btn_1 rounded">Admission</a></li>
+			<li class="hidden_tablet"><a href="/login" class="btn_1 rounded">Admission</a></li>
 		</ul>
 		<!-- /top_menu -->
 		<a href="#menu" class="btn_mobile">
@@ -56,7 +56,7 @@
 			<ul>
 				<li><span><a href="#0">Home</a></span>
 					<ul>
-						<li><a href="index.html">Home version 1</a></li>
+						<li><a href="/">Home version 1</a></li>
 						<li><a href="index-2.html">Home version 2</a></li>
 						<li><a href="index-6.html">Home version 3</a></li>
 						<li><a href="index-3.html">Home version 4</a></li>
@@ -79,12 +79,12 @@
 				<li><span><a href="#0">Pages</a></span>
 					<ul>
 						<li><a href="#0">Menu 2</a></li>
-						<li><a href="about.html">About</a></li>
+						<li><a href="/about">About</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
+						<li><a href="/registration">Register</a></li>
 						<li><a href="contacts.html">Contacts</a></li>
-						<li><a href="404.html">404 page</a></li>
+						<li><a href="/404">404 page</a></li>
 						<li><a href="agenda-calendar.html">Agenda Calendar</a></li>
 						<li><a href="faq.html">Faq</a></li>
 						<li><a href="help.html">Help</a></li>
@@ -171,9 +171,12 @@
 						<figure class="block-reveal" >
 							<div class="block-horizzontal"></div>
 							<a href="#0" class="wish_bt"></a>
-							<a href="course-detail.html"><img src="http://via.placeholder.com/800x533/ccc/fff/course__list_1.jpg" class="img-fluid" alt=""></a>
+<!--							<a href="course-detail.html"><img src="http://via.placeholder.com/800x533/ccc/fff/course__list_1.jpg" class="img-fluid" alt=""></a>-->
+							<a th:href="@{/coursesDetails(courseTitle=${cour.title})}"><div class="preview"><span>Preview course</span></div>
+								<img src="http://via.placeholder.com/800x533/ccc/fff/course__list_1.jpg" class="img-fluid" alt=""></a>
+
+
 							<div class="price" th:text="${cour.price + ' €'}">$54</div>
-							<div class="preview"><span>Preview course</span></div>
 						</figure>
 						<div class="wrapper">
 							<small th:text="${cour.category.title}">Category</small>
@@ -186,8 +189,8 @@
 							</div>
 						</div>
 						<ul th:each="courD:${cour.courseDetails}">
-							<li><i class="icon_clock_alt"></i><span th:text="${' ' + courD.lessonTotalLength}" ></span></li>
-							<li><a href="course-detail.html">Enroll now</a></li>
+							<li><i class="icon_clock_alt"></i><span th:text="${' ' + courD.lessonTotalLength+'min'}" ></span></li>
+							<li><a th:href="@{/coursesList(categoryId=${cour.category.id})}">Enroll now</a></li>
 						</ul>
 					</div>
 				</div>

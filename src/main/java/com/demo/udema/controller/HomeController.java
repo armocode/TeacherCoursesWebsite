@@ -56,7 +56,6 @@ public class HomeController {
         return "courses-list";
     }
 
-    @Nullable
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
         Course course = courseService.findByTitle(title);
@@ -69,7 +68,6 @@ public class HomeController {
 
         return "course-detail";
     }
-
 
 
     @GetMapping("/addListing")
