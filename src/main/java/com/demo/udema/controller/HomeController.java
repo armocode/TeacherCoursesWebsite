@@ -37,6 +37,7 @@ public class HomeController {
         List<Category> categoryList = categoryService.findAll();
         model.addAttribute("categories", categoryList);
         List<Course> courseList = courseService.findAll();
+        courseRatingAvg(courseList);
         model.addAttribute("courses", courseList);
         return "index";
     }
