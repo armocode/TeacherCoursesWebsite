@@ -16,10 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
     @Autowired
     private UserService userService;
-
     @Autowired
     private SecurityService securityService;
-
     @Autowired
     private UserValidator userValidator;
 
@@ -133,11 +131,10 @@ public class UserController {
         return "admin-page/teacher-profile";
     }
 
-    @GetMapping("/404")
-    public String accessDenied() {
-        return "404";
+    @GetMapping("/reviews")
+    public String adminPageReviews() {
+        return "admin-page/reviews";
     }
-
 }
 
 

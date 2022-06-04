@@ -51,7 +51,7 @@
             <a href="/"><img src="img/logo.png" width="149" height="42" alt=""></a>
         </div>
         <ul id="top_menu">
-            <li><a href="login" class="login">Login</a></li>
+            <li><a href="/login" class="login">Login</a></li>
             <li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
             <li class="hidden_tablet"><a href="/adminPage" class="btn_1 rounded">Admission</a></li>
         </ul>
@@ -67,7 +67,7 @@
             <ul>
                 <li><span><a href="#0">Home</a></span>
                     <ul>
-                        <li><a href="index.html">Home version 1</a></li>
+                        <li><a href="/">Home version 1</a></li>
                         <li><a href="index-2.html">Home version 2</a></li>
                         <li><a href="index-6.html">Home version 3</a></li>
                         <li><a href="index-3.html">Home version 4</a></li>
@@ -136,19 +136,21 @@
                 <div class="container">
                     <h3>What would you learn?</h3>
                     <p>Increase your expertise in business, technology and personal development</p>
-                    <form>
+
+                    <form >
+<!--                        method="post" th:action="@{/}"-->
                         <div id="custom-search-input">
                             <div class="input-group">
-                                <!--								<input type="text" class=" search-query" placeholder="Ex. Architecture, Specialization...">-->
+                                <!--<input type="text" class=" search-query" placeholder="Ex. Architecture, Specialization...">-->
                                 <input type="text" class=" search-query"
                                        placeholder="Ex. Architecture, Specialization...">
                                 <input type="submit" class="btn_search" value="Search" >
-
-                                <!--								<a th:href="@{/coursesDetails(courseTitle=${courses})}">-->
+                                <!--<a th:href="@{/coursesDetails(courseTitle=${courses})}">-->
 
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </section>
@@ -215,7 +217,7 @@
         <div class="container">
             <p class="btn_home_align"><a href="/coursesGridAll" class="btn_1 rounded">View all courses</a></p>
         </div>
-        <!-- /container -->
+
         <hr>
 
 <!-- /container -->

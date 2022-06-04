@@ -39,6 +39,7 @@ public class HomeController {
         List<Course> courseList = courseService.findAll();
         courseRatingAvg(courseList);
         model.addAttribute("courses", courseList);
+
         return "index";
     }
 
@@ -63,7 +64,7 @@ public class HomeController {
 
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);
-
+        courseReviewCountRatingByTitle(title,model);
         courseReviewRatingByTitle(title, model);
 
         return "course-detail";
@@ -118,6 +119,8 @@ public class HomeController {
         return "courses-grid";
     }
 
+
+
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {
         return "courses-grid-sidebar";
@@ -127,12 +130,14 @@ public class HomeController {
     public String about() {
         return "about";
     }
-
     @GetMapping("/contacts")
     public String contact() {
         return "contacts";
     }
-
+    @GetMapping("/404")
+    public String accessDenied() {
+        return "404";
+    }
 
     /**
      * Course average rating
@@ -155,7 +160,7 @@ public class HomeController {
     }
 
     /**
-     * @param title Selecting AVG(rating) FROM Reviews WHERE course.title LIKE c.title
+     * @param title Selecting AVG(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
      * @param model If null, default rating is 0
      */
     public void courseReviewRatingByTitle(String title, Model model) {
@@ -164,5 +169,12 @@ public class HomeController {
         } else {
             model.addAttribute("rating", courseReviewService.findRatingByTitle(title));
         }
+    }
+
+    /**
+     * @param title Selecting COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     */
+    public void courseReviewCountRatingByTitle(String title, Model model) {
+        model.addAttribute("countRating", courseReviewService.countRatingByTitle(title));
     }
 }

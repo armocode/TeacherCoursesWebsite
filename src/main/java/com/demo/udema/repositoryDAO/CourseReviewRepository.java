@@ -22,4 +22,10 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE courses.title LIKE ?1", nativeQuery = true)
     Double findRatingByTitle(String title);
 
+    @Query(value = "SELECT COUNT(course_reviews.rating) FROM courses" +
+            " JOIN course_details ON course_details.course_id = courses.id" +
+            " JOIN course_reviews ON course_details.id = course_reviews.course_details_id" +
+            " WHERE courses.title LIKE ?1", nativeQuery = true)
+    Integer countRatingByTitle(String title);
+
 }

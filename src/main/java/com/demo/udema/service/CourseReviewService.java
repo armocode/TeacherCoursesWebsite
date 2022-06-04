@@ -8,4 +8,5 @@ public interface CourseReviewService {
 //    CourseReviews findByTitle(String title);
     List<CourseReviews> findAllByTitle(String title);
     Double findRatingByTitle(String title);
+    Integer countRatingByTitle(String title);
 }
