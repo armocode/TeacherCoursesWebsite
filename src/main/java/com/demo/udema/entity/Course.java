@@ -140,4 +140,11 @@ public class Course {
     public void setUser(Set<User> user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "title='" + title + '\'' +
+                '}';
+    }
 }

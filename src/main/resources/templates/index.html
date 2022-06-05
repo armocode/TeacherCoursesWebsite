@@ -137,17 +137,12 @@
                     <h3>What would you learn?</h3>
                     <p>Increase your expertise in business, technology and personal development</p>
 
-                    <form >
-<!--                        method="post" th:action="@{/}"-->
+                    <form th:object="${search}" th:action="@{/}">
                         <div id="custom-search-input">
                             <div class="input-group">
-                                <!--<input type="text" class=" search-query" placeholder="Ex. Architecture, Specialization...">-->
-                                <input type="text" class=" search-query"
-                                       placeholder="Ex. Architecture, Specialization...">
-                                <input type="submit" class="btn_search" value="Search" >
-                                <!--<a th:href="@{/coursesDetails(courseTitle=${courses})}">-->
-
+                                <input th:field="*{title}" type="text" class="search-query" placeholder="Ex. Architecture, Specialization...">
                             </div>
+                            <input type="submit" class="btn_search" value="Search"/>
                         </div>
                     </form>
 

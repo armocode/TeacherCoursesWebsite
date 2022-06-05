@@ -3,6 +3,7 @@ package com.demo.udema.controller;
 import com.demo.udema.entity.Category;
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseReviews;
+import com.demo.udema.entity.User;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseReviewService;
 import com.demo.udema.service.CourseService;
@@ -33,12 +34,14 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(@ModelAttribute("search") Course courseName, Model model) {
         List<Category> categoryList = categoryService.findAll();
         model.addAttribute("categories", categoryList);
         List<Course> courseList = courseService.findAll();
         courseRatingAvg(courseList);
         model.addAttribute("courses", courseList);
+
+        System.out.println(courseName);
 
         return "index";
     }
