@@ -34,7 +34,7 @@ public class Course {
     private double price;
 
     @Transient
-    private double avgRating;
+    private double avgRating = 0;
 
     @OneToOne(mappedBy = "course") // PK
     private CourseDetails courseDetails;

@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Controller
@@ -68,11 +69,12 @@ public class HomeController {
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);
 
-        courseReviewCountRatingByTitle(title,model);
+        courseReviewCountRatingByTitle(title, model);
         courseReviewRatingByTitle(title, model);
 
         return "course-detail";
     }
+
     @GetMapping("/reviews")
     public String adminPageReviews(Model model) {
 //        return "admin-page/reviews";
@@ -131,7 +133,6 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {
         return "courses-grid-sidebar";
@@ -141,32 +142,35 @@ public class HomeController {
     public String about() {
         return "about";
     }
+
     @GetMapping("/contacts")
     public String contact() {
         return "contacts";
     }
+
     @GetMapping("/404")
     public String accessDenied() {
         return "404";
     }
 
 
-
     /**
      * Course average rating
+     *
      * @param courses
      */
     public void courseRatingAvg(List<Course> courses) {
         for (Course c : courses) {
             double sum = 0;
-            int k = 0;
+            double k = 0;
             double average = 0;
             if (c.getCourseDetails() != null) {
                 for (CourseReviews cD : c.getCourseDetails().getCourseReviews()) {
                     sum += cD.getRating();
                     k++;
                 }
-                average = sum / k;
+
+                average = Math.round((sum / k)*10)/10d;
                 c.setAvgRating(average);
             }
         }
@@ -177,7 +181,7 @@ public class HomeController {
      * @param model If null, default rating is 0
      */
     public void courseReviewRatingByTitle(String title, Model model) {
-        if(courseReviewService.findRatingByTitle(title)==null) {
+        if (courseReviewService.findRatingByTitle(title) == null) {
             model.addAttribute("rating", 0);
         } else {
             model.addAttribute("rating", courseReviewService.findRatingByTitle(title));

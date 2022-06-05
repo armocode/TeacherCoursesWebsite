@@ -194,8 +194,12 @@
 							<h3 th:text="${cour?.title}">Persius delenit has cu</h3>
 							<div th:each="courD:${cour?.courseDetails}">
 								<p th:text="${courD?.description}">Dicam dice...</p>
-								<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-									<small th:text="${' (' + cour?.avgRating + ') '}"></small>
+								<!--Rating-->
+								<div th:with="length=${#numbers.formatInteger(cour.avgRating, 1)}">
+									<div th:with="result=${5 }-${ length}">
+										<i th:if="${cour.avgRating >= 0.55}" th:each="i : ${#numbers.sequence(1, length)}" class="rating"><i class="icon_star voted"></i></i><i th:if="${result > 0}" th:each="i : ${#numbers.sequence(1, result)}" class="rating"><i class="icon_star"></i></i>
+										<small th:text="${' (' + cour.avgRating + ') '}"></small>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -190,11 +190,18 @@
                             <small><p th:text="${cs.category.title}"></p></small>
                             <h5 th:text="${cs.title}"></h5>
                             <p th:text="${cs.courseDetails.description}"></p>
+<!--                            <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>-->
+<!--                                <small th:text="${' (' + cs.avgRating + ') '}"></small>-->
+<!--                            </div>-->
 
-
-                            <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-                                <small th:text="${' (' + cs.avgRating + ') '}"></small>
+                            <!--Rating-->
+                            <div th:with="length=${#numbers.formatInteger(cs.avgRating, 1)}">
+                                <div th:with="result=${5 }-${ length}">
+                                    <i th:if="${cs.avgRating >= 0.55}" th:each="i : ${#numbers.sequence(1, length)}" class="rating"><i class="icon_star voted"></i></i><i th:if="${result > 0}" th:each="i : ${#numbers.sequence(1, result)}" class="rating"><i class="icon_star"></i></i>
+                                    <small th:text="${' (' + cs.avgRating + ') '}"></small>
+                                </div>
                             </div>
+
                         </div>
                         <ul>
                             <li th:text="${cs.courseDetails.lessonTotalLength + 'min'}"><i class="icon_clock_alt"></i> 1h 30min</li>
