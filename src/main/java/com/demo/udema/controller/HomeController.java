@@ -64,10 +64,18 @@ public class HomeController {
 
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);
+
         courseReviewCountRatingByTitle(title,model);
         courseReviewRatingByTitle(title, model);
 
         return "course-detail";
+    }
+    @GetMapping("/reviews")
+    public String adminPageReviews(Model model) {
+//        return "admin-page/reviews";
+        List<CourseReviews> sortByAnyTime = courseReviewService.findAllSortByAnyTime();
+        model.addAttribute("reviewAnyTime", sortByAnyTime);
+        return "reviews";
     }
 
 
@@ -138,6 +146,8 @@ public class HomeController {
     public String accessDenied() {
         return "404";
     }
+
+
 
     /**
      * Course average rating

@@ -9,4 +9,6 @@ public interface CourseReviewService {
     List<CourseReviews> findAllByTitle(String title);
     Double findRatingByTitle(String title);
     Integer countRatingByTitle(String title);
+
+    List<CourseReviews> findAllSortByAnyTime();
 }

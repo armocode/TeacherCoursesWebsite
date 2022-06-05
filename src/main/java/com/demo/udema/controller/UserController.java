@@ -131,10 +131,7 @@ public class UserController {
         return "admin-page/teacher-profile";
     }
 
-    @GetMapping("/reviews")
-    public String adminPageReviews() {
-        return "admin-page/reviews";
-    }
+
 }
 
 

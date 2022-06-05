@@ -28,4 +28,10 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE courses.title LIKE ?1", nativeQuery = true)
     Integer countRatingByTitle(String title);
 
+    @Query(value= "SELECT * FROM Users" +
+            " JOIN orders ON users.id = user_id" +
+            " JOIN courses ON courses.id = course_id" +
+            " JOIN course_reviews ON course_reviews.user_id = users.id" +
+            " GROUP BY orders.user_id", nativeQuery = true)
+    List<CourseReviews> findAllSortByAnyTime();
 }

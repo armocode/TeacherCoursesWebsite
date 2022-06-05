@@ -29,4 +29,9 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     public Integer countRatingByTitle(String title) {
         return courseReviewRepository.countRatingByTitle(title);
     }
+
+    @Override
+    public List<CourseReviews> findAllSortByAnyTime() {
+        return courseReviewRepository.findAllSortByAnyTime();
+    }
 }
