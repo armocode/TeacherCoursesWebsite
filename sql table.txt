@@ -193,6 +193,14 @@ SELECT CAST(AVG(course_reviews.rating) AS DECIMAL(10,2))   FROM courses
  JOIN course_reviews ON course_details.id = course_reviews.course_details_id
  WHERE courses.title LIKE 'Java pagrindai'
 
+
+SELECT SUM(lessons.length) FROM lessons
+JOIN lesson_topics ON lesson_topics.id = lessons.lesson_topic_id
+JOIN course_details ON lesson_topics.course_details_id = course_details.id
+WHERE course_details.course_id IN
+(SELECT courses.id FROM courses
+WHERE courses.title LIKE 'Java pag%')
+
 ______________________________________________________
 SELECT * FROM Users 
 JOIN orders ON users.id = user_id 

@@ -159,8 +159,8 @@
                             <div class="intro_title" >
                                 <h2>Lessons</h2 >
                                 <ul >
-                                    <li th:text="${coursesTit?.courseDetails?.lessonTotalNumber+' lessons'}">18 lessons</li>
-                                    <li th:text="${coursesTit?.courseDetails?.lessonTotalLength+'min. length'}">01:02:10</li>
+                                    <li th:text="${countLessons+' lessons '}">18 lessons</li>
+                                    <li th:text="${sumLessons+' min. length'}">01:02:10</li>
                                 </ul>
                             </div>
                             <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">

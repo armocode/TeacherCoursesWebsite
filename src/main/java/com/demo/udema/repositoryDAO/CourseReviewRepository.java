@@ -15,7 +15,7 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "JOIN orders ON users.id = user_id " +
             "JOIN courses ON courses.id = course_id " +
             "WHERE courses.title LIKE ?1)", nativeQuery = true)
-    List<CourseReviews> findAllByTitle(String title); // orders.user_id = Many
+    List<CourseReviews> findAllByTitle(String title);
 
 
     @Query(value = "SELECT CAST(AVG(course_reviews.rating) AS DECIMAL(10,2)) FROM courses" +

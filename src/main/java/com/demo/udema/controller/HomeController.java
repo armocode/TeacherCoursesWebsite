@@ -80,6 +80,8 @@ public class HomeController {
 
         courseReviewCountRatingByTitle(title, model);
         courseReviewRatingByTitle(title, model);
+        lessonsSumByCourseTitle(title, model);
+        lessonsCountByCourseTitle(title, model);
 
         return "course-detail";
     }
@@ -186,7 +188,7 @@ public class HomeController {
     }
 
     /**
-     * @param title Selecting AVG(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT AVG(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
      * @param model If null, default rating is 0
      */
     public void courseReviewRatingByTitle(String title, Model model) {
@@ -198,9 +200,27 @@ public class HomeController {
     }
 
     /**
-     * @param title Selecting COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
      */
     public void courseReviewCountRatingByTitle(String title, Model model) {
-        model.addAttribute("countRating", courseReviewService.countRatingByTitle(title));
+        if (courseReviewService.findRatingByTitle(title) == null) {
+            model.addAttribute("countRating", 0);
+        } else {
+            model.addAttribute("countRating", courseReviewService.countRatingByTitle(title));
+        }
+    }
+
+    /**
+     * @param title SELECT SUM(length) FROM lessons JOIN... WHERE c.title LIKE c.?
+     */
+    public void lessonsSumByCourseTitle(String title, Model model) {
+        model.addAttribute("sumLessons", lessonService.findLessonsSumByTitle(title));
+    }
+
+    /**
+     * @param title SELECTS COUNT(id) FROM lessons JOIN... WHERE c.title LIKE c.?
+     */
+    public void lessonsCountByCourseTitle(String title, Model model) {
+        model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
     }
 }

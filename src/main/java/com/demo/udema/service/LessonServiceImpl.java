@@ -33,4 +33,14 @@ public class LessonServiceImpl implements LessonService{
         }
         return lessons;
     }
+
+    @Override
+    public Double findLessonsSumByTitle(String title) {
+        return lessonRepository.findSumLessonByTitle(title);
+    }
+
+    @Override
+    public Integer countLessonsByTitle(String title) {
+        return lessonRepository.countLessonByTitle(title);
+    }
 }
