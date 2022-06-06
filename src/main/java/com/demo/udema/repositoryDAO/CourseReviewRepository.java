@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface CourseReviewRepository extends JpaRepository<CourseReviews, Double> {
 
-    @Query(value = "SELECT * FROM Users" +
-        " JOIN orders ON users.id = user_id" +
-        " JOIN courses ON courses.id = course_id" +
-        " JOIN course_reviews ON course_reviews.user_id = users.id" +
-        " WHERE courses.title = ?1 GROUP BY orders.user_id", nativeQuery = true)
+    @Query(value = "SELECT * FROM course_reviews " +
+            "JOIN course_details ON course_details.id = course_reviews.course_details_id " +
+            "WHERE course_details.course_id IN" +
+            "(SELECT courses.id FROM Users " +
+            "JOIN orders ON users.id = user_id " +
+            "JOIN courses ON courses.id = course_id " +
+            "WHERE courses.title LIKE ?1)", nativeQuery = true)
     List<CourseReviews> findAllByTitle(String title); // orders.user_id = Many
 
 

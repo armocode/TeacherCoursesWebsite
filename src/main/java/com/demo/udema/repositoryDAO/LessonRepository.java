@@ -7,18 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface LessonRepository extends JpaRepository<Lessons, Integer> {
-
-//    @Query(value = "SELECT * FROM lessons JOIN lesson_topics" +
-//            " JOIN course_details JOIN courses" +
-//            " WHERE courses.title=?1", nativeQuery = true)
-
-
-//    @Query(value = "SELECT * FROM lessons", nativeQuery = true)
-//    @Query("SELECT l FROM Lessons l")
-
-
-//    @Query("SELECT l FROM Lessons l JOIN l.lessonTopics lt JOIN lt.courseDetails cd" +
-//            " JOIN cd.course c WHERE c.title =?1")
             @Query(value = "SELECT lessons.name FROM lessons " +
                     "JOIN lesson_topics ON lessons.lesson_topic_id = lesson_topics.id" +
                     " JOIN course_details ON lesson_topics.course_details_id = course_details.id" +
