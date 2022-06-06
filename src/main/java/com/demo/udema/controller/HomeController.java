@@ -38,12 +38,21 @@ public class HomeController {
     public String index(@ModelAttribute("search") Course courseName, Model model) {
         List<Category> categoryList = categoryService.findAll();
         model.addAttribute("categories", categoryList);
-        List<Course> courseList = courseService.findAll();
-        courseRatingAvg(courseList);
-        model.addAttribute("courses", courseList);
 
-        System.out.println(courseName);
-
+        if (courseName.getTitle() != "" && courseName.getTitle() != null) {
+            List<Course> getByName = courseService.findAllByTitle(String.valueOf(courseName.getTitle()));
+            if (getByName.size() == 0) {
+                model.addAttribute("message", "No results found for '" + courseName.getTitle() + "' ");
+            } else {
+                model.addAttribute("message", "Displaying " + getByName.size() + " results for '" + courseName.getTitle() + "' ");
+            }
+            courseRatingAvg(getByName);
+            model.addAttribute("courses", getByName);
+        } else {
+            List<Course> courseList = courseService.findAll();
+            courseRatingAvg(courseList);
+            model.addAttribute("courses", courseList);
+        }
         return "index";
     }
 
@@ -170,7 +179,7 @@ public class HomeController {
                     k++;
                 }
 
-                average = Math.round((sum / k)*10)/10d;
+                average = Math.round((sum / k) * 10) / 10d;
                 c.setAvgRating(average);
             }
         }

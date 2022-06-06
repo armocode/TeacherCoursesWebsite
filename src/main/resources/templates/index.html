@@ -140,12 +140,12 @@
                     <form th:object="${search}" th:action="@{/}">
                         <div id="custom-search-input">
                             <div class="input-group">
-                                <input th:field="*{title}" type="text" class="search-query" placeholder="Ex. Architecture, Specialization...">
+                                <input th:field="*{title}" type="text" class="search-query" placeholder="Ex. Java, Python...">
                             </div>
                             <input type="submit" class="btn_search" value="Search"/>
                         </div>
                     </form>
-
+                    <span th:text="${message}"></span>
                 </div>
             </div>
         </section>
@@ -190,9 +190,6 @@
                             <small><p th:text="${cs.category.title}"></p></small>
                             <h5 th:text="${cs.title}"></h5>
                             <p th:text="${cs.courseDetails.description}"></p>
-<!--                            <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>-->
-<!--                                <small th:text="${' (' + cs.avgRating + ') '}"></small>-->
-<!--                            </div>-->
 
                             <!--Rating-->
                             <div th:with="length=${#numbers.formatInteger(cs.avgRating, 1)}">
