@@ -36,6 +36,7 @@
 
     <!-- YOUR CUSTOM CSS -->
     <link href="../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.cs}">
+    <style>.has-error {padding-top: 10px;}</style>
 
 </head>
 
@@ -137,7 +138,7 @@
                     <h3>What would you learn?</h3>
                     <p>Increase your expertise in business, technology and personal development</p>
 
-                    <form th:object="${search}" th:action="@{/}">
+                    <form th:object="${search}" th:action="@{/#courses}">
                         <div id="custom-search-input">
                             <div class="input-group">
                                 <input th:field="*{title}" type="text" class="search-query" placeholder="Ex. Java, Python...">
@@ -145,7 +146,9 @@
                             <input type="submit" class="btn_search" value="Search"/>
                         </div>
                     </form>
-                    <span th:text="${message}"></span>
+                    <div class="has-error">
+                        <p style="font-size: 17.5px" th:text="${message}"></p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -168,7 +171,7 @@
         </div>
         <!-- /features -->
 
-        <div class="container-fluid margin_120_0">
+        <div id="courses" class="container-fluid margin_120_0">
             <div class="main_title_2">
                 <span><em></em></span>
                 <h2>Udema Popular Courses</h2>
