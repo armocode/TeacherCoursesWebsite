@@ -155,7 +155,15 @@ SELECT ROUND(AVG(course_reviews.rating+0.01))   FROM courses
  JOIN course_details ON course_details.course_id = courses.id
  JOIN course_reviews ON course_details.id = course_reviews.course_details_id
  WHERE courses.title LIKE 'Java paz%';
-___
+___order by rev data_________________
+
+SELECT course_reviews.data FROM course_reviews
+JOIN Users ON course_reviews.user_id = users.id
+ JOIN orders ON users.id = orders.user_id 
+ JOIN courses ON courses.id = orders.course_id 
+ GROUP BY course_reviews.data
+ ORDER BY course_reviews.data DESC
+ 
 
 @Query(value = "SELECT * FROM course_reviews " +
             "JOIN course_details ON course_details.id = course_reviews.course_details_id " +
@@ -202,14 +210,5 @@ JOIN orders ON users.id = user_id
 JOIN courses ON courses.id = course_id
 WHERE courses.title LIKE 'Java pag%')
 
-VS
-
-SELECT * FROM course_details 
-JOIN course_reviews ON course_details.id = course_reviews.course_details_id
-WHERE course_details.course_id IN 
-(SELECT courses.id FROM Users 
-JOIN orders ON users.id = user_id 
-JOIN courses ON courses.id = course_id
-WHERE courses.title LIKE 'Java pag%')
 
 

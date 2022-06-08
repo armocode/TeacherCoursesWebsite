@@ -32,7 +32,6 @@ public class CourseReviews {
     @Column(name = "review", nullable=true)
     private String review;
 
-//    @Value("#{new Double('${item.priceFactor}')}")
     @Value("#{new String('${orderReviews.latest}')}")
     @Transient
     public String latest ;

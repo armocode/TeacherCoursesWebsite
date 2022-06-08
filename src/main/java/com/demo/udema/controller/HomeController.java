@@ -6,21 +6,16 @@ import com.demo.udema.entity.CourseReviews;
 import com.demo.udema.entity.User;
 import com.demo.udema.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseReviewService;
 import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -148,6 +143,13 @@ public class HomeController {
 //        return "redirect:/admin-page/add-listing";
 //    }
 
+
+
+    @GetMapping("/addCategory")
+    public String addCategory() {
+        return "admin-page/add-category";
+
+    }
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
         List<Course> course = courseService.findAll();
@@ -189,6 +191,7 @@ public class HomeController {
     public String coursesGridSidebar() {
         return "courses-grid-sidebar";
     }
+
 
     @GetMapping("/about")
     public String about() {

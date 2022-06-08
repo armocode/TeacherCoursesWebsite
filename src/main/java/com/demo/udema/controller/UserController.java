@@ -126,11 +126,6 @@ public class UserController {
         return "admin-page/index";
     }
 
-    @GetMapping("/teacherPage")
-    public String teacherPage() {
-        return "admin-page/teacher-profile";
-    }
-
 
 }
 
