@@ -34,4 +34,9 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     public List<CourseReviews> findAllSortByAnyTime() {
         return courseReviewRepository.findAllSortByAnyTime();
     }
+
+    @Override
+    public List<CourseReviews> findAllSortByLatest() {
+        return courseReviewRepository.findAllSortByLatest();
+    }
 }

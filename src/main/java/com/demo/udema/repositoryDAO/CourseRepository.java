@@ -21,5 +21,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
             " GROUP BY courses.title", nativeQuery = true)
     List<Course> findAllByTitle(String title);
 
-
+    @Query(value= "SELECT * FROM courses " +
+            " JOIN course_details ON course_details.course_id = courses.id" +
+            " JOIN course_reviews ON course_details.id = course_reviews.course_details_id" +
+            " GROUP BY course_reviews.id" +
+            " ORDER BY course_reviews.data", nativeQuery = true)
+    List<Course> findAllSortByAnyTime();
 }

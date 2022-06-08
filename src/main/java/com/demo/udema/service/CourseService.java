@@ -1,6 +1,7 @@
 package com.demo.udema.service;
 
 import com.demo.udema.entity.Course;
+import com.demo.udema.entity.CourseReviews;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface CourseService {
 
     void save(Course course);
     void deleteByTitle(String title);
+    List<Course> findAllSortByAnyTime();
+
 }

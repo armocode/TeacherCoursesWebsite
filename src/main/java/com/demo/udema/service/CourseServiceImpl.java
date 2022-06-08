@@ -1,6 +1,7 @@
 package com.demo.udema.service;
 
 import com.demo.udema.entity.Course;
+import com.demo.udema.entity.CourseReviews;
 import com.demo.udema.repositoryDAO.CourseRepository;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,10 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public void deleteByTitle(String title) {
         courseRepository.deleteByTitle(title);
+    }
+
+    @Override
+    public List<Course> findAllSortByAnyTime() {
+        return courseRepository.findAllSortByAnyTime();
     }
 }

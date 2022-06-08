@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.demo.udema.service.CategoryService;
+import com.demo.udema.service.CourseReviewService;
+import com.demo.udema.service.CourseService;
+import com.demo.udema.service.LessonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,6 +64,26 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/reviews")
+    public String adminPageReviews(@ModelAttribute("orderReviews") String arrangement, Model model) {
+        List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime();
+        List<CourseReviews> latestReview = courseReviewService.findAllSortByLatest();
+
+        if (arrangement == null ) {
+            model.addAttribute("review", oldestReview);
+            return "admin-page/reviews";
+        }
+        if(arrangement.equals("latest")) {
+            model.addAttribute("review", latestReview);
+            return "admin-page/reviews";
+        } else if (arrangement.equals("oldest")){
+            model.addAttribute("review", oldestReview);
+            return "admin-page/reviews";
+        }
+        model.addAttribute("review", oldestReview);
+        return "admin-page/reviews";
+    }
+
     @GetMapping("/coursesList")
     public String coursesList(@RequestParam("categoryId") int id, Model model) {
         model.addAttribute("catId", id);
@@ -87,14 +112,6 @@ public class HomeController {
         lessonsCountByCourseTitle(title, model);
 
         return "course-detail";
-    }
-
-    @GetMapping("/reviews")
-    public String adminPageReviews(Model model) {
-//        return "admin-page/reviews";
-        List<CourseReviews> sortByAnyTime = courseReviewService.findAllSortByAnyTime();
-        model.addAttribute("reviewAnyTime", sortByAnyTime);
-        return "reviews";
     }
 
     @GetMapping("/addListing")

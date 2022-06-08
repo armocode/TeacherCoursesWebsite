@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/teacherPage/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/addListing/**").hasAnyRole("TEACHER", "ADMIN")
 //                .antMatchers("/reviews/**").hasAnyRole("TEACHER","ADMIN") po test perkelti atgal i admin-page/reviews.html
+                .antMatchers("/reviews/**").hasAnyRole("TEACHER","ADMIN")
 //                .antMatchers("/adminPage/**").access("hasRole('0') and hasRole('1')")
                 .and()
             .formLogin()
