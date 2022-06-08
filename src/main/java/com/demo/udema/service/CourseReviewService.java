@@ -11,4 +11,5 @@ public interface CourseReviewService {
     Integer countRatingByTitle(String title);
 
     List<CourseReviews> findAllSortByAnyTime();
+    List<CourseReviews> findAllSortByLatest();
 }

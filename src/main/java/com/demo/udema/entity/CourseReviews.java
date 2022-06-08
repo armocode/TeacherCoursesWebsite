@@ -1,5 +1,7 @@
 package com.demo.udema.entity;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +31,15 @@ public class CourseReviews {
 
     @Column(name = "review", nullable=true)
     private String review;
+
+//    @Value("#{new Double('${item.priceFactor}')}")
+    @Value("#{new String('${orderReviews.latest}')}")
+    @Transient
+    public String latest ;
+
+    @Value("#{new String('${orderReviews.oldest}')}")
+    @Transient
+    public String oldest;
 
     public CourseReviews() {
     }
@@ -82,11 +93,11 @@ public class CourseReviews {
         this.timeStamp = timeStamp;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -96,5 +107,29 @@ public class CourseReviews {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public String getLatest() {
+        return latest;
+    }
+
+    public void setLatest(String latest) {
+        this.latest = latest;
+    }
+
+    public String getOldest() {
+        return oldest;
+    }
+
+    public void setOldest(String oldest) {
+        this.oldest = oldest;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseReviews{" +
+                "latest='" + latest + '\'' +
+                ", oldest='" + oldest + '\'' +
+                '}';
     }
 }

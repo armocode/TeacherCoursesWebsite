@@ -30,6 +30,7 @@
 
     <!-- YOUR CUSTOM CSS -->
     <link href="css/custom.css" rel="stylesheet">
+    <style>.lesson-des {padding-left:25pt; padding-top: 5pt; padding-right: 5pt}</style>
 
 </head>
 
@@ -177,7 +178,11 @@
                                         <div class="card-body" >
                                             <div class="list_lessons" th:each="ccltles: ${cclt?.lessonsList}">
                                                 <ul >
-                                                    <li><a th:text="${ccltles?.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span th:text="${ccltles.length+' length'}">00:59</span></li>
+                                                    <li><a th:text="${ccltles?.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span th:text="${ccltles.length+' min. length'}">00:59</span>
+                                                         <div class="lesson-des">
+                                                          <p th:text="${ccltles?.description}"></p>
+                                                         </div>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -202,9 +207,7 @@
                                                     class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                     class="icon_star"></i>
                                             </div>
-
                                             <small th:text="${'Based on '+countRating+' reviews'}">Based on 4 reviews</small>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-9">
