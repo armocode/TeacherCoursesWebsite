@@ -1,9 +1,6 @@
 package com.demo.udema.controller;
 
-import com.demo.udema.entity.Category;
-import com.demo.udema.entity.Course;
-import com.demo.udema.entity.CourseReviews;
-import com.demo.udema.entity.User;
+import com.demo.udema.entity.*;
 import com.demo.udema.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,7 +11,9 @@ import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,14 +26,15 @@ public class HomeController {
     private CourseService courseService;
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
-
+    private CourseDetailService courseDetailService;
 
     @Autowired
-    public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
+    public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService) {
         this.categoryService = categoryService;
         this.courseService = courseService;
         this.courseReviewService = courseReviewService;
         this.lessonService = lessonService;
+        this.courseDetailService = courseDetailService;
     }
 
     @GetMapping("/")
@@ -64,14 +64,14 @@ public class HomeController {
         List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime();
         List<CourseReviews> latestReview = courseReviewService.findAllSortByLatest();
 
-        if (arrangement == null ) {
+        if (arrangement == null) {
             model.addAttribute("review", oldestReview);
             return "admin-page/reviews";
         }
-        if(arrangement.equals("latest")) {
+        if (arrangement.equals("latest")) {
             model.addAttribute("review", latestReview);
             return "admin-page/reviews";
-        } else if (arrangement.equals("oldest")){
+        } else if (arrangement.equals("oldest")) {
             model.addAttribute("review", oldestReview);
             return "admin-page/reviews";
         }
@@ -110,13 +110,15 @@ public class HomeController {
     }
 
     @GetMapping("/addListing")
-    public String addListing(@AuthenticationPrincipal UserDetails loggerUser, Model model){
+    public String addListing(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
 
-        List<Category> categoriesList = categoryService.findAll();
+        List<Category> categoriesList = categoryService.getAll();
         model.addAttribute("categoriesList", categoriesList);
+
+        model.addAttribute("details", new CourseDetails());
 
         model.addAttribute("course", new Course());
         return "admin-page/add-listing";
@@ -125,39 +127,49 @@ public class HomeController {
     @PostMapping("/addListing")
     public String addListing(@ModelAttribute("course") Course course,
                              @ModelAttribute("user") User user,
-                             @RequestParam HashMap<String, String> categoriesList) {
+                             @RequestParam HashMap<String, String> categoriesList,
+                             @ModelAttribute("details") CourseDetails courseDetails) {
         // Pasiemu Vartotjo ID ir setinu i course
         User searchUser = userService.findByUsername(user.getUsername());
         course.setUsers(searchUser);
-        // Setina kategorija TODO sutvarkyti su null
+        // Setina kategorija TODO sutvarkyti su null (VALIDACIJOJ)
         Category searchCategory = categoryService.findById(Integer.parseInt(categoriesList.get("catId")));
         course.setCategory(searchCategory);
-
+        // Issaugom kursa
         courseService.save(course);
-        return "redirect:/admin-page/add-listing";
+        // Pasiem issaugoto kurso title
+        Course newCourseTitle = courseService.findByTitle(course.getTitle());
+        // setinam id
+        courseDetails.setCourse(newCourseTitle);
+        // Issaugom id i details
+        courseDetailService.save(courseDetails);
+        return "redirect:/addListing";
     }
-
 
 
     @GetMapping("/addCategory")
-    public String addCategory( Model model) {
-        List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("categoryList", categoryList);
+    public String addCategory(Model model, Category category) {
+//        List<Category> categoryList = categoryService.findAll();
+//        model.addAttribute("categoryList", categoryList);
 
-        model.addAttribute("category", new Category());
-
+        model.addAttribute("newCategory", new Category());
+        System.out.println("\n 1");
         return "admin-page/add-category";
 
     }
-    @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute("category") Category category) {
 
+    @PostMapping("/addCategory")
+    public String addCategory(@ModelAttribute("category") Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+//        RedirectAttributes redirectAttributes
+        if(bindingResult.hasFieldErrors("title")) {
+            System.out.println("2");
+            return "redirect:/admin-page/add-category";
+        }
         categoryService.save(category);
+        redirectAttributes.addFlashAttribute("message", "test 3");
+        System.out.println(" 3 ");
         return "redirect:/admin-page/add-category";
     }
-
-
-
 
 
     @GetMapping("/coursesListAll")
@@ -272,7 +284,7 @@ public class HomeController {
     }
 
     /**
-     * @param title SELECTS COUNT(id) FROM lessons JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT COUNT(id) FROM lessons JOIN... WHERE c.title LIKE c.?
      */
     public void lessonsCountByCourseTitle(String title, Model model) {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));

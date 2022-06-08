@@ -22,6 +22,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getAll() {
+        return categoryRepository.findAllByOrderByTitleAsc();
+    }
+
+    @Override
     public Category findById(int id) {
         // https://www.baeldung.com/java-optional
         Optional<Category> result = categoryRepository.findById(id);

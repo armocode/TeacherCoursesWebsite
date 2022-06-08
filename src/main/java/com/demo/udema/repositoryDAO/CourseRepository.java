@@ -16,6 +16,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     Course findByTitle(String title);
 
+    Course findById(int id);
+
     @Query(value = "SELECT * FROM courses" +
             " WHERE courses.title LIKE %?1%" +
             " GROUP BY courses.title", nativeQuery = true)

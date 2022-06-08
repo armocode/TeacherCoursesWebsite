@@ -11,6 +11,7 @@ public interface CourseService {
     List<Course> findAll();
     List<Course> findAllByTitle(String title);
     Course findByTitle(String title);
+    Course findById(int id);
 
     void save(Course course);
     void deleteByTitle(String title);
