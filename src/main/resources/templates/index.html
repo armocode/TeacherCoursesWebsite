@@ -192,7 +192,7 @@
                         <div class="wrapper">
                             <small><p th:text="${cs.category.title}"></p></small>
                             <h5 th:text="${cs.title}"></h5>
-                            <p th:text="${cs.courseDetails.description}"></p>
+                            <p th:text="${cs?.courseDetails?.description}"></p>
 
                             <!--Rating-->
                             <div th:with="length=${#numbers.formatInteger(cs.avgRating, 1)}">
@@ -204,7 +204,7 @@
 
                         </div>
                         <ul>
-                            <li th:text="${cs.courseDetails.lessonTotalLength + 'min'}"><i class="icon_clock_alt"></i> 1h 30min</li>
+                            <li th:text="${cs?.courseDetails?.lessonTotalLength + 'min'}"><i class="icon_clock_alt"></i> 1h 30min</li>
 <!--                            <li><i class="icon_like"></i> 890</li>-->
                             <li><a th:href="@{/coursesList(categoryId=${cs.category.id})}">Enroll now</a></li>
 
