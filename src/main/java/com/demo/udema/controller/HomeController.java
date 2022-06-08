@@ -4,12 +4,11 @@ import com.demo.udema.entity.Category;
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseReviews;
 import com.demo.udema.entity.User;
-import com.demo.udema.service.CategoryService;
-import com.demo.udema.service.CourseReviewService;
-import com.demo.udema.service.CourseService;
-import com.demo.udema.service.LessonService;
+import com.demo.udema.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,14 +16,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
 public class HomeController {
+    @Autowired
+    private UserService userService;
     private CategoryService categoryService;
     private CourseService courseService;
     private CourseReviewService courseReviewService;
     private LessonService lessonService;
+
 
     @Autowired
     public HomeController(CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService) {
@@ -94,18 +97,39 @@ public class HomeController {
         return "reviews";
     }
 
-
     @GetMapping("/addListing")
-    public String addListing(@ModelAttribute("course") Course course, BindingResult bindingResult) {
-        courseService.save(course);
+    public String addListing(@AuthenticationPrincipal UserDetails loggerUser, Model model){
+        String username = loggerUser.getUsername();
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+
+        model.addAttribute("course", new Course());
         return "admin-page/add-listing";
     }
 
-    @PostMapping("/addListing/update")
-    public String addListing(@ModelAttribute("courseUpd") Course course) {
+    @PostMapping("/addListing")
+    public String addListing(@ModelAttribute("course") Course course,
+                             @ModelAttribute("user") User user,
+                             @RequestParam HashMap<String, String> categoriesList) {
+        // Pasiemu Vartotjo ID ir setinu i course
+        User searchUser = userService.findByUsername(user.getUsername());
+        course.setUsers(searchUser);
+        // Setina kategorija TODO sutvarkyti su null
+        Category searchCategory = categoryService.findById(Integer.parseInt(categoriesList.get("catId")));
+        course.setCategory(searchCategory);
+
         courseService.save(course);
         return "redirect:/admin-page/add-listing";
     }
+
+//    @PostMapping("/addListing/update")
+//    public String addListing(@ModelAttribute("courseUpd") Course course) {
+//        courseService.save(course);
+//        return "redirect:/admin-page/add-listing";
+//    }
 
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {

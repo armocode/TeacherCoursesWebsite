@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     public CategoryRepository categoryRepository;
 
@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService{
         this.categoryRepository = categoryRepository;
     }
 
-        @Override
+    @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }

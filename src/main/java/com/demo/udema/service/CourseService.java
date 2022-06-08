@@ -8,10 +8,9 @@ public interface CourseService {
 
     List<Course> findAllByCategoryId(int id);
     List<Course> findAll();
-    void save(Course course);
     List<Course> findAllByTitle(String title);
-
     Course findByTitle(String title);
 
+    void save(Course course);
     void deleteByTitle(String title);
 }
