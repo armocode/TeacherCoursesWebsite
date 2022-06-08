@@ -20,6 +20,10 @@ public class Category {
 
     public Category() {}
 
+    public Category(String title) {
+        this.title = title;
+    }
+
     public Category(String title, List<Course> course) {
         this.title = title;
         this.course = course;
@@ -58,7 +62,9 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", course=" + course +
                 '}';
     }
 }

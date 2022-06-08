@@ -137,19 +137,29 @@ public class HomeController {
         return "redirect:/admin-page/add-listing";
     }
 
-//    @PostMapping("/addListing/update")
-//    public String addListing(@ModelAttribute("courseUpd") Course course) {
-//        courseService.save(course);
-//        return "redirect:/admin-page/add-listing";
-//    }
-
 
 
     @GetMapping("/addCategory")
-    public String addCategory() {
+    public String addCategory( Model model) {
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
+
+        model.addAttribute("category", new Category());
+
         return "admin-page/add-category";
 
     }
+    @PostMapping("/addCategory")
+    public String addCategory(@ModelAttribute("category") Category category) {
+
+        categoryService.save(category);
+        return "redirect:/admin-page/add-category";
+    }
+
+
+
+
+
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
         List<Course> course = courseService.findAll();
