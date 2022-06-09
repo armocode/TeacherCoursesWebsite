@@ -107,8 +107,8 @@ public class HomeController {
         return "course-detail";
     }
 
-    @GetMapping("/addListing")
-    public String addListing(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
+    @GetMapping("/addCourse")
+    public String addCourse(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
@@ -119,14 +119,14 @@ public class HomeController {
         model.addAttribute("details", new CourseDetails());
 
         model.addAttribute("course", new Course());
-        return "admin-page/add-listing";
+        return "admin-page/add-course";
     }
 
-    @PostMapping("/addListing")
-    public String addListing(@ModelAttribute("course") Course course,
-                             @ModelAttribute("user") User user,
-                             @RequestParam HashMap<String, String> categoriesList,
-                             @ModelAttribute("details") CourseDetails courseDetails) {
+    @PostMapping("/addCourse")
+    public String addCourse(@ModelAttribute("course") Course course,
+                            @ModelAttribute("user") User user,
+                            @RequestParam HashMap<String, String> categoriesList,
+                            @ModelAttribute("details") CourseDetails courseDetails) {
         // Pasiemu Vartotjo ID ir setinu i course
         User searchUser = userService.findByUsername(user.getUsername());
         course.setUsers(searchUser);
@@ -141,9 +141,13 @@ public class HomeController {
         courseDetails.setCourse(newCourseTitle);
         // Issaugom id i details
         courseDetailService.save(courseDetails);
-        return "redirect:/addListing";
+        return "redirect:/addCourse";
     }
 
+    @GetMapping("/addLesson")
+    public String addLesson() {
+        return "admin-page/add-lesson";
+    }
 
     @GetMapping("/addCategory")
     public String addCategory(Model model, Category category) {
