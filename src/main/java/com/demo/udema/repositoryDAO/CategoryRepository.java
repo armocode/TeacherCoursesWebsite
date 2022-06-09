@@ -12,5 +12,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     List<Category> findAllByOrderByTitleAsc();
 
+    @Query(value = "SELECT title FROM categories " +
+            "WHERE title LIKE ?1", nativeQuery = true)
+    String findByTitle(String title);
+
 
 }

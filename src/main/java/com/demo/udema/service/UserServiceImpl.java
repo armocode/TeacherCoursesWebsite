@@ -44,5 +44,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public User findUserWhoBoughtCourse() {
+        return userRepository.findUserWhoBoughtCourse();
+    }
+
 
 }

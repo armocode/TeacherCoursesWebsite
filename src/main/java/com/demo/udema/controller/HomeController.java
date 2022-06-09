@@ -11,6 +11,7 @@ import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -99,11 +100,13 @@ public class HomeController {
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);
 
+//        User user = userService.findUserWhoBoughtCourse();
+//        model.addAttribute("user", user);
+
         courseReviewCountRatingByTitle(title, model);
         courseReviewRatingByTitle(title, model);
         lessonsSumByCourseTitle(title, model);
         lessonsCountByCourseTitle(title, model);
-
         return "course-detail";
     }
 
@@ -154,7 +157,6 @@ public class HomeController {
         List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
         model.addAttribute("categoryList", categoryList);
 
-
             model.addAttribute("message", "Get mapping");
             model.addAttribute("newCategory", new Category());
 
@@ -165,20 +167,24 @@ public class HomeController {
 
     @PostMapping("/addCategory")
     public String addCategory(@ModelAttribute("newCategory") Category category, Model model) {
-//        RedirectAttributes redirectAttributes, BindingResult bindingResult
+            String cat = categoryService.findByTitle(category.getTitle());
             if(category.getTitle()==null || category.getTitle().equals("")) {
                 model.addAttribute("message", "Post mapping");
                 System.out.println("\nscope 2 (null)");
                 return "redirect:/addCategory";
             }
+            if(cat.equals(category.getTitle())) {
+                model.addAttribute("message", "dublicate");
+                return "redirect:/addCategory";
+            }
+
 
         categoryService.save(category);
-        System.out.println(" 3");
+        System.out.println("scope 3 save");
 
         return "redirect:/addCategory";
         //        return "redirect:/admin-page/add-category";
     }
-
 
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {

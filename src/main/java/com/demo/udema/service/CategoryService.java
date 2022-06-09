@@ -13,4 +13,6 @@ public interface CategoryService {
 
     List<Category> findAllByOrderByTitleAsc();
 
+    String findByTitle(String title);
+
 }

@@ -8,4 +8,5 @@ public interface UserService {
     User findByUsername(String username);
     User findByEmail(String email);
     void saveNoPassword(User user);
+    User findUserWhoBoughtCourse();
 }
