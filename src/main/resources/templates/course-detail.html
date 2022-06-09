@@ -157,11 +157,11 @@
                         </section>
 
                         <section id="lessons" >
-                            <div class="intro_title" >
+                            <div class="intro_title" th:with="s=${sumLessons%60}, m=${((sumLessons/60)%60)}, h=${((sumLessons/60))/60}">
                                 <h2>Lessons</h2 >
                                 <ul >
                                     <li th:text="${countLessons+' lessons '}">18 lessons</li>
-                                    <li th:text="${sumLessons+' min. length'}">01:02:10</li>
+                                    <li th:text="${h}+' h '+${m}+' m '+${s}+' s '">01:02:10</li>
                                 </ul>
                             </div>
                             <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">
@@ -171,15 +171,17 @@
                                             <a th:text="${cclt?.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
                                                aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
-
                                     </div>
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
                                          aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >
-                                        <div class="card-body" >
-                                            <div class="list_lessons" th:each="ccltles: ${cclt?.lessonsList}">
+                                        <div class="card-body" th:each="ccltles: ${cclt?.lessonsList}">
+                                            <div class="list_lessons" th:with="sec=${ccltles.length%60},
+                                                                        min=${((ccltles.length/60)%60)},
+                                                                        hours=${((ccltles.length/60))/60}" >
                                                 <ul >
-                                                    <li><a th:text="${ccltles?.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a><span th:text="${ccltles.length+' min. length'}">00:59</span>
-                                                         <div class="lesson-des">
+                                                    <li><a th:text="${ccltles?.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a>
+                                                        <span th:text="${hours}+' h '+${min}+' m '+${sec}+' s '">00:59</span>
+                                                         <div class="lesson-des" >
                                                           <p th:text="${ccltles?.description}"></p>
                                                          </div>
                                                     </li>
@@ -200,7 +202,6 @@
                                         <div id="review_summary" >
 
                                                 <strong th:text="${rating}"></strong>
-<!--                                                <strong th:text="${rating} ?: 'null value'"></strong>-->
 
                                             <div class="rating">
                                                 <i class="icon_star voted"></i><i class="icon_star voted"></i><i

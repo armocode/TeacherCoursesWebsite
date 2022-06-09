@@ -150,10 +150,11 @@ public class HomeController {
         List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
         model.addAttribute("categoryList", categoryList);
 
+
             model.addAttribute("message", "Get mapping");
             model.addAttribute("newCategory", new Category());
 
-        System.out.println("\n 1");
+        System.out.println("\n scope 1");
 
         return "add-category";
     }
@@ -163,7 +164,7 @@ public class HomeController {
 //        RedirectAttributes redirectAttributes, BindingResult bindingResult
             if(category.getTitle()==null || category.getTitle().equals("")) {
                 model.addAttribute("message", "Post mapping");
-                System.out.println("null");
+                System.out.println("\nscope 2 (null)");
                 return "redirect:/addCategory";
             }
 

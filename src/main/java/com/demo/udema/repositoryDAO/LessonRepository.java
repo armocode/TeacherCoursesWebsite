@@ -19,7 +19,7 @@ public interface LessonRepository extends JpaRepository<Lessons, Integer> {
             " WHERE course_details.course_id IN" +
             "(SELECT courses.id FROM courses" +
             " WHERE courses.title LIKE ?1)", nativeQuery = true)
-    Double findSumLessonByTitle(String title);
+    Integer findSumLessonByTitle(String title);
 
     @Query(value = "SELECT COUNT(lessons.id) FROM lessons" +
             " JOIN lesson_topics ON lesson_topics.id = lessons.lesson_topic_id" +

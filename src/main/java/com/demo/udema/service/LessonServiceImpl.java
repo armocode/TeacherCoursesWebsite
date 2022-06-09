@@ -35,7 +35,7 @@ public class LessonServiceImpl implements LessonService{
     }
 
     @Override
-    public Double findLessonsSumByTitle(String title) {
+    public Integer findLessonsSumByTitle(String title) {
         return lessonRepository.findSumLessonByTitle(title);
     }
 
