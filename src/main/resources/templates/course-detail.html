@@ -157,7 +157,7 @@
                         </section>
 
                         <section id="lessons" >
-                            <div class="intro_title" th:with="s=${sumLessons%60}, m=${((sumLessons/60)%60)}, h=${((sumLessons/60))/60}">
+                            <div class="intro_title" th:if="${sumLessons!=null}" th:with="s=${sumLessons%60}, m=${((sumLessons/60)%60)}, h=${((sumLessons/60))/60}">
                                 <h2>Lessons</h2 >
                                 <ul >
                                     <li th:text="${countLessons+' lessons '}">18 lessons</li>
@@ -178,8 +178,18 @@
                                             <div class="list_lessons" th:with="sec=${ccltles.length%60},
                                                                         min=${((ccltles.length/60)%60)},
                                                                         hours=${((ccltles.length/60))/60}" >
+
                                                 <ul >
-                                                    <li><a th:text="${ccltles?.name}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Health and Social Care</a>
+                                                    <li >
+
+                                                        <a th:text="${ccltles.name}" ></a>
+                                                        <div th:if="${ccltles.free==true}">
+                                                            <a  th:text="${' WATCH FREE LESSON!'}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video"> </a>
+                                                        </div>
+                                                        <div th:if="${ccltles.free==false}">
+                                                            <a th:text="${' THIS LESSON IS NOT FREE, BUY NOW'}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Watch</a>
+                                                        </div>
+
                                                         <span th:text="${hours}+' h '+${min}+' m '+${sec}+' s '">00:59</span>
                                                          <div class="lesson-des" >
                                                           <p th:text="${ccltles?.description}"></p>
@@ -200,9 +210,7 @@
                                 <div class="row" >
                                     <div class="col-lg-3" >
                                         <div id="review_summary" >
-
                                                 <strong th:text="${rating}"></strong>
-
                                             <div class="rating">
                                                 <i class="icon_star voted"></i><i class="icon_star voted"></i><i
                                                     class="icon_star voted"></i><i class="icon_star voted"></i><i
@@ -289,14 +297,10 @@
                                             <p >review</p>
                                         </div>
                                         <div class="rev-text" >
-<!--                                            th:text="${review?.review}"-->
                                             <p th:text="${rl?.review}">
-<!--                                            <p th:text="${iv.review}"></p>-->
-
                                                 Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
                                                 hendrerit. Cum sociis natoque penatibus et magnis dis
                                             </p>
-<!--                                            th:text="${review?.timeStamp}"-->
                                             <span th:text="${rl?.timeStamp}"></span>
                                         </div>
                                     </div>
