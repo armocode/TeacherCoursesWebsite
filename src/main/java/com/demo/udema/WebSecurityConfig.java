@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated()
                 .antMatchers("/adminPage/**").hasAnyRole("STUDENT","TEACHER", "ADMIN")
                 .antMatchers("/userPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
-                .antMatchers("/addCategory/**").hasAnyRole("TEACHER", "ADMIN")
+//                .antMatchers("/addCategory/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/addListing/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/reviews/**").hasAnyRole("TEACHER","ADMIN")
 //                .antMatchers("/adminPage/**").access("hasRole('0') and hasRole('1')")

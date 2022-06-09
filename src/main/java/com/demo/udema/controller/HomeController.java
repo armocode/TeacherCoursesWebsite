@@ -11,9 +11,7 @@ import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -149,26 +147,31 @@ public class HomeController {
 
     @GetMapping("/addCategory")
     public String addCategory(Model model, Category category) {
-//        List<Category> categoryList = categoryService.findAll();
-//        model.addAttribute("categoryList", categoryList);
+        List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
+        model.addAttribute("categoryList", categoryList);
 
-        model.addAttribute("newCategory", new Category());
+            model.addAttribute("message", "Get mapping");
+            model.addAttribute("newCategory", new Category());
+
         System.out.println("\n 1");
-        return "admin-page/add-category";
 
+        return "add-category";
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute("category") Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-//        RedirectAttributes redirectAttributes
-        if(bindingResult.hasFieldErrors("title")) {
-            System.out.println("2");
-            return "redirect:/admin-page/add-category";
-        }
+    public String addCategory(@ModelAttribute("newCategory") Category category, Model model) {
+//        RedirectAttributes redirectAttributes, BindingResult bindingResult
+            if(category.getTitle()==null || category.getTitle().equals("")) {
+                model.addAttribute("message", "Post mapping");
+                System.out.println("null");
+                return "redirect:/addCategory";
+            }
+
         categoryService.save(category);
-        redirectAttributes.addFlashAttribute("message", "test 3");
-        System.out.println(" 3 ");
-        return "redirect:/admin-page/add-category";
+        System.out.println(" 3");
+
+        return "redirect:/addCategory";
+        //        return "redirect:/admin-page/add-category";
     }
 
 

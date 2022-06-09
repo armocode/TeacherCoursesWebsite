@@ -44,5 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
     }
 
+    @Override
+    public List<Category> findAllByOrderByTitleAsc() {
+        return categoryRepository.findAllByOrderByTitleAsc();
+    }
+
 
 }

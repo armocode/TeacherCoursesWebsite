@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
+<!--<head>-->
+<!--  <meta charset="utf-8">-->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--  <meta name="description" content="">-->
+<!--  <meta name="author" content="Ansonika">-->
+<!--  <title>UDEMA - Admin dashboard</title>-->
+
+<!--    &lt;!&ndash; Favicons&ndash;&gt;-->
+<!--    <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon" th:href="@{/admin_section/img/favicon.ico}">-->
+<!--    <link rel="apple-touch-icon" type="image/x-icon" href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">-->
+<!--    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">-->
+<!--    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">-->
+<!--    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">-->
+
+<!--  &lt;!&ndash; GOOGLE WEB FONT &ndash;&gt;-->
+<!--  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">-->
+
+<!--    &lt;!&ndash; Bootstrap core CSS&ndash;&gt;-->
+<!--    <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">-->
+<!--    &lt;!&ndash; Main styles &ndash;&gt;-->
+<!--    <link href="../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">-->
+<!--    &lt;!&ndash; Icon fonts&ndash;&gt;-->
+<!--    <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">-->
+<!--    &lt;!&ndash; Plugin styles &ndash;&gt;-->
+<!--    <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">-->
+<!--    &lt;!&ndash; Your custom styles &ndash;&gt;-->
+<!--    <link href="../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">-->
+
+<!--</head>-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,44 +39,45 @@
   <meta name="author" content="Ansonika">
   <title>UDEMA - Admin dashboard</title>
 
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon" th:href="@{/admin_section/img/favicon.ico}">
-    <link rel="apple-touch-icon" type="image/x-icon" href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
+  <!-- Favicons-->
+  <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon" th:href="@{/admin_section/img/favicon.ico}">
+  <link rel="apple-touch-icon" type="image/x-icon" href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
 
   <!-- GOOGLE WEB FONT -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
 
-    <!-- Bootstrap core CSS-->
-    <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
-    <!-- Main styles -->
-    <link href="../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">
-    <!-- Icon fonts-->
-    <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
-    <!-- Plugin styles -->
-    <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">
-    <!-- Your custom styles -->
-    <link href="../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">
+  <!-- Bootstrap core CSS-->
+  <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
+  <!-- Main styles -->
+  <link href="../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">
+  <!-- Icon fonts-->
+  <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
+  <!-- Plugin styles -->
+  <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">
+  <!-- Your custom styles -->
+  <link href="../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">
 
 </head>
 
-<body sec:authorize="isAuthenticated()" class="fixed-nav sticky-footer" id="page-top">
+<!--sec:authorize="isAuthenticated()" sugrazinti atgal i body, po test-->
+<body    class="fixed-nav sticky-footer" id="page-top">
     <!-- Logout form-->
     <form id="logoutForm" method="POST" th:action="@{/logout}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+    <a class="navbar-brand" href="/static"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="admin-page/index.html">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
@@ -244,14 +275,18 @@
 					<table id="pricing-list-container" style="width:100%;">
 						<tr class="pricing-list-item">
 							<td>
-								<div class="row">
-									<div class="col-md-5">
+								<div class="row" >
+									<div class="col-md-5" >
 										<div class="form-group">
                                           <input th:field="*{title}" type="text" class="form-control" placeholder="Title">
-                                          <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-
-                                          <!--                                          <span class="center_b has-message-m" th:text="${message}"></span>-->
+                                          <p th:text="${message}"></p>
+<!--                                          <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>-->
+                                          <!--                     <span class="center_b has-message-m" th:text="${message}"></span>-->
+                                            <div th:each="cl : ${categoryList}">
+                                               <span th:text="${cl.title}"></span>
+                                            </div>
 										</div>
+
 									</div>
 								</div>
 							</td>
