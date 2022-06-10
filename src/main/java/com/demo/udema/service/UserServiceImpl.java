@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -45,8 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserWhoBoughtCourse() {
-        return userRepository.findUserWhoBoughtCourse();
+    public List<String> findUsersWhoBoughtCourseByCourseTitle(String title) {
+        return userRepository.findUsersWhoBoughtCourseByCourseTitle(title);
     }
 
 

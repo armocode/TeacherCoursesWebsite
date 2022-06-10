@@ -13,9 +13,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
 
-    @Query(value = "SELECT * FROM Users" +
-            " JOIN orders ON users.id = user_id" +
-            " JOIN courses ON courses.id = course_id", nativeQuery = true)
-    User findUserWhoBoughtCourse();
+    @Query(value = "SELECT users.username FROM Users" +
+            " WHERE users.id IN" +
+            "(SELECT orders.user_id FROM orders" +
+            " WHERE orders.course_id IN" +
+            "(SELECT courses.id FROM courses" +
+            " WHERE courses.title LIKE ?1))", nativeQuery = true)
+    List<String> findUsersWhoBoughtCourseByCourseTitle(String title);
 
 }

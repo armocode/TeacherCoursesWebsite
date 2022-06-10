@@ -4,6 +4,7 @@ import com.demo.udema.entity.*;
 import com.demo.udema.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseReviewService;
@@ -11,9 +12,10 @@ import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -94,20 +96,35 @@ public class HomeController {
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
-        Course course = courseService.findByTitle(title);
-        model.addAttribute("coursesTit", course);
 
-        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-        model.addAttribute("reviewList", courseReviewsList);
+//       currentLoggedInUsername();
 
-//        User user = userService.findUserWhoBoughtCourse();
-//        model.addAttribute("user", user);
 
-        courseReviewCountRatingByTitle(title, model);
-        courseReviewRatingByTitle(title, model);
-        lessonsSumByCourseTitle(title, model);
-        lessonsCountByCourseTitle(title, model);
-        return "course-detail";
+        List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(title);
+        for(String usr : us) {
+
+            if(usr.equals(currentLoggedInUsername())) {
+                System.out.println(true);
+                System.out.println(currentLoggedInUsername() + " <-- Prisilogines dabar, useriai --->" +usr);
+            }
+        }
+
+
+
+
+
+
+            Course course = courseService.findByTitle(title);
+            model.addAttribute("coursesTit", course);
+
+            List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+            model.addAttribute("reviewList", courseReviewsList);
+
+            courseReviewCountRatingByTitle(title, model);
+            courseReviewRatingByTitle(title, model);
+            lessonsSumByCourseTitle(title, model);
+            lessonsCountByCourseTitle(title, model);
+            return "course-detail";
     }
 
     @GetMapping("/addCourse")
@@ -157,8 +174,7 @@ public class HomeController {
         List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
         model.addAttribute("categoryList", categoryList);
 
-            model.addAttribute("message", "Get mapping");
-            model.addAttribute("newCategory", new Category());
+        model.addAttribute("newCategory", new Category());
 
         System.out.println("\n scope 1");
 
@@ -166,25 +182,27 @@ public class HomeController {
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute("newCategory") Category category, Model model) {
-            String cat = categoryService.findByTitle(category.getTitle());
-            if(category.getTitle()==null || category.getTitle().equals("")) {
-                model.addAttribute("message", "Post mapping");
-                System.out.println("\nscope 2 (null)");
-                return "redirect:/addCategory";
-            }
-            if(cat.equals(category.getTitle())) {
-                model.addAttribute("message", "dublicate");
-                return "redirect:/addCategory";
-            }
+    public String addCategory(@ModelAttribute("newCategory") Category category, Model model, RedirectAttributes redirectAtt) {
+        String cat = categoryService.findByTitle(category.getTitle());
+
+        if (category.getTitle() == null || category.getTitle().equals("")) {
+            redirectAtt.addFlashAttribute("message", "Null");
+            System.out.println("\nscope 2 (null)");
+            return "redirect:/addCategory";
+        }
+        if (cat.equals(category.getTitle())) {
+            redirectAtt.addFlashAttribute("message", "Dublicate");
+            return"redirect:/addCategory";
+        }
 
 
-        categoryService.save(category);
-        System.out.println("scope 3 save");
+            redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
+            categoryService.save(category);
+            System.out.println("scope 3 save");
 
-        return "redirect:/addCategory";
-        //        return "redirect:/admin-page/add-category";
-    }
+        return"redirect:/addCategory";
+    //        return "redirect:/admin-page/add-category";
+}
 
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
@@ -302,5 +320,17 @@ public class HomeController {
      */
     public void lessonsCountByCourseTitle(String title, Model model) {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
+    }
+    public String currentLoggedInUsername() {
+        String username = "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+            System.out.println(username+ "  - SCOPE 1");
+        } else {
+            username = principal.toString();
+            System.out.println(username + "  - SCOPE 2");
+        }
+       return username;
     }
 }
