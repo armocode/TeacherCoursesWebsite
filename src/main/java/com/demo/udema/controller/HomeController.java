@@ -3,6 +3,7 @@ package com.demo.udema.controller;
 import com.demo.udema.entity.*;
 import com.demo.udema.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +16,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import org.springframework.web.servlet.ModelAndView;
+
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class HomeController implements ErrorController {
     @Autowired
     private UserService userService;
     private CategoryService categoryService;
@@ -108,12 +112,7 @@ public class HomeController {
                 System.out.println(currentLoggedInUsername() + " <-- Prisilogines dabar, useriai --->" +usr);
             }
         }
-
-
-
-
-
-
+        
             Course course = courseService.findByTitle(title);
             model.addAttribute("coursesTit", course);
 
@@ -260,6 +259,20 @@ public class HomeController {
     @GetMapping("/404")
     public String accessDenied() {
         return "404";
+    }
+
+    @RequestMapping("/error")
+    public ModelAndView handleError()
+    {
+        // https://www.techiedelight.com/display-custom-error-pages-in-spring-boot/
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404");
+        return modelAndView;
+    }
+
+    @Override
+    public String getErrorPath() {
+        return "error";
     }
 
 
