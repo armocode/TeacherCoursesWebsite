@@ -50,6 +50,4 @@ public class UserServiceImpl implements UserService {
     public List<String> findUsersWhoBoughtCourseByCourseTitle(String title) {
         return userRepository.findUsersWhoBoughtCourseByCourseTitle(title);
     }
-
-
 }

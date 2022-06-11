@@ -189,13 +189,16 @@
                                                             <i class="icon-ok-circled"></i> <span class="free-lesson"></span>
                                                             <a  th:text="${' WATCH FREE LESSON!'}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video"> </a>
                                                             </div>
+
                                                         </div>
                                                         <div th:if="${ccltles.free==false}">
-                                                            <div class="not-free-lesson">
+                                                            <div th:if="${userBoughtCourse==false}" class="not-free-lesson">
                                                                 <i class="icon-ok-circled"></i> <span class="not-free-lesson"></span>
                                                                 <a th:text="${' IF YOU WANT TO WATCH, YOU CAN BUY THIS LESSON'}"  class="video" >Watch</a>
-<!--                                                                <a th:text="${' IF YOU WANT TO WATCH, YOU CAN BUY THIS LESSON'}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Watch</a>-->
-
+                                                            </div>
+                                                            <div th:if="${userBoughtCourse==true}" class="free-lesson">
+                                                                <i class="icon-ok-circled"></i> <span class="free-lesson"></span>
+                                                                <a th:text="${' Watch lesson '}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Watch</a>
                                                             </div>
                                                         </div>
 

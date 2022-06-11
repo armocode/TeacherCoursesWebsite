@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -102,7 +101,8 @@ public class HomeController implements ErrorController {
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
 
-//       currentLoggedInUsername();
+        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+
 
 
         List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(title);
@@ -113,7 +113,6 @@ public class HomeController implements ErrorController {
                 System.out.println(currentLoggedInUsername() + " <-- Prisilogines dabar, useriai --->" + usr);
             }
         }
-
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
 
@@ -295,7 +294,6 @@ public class HomeController implements ErrorController {
 
     /**
      * Course average rating
-     *
      * @param courses
      */
     public void courseRatingAvg(List<Course> courses) {
@@ -352,16 +350,36 @@ public class HomeController implements ErrorController {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
     }
 
+
+    /**
+     * Check if user logged in or anonymous
+     * @return logged username or anonymous
+     */
     public String currentLoggedInUsername() {
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
             System.out.println(username + "  - SCOPE 1");
+            System.out.println(username + "  - Logged");
         } else {
             username = principal.toString();
-            System.out.println(username + "  - SCOPE 2");
+            System.out.println(username);
         }
         return username;
+    }
+
+    /**
+     * @param courseTitle, Check logged user who bought course by c.title
+     * @return true if bought course, else false
+     */
+    public Boolean usersBoughtCourse(String courseTitle) {
+
+        List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
+        if (us.contains(currentLoggedInUsername())) {
+            System.out.println(currentLoggedInUsername() + " <-- Logged user - equals user -->" + us.contains(currentLoggedInUsername()));
+            return true;
+        }
+        return false;
     }
 }
