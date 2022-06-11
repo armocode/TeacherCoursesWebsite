@@ -137,9 +137,6 @@ WHERE username LIKE 'tom%'
 
 
 
-
-
-
 _____veikiantys__________________________________________3
 Rounded rating
 

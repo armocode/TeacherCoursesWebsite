@@ -102,7 +102,6 @@ public class HomeController implements ErrorController {
 
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
 
-
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
 
