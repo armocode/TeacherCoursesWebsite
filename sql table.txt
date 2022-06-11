@@ -4,7 +4,7 @@ INSERT INTO users VALUES(2,'gmail@email.com',0,'Petras','$2a$12$ar51Ym.9NCD0ZRCw
 INSERT INTO users VALUES(3,'asdf@email.com',0,'Jonas','jonas123','ROLE_TEACHER','Jonaitis', '2022.05.23','jonas123');
 INSERT INTO users VALUES(4,'linas@email.com',0,'Linas','linas123','ROLE_STUDENT','linas', '2022.05.24','linas123');
 INSERT INTO users VALUES(5,'random@gmail.com',0,'name','$2a$12$LuwVfc1u.rIRAT1wA794UOonvd.KXBrLuUTimx6YhV701cxpMqsAG','ROLE_ADMIN','surname','2000.05.05','admin123');
-INSERT INTO users VALUES(6,'tomas@gmail.com',0,'Tomas','tomqweqwe123','ROLE_STUDENT','Tomas','2022.11.11','tomas123');
+INSERT INTO users VALUES(6,'tomas@gmail.com',0,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');
 
 INSERT INTO categories VALUES(1, 'JAVA');
 INSERT INTO categories VALUES(2, 'JavaScript');
@@ -131,20 +131,9 @@ WHERE orders.course_id IN
 WHERE courses.title LIKE 'Java paz%'))
 
 
-
-
-
-SELECT users.username FROM Users
-JOIN orders ON users.id = user_id
-JOIN courses ON courses.id = course_id
-WHERE users.id IN 
-(SELECT user_id FROM orders 
-WHERE orders.course_id IN 
-(SELECT courses.id FROM courses
-WHERE courses.title LIKE 'Java pag%'))
-
-
-
+SELECT username FROM Users
+JOIN orders ON orders.user_id = users.id
+WHERE username LIKE 'tom%'
 
 
 

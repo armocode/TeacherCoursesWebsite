@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -101,29 +100,20 @@ public class HomeController implements ErrorController {
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
 
-//       currentLoggedInUsername();
+        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
 
 
-        List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(title);
-        for(String usr : us) {
+        Course course = courseService.findByTitle(title);
+        model.addAttribute("coursesTit", course);
 
-            if(usr.equals(currentLoggedInUsername())) {
-                System.out.println(true);
-                System.out.println(currentLoggedInUsername() + " <-- Prisilogines dabar, useriai --->" +usr);
-            }
-        }
-        
-            Course course = courseService.findByTitle(title);
-            model.addAttribute("coursesTit", course);
+        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+        model.addAttribute("reviewList", courseReviewsList);
 
-            List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-            model.addAttribute("reviewList", courseReviewsList);
-
-            courseReviewCountRatingByTitle(title, model);
-            courseReviewRatingByTitle(title, model);
-            lessonsSumByCourseTitle(title, model);
-            lessonsCountByCourseTitle(title, model);
-            return "course-detail";
+        courseReviewCountRatingByTitle(title, model);
+        courseReviewRatingByTitle(title, model);
+        lessonsSumByCourseTitle(title, model);
+        lessonsCountByCourseTitle(title, model);
+        return "course-detail";
     }
 
     @GetMapping("/addCourse")
@@ -191,17 +181,17 @@ public class HomeController implements ErrorController {
         }
         if (cat.equals(category.getTitle())) {
             redirectAtt.addFlashAttribute("message", "Dublicate");
-            return"redirect:/addCategory";
+            return "redirect:/addCategory";
         }
 
 
-            redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
-            categoryService.save(category);
-            System.out.println("scope 3 save");
+        redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
+        categoryService.save(category);
+        System.out.println("scope 3 save");
 
-        return"redirect:/addCategory";
-    //        return "redirect:/admin-page/add-category";
-}
+        return "redirect:/addCategory";
+        //        return "redirect:/admin-page/add-category";
+    }
 
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
@@ -262,8 +252,7 @@ public class HomeController implements ErrorController {
     }
 
     @RequestMapping("/error")
-    public ModelAndView handleError()
-    {
+    public ModelAndView handleError() {
         // https://www.techiedelight.com/display-custom-error-pages-in-spring-boot/
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404");
@@ -278,7 +267,6 @@ public class HomeController implements ErrorController {
 
     /**
      * Course average rating
-     *
      * @param courses
      */
     public void courseRatingAvg(List<Course> courses) {
@@ -334,16 +322,35 @@ public class HomeController implements ErrorController {
     public void lessonsCountByCourseTitle(String title, Model model) {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
     }
+
+    /**
+     * Check if user logged in or anonymous
+     * @return logged username or anonymous
+     */
     public String currentLoggedInUsername() {
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof UserDetails) {
+        if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
-            System.out.println(username+ "  - SCOPE 1");
+            System.out.println(username + "  - Logged");
         } else {
             username = principal.toString();
-            System.out.println(username + "  - SCOPE 2");
+            System.out.println(username);
         }
-       return username;
+        return username;
+    }
+
+    /**
+     * @param courseTitle, Check logged user who bought course by c.title
+     * @return true if bought course, else false
+     */
+    public Boolean usersBoughtCourse(String courseTitle) {
+
+        List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
+        if (us.contains(currentLoggedInUsername())) {
+            System.out.println(currentLoggedInUsername() + " <-- Logged user - equals user -->" + us.contains(currentLoggedInUsername()));
+            return true;
+        }
+        return false;
     }
 }
