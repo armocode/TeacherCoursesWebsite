@@ -13,12 +13,11 @@ import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
-
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +25,8 @@ import java.util.List;
 public class HomeController implements ErrorController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CourseValidator courseValidator;
     private CategoryService categoryService;
     private CourseService courseService;
     private CourseReviewService courseReviewService;
@@ -132,23 +133,38 @@ public class HomeController implements ErrorController {
 
     @PostMapping("/addCourse")
     public String addCourse(@ModelAttribute("course") Course course,
+                            BindingResult resultCourse,
+                            @ModelAttribute("details") CourseDetails courseDetails,
+                            BindingResult resultDetail,
                             @ModelAttribute("user") User user,
                             @RequestParam HashMap<String, String> categoriesList,
-                            @ModelAttribute("details") CourseDetails courseDetails) {
-        // Pasiemu Vartotjo ID ir setinu i course
-        User searchUser = userService.findByUsername(user.getUsername());
+                            Model model,
+                            RedirectAttributes redirectAttributes) {
+        courseValidator.validate(course, resultCourse);
+        courseValidator.validateCourseDes(courseDetails, resultDetail);
+
+        if (resultCourse.hasErrors() || resultDetail.hasErrors()) {
+            List<Category> categoriesList2 = categoryService.getAll();              // Is naujo uzkrauname kategoriju sarasa, po valid lieka tuscias
+            model.addAttribute("categoriesList", categoriesList2);
+            model.addAttribute("errormessage", "Failed to create course");
+            return "admin-page/add-course";
+        }
+        if (categoriesList.get("catId") == null || categoriesList.get("catId") == ""){
+            model.addAttribute("error", "Please select an option from the list");
+            List<Category> categoriesList2 = categoryService.getAll();
+            model.addAttribute("categoriesList", categoriesList2);
+            model.addAttribute("errormessage", "Failed to create course");
+            return "admin-page/add-course";
+        }
+        User searchUser = userService.findByUsername(user.getUsername());           // Pasiemu Vartotjo ID ir setinu i course
         course.setUsers(searchUser);
-        // Setina kategorija TODO sutvarkyti su null (VALIDACIJOJ)
         Category searchCategory = categoryService.findById(Integer.parseInt(categoriesList.get("catId")));
         course.setCategory(searchCategory);
-        // Issaugom kursa
         courseService.save(course);
-        // Pasiem issaugoto kurso title
-        Course newCourseTitle = courseService.findByTitle(course.getTitle());
-        // setinam id
-        courseDetails.setCourse(newCourseTitle);
-        // Issaugom id i details
-        courseDetailService.save(courseDetails);
+        Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiem issaugoto kurso title
+        courseDetails.setCourse(newCourseTitle);                                    // setinam id
+        courseDetailService.save(courseDetails);                                    // Issaugom id i details
+        redirectAttributes.addFlashAttribute("message", "Course saved successfully");
         return "redirect:/addCourse";
     }
 
@@ -321,6 +337,7 @@ public class HomeController implements ErrorController {
     public void lessonsCountByCourseTitle(String title, Model model) {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
     }
+
 
     /**
      * Check if user logged in or anonymous
