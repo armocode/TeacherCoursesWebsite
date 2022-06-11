@@ -13,13 +13,12 @@ import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
 
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,6 +26,8 @@ import java.util.List;
 public class HomeController implements ErrorController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CourseValidator courseValidator;
     private CategoryService categoryService;
     private CourseService courseService;
     private CourseReviewService courseReviewService;
@@ -105,26 +106,28 @@ public class HomeController implements ErrorController {
 
 
         List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(title);
-        for(String usr : us) {
+        for (String usr : us) {
 
-            if(usr.equals(currentLoggedInUsername())) {
+            if (usr.equals(currentLoggedInUsername())) {
                 System.out.println(true);
-                System.out.println(currentLoggedInUsername() + " <-- Prisilogines dabar, useriai --->" +usr);
+                System.out.println(currentLoggedInUsername() + " <-- Prisilogines dabar, useriai --->" + usr);
             }
         }
-        
-            Course course = courseService.findByTitle(title);
-            model.addAttribute("coursesTit", course);
 
-            List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-            model.addAttribute("reviewList", courseReviewsList);
+        Course course = courseService.findByTitle(title);
+        model.addAttribute("coursesTit", course);
 
-            courseReviewCountRatingByTitle(title, model);
-            courseReviewRatingByTitle(title, model);
-            lessonsSumByCourseTitle(title, model);
-            lessonsCountByCourseTitle(title, model);
-            return "course-detail";
+        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+        model.addAttribute("reviewList", courseReviewsList);
+
+        courseReviewCountRatingByTitle(title, model);
+        courseReviewRatingByTitle(title, model);
+        lessonsSumByCourseTitle(title, model);
+        lessonsCountByCourseTitle(title, model);
+        return "course-detail";
     }
+
+    String addCourse = "admin-page/add-course";
 
     @GetMapping("/addCourse")
     public String addCourse(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
@@ -143,23 +146,38 @@ public class HomeController implements ErrorController {
 
     @PostMapping("/addCourse")
     public String addCourse(@ModelAttribute("course") Course course,
+                            BindingResult resultCourse,
+                            @ModelAttribute("details") CourseDetails courseDetails,
+                            BindingResult resultDetail,
                             @ModelAttribute("user") User user,
                             @RequestParam HashMap<String, String> categoriesList,
-                            @ModelAttribute("details") CourseDetails courseDetails) {
-        // Pasiemu Vartotjo ID ir setinu i course
-        User searchUser = userService.findByUsername(user.getUsername());
+                            Model model,
+                            RedirectAttributes redirectAttributes) {
+        courseValidator.validate(course, resultCourse);
+        courseValidator.validateCourseDes(courseDetails, resultDetail);
+
+        if (resultCourse.hasErrors() || resultDetail.hasErrors()) {
+            List<Category> categoriesList2 = categoryService.getAll();              // Is naujo uzkrauname kategoriju sarasa, po valid lieka tuscias
+            model.addAttribute("categoriesList", categoriesList2);
+            model.addAttribute("errormessage", "Failed to create course");
+            return "admin-page/add-course";
+        }
+        if (categoriesList.get("catId") == null || categoriesList.get("catId") == ""){
+            model.addAttribute("error", "Please select an option from the list");
+            List<Category> categoriesList2 = categoryService.getAll();
+            model.addAttribute("categoriesList", categoriesList2);
+            model.addAttribute("errormessage", "Failed to create course");
+            return "admin-page/add-course";
+        }
+        User searchUser = userService.findByUsername(user.getUsername());           // Pasiemu Vartotjo ID ir setinu i course
         course.setUsers(searchUser);
-        // Setina kategorija TODO sutvarkyti su null (VALIDACIJOJ)
         Category searchCategory = categoryService.findById(Integer.parseInt(categoriesList.get("catId")));
         course.setCategory(searchCategory);
-        // Issaugom kursa
         courseService.save(course);
-        // Pasiem issaugoto kurso title
-        Course newCourseTitle = courseService.findByTitle(course.getTitle());
-        // setinam id
-        courseDetails.setCourse(newCourseTitle);
-        // Issaugom id i details
-        courseDetailService.save(courseDetails);
+        Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiem issaugoto kurso title
+        courseDetails.setCourse(newCourseTitle);                                    // setinam id
+        courseDetailService.save(courseDetails);                                    // Issaugom id i details
+        redirectAttributes.addFlashAttribute("message", "Course saved successfully");
         return "redirect:/addCourse";
     }
 
@@ -191,17 +209,17 @@ public class HomeController implements ErrorController {
         }
         if (cat.equals(category.getTitle())) {
             redirectAtt.addFlashAttribute("message", "Dublicate");
-            return"redirect:/addCategory";
+            return "redirect:/addCategory";
         }
 
 
-            redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
-            categoryService.save(category);
-            System.out.println("scope 3 save");
+        redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
+        categoryService.save(category);
+        System.out.println("scope 3 save");
 
-        return"redirect:/addCategory";
-    //        return "redirect:/admin-page/add-category";
-}
+        return "redirect:/addCategory";
+        //        return "redirect:/admin-page/add-category";
+    }
 
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
@@ -262,8 +280,7 @@ public class HomeController implements ErrorController {
     }
 
     @RequestMapping("/error")
-    public ModelAndView handleError()
-    {
+    public ModelAndView handleError() {
         // https://www.techiedelight.com/display-custom-error-pages-in-spring-boot/
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404");
@@ -334,16 +351,17 @@ public class HomeController implements ErrorController {
     public void lessonsCountByCourseTitle(String title, Model model) {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
     }
+
     public String currentLoggedInUsername() {
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof UserDetails) {
+        if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
-            System.out.println(username+ "  - SCOPE 1");
+            System.out.println(username + "  - SCOPE 1");
         } else {
             username = principal.toString();
             System.out.println(username + "  - SCOPE 2");
         }
-       return username;
+        return username;
     }
 }
