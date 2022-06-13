@@ -28,6 +28,8 @@ public interface LessonRepository extends JpaRepository<Lessons, Integer> {
             "(SELECT courses.id FROM courses" +
             " WHERE courses.title LIKE ?1)", nativeQuery = true)
     Integer countLessonByTitle(String title);
+
+
 }
 
 

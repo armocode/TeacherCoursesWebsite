@@ -60,6 +60,7 @@ public class HomeController implements ErrorController {
             List<Course> courseList = courseService.findAll();
             courseRatingAvg(courseList);
             model.addAttribute("courses", courseList);
+
         }
         return "index";
     }
@@ -169,8 +170,16 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("/addLesson")
-    public String addLesson() {
-        return "admin-page/add-lesson";
+    public String addLesson(Model model) {
+//        return "admin-page/add-lesson";
+        return "add-lesson";
+    }
+
+    @PostMapping("/addLesson")
+    public String addLesson(@ModelAttribute("newLesson") Lessons lessons, Model model, RedirectAttributes redirectAtt) {
+
+
+        return "add-lesson";
     }
 
     @GetMapping("/addCategory")
