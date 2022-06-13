@@ -203,8 +203,11 @@
 								</div>
 							</div>
 						</div>
-						<ul th:each="courD:${cour?.courseDetails}">
-							<li><i class="icon_clock_alt"></i><span th:text="${'courD?.lessonTotalLength min'}" ></span></li>
+						<ul>
+							<li>
+								<i class="icon_clock_alt"></i><span th:with="m=${(cour.sumLessonsLenght/60)%60}, h=${((cour.sumLessonsLenght/60))/60}" th:text="${' '+h+'h '+m+'min'}"></span>
+							</li>
+							<!--                        <li><i class="icon_like"></i> 890</li>-->
 							<li><a th:href="@{/coursesDetails(courseTitle=${cour.title})}">Enroll now</a></li>
 						</ul>
 					</div>

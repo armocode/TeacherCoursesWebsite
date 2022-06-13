@@ -190,8 +190,8 @@
                         </figure>
 
                         <div class="wrapper">
-                            <small><p th:text="${cs?.category?.title}"></p></small>
-                            <h5 th:text="${cs?.title}"></h5>
+                            <small th:text="${cs?.category?.title}"></small>
+                            <h3 th:text="${cs?.title}"></h3>
                             <p th:text="${cs?.courseDetails?.description}"></p>
 
                             <!--Rating-->
@@ -203,11 +203,12 @@
                             </div>
 
                         </div>
-                        <ul >
-                            <li th:text="${'minutes ' + 'min'}"><i class="icon_clock_alt"></i> 1h 30min</li>
-<!--                            <li><i class="icon_like"></i> 890</li>-->
-                            <li><a th:href="@{/coursesList(categoryId=${cs.category.id})}">Enroll now</a></li>
-
+                        <ul>
+                            <li>
+                                <i class="icon_clock_alt"></i><span th:with="m=${(cs.sumLessonsLenght/60)%60}, h=${((cs.sumLessonsLenght/60))/60}" th:text="${' '+h+'h '+m+'min'}"></span>
+                            </li>
+<!--                        <li><i class="icon_like"></i> 890</li>-->
+                            <li><a th:href="@{/coursesDetails(courseTitle=${cs.title})}">Enroll now</a></li>
                         </ul>
                     </div>
                 </div>
@@ -238,15 +239,13 @@
                     <div class="block-horizzontal"></div>
                     <img src="http://via.placeholder.com/800x533/ccc/fff/course_1.jpg" class="img-fluid" alt="">
                     <div class="info">
-                        <h3 th:text="${cat.title}"></h3>
                         <p th:each="cours, custStat : ${cat.course}">
 							<span th:if="${custStat.last == true}">
-								<small><i class="ti-layers"></i>
-									<span th:text="${custStat.count}">1</span>
-									<span> courses</span>
+								<small><i class="ti-layers"></i><span th:text="${custStat.count + ' courses'}"></span>
                                 </small>
 							</span>
                         </p>
+                        <h3 th:text="${cat.title}"></h3>
                     </div>
                 </figure>
             </a>

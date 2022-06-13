@@ -36,6 +36,10 @@ public class Course {
     @Transient
     private double avgRating = 0;
 
+    @Transient
+    private int sumLessonsLenght;
+
+
 
     @OneToOne(mappedBy = "course") // PK
     private CourseDetails courseDetails;
@@ -47,7 +51,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(int id, User users, Category category, String timeStamp, String title, double price, double avgRating, CourseDetails courseDetails, Set<User> user) {
+    public Course(int id, User users, Category category, String timeStamp, String title, double price, double avgRating, int sumLessonsLenght, CourseDetails courseDetails, Set<User> user) {
         this.id = id;
         this.users = users;
         this.category = category;
@@ -55,17 +59,19 @@ public class Course {
         this.title = title;
         this.price = price;
         this.avgRating = avgRating;
+        this.sumLessonsLenght = sumLessonsLenght;
         this.courseDetails = courseDetails;
         this.user = user;
     }
 
-    public Course(User users, Category category, String timeStamp, String title, double price, double avgRating, CourseDetails courseDetails, Set<User> user) {
+    public Course(User users, Category category, String timeStamp, String title, double price, double avgRating, int sumLessonsLenght, CourseDetails courseDetails, Set<User> user) {
         this.users = users;
         this.category = category;
         this.timeStamp = timeStamp;
         this.title = title;
         this.price = price;
         this.avgRating = avgRating;
+        this.sumLessonsLenght = sumLessonsLenght;
         this.courseDetails = courseDetails;
         this.user = user;
     }
@@ -126,6 +132,14 @@ public class Course {
         this.avgRating = avgRating;
     }
 
+    public int getSumLessonsLenght() {
+        return sumLessonsLenght;
+    }
+
+    public void setSumLessonsLenght(int sumLessonsLenght) {
+        this.sumLessonsLenght = sumLessonsLenght;
+    }
+
     public CourseDetails getCourseDetails() {
         return courseDetails;
     }
@@ -140,12 +154,5 @@ public class Course {
 
     public void setUser(Set<User> user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "title='" + title + '\'' +
-                '}';
     }
 }

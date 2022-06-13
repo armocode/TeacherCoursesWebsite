@@ -54,14 +54,15 @@ public class HomeController implements ErrorController {
             } else {
                 model.addAttribute("message", "Displaying " + getByName.size() + " results for '" + courseName.getTitle() + "' ");
             }
-            courseRatingAvg(getByName);
+            getCourseRatingAvgAndLenghtSum(getByName);
             model.addAttribute("courses", getByName);
         } else {
             List<Course> courseList = courseService.findAll();
-            courseRatingAvg(courseList);
+            getCourseRatingAvgAndLenghtSum(courseList);
             model.addAttribute("courses", courseList);
-
         }
+
+
         return "index";
     }
 
@@ -91,7 +92,7 @@ public class HomeController implements ErrorController {
         Category category = categoryService.findById(id);
         model.addAttribute("categories", category);
         List<Course> course = courseService.findAllByCategoryId(id);
-        courseRatingAvg(course);
+        getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
         // Categories list
         List<Category> categoriesList = categoryService.findAll();
@@ -223,7 +224,7 @@ public class HomeController implements ErrorController {
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
         List<Course> course = courseService.findAll();
-        courseRatingAvg(course);
+        getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
         // Categories list
         List<Category> categoriesList = categoryService.findAll();
@@ -234,7 +235,7 @@ public class HomeController implements ErrorController {
     @GetMapping("/coursesGridAll")
     public String coursesGridAll(Model model) {
         List<Course> course = courseService.findAll();
-        courseRatingAvg(course);
+        getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
         // Categories list
         List<Category> categoriesList = categoryService.findAll();
@@ -248,7 +249,7 @@ public class HomeController implements ErrorController {
         Category category = categoryService.findById(id);
         model.addAttribute("categories", category);
         List<Course> course = courseService.findAllByCategoryId(id);
-        courseRatingAvg(course);
+        getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
         // Categories list
         List<Category> categoriesList = categoryService.findAll();
@@ -296,8 +297,9 @@ public class HomeController implements ErrorController {
      * Course average rating
      * @param courses
      */
-    public void courseRatingAvg(List<Course> courses) {
+    public void getCourseRatingAvgAndLenghtSum(List<Course> courses) {
         for (Course c : courses) {
+            int sumL = 0;
             double sum = 0;
             double k = 0;
             double average = 0;
@@ -306,9 +308,14 @@ public class HomeController implements ErrorController {
                     sum += cD.getRating();
                     k++;
                 }
-
+                for (LessonTopics lessonTopics : c.getCourseDetails().getLessonTopics()) {
+                    for(Lessons lessons : lessonTopics.getLessonsList()){
+                        sumL += lessons.getLength();
+                    }
+                }
                 average = Math.round((sum / k) * 10) / 10d;
                 c.setAvgRating(average);
+                c.setSumLessonsLenght(sumL);
             }
         }
     }
