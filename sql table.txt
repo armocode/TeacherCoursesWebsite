@@ -20,22 +20,22 @@ INSERT INTO courses VALUES(4,199.99,'2022-05-23','C pazengusiems',3,1);
 INSERT INTO courses VALUES(5,19.99,'2022-05-26','JS pagrindai',2,2);
 INSERT INTO courses VALUES(6,25.99,'2022-05-28','JS pazengusiems',2,2);
 
-INSERT INTO course_details VALUES(1,'Cia galite ismokti Java pagrindu', 35, 6,1);
-INSERT INTO course_details VALUES(2,'Cia galite ismokti Java pazengusiuju pagrindu', 45, 4,3);
-INSERT INTO course_details VALUES(3,'Cia galite ismokti C pazengusiuju pagrindu', 32, 4, 4);
-INSERT INTO course_details VALUES(4,'Cia galite ismokti C pagrindu', 63, 4, 2);
-INSERT INTO course_details VALUES(5,'Cia galite ismokti JS pazengusiuju pagrindu', 32, 4, 6);
-INSERT INTO course_details VALUES(6,'Cia galite ismokti JS pagrindu', 63, 4, 5);
+INSERT INTO course_details VALUES(1,'Cia galite ismokti Java pagrindu', 1);
+INSERT INTO course_details VALUES(2,'Cia galite ismokti Java pazengusiuju pagrindu', 3);
+INSERT INTO course_details VALUES(3,'Cia galite ismokti C pazengusiuju pagrindu', 4);
+INSERT INTO course_details VALUES(4,'Cia galite ismokti C pagrindu', 2);
+INSERT INTO course_details VALUES(5,'Cia galite ismokti JS pazengusiuju pagrindu', 6);
+INSERT INTO course_details VALUES(6,'Cia galite ismokti JS pagrindu', 5);
 
 INSERT INTO lesson_topics VALUES(1,10,'Pirmoji programa',1);
 INSERT INTO lesson_topics VALUES(2,20,'Funkcijos',2);
 INSERT INTO lesson_topics VALUES(3,30,'Masyvai',3);
 
-INSERT INTO lessons VALUES(1, 'Ciklai',0, 23540,'for loop','url',1);
+INSERT INTO lessons VALUES(1, 'Ciklai',1, 23540,'for loop','url',1);
 INSERT INTO lessons VALUES(2, 'Ciklai',0, 14532,'while loop','url',1);
 INSERT INTO lessons VALUES(3, 'Salygos',0, 31010,'Salyga if, else','url',1);
 
-INSERT INTO lessons VALUES(4, 'Funkcijos',0, 24532,'grazinanti funkcija','url',2);
+INSERT INTO lessons VALUES(4, 'Funkcijos',1, 24532,'grazinanti funkcija','url',2);
 INSERT INTO lessons VALUES(5, 'Funkcijos',0, 545533,'negrazinanti funkcija','url',2);
 
 INSERT INTO lessons VALUES(6, 'Masyvai',0, 255533,'statiniai masyvai','url',3);

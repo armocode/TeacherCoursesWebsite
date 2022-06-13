@@ -19,12 +19,6 @@ public class CourseDetails {
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @Column(name = "lessons_total_number", length = 3)
-    private int lessonTotalNumber;
-
-    @Column(name = "lessons_total_length")
-    private int lessonTotalLength;
-
     @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL) // PK
     private List<LessonTopics> lessonTopics;
 
@@ -34,21 +28,19 @@ public class CourseDetails {
 
     public CourseDetails() {}
 
-    public CourseDetails(int id, Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
+    public CourseDetails(int id, Course course, String description, List<LessonTopics> lessonTopics, List<CourseReviews> courseReviews) {
         this.id = id;
         this.course = course;
         this.description = description;
-        this.lessonTotalNumber = lessonTotalNumber;
-        this.lessonTotalLength = lessonTotalLength;
         this.lessonTopics = lessonTopics;
+        this.courseReviews = courseReviews;
     }
 
-    public CourseDetails(Course course, String description, int lessonTotalNumber, int lessonTotalLength, List<LessonTopics> lessonTopics) {
+    public CourseDetails(Course course, String description, List<LessonTopics> lessonTopics, List<CourseReviews> courseReviews) {
         this.course = course;
         this.description = description;
-        this.lessonTotalNumber = lessonTotalNumber;
-        this.lessonTotalLength = lessonTotalLength;
         this.lessonTopics = lessonTopics;
+        this.courseReviews = courseReviews;
     }
 
     public int getId() {
@@ -75,22 +67,6 @@ public class CourseDetails {
         this.description = description;
     }
 
-    public int getLessonTotalNumber() {
-        return lessonTotalNumber;
-    }
-
-    public void setLessonTotalNumber(int lessonTotalNumber) {
-        this.lessonTotalNumber = lessonTotalNumber;
-    }
-
-    public int getLessonTotalLength() {
-        return lessonTotalLength;
-    }
-
-    public void setLessonTotalLength(int lessonTotalLength) {
-        this.lessonTotalLength = lessonTotalLength;
-    }
-
     public List<LessonTopics> getLessonTopics() {
         return lessonTopics;
     }
@@ -105,12 +81,5 @@ public class CourseDetails {
 
     public void setCourseReviews(List<CourseReviews> courseReviews) {
         this.courseReviews = courseReviews;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseDetails{" +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

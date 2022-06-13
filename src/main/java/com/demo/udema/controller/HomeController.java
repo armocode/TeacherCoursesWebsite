@@ -187,19 +187,22 @@ public class HomeController implements ErrorController {
 
     @PostMapping("/addCategory")
     public String addCategory(@ModelAttribute("newCategory") Category category, Model model, RedirectAttributes redirectAtt) {
-        String cat = categoryService.findByTitle(category.getTitle());
+        String cat = "";
+        cat = categoryService.findByTitle(category.getTitle());
+        List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
 
         if (category.getTitle() == null || category.getTitle().equals("")) {
             redirectAtt.addFlashAttribute("message", "Null");
+            model.addAttribute("categoryList" , categoryList);
             System.out.println("\nscope 2 (null)");
             return "redirect:/addCategory";
         }
-        if (cat.equals(category.getTitle())) {
-            redirectAtt.addFlashAttribute("message", "Dublicate");
-            return "redirect:/addCategory";
+        if(cat!=null) {
+            if (category.getTitle().equals(cat)) {
+                redirectAtt.addFlashAttribute("message", "Dublicate or null");
+                return "redirect:/addCategory";
+            }
         }
-
-
         redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
         categoryService.save(category);
         System.out.println("scope 3 save");
