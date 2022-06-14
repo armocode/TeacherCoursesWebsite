@@ -3,6 +3,7 @@ package com.demo.udema.controller;
 import com.demo.udema.entity.Category;
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseDetails;
+import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ import java.util.regex.Pattern;
 public class CourseValidator implements Validator {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private CategoryService categoryService;
 
     Pattern pattern = Pattern.compile("^\\d{0,8}(\\.\\d{1,2})?$");
 
@@ -56,4 +59,26 @@ public class CourseValidator implements Validator {
             errors.rejectValue("description", "Size.course.description");
         }
     }
+
+    public void validateCategory(Object o, Errors errors) {
+        Category category = (Category) o;
+
+//----category----//
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
+        if (categoryService.findByTitle(category.getTitle()) != null) {
+            errors.rejectValue("title", "Duplicate.category.title");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

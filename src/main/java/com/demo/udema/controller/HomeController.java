@@ -184,41 +184,21 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("/addCategory")
-    public String addCategory(Model model, Category category) {
-        List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
-        model.addAttribute("categoryList", categoryList);
-
+    public String addCategory(Model model) {
         model.addAttribute("newCategory", new Category());
-
-        System.out.println("\n scope 1");
-
-        return "add-category";
+        return "admin-page/add-category";
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute("newCategory") Category category, Model model, RedirectAttributes redirectAtt) {
-        String cat = "";
-        cat = categoryService.findByTitle(category.getTitle());
-        List<Category> categoryList = categoryService.findAllByOrderByTitleAsc();
-
-        if (category.getTitle() == null || category.getTitle().equals("")) {
-            redirectAtt.addFlashAttribute("message", "Null");
-            model.addAttribute("categoryList" , categoryList);
-            System.out.println("\nscope 2 (null)");
-            return "redirect:/addCategory";
+    public String addCategory(@ModelAttribute("newCategory") Category category, BindingResult resultCat, Model model, RedirectAttributes redirectAttributes) {
+        courseValidator.validateCategory(category, resultCat);
+        if(resultCat.hasErrors()){
+            model.addAttribute("errormessage", "Failed to create category");
+            return "admin-page/add-category";
         }
-        if(cat!=null) {
-            if (category.getTitle().equals(cat)) {
-                redirectAtt.addFlashAttribute("message", "Dublicate or null");
-                return "redirect:/addCategory";
-            }
-        }
-        redirectAtt.addFlashAttribute("message", "Category " + category.getTitle() + " saved successfully");
         categoryService.save(category);
-        System.out.println("scope 3 save");
-
+        redirectAttributes.addFlashAttribute("message", "Category saved successfully");
         return "redirect:/addCategory";
-        //        return "redirect:/admin-page/add-category";
     }
 
     @GetMapping("/coursesListAll")
