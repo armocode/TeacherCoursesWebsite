@@ -304,7 +304,7 @@
                                         <th class="col-md-1">Price</th>
                                         <th class="col-md-2">Category</th>
                                         <th class="col-md-4">Description</th>
-                                        <th class="col-md-2" style="text-align: center;">Action</th>
+                                        <th class="col-md-2">Action</th>
                                     </div>
                                 </tr>
                                 </thead>
@@ -319,8 +319,9 @@
                                             <td class="col-md-4 d-inline-block text-truncate" style="max-width: 550px;"
                                                 th:text="${cs?.courseDetails.description}">long text
                                             </td>
-                                            <td class="col-md-2" style="text-align: center; padding-right: 32px">
-                                                UPDATE/DELETE
+                                            <td class="col-md-2">
+<!--                                                <a th:href="@{/showEditCourse/{courseId}/{detailsId} (courseId=${cs.id}, detailsId=${cs.courseDetails.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>-->
+                                                <a th:href="@{/showEditCourse(courseId=${cs.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>
                                             </td>
                                         </div>
                                     </tr>
@@ -334,7 +335,7 @@
                                                                 <th class="col-md-10" style="padding-left: 50px">Lesson
                                                                     Topic
                                                                 </th>
-                                                                <th class="col-md-2" style="text-align: center">Action</th>
+                                                                <th class="col-md-2">Action</th>
                                                             </div>
                                                         </tr>
                                                     </thead>
@@ -345,8 +346,8 @@
                                                             <td class="col-md-10" style="padding-left: 50px"
                                                                 th:text="${csTop.name}">Java pagrindai
                                                             </td>
-                                                            <td class="col-md-2" style="text-align: center">
-                                                                UPDATE/DELETE
+                                                            <td class="col-md-2">
+                                                                <a th:href="@{#}" type="button" class="btn btn-sm text-light btn-block" style="background-color: #484e54; width: 100px;">Update</a>
                                                             </td>
                                                         </div>
                                                     </tr>

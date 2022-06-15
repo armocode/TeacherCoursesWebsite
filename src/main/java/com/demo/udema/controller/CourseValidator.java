@@ -37,9 +37,9 @@ public class CourseValidator implements Validator {
         if (course.getTitle().length() < 6 || course.getTitle().length() > 32) {
             errors.rejectValue("title", "Size.course.title");
         }
-        if (courseService.findByTitle(course.getTitle()) != null) {
-            errors.rejectValue("title", "Duplicate.course.title");
-        }
+//        if (courseService.findByTitle(course.getTitle()) != null) {
+//            errors.rejectValue("title", "Duplicate.course.title");
+//        }
 
 //----price----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "NotEmpty");

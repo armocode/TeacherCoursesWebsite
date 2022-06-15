@@ -260,7 +260,7 @@
     </div>
 </nav>
 <!-- /Navigation-->
-<form class="content-wrapper" th:action="@{/addCourse}" method="post" th:object="${course}">
+<form class="content-wrapper" action="#" th:action="@{/addCourse}" method="post">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
@@ -286,12 +286,13 @@
                 <div class="header_box version_2">
                     <h2><i class="fa fa-file"></i>Course</h2>
                 </div>
-                <div class="row">
+                <div class="row" th:object="${course}">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Course title</label>
                             <input type="text" minlength="6" required class="form-control" placeholder="Course title"
                                    th:field="*{title}">
+                            <input type="hidden" th:field="*{id}">
                             <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                         </div>
                     </div>
@@ -364,13 +365,13 @@
                 </div>
                 <!-- /row-->
                 <div class="row">
-                    <div class="col-md-12" th:object="${details}">
-                        <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-group" th:object="${cDetails}">
                             <label>Course description</label>
-                            <textarea rows="5" class="form-control" style="height:100px;" placeholder="Description"
-                                      th:field="*{description}" minlength="6" required></textarea>
+                            <textarea rows="5" class="form-control" style="height:100px;" placeholder="Description" th:field="*{description}" minlength="6" required></textarea>
                             <span class="has-error" th:if="${#fields.hasErrors('description')}"
                                   th:errors="*{description}"></span>
+                            <input type="hidden" th:field="*{id}">
                         </div>
                     </div>
                 </div>

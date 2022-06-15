@@ -127,7 +127,7 @@ public class HomeController implements ErrorController {
         List<Category> categoriesList = categoryService.getAll();
         model.addAttribute("categoriesList", categoriesList);
 
-        model.addAttribute("details", new CourseDetails());
+        model.addAttribute("cDetails", new CourseDetails());
 
         model.addAttribute("course", new Course());
         return "admin-page/add-course";
@@ -136,7 +136,7 @@ public class HomeController implements ErrorController {
     @PostMapping("/addCourse")
     public String addCourse(@ModelAttribute("course") Course course,
                             BindingResult resultCourse,
-                            @ModelAttribute("details") CourseDetails courseDetails,
+                            @ModelAttribute("cDetails") CourseDetails courseDetails,
                             BindingResult resultDetail,
                             @ModelAttribute("user") User user,
                             @RequestParam HashMap<String, String> categoriesList,
@@ -239,10 +239,28 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/editCourse")
     public String editCourse(Model model) {
-        //Todo  Uzkrauti tuos kursus kurie priklauso prisjung teacher 
+        //Todo  Uzkrauti tuos kursus kurie priklauso prisjung teacher
         List<Course> course = courseService.findAll();
         model.addAttribute("courses", course);
         return "admin-page/edit-course";
+    }
+
+    //    AAAAAAAAAAA
+    @GetMapping("/showEditCourse")
+    // TODO gauti course ir details ID per href
+//    @RequestMapping(value = "/showEditCourse/{courseId}/{detailsId}")
+    public String showEditCourse(@RequestParam("courseId") int courseId, @AuthenticationPrincipal UserDetails loggerUser, Model model) { // @RequestParam(value = "detailsId") int detailsId,
+        String username = loggerUser.getUsername();
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+
+        Course course = courseService.findById(courseId);
+        model.addAttribute("course", course);
+        model.addAttribute("cDetails", course.getCourseDetails());
+        List<Category> categoriesList = categoryService.getAll();
+        model.addAttribute("categoriesList", categoriesList);
+
+        return "admin-page/add-course";
     }
 
     @GetMapping("/coursesGridSidebar")
