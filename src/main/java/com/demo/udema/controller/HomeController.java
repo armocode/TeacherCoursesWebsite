@@ -235,6 +235,23 @@ public class HomeController implements ErrorController {
         System.out.println("Scope 3 last");
         return "add-lesson";
     }
+    @GetMapping("/addCategory")
+    public String addCategory(Model model) {
+        model.addAttribute("newCategory", new Category());
+        return "admin-page/add-category";
+    }
+    
+    @PostMapping("/addCategory")
+    public String addCategory(@ModelAttribute("newCategory") Category category, BindingResult resultCat, Model model, RedirectAttributes redirectAttributes) {
+        courseValidator.validateCategory(category, resultCat);
+        if(resultCat.hasErrors()){
+            model.addAttribute("errormessage", "Failed to create category");
+            return "admin-page/add-category";
+        }
+        categoryService.save(category);
+        redirectAttributes.addFlashAttribute("message", "Category saved successfully");
+        return "redirect:/addCategory";
+    }
 
         @GetMapping("/coursesListAll")
         public String coursesListAll (Model model){
