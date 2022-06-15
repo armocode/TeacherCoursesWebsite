@@ -30,3 +30,8 @@ text-color {
 .closebtn:hover {
     color: black;
 }
+
+/*editCourse*/
+.hiddenRow {
+    padding: 0 !important;
+}

@@ -237,6 +237,13 @@ public class HomeController implements ErrorController {
         return "courses-grid";
     }
 
+    @GetMapping("/editCourse")
+    public String editCourse(Model model) {
+        //Todo  Uzkrauti tuos kursus kurie priklauso prisjung teacher 
+        List<Course> course = courseService.findAll();
+        model.addAttribute("courses", course);
+        return "admin-page/edit-course";
+    }
 
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {
