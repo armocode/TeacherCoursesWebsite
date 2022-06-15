@@ -43,4 +43,15 @@ public class LessonServiceImpl implements LessonService{
     public Integer countLessonsByTitle(String title) {
         return lessonRepository.countLessonByTitle(title);
     }
+
+    @Override
+    public void save(Lessons lessons) {
+        lessonRepository.save(lessons);
+    }
+
+    @Override
+    public List<Lessons> findAll() {
+        return lessonRepository.findAll();
+    }
+
 }

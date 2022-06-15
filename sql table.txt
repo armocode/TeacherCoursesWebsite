@@ -54,6 +54,10 @@ INSERT INTO course_reviews VALUES(4, 5, 'puikus java pazengusiuju kursas','2023-
 
 _________test_________________________________________
 INSERT INTO orders VALUES(4, 'url',3,'309.99', '2022-12-12');
+
+INSERT INTO lessons VALUES(8,'test desc',0,123,'test','url',3);
+
+INSERT INTO lesson_topics VALUES(4, 11, 'test', 2);
 __________________________________________________
 
 1. Parašyti užklausą, parodančią koks mokytojas yra sukūręs kokius kursus.

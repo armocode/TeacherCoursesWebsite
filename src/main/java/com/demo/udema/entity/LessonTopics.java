@@ -80,4 +80,15 @@ public LessonTopics(){}
     public void setLessonsList(List<Lessons> lessonsList) {
         this.lessonsList = lessonsList;
     }
+
+    @Override
+    public String toString() {
+        return "LessonTopics{" +
+                "id=" + id +
+                ", courseDetails=" + courseDetails +
+                ", name='" + name + '\'' +
+                ", listNumber=" + listNumber +
+                ", lessonsList=" + lessonsList +
+                '}';
+    }
 }

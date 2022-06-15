@@ -1,5 +1,6 @@
 package com.demo.udema.repositoryDAO;
 
+import com.demo.udema.entity.LessonTopics;
 import com.demo.udema.entity.Lessons;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,7 +29,6 @@ public interface LessonRepository extends JpaRepository<Lessons, Integer> {
             "(SELECT courses.id FROM courses" +
             " WHERE courses.title LIKE ?1)", nativeQuery = true)
     Integer countLessonByTitle(String title);
-
 
 }
 

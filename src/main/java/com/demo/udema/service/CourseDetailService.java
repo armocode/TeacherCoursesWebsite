@@ -9,6 +9,7 @@ public interface CourseDetailService {
     List<CourseDetails> findAll();
 
     void save(CourseDetails details);
+    CourseDetails findById(int id);
 
 
 }
