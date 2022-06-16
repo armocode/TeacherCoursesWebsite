@@ -291,7 +291,7 @@
                             <div class="form-group" style="padding-top: 10px; size: 10px">
                                 <select name="csDetId" class="selectbox" >
                                     <option th:value="csDetNotSelected"> Select course details</option>
-                                    <option th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.id}"></option>
+                                    <option th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
                                 </select>
                             </div>
                             <div class="col-md-5" th:object="${lesTop}">
@@ -315,7 +315,7 @@
                         <div >
                             <h5> Your lesson topics</h5>
                             <ul th:each="lp : ${lesson_top}">
-                                <li th:text="${lp?.courseDetails?.id}+' - '+${lp?.name}"></li>
+                                <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}"></li>
                             </ul>
                         </div>
                     </div>

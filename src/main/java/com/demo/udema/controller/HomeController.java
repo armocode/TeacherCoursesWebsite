@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 
@@ -141,6 +140,7 @@ public class HomeController implements ErrorController {
     }
 
     @PostMapping("/addCourse")
+    // TODO validacija su Duplicate.course.title (pritaikyti ir save ir update)
     public String addCourse(@ModelAttribute("course") Course course,
                             BindingResult resultCourse,
                             @ModelAttribute("cDetails") CourseDetails courseDetails,
@@ -170,12 +170,37 @@ public class HomeController implements ErrorController {
         Category searchCategory = categoryService.findById(Integer.parseInt(categoriesList.get("catId")));
         course.setCategory(searchCategory);
         courseService.save(course);
-        Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiem issaugoto kurso title
-        courseDetails.setCourse(newCourseTitle);                                    // setinam id
-        courseDetailService.save(courseDetails);                                    // Issaugom id i details
+        Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiemame ka tik issaugoto kurso title (id)
+        courseDetails.setCourse(newCourseTitle);                                    // Setinam id i details ->course_id
+        courseDetailService.save(courseDetails);                                    // issaugom
         redirectAttributes.addFlashAttribute("message", "Course saved successfully");
         return "redirect:/addCourse";
     }
+
+    @GetMapping("/editCourse")
+    public String editCourse(Model model) {
+        //Todo  Uzkrauti tuos kursus kurie priklauso prisjung teacher
+        List<Course> course = courseService.findAll();
+        model.addAttribute("courses", course);
+        return "admin-page/edit-course";
+    }
+
+    @GetMapping(value = "/showEditCourse/{courseId}/{detailsId}")
+    public String showEditCourse(@PathVariable("courseId") int courseId, @PathVariable("detailsId") int detailsId,
+                                 @AuthenticationPrincipal UserDetails loggerUser, Model model) {
+        String username = loggerUser.getUsername();
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+
+        Course course = courseService.findById(courseId);
+        model.addAttribute("course", course);
+        model.addAttribute("cDetails", courseDetailService.findById(detailsId)); // course.getCourseDetails() - Galejom ir taip
+        List<Category> categoriesList = categoryService.getAll();
+        model.addAttribute("categoriesList", categoriesList);
+
+        return "admin-page/add-course";
+    }
+
     @GetMapping("/addLessonTopic")
     public String addLessonTopic(Model model) {
         List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
@@ -186,16 +211,17 @@ public class HomeController implements ErrorController {
         model.addAttribute("lesTop", new LessonTopics());
         return "add-lesson-topic";
     }
+
     @PostMapping("/addLessonTopic")
     public String addLessonTopic(@ModelAttribute("lesTop") LessonTopics lessonTopics,
-                            @ModelAttribute("courseDet") CourseDetails courseDetails,
-                            Model model, RedirectAttributes redirectAtt,
-                            BindingResult bindingResult,
-                            @RequestParam HashMap<String, String> mapList) {
+                                 @ModelAttribute("courseDet") CourseDetails courseDetails,
+                                 Model model, RedirectAttributes redirectAtt,
+                                 BindingResult bindingResult,
+                                 @RequestParam HashMap<String, String> mapList) {
 
         lessonValidator.validate(lessonTopics, bindingResult);
 
-        if(bindingResult.hasErrors() ) {
+        if (bindingResult.hasErrors()) {
             redirectAtt.addFlashAttribute("error", "error122");
             model.addAttribute("message", "message122");
             System.out.println("error");
@@ -207,7 +233,7 @@ public class HomeController implements ErrorController {
         List<CourseDetails> courseDetailsList = courseDetailService.findAll();
         model.addAttribute("courseDet", courseDetailsList);
 
-        if(mapList.get("csDetId").equals("csDetNotSelected")) {
+        if (mapList.get("csDetId").equals("csDetNotSelected")) {
             redirectAtt.addFlashAttribute("message", "To create new lesson topic select course details");
             return "redirect:/addLessonTopic";
         }
@@ -272,6 +298,7 @@ public class HomeController implements ErrorController {
         redirectAtt.addFlashAttribute("message", "Last scope");
         return "add-lesson";
     }
+
     @GetMapping("/addCategory")
     public String addCategory(Model model) {
         model.addAttribute("newCategory", new Category());
@@ -281,7 +308,7 @@ public class HomeController implements ErrorController {
     @PostMapping("/addCategory")
     public String addCategory(@ModelAttribute("newCategory") Category category, BindingResult resultCat, Model model, RedirectAttributes redirectAttributes) {
         courseValidator.validateCategory(category, resultCat);
-        if(resultCat.hasErrors()){
+        if (resultCat.hasErrors()) {
             model.addAttribute("errormessage", "Failed to create category");
             return "admin-page/add-category";
         }
@@ -290,200 +317,171 @@ public class HomeController implements ErrorController {
         return "redirect:/addCategory";
     }
 
-        @GetMapping("/coursesListAll")
-        public String coursesListAll (Model model){
-            List<Course> course = courseService.findAll();
-            getCourseRatingAvgAndLenghtSum(course);
-            model.addAttribute("courses", course);
-            // Categories list
-            List<Category> categoriesList = categoryService.findAll();
-            model.addAttribute("categoriesList", categoriesList);
-            return "courses-list";
-        }
+    @GetMapping("/coursesListAll")
+    public String coursesListAll(Model model) {
+        List<Course> course = courseService.findAll();
+        getCourseRatingAvgAndLenghtSum(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+        return "courses-list";
+    }
 
-        @GetMapping("/coursesGridAll")
-        public String coursesGridAll (Model model){
-            List<Course> course = courseService.findAll();
-            getCourseRatingAvgAndLenghtSum(course);
-            model.addAttribute("courses", course);
-            // Categories list
-            List<Category> categoriesList = categoryService.findAll();
-            model.addAttribute("categoriesList", categoriesList);
-            return "courses-grid";
-        }
+    @GetMapping("/coursesGridAll")
+    public String coursesGridAll(Model model) {
+        List<Course> course = courseService.findAll();
+        getCourseRatingAvgAndLenghtSum(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+        return "courses-grid";
+    }
 
-        @GetMapping("/coursesGrid")
-        public String coursesGrid ( @RequestParam("categoryId") int id, Model model){
-            model.addAttribute("catId", id);
-            Category category = categoryService.findById(id);
-            model.addAttribute("categories", category);
-            List<Course> course = courseService.findAllByCategoryId(id);
-            getCourseRatingAvgAndLenghtSum(course);
-            model.addAttribute("courses", course);
-            // Categories list
-            List<Category> categoriesList = categoryService.findAll();
-            model.addAttribute("categoriesList", categoriesList);
-            return "courses-grid";
-        }
+    @GetMapping("/coursesGrid")
+    public String coursesGrid(@RequestParam("categoryId") int id, Model model) {
+        model.addAttribute("catId", id);
+        Category category = categoryService.findById(id);
+        model.addAttribute("categories", category);
+        List<Course> course = courseService.findAllByCategoryId(id);
+        getCourseRatingAvgAndLenghtSum(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+        return "courses-grid";
+    }
 
-        @GetMapping("/editCourse")
-        public String editCourse (Model model){
-            //Todo  Uzkrauti tuos kursus kurie priklauso prisjung teacher
-            List<Course> course = courseService.findAll();
-            model.addAttribute("courses", course);
-            return "admin-page/edit-course";
-        }
+    @GetMapping("/coursesGridSidebar")
+    public String coursesGridSidebar() {
+        return "courses-grid-sidebar";
+    }
 
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
 
-        @GetMapping("/showEditCourse")
-        // TODO gauti course ir details ID per href
-//    @RequestMapping(value = "/showEditCourse/{courseId}/{detailsId}")
-        public String showEditCourse ( @RequestParam("courseId") int courseId,
-        @AuthenticationPrincipal UserDetails loggerUser, Model model)
-        { // @RequestParam(value = "detailsId") int detailsId,
-            String username = loggerUser.getUsername();
-            User user = userService.findByUsername(username);
-            model.addAttribute("user", user);
+    @GetMapping("/contacts")
+    public String contact() {
+        return "contacts";
+    }
 
-            Course course = courseService.findById(courseId);
-            model.addAttribute("course", course);
-            model.addAttribute("cDetails", course.getCourseDetails());
-            List<Category> categoriesList = categoryService.getAll();
-            model.addAttribute("categoriesList", categoriesList);
+    @GetMapping("/404")
+    public String accessDenied() {
+        return "404";
+    }
 
-            return "admin-page/add-course";
-        }
+    @RequestMapping("/error")
+    public ModelAndView handleError() {
+        // https://www.techiedelight.com/display-custom-error-pages-in-spring-boot/
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404");
+        return modelAndView;
+    }
 
-        @GetMapping("/coursesGridSidebar")
-        public String coursesGridSidebar () {
-            return "courses-grid-sidebar";
-        }
-
-
-        @GetMapping("/about")
-        public String about () {
-            return "about";
-        }
-
-        @GetMapping("/contacts")
-        public String contact () {
-            return "contacts";
-        }
-
-        @GetMapping("/404")
-        public String accessDenied () {
-            return "404";
-        }
-
-        @RequestMapping("/error")
-        public ModelAndView handleError () {
-            // https://www.techiedelight.com/display-custom-error-pages-in-spring-boot/
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("404");
-            return modelAndView;
-        }
-
-        @Override
-        public String getErrorPath () {
-            return "error";
-        }
+    @Override
+    public String getErrorPath() {
+        return "error";
+    }
 
 
-        /**
-         * Course average rating
-         *
-         * @param courses
-         */
-        public void getCourseRatingAvgAndLenghtSum (List < Course > courses) {
-            for (Course c : courses) {
-                int sumL = 0;
-                double sum = 0;
-                double k = 0;
-                double average = 0;
-                if (c.getCourseDetails() != null) {
-                    for (CourseReviews cD : c.getCourseDetails().getCourseReviews()) {
-                        sum += cD.getRating();
-                        k++;
-                    }
-                    for (LessonTopics lessonTopics : c.getCourseDetails().getLessonTopics()) {
-                        for (Lessons lessons : lessonTopics.getLessonsList()) {
-                            sumL += lessons.getLength();
-                        }
-                    }
-                    average = Math.round((sum / k) * 10) / 10d;
-                    c.setAvgRating(average);
-                    c.setSumLessonsLenght(sumL);
+    /**
+     * Course average rating
+     *
+     * @param courses
+     */
+    public void getCourseRatingAvgAndLenghtSum(List<Course> courses) {
+        for (Course c : courses) {
+            int sumL = 0;
+            double sum = 0;
+            double k = 0;
+            double average = 0;
+            if (c.getCourseDetails() != null) {
+                for (CourseReviews cD : c.getCourseDetails().getCourseReviews()) {
+                    sum += cD.getRating();
+                    k++;
                 }
+                for (LessonTopics lessonTopics : c.getCourseDetails().getLessonTopics()) {
+                    for (Lessons lessons : lessonTopics.getLessonsList()) {
+                        sumL += lessons.getLength();
+                    }
+                }
+                average = Math.round((sum / k) * 10) / 10d;
+                c.setAvgRating(average);
+                c.setSumLessonsLenght(sumL);
             }
-        }
-
-        /**
-         * @param title SELECT AVG(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
-         * @param model If null, default rating is 0
-         */
-        public void courseReviewRatingByTitle (String title, Model model){
-            if (courseReviewService.findRatingByTitle(title) == null) {
-                model.addAttribute("rating", 0);
-            } else {
-                model.addAttribute("rating", courseReviewService.findRatingByTitle(title));
-            }
-        }
-
-        /**
-         * @param title SELECT COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
-         */
-        public void courseReviewCountRatingByTitle (String title, Model model){
-            if (courseReviewService.findRatingByTitle(title) == null) {
-                model.addAttribute("countRating", 0);
-            } else {
-                model.addAttribute("countRating", courseReviewService.countRatingByTitle(title));
-            }
-        }
-
-        /**
-         * @param title SELECT SUM(length) FROM lessons JOIN... WHERE c.title LIKE c.?
-         */
-        public void lessonsSumByCourseTitle (String title, Model model){
-            model.addAttribute("sumLessons", lessonService.findLessonsSumByTitle(title));
-        }
-
-        /**
-         * @param title SELECT COUNT(id) FROM lessons JOIN... WHERE c.title LIKE c.?
-         */
-        public void lessonsCountByCourseTitle (String title, Model model){
-            model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
-        }
-
-
-        /**
-         * Check if user logged in or anonymous
-         *
-         * @return logged username or anonymous
-         */
-        public String currentLoggedInUsername () {
-            String username = "";
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
-                System.out.println(username + "  - Logged");
-            } else {
-                username = principal.toString();
-                System.out.println(username);
-            }
-            return username;
-        }
-
-        /**
-         * @param courseTitle, Check logged user who bought course by c.title
-         * @return true if bought course, else false
-         */
-        public Boolean usersBoughtCourse (String courseTitle){
-
-            List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
-            if (us.contains(currentLoggedInUsername())) {
-                System.out.println(currentLoggedInUsername() + " <-- Logged user - equals user -->" + us.contains(currentLoggedInUsername()));
-                return true;
-            }
-            return false;
         }
     }
+
+    /**
+     * @param title SELECT AVG(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     * @param model If null, default rating is 0
+     */
+    public void courseReviewRatingByTitle(String title, Model model) {
+        if (courseReviewService.findRatingByTitle(title) == null) {
+            model.addAttribute("rating", 0);
+        } else {
+            model.addAttribute("rating", courseReviewService.findRatingByTitle(title));
+        }
+    }
+
+    /**
+     * @param title SELECT COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     */
+    public void courseReviewCountRatingByTitle(String title, Model model) {
+        if (courseReviewService.findRatingByTitle(title) == null) {
+            model.addAttribute("countRating", 0);
+        } else {
+            model.addAttribute("countRating", courseReviewService.countRatingByTitle(title));
+        }
+    }
+
+    /**
+     * @param title SELECT SUM(length) FROM lessons JOIN... WHERE c.title LIKE c.?
+     */
+    public void lessonsSumByCourseTitle(String title, Model model) {
+        model.addAttribute("sumLessons", lessonService.findLessonsSumByTitle(title));
+    }
+
+    /**
+     * @param title SELECT COUNT(id) FROM lessons JOIN... WHERE c.title LIKE c.?
+     */
+    public void lessonsCountByCourseTitle(String title, Model model) {
+        model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
+    }
+
+
+    /**
+     * Check if user logged in or anonymous
+     *
+     * @return logged username or anonymous
+     */
+    public String currentLoggedInUsername() {
+        String username = "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+            System.out.println(username + "  - Logged");
+        } else {
+            username = principal.toString();
+            System.out.println(username);
+        }
+        return username;
+    }
+
+    /**
+     * @param courseTitle, Check logged user who bought course by c.title
+     * @return true if bought course, else false
+     */
+    public Boolean usersBoughtCourse(String courseTitle) {
+
+        List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
+        if (us.contains(currentLoggedInUsername())) {
+            System.out.println(currentLoggedInUsername() + " <-- Logged user - equals user -->" + us.contains(currentLoggedInUsername()));
+            return true;
+        }
+        return false;
+    }
+}

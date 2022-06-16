@@ -62,7 +62,9 @@
 </form>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+    <a class="navbar-brand" href="/"><img src="../static/admin_section/img/logo.png"
+                                          th:src="@{/admin_section/img/logo.png}" data-retina="true" alt="" width="163"
+                                          height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -262,6 +264,10 @@
 <!-- /Navigation-->
 <form class="content-wrapper" action="#" th:action="@{/addCourse}" method="post">
     <div class="container-fluid">
+        <!--LABAI SVARBUUUUU, jei nori dvieju id savo controleryje (forUpdate), butinai pakeisk kintamuju vardus-->
+        <input type="hidden" th:field="${course.id}">
+        <input type="hidden" th:field="${cDetails.idDet}">
+<!--        <input type="hidden" th:field="${user.id}">-->
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -292,7 +298,6 @@
                             <label>Course title</label>
                             <input type="text" minlength="6" required class="form-control" placeholder="Course title"
                                    th:field="*{title}">
-                            <input type="hidden" th:field="*{id}">
                             <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                         </div>
                     </div>
@@ -327,7 +332,6 @@
                             <input type="text" class="form-control" placeholder="Course teacher"
                                    th:field="*{username}"
                                    readonly="readonly">
-                            <input type="hidden" th:field="*{id}">
                         </div>
                     </div>
                 </div>
@@ -368,16 +372,17 @@
                     <div class="col-md-12">
                         <div class="form-group" th:object="${cDetails}">
                             <label>Course description</label>
-                            <textarea rows="5" class="form-control" style="height:100px;" placeholder="Description" th:field="*{description}" minlength="6" required></textarea>
+                            <textarea rows="5" class="form-control" style="height:100px;" placeholder="Description"
+                                      th:field="*{description}" minlength="6" required></textarea>
                             <span class="has-error" th:if="${#fields.hasErrors('description')}"
                                   th:errors="*{description}"></span>
-                            <input type="hidden" th:field="*{id}">
                         </div>
                     </div>
                 </div>
                 <!-- /row-->
             </div>
-            <input class="btn_1 medium" type="submit" value="Save"/>
+            <input th:if="${cDetails.idDet == 0}" class="btn_1 medium" type="submit" value="Save"/>
+            <input th:if="${cDetails.idDet != 0}" class="btn_1 medium" type="submit" value="Update"/>
         </div>
         <!--        </div>-->
         <!-- /box_general-->

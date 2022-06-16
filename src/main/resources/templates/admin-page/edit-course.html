@@ -316,12 +316,11 @@
                                             </td>
                                             <td class="col-md-1" th:text="${cs.price}">230€</td>
                                             <td class="col-md-2" th:text="${cs.category.title}">JAVA</td>
-                                            <td class="col-md-4 d-inline-block text-truncate" style="max-width: 550px;"
-                                                th:text="${cs?.courseDetails.description}">long text
+                                            <td class="col-md-4 d-inline-block text-truncate" style="max-width: 550px;" th:text="${cs?.courseDetails.description}">long text
                                             </td>
                                             <td class="col-md-2">
-<!--                                                <a th:href="@{/showEditCourse/{courseId}/{detailsId} (courseId=${cs.id}, detailsId=${cs.courseDetails.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>-->
-                                                <a th:href="@{/showEditCourse(courseId=${cs.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>
+                                                    <a th:href="@{/showEditCourse/{courseId}/{detailsId} (courseId=${cs.id}, detailsId=${cs.courseDetails.idDet})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>
+<!--                                                <a th:href="@{/showEditCourse(courseId=${cs.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>-->
                                             </td>
                                         </div>
                                     </tr>

@@ -10,7 +10,7 @@ public class CourseDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private int idDet;
 
     @OneToOne
     @JoinColumn(name = "course_id") //FK
@@ -28,8 +28,8 @@ public class CourseDetails {
 
     public CourseDetails() {}
 
-    public CourseDetails(int id, Course course, String description, List<LessonTopics> lessonTopics, List<CourseReviews> courseReviews) {
-        this.id = id;
+    public CourseDetails(int idDet, Course course, String description, List<LessonTopics> lessonTopics, List<CourseReviews> courseReviews) {
+        this.idDet = idDet;
         this.course = course;
         this.description = description;
         this.lessonTopics = lessonTopics;
@@ -43,12 +43,12 @@ public class CourseDetails {
         this.courseReviews = courseReviews;
     }
 
-    public int getId() {
-        return id;
+    public int getIdDet() {
+        return idDet;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdDet(int idDet) {
+        this.idDet = idDet;
     }
 
     public Course getCourse() {
