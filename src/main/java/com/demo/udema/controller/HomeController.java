@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,9 +35,11 @@ public class HomeController implements ErrorController {
     private LessonService lessonService;
     private CourseDetailService courseDetailService;
     private LessonTopicService lessonTopicService;
+    @Autowired
+    private LessonValidator lessonValidator;
 
     @Autowired
-    public HomeController(UserService userService, CourseValidator courseValidator, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService) {
+    public HomeController(UserService userService, CourseValidator courseValidator, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService, LessonValidator lessonValidator) {
         this.userService = userService;
         this.courseValidator = courseValidator;
         this.categoryService = categoryService;
@@ -45,8 +48,8 @@ public class HomeController implements ErrorController {
         this.lessonService = lessonService;
         this.courseDetailService = courseDetailService;
         this.lessonTopicService = lessonTopicService;
+        this.lessonValidator = lessonValidator;
     }
-
 
     @GetMapping("/")
     public String index(@ModelAttribute("search") Course courseName, Model model) {
@@ -67,8 +70,6 @@ public class HomeController implements ErrorController {
             getCourseRatingAvgAndLenghtSum(courseList);
             model.addAttribute("courses", courseList);
         }
-
-
         return "index";
     }
 
@@ -175,6 +176,56 @@ public class HomeController implements ErrorController {
         redirectAttributes.addFlashAttribute("message", "Course saved successfully");
         return "redirect:/addCourse";
     }
+    @GetMapping("/addLessonTopic")
+    public String addLessonTopic(Model model) {
+        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
+        model.addAttribute("lesson_top", lessonTopicsList);
+
+        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
+        model.addAttribute("courseDet", courseDetailsList);
+        model.addAttribute("lesTop", new LessonTopics());
+        return "add-lesson-topic";
+    }
+    @PostMapping("/addLessonTopic")
+    public String addLessonTopic(@ModelAttribute("lesTop") LessonTopics lessonTopics,
+                            @ModelAttribute("courseDet") CourseDetails courseDetails,
+                            Model model, RedirectAttributes redirectAtt,
+                            BindingResult bindingResult,
+                            @RequestParam HashMap<String, String> mapList) {
+
+        lessonValidator.validate(lessonTopics, bindingResult);
+
+        if(bindingResult.hasErrors() ) {
+            redirectAtt.addFlashAttribute("error", "error122");
+            model.addAttribute("message", "message122");
+            System.out.println("error");
+            return "redirect:/addLessonTopic";
+        }
+        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
+        model.addAttribute("lesson_top", lessonTopicsList);
+
+        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
+        model.addAttribute("courseDet", courseDetailsList);
+
+        if(mapList.get("csDetId").equals("csDetNotSelected")) {
+            redirectAtt.addFlashAttribute("message", "To create new lesson topic select course details");
+            return "redirect:/addLessonTopic";
+        }
+
+        if (!mapList.get("csDetId").equals("csDetNotSelected")) {
+            CourseDetails csDet = courseDetailService.findById(Integer.parseInt(mapList.get("csDetId")));
+            lessonTopics.setCourseDetails(csDet);
+            redirectAtt.addFlashAttribute("message", "LESSON TOPIC saved successfully");
+            lessonTopicService.save(lessonTopics);
+            return "redirect:/addLessonTopic";
+        }
+
+        redirectAtt.addFlashAttribute("message", "Last scope");
+        model.addAttribute("message", "last scope");
+        System.out.println("Scope 3 last");
+        return "add-lesson-topic";
+    }
+
 
     @GetMapping("/addLesson")
     public String addLesson(Model model) {
@@ -188,51 +239,37 @@ public class HomeController implements ErrorController {
         List<CourseDetails> courseDetailsList = courseDetailService.findAll();
         model.addAttribute("courseDet", courseDetailsList);
 
-        model.addAttribute("lesson", new Lessons());
         model.addAttribute("lesTop", new LessonTopics());
-
+        model.addAttribute("lesson", new Lessons());
 //        return "admin-page/add-lesson";
         return "add-lesson";
     }
 
     @PostMapping("/addLesson")
     public String addLesson(@ModelAttribute("lesTop") LessonTopics lessonTopics,
-                            @ModelAttribute("courseDet") CourseDetails courseDetails,
                             @ModelAttribute("lesson") Lessons lessons,
                             Model model, RedirectAttributes redirectAtt,
-                            @RequestParam HashMap<String, String> lessonTopicList) {
+                            @RequestParam HashMap<String, String> mapList) {
         List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
         model.addAttribute("lesson_top", lessonTopicsList);
 
-        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
-        model.addAttribute("courseDet", courseDetailsList);
 
-        if (lessonTopicList.get("csDetId").equals("csDetNotSelected") && lessonTopicList.get("topicId").equals("lsTopNotSelected")) {
-            redirectAtt.addFlashAttribute("message", "Course details and lesson topic is not selected");
-            return "redirect:/addLesson";
-        }
-        if (lessonTopicList.get("topicId").equals("lsTopNotSelected") && !lessonTopicList.get("csDetId").equals("csDetNotSelected")) { // TOPIC
-            CourseDetails csDet = courseDetailService.findById(Integer.parseInt(lessonTopicList.get("csDetId")));
-            lessonTopics.setCourseDetails(csDet);
-            redirectAtt.addFlashAttribute("message", "LESSON TOPIC saved successfully");
-            lessonTopicService.save(lessonTopics);
+        if (mapList.get("topicId").equals("lsTopNotSelected")) {
+            redirectAtt.addFlashAttribute("message", "lesson topic is not selected");
             return "redirect:/addLesson";
         }
 
-        if (lessonTopicList.get("csDetId").equals("csDetNotSelected") && !lessonTopicList.get("topicId").equals("lsTopNotSelected")) { // LESSON
-            LessonTopics lsTop = lessonTopicService.findById(Integer.parseInt(lessonTopicList.get("topicId")));
+        if (!mapList.get("topicId").equals("lsTopNotSelected")) { // LESSON
+            LessonTopics lsTop = lessonTopicService.findById(Integer.parseInt(mapList.get("topicId")));
             lessons.setLessonTopics(lsTop);
 
             System.out.println(lessons.isFree());
-
-            model.addAttribute("message", "LESSON saved successfully");
+            redirectAtt.addFlashAttribute("message", "LESSON saved successfully");
             lessonService.save(lessons);
             return "redirect:/addLesson";
         }
 
         redirectAtt.addFlashAttribute("message", "Last scope");
-        model.addAttribute("message", "last scope");
-        System.out.println("Scope 3 last");
         return "add-lesson";
     }
     @GetMapping("/addCategory")
@@ -240,7 +277,7 @@ public class HomeController implements ErrorController {
         model.addAttribute("newCategory", new Category());
         return "admin-page/add-category";
     }
-    
+
     @PostMapping("/addCategory")
     public String addCategory(@ModelAttribute("newCategory") Category category, BindingResult resultCat, Model model, RedirectAttributes redirectAttributes) {
         courseValidator.validateCategory(category, resultCat);

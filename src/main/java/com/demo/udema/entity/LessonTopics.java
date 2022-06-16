@@ -1,6 +1,10 @@
 package com.demo.udema.entity;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -16,6 +20,8 @@ public class LessonTopics {
     @JoinColumn(name = "course_details_id") //FK
     private CourseDetails courseDetails;
 
+//    @NotEmpty(message = "Field can't be empty!")
+//    @Size(min = 5, message = "test")
     @Column(name = "name", unique=true, length = 512)
     private String name;
 
