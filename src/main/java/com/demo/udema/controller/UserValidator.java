@@ -13,10 +13,8 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
     private UserService userService;
-
     @Override
     public boolean supports(Class<?> aClass) {
         return User.class.equals(aClass);

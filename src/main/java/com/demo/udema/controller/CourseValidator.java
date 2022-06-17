@@ -1,9 +1,6 @@
 package com.demo.udema.controller;
 
-import com.demo.udema.entity.Category;
-import com.demo.udema.entity.Course;
-import com.demo.udema.entity.CourseDetails;
-import com.demo.udema.entity.LessonTopics;
+import com.demo.udema.entity.*;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseService;
 import com.demo.udema.service.LessonService;
@@ -91,10 +88,18 @@ public class CourseValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(lessonTopics.getListNumber()));
         if (matcher.find() == false) {
-            errors.rejectValue("listNumber", "Size.lessonTopic.listNumber");
+            errors.rejectValue("listNumber", "Matcher.lessonTopic.listNumber");
         }
         if(lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
             errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+        }
+    }
+    public void validateLesson(Object o, Errors errors) {
+        Lessons lessons = (Lessons) o;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name", "NotEmpty");
+        if (lessons.getName().length() < 3 || lessons.getName().length() > 32) {
+            errors.rejectValue("name", "Size.lesson.name");
         }
     }
 }

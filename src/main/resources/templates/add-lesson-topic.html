@@ -276,25 +276,25 @@
             </li>
             <li class="breadcrumb-item active">Add lesson</li>
         </ol>
+        <div th:if="${error}" class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${error}"></span>
+        </div>
+        <div th:if="${message}" class="alert success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${message}"></span>
+        </div>
+        <div th:if="${info}" class="alert-info">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${info}"></span>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="box_general padding_bottom" >
                     <div class="header_box version_2">
                         <h2><i class="fa fa-file-text"></i>New Lesson Topic</h2>
+                    </div>
 
-                    </div>
-                    <div th:if="${error}" class="alert">
-                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        <span th:text="${error}"></span>
-                    </div>
-                    <div th:if="${message}" class="alert success">
-                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        <span th:text="${message}"></span>
-                    </div>
-                    <div th:if="${info}" class="alert-info">
-                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        <span th:text="${info}"></span>
-                    </div>
                     <!-- /row-->
                     <div class="row" th:object="${lesTop}">
                         <div class="col-md-5">
@@ -304,13 +304,13 @@
                                     <option th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
                                 </select>
                             </div>
-                            <div class="col-md-6" >
+                            <div class="col-md-15" >
                                 <div class="form-group" >
                                     <input th:field="*{name}" minlength="6" type="text" class="form-control" required placeholder="New lesson topic">
                                     <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                 </div>
                             </div>
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-15 form-group">
                                 <div class="center_b">
                                     <input th:field="*{listNumber}" type="number" min="0" step="1" class="form-control" placeholder="List Number">
                                 </div>

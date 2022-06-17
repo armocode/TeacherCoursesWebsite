@@ -276,74 +276,166 @@
             </li>
             <li class="breadcrumb-item active">Add lesson</li>
         </ol>
+        <div th:if="${error}" class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${error}"></span>
+        </div>
+        <div th:if="${message}" class="alert success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${message}"></span>
+        </div>
+        <div th:if="${info}" class="alert-info">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${info}"></span>
+        </div>
 
         <!-- /box_general-->
 
-        <div class="row" >
-            <div class="col-md-12" >
+        <div class="row">
+            <div class="col-md-12">
                 <div class="box_general padding_bottom" >
                     <div class="header_box version_2">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h2><i class="fa fa-video-camera"></i>Lesson</h2>
-                                <p th:text="${message}"></p>
-                            </div>
-                            <div class="col-md-5" >
-                                <div class="form-group" style="padding-top: 10px; size: 10px">
-                                    <select name="topicId" class="selectbox" >
-                                        <option th:value="lsTopNotSelected">Select lesson topic</option>
-                                        <option th:each="lst :${lesson_top}" th:text="${lst?.name}" th:value="${lst?.id}" >Topic</option>
-                                    </select>
-                                </div>
-                            </div>
-                                <div class="right_b switch-field" th:object="${lesson}">
-                                    <input th:field="*{free}" type="radio" id="TRUE" value="true">
-                                    <label for="TRUE">Free</label>
-                                    <input th:field="*{free}" type="radio" id="FALSE" value="false">
-                                    <label for="FALSE">Cost</label>
-                                </div>
-                        </div>
+                        <h2><i class="fa fa-file-text"></i>New Lesson</h2>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table id="pricing-list-container" style="width:100%;">
-                                <tr class="pricing-list-item">
-                                    <td th:object="${lesson}">
 
-                                        <div class="row" >
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input th:field="*{name}" type="text" class="form-control" placeholder="Lesson name">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <input th:field="*{length}" type="text" class="form-control" placeholder="Lenght">
-                                                </div>
-                                            </div>
 
-                                            <div class="col-md-12">
+<!--CIA PRADZIA-->
+
+
+                                <!-- /row-->
+                                <div class="row" th:object="${lesson}">
+                                    <div class="col-md-5">
+                                        <div class="form-group" style="padding-top: 10px; size: 10px" th:object="${lesTop}">
+                                            <select name="topicId" class="selectbox" >
+                                                <option th:value="lsTopNotSelected">Select lesson topic</option>
+                                                <option th:each="lst :${lesson_top}" th:text="${lst?.name}" th:value="${lst?.id}" >Topic</option>
+                                            </select>
+                                        </div>
+                                        <div class="right_b switch-field" >
+                                            <input th:field="*{free}" type="radio" id="TRUE" value="true">
+                                            <label for="TRUE">Free</label>
+                                            <input th:field="*{free}" type="radio" id="FALSE" value="false">
+                                            <label for="FALSE">Cost</label>
+                                        </div>
+
+                                        <div class="col-md-15" >
+                                            <div class="form-group" >
+                                                <input th:field="*{name}" minlength="6" type="text" class="form-control" required placeholder="New lesson">
+                                                <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                            </div>
+                                        </div>
+
+
+                                            <div class="col-md-15">
                                                 <div class="form-group">
                                             <textarea th:field="*{description}" rows="5" class="form-control" style="height:100px;"
                                                       placeholder="Description"></textarea>
+                                                    <span class="has-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <input th:field="*{videoUrl}" type="text" class="form-control" placeholder="URL">
-                                                </div>
+
+                                        <div class="col-md-15">
+                                            <div class="form-group">
+                                                <input th:field="*{videoUrl}" type="text" class="form-control" placeholder="URL">
+                                                <span class="has-error" th:if="${#fields.hasErrors('videoUrl')}" th:errors="*{videoUrl}"></span>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
-                            </table>
+                                        <div class="col-md-15 form-group">
+                                            <div class="center_b">
+                                                <input th:field="*{length}" type="number" min="0" step="1" class="form-control" placeholder="Length">
+                                            </div>
+                                        </div>
+                                        <span class="has-error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <div class="center_b">
+                                            <!--                    <label> Or create new</label>-->
+                                        </div>
+                                    </div>
+                                    <div >
+                                        <h5>Your lessons</h5>
+                                        <ul th:each="ls : ${lessons}">
+                                            <li th:text="${ls?.id}+' - '+${ls?.name}"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+<!--CIA PABAIGA-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <table id="pricing-list-container" style="width:100%;">-->
+<!--                                <div class="col-md-5" >-->
+<!--                                    <div class="form-group" style="padding-top: 10px; size: 10px">-->
+<!--                                        <select name="topicId" class="selectbox" >-->
+<!--                                            <option th:value="lsTopNotSelected">Select lesson topic</option>-->
+<!--                                            <option th:each="lst :${lesson_top}" th:text="${lst?.name}" th:value="${lst?.id}" >Topic</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+
+
+<!--                                    <div class="right_b switch-field" th:object="${lesson}">-->
+<!--                                        <input th:field="*{free}" type="radio" id="TRUE" value="true">-->
+<!--                                        <label for="TRUE">Free</label>-->
+<!--                                        <input th:field="*{free}" type="radio" id="FALSE" value="false">-->
+<!--                                        <label for="FALSE">Cost</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="right_b">-->
+<!--                                    <div >-->
+<!--                                        <h5> Your lesson topics</h5>-->
+<!--                                        <ul th:each="lp : ${lesson_top}">-->
+<!--                                            <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}+', list number: '+${lp?.listNumber}"></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+<!--                                <tr class="pricing-list-item">-->
+<!--                                    <td th:object="${lesson}">-->
+<!--                                        <div class="row" >-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <input th:field="*{name}" type="text" class="form-control" placeholder="Lesson name">-->
+<!--                                                    <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <input th:field="*{length}" type="text" class="form-control" placeholder="Lenght">-->
+<!--                                                    <span class="has-error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                            <textarea th:field="*{description}" rows="5" class="form-control" style="height:100px;"-->
+<!--                                                      placeholder="Description"></textarea>-->
+<!--                                                    <span class="has-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <input th:field="*{videoUrl}" type="text" class="form-control" placeholder="URL">-->
+<!--                                                    <span class="has-error" th:if="${#fields.hasErrors('videoUrl')}" th:errors="*{videoUrl}"></span>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+
+<!--                            </table>-->
+<!--                        </div>-->
                         <!-- /row-->
                     </div>
                     <!-- /box_general-->
                 </div>
             </div>
         </div>
+
         <!-- /box_general-->
         <input class="btn_1 medium" type="submit" value="Save"/>
     </div>

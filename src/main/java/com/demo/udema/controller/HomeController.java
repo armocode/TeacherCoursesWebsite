@@ -166,7 +166,6 @@ public class HomeController implements ErrorController {
         courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
 
         if (lessonTopicResult.hasErrors()) {
-//            redirectAtt.addFlashAttribute("error", "failed to create lesson topic");
             List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
             model.addAttribute("lesson_top", lessonTopicsList);
             List<CourseDetails> courseDetailsList = courseDetailService.findAll();
@@ -190,7 +189,6 @@ public class HomeController implements ErrorController {
 
             System.out.println("Saved");
             return "redirect:/addLessonTopic";
-
     }
 
 
@@ -200,13 +198,8 @@ public class HomeController implements ErrorController {
         List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
         model.addAttribute("lesson_top", lessonTopicsList);
 
-        List<Course> courseList = courseService.findAll();
-        model.addAttribute("course", courseList);
-
-        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
-        model.addAttribute("courseDet", courseDetailsList);
-
-        model.addAttribute("lesTop", new LessonTopics());
+        List<Lessons> lessonsList = lessonService.findAll();
+        model.addAttribute("lessons", lessonsList);
         model.addAttribute("lesson", new Lessons());
 //        return "admin-page/add-lesson";
         return "add-lesson";
@@ -215,29 +208,31 @@ public class HomeController implements ErrorController {
     @PostMapping("/addLesson")
     public String addLesson(@ModelAttribute("lesTop") LessonTopics lessonTopics,
                             @ModelAttribute("lesson") Lessons lessons,
+                            BindingResult lessonResult,
                             Model model, RedirectAttributes redirectAtt,
                             @RequestParam HashMap<String, String> mapList) {
-        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-        model.addAttribute("lesson_top", lessonTopicsList);
 
+        courseValidator.validateLesson(lessons, lessonResult);
+
+        if(lessonResult.hasErrors()) {
+            List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
+            model.addAttribute("lesson_top", lessonTopicsList);
+            model.addAttribute("error", "Failed to create lesson");
+            return "add-lesson";
+        }
 
         if (mapList.get("topicId").equals("lsTopNotSelected")) {
-            redirectAtt.addFlashAttribute("message", "lesson topic is not selected");
+            redirectAtt.addFlashAttribute("info", "Please select an option from lesson topic list");
             return "redirect:/addLesson";
         }
 
-        if (!mapList.get("topicId").equals("lsTopNotSelected")) { // LESSON
             LessonTopics lsTop = lessonTopicService.findById(Integer.parseInt(mapList.get("topicId")));
             lessons.setLessonTopics(lsTop);
-
             System.out.println(lessons.isFree());
-            redirectAtt.addFlashAttribute("message", "LESSON saved successfully");
+            redirectAtt.addFlashAttribute("message", "Lesson saved successfully");
             lessonService.save(lessons);
             return "redirect:/addLesson";
-        }
 
-        redirectAtt.addFlashAttribute("message", "Last scope");
-        return "add-lesson";
     }
 
     @GetMapping("/addCategory")
