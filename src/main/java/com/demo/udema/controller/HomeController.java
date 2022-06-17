@@ -153,7 +153,7 @@ public class HomeController implements ErrorController {
         List<CourseDetails> courseDetailsList = courseDetailService.findAll();
         model.addAttribute("courseDet", courseDetailsList);
         model.addAttribute("lesTop", new LessonTopics());
-        return "add-lesson-topic";
+        return "admin-page/add-lesson-topic";
     }
 
     @PostMapping("/addLessonTopic")
@@ -171,11 +171,11 @@ public class HomeController implements ErrorController {
             List<CourseDetails> courseDetailsList = courseDetailService.findAll();
             model.addAttribute("courseDet", courseDetailsList);
             model.addAttribute("error", "Failed to create lesson topic");
-            return "add-lesson-topic";
+            return "admin-page/add-lesson-topic";
         }
 
         if (mapList.get("csDetId").equals("csDetNotSelected")) {
-            redirectAtt.addFlashAttribute("info", "Please select an option from course details list");
+            redirectAtt.addFlashAttribute("error", "Please select an option from course details list");
             return "redirect:/addLessonTopic";
         }
 
@@ -191,7 +191,6 @@ public class HomeController implements ErrorController {
             return "redirect:/addLessonTopic";
     }
 
-
     @GetMapping("/addLesson")
     public String addLesson(Model model) {
 
@@ -201,8 +200,7 @@ public class HomeController implements ErrorController {
         List<Lessons> lessonsList = lessonService.findAll();
         model.addAttribute("lessons", lessonsList);
         model.addAttribute("lesson", new Lessons());
-//        return "admin-page/add-lesson";
-        return "add-lesson";
+        return "admin-page/add-lesson";
     }
 
     @PostMapping("/addLesson")
@@ -220,11 +218,11 @@ public class HomeController implements ErrorController {
             List<Lessons> lessonsList = lessonService.findAll();
             model.addAttribute("lessons", lessonsList);
             model.addAttribute("error", "Failed to create lesson");
-            return "add-lesson";
+            return "admin-page/add-lesson";
         }
 
         if (mapList.get("topicId").equals("lsTopNotSelected")) {
-            redirectAtt.addFlashAttribute("info", "Please select an option from lesson topic list");
+            redirectAtt.addFlashAttribute("error", "Please select an option from lesson topic list");
             return "redirect:/addLesson";
         }
 

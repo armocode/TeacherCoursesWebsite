@@ -26,7 +26,7 @@ public class LessonTopics {
     private String name;
 
     @Column(name = "list_number", unique=true, length = 3)
-    private int listNumber;
+    private Integer listNumber;
 
     @OneToMany(mappedBy = "lessonTopics", cascade = CascadeType.ALL) //PK
     private List<Lessons> lessonsList;
@@ -34,14 +34,14 @@ public class LessonTopics {
 
 public LessonTopics(){}
 
-    public LessonTopics(int id, CourseDetails courseDetails, String name, int listNumber) {
+    public LessonTopics(int id, CourseDetails courseDetails, String name, Integer listNumber) {
         this.id = id;
         this.courseDetails = courseDetails;
         this.name = name;
         this.listNumber = listNumber;
     }
 
-    public LessonTopics(CourseDetails courseDetails, String name, int listNumber) {
+    public LessonTopics(CourseDetails courseDetails, String name, Integer listNumber) {
         this.courseDetails = courseDetails;
         this.name = name;
         this.listNumber = listNumber;
@@ -71,11 +71,11 @@ public LessonTopics(){}
         this.name = name;
     }
 
-    public int getListNumber() {
+    public Integer getListNumber() {
         return listNumber;
     }
 
-    public void setListNumber(int listNumber) {
+    public void setListNumber(Integer listNumber) {
         this.listNumber = listNumber;
     }
 
@@ -85,16 +85,5 @@ public LessonTopics(){}
 
     public void setLessonsList(List<Lessons> lessonsList) {
         this.lessonsList = lessonsList;
-    }
-
-    @Override
-    public String toString() {
-        return "LessonTopics{" +
-                "id=" + id +
-                ", courseDetails=" + courseDetails +
-                ", name='" + name + '\'' +
-                ", listNumber=" + listNumber +
-                ", lessonsList=" + lessonsList +
-                '}';
     }
 }

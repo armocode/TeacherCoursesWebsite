@@ -74,7 +74,7 @@ public class CourseValidator implements Validator {
         }
     }
 
-    //----Lesson topic----//
+    //----Lesson topics----//
     public void validateLessonTopic(Object o, Errors errors) {
         LessonTopics lessonTopics = (LessonTopics) o;
 
@@ -94,6 +94,7 @@ public class CourseValidator implements Validator {
             errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
         }
     }
+    //----Lessons----/
     public void validateLesson(Object o, Errors errors) {
         Lessons lessons = (Lessons) o;
 
@@ -108,8 +109,18 @@ public class CourseValidator implements Validator {
         if (lessons.getDescription().length() < 6) {
             errors.rejectValue("description", "Size.lesson.description");
         }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "videoUrl", "NotEmpty");
+        if (lessons.getVideoUrl().length() < 3) {
+            errors.rejectValue("videoUrl", "Size.lesson.videoUrl");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "length", "NotEmpty");
+        Matcher matcher = pattern.matcher(String.valueOf(lessons.getLength()));
+            if (matcher.find() == false) {
+                errors.rejectValue("length", "Matcher.lesson.length");
+            }
+        }
     }
-}
+
 
 
 
