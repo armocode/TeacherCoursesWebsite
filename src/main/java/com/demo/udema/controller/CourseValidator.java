@@ -101,6 +101,13 @@ public class CourseValidator implements Validator {
         if (lessons.getName().length() < 3 || lessons.getName().length() > 32) {
             errors.rejectValue("name", "Size.lesson.name");
         }
+        if(lessonService.findByLessonName(lessons.getName()) != null) {
+            errors.rejectValue("name", "Duplicate.lesson.name");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
+        if (lessons.getDescription().length() < 6) {
+            errors.rejectValue("description", "Size.lesson.description");
+        }
     }
 }
 

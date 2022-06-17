@@ -54,4 +54,9 @@ public class LessonServiceImpl implements LessonService{
         return lessonRepository.findAll();
     }
 
+    @Override
+    public String findByLessonName(String name) {
+        return lessonRepository.findByLessonName(name);
+    }
+
 }

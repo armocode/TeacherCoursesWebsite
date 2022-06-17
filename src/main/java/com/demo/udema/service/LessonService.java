@@ -12,4 +12,6 @@ public interface LessonService {
     Integer countLessonsByTitle(String title);
     void save(Lessons lessons);
     List<Lessons> findAll();
+    String findByLessonName(String name);
+
 }

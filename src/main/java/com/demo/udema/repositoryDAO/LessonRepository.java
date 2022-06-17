@@ -30,6 +30,9 @@ public interface LessonRepository extends JpaRepository<Lessons, Integer> {
             " WHERE courses.title LIKE ?1)", nativeQuery = true)
     Integer countLessonByTitle(String title);
 
+    @Query(value = "SELECT * FROM lessons " +
+            "WHERE name = ?1", nativeQuery = true)
+    String findByLessonName(String name);
 }
 
 

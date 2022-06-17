@@ -217,6 +217,8 @@ public class HomeController implements ErrorController {
         if(lessonResult.hasErrors()) {
             List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
             model.addAttribute("lesson_top", lessonTopicsList);
+            List<Lessons> lessonsList = lessonService.findAll();
+            model.addAttribute("lessons", lessonsList);
             model.addAttribute("error", "Failed to create lesson");
             return "add-lesson";
         }
@@ -232,7 +234,6 @@ public class HomeController implements ErrorController {
             redirectAtt.addFlashAttribute("message", "Lesson saved successfully");
             lessonService.save(lessons);
             return "redirect:/addLesson";
-
     }
 
     @GetMapping("/addCategory")
