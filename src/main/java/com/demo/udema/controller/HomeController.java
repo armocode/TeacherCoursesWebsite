@@ -163,17 +163,15 @@ public class HomeController implements ErrorController {
                                  Model model, RedirectAttributes redirectAtt,
                                  @RequestParam HashMap<String, String> mapList) {
 
-
         courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
 
         if (lessonTopicResult.hasErrors()) {
             redirectAtt.addFlashAttribute("error", "failed to create lesson topic");
-            System.out.println("error");
             return "redirect:/addLessonTopic";
         }
 
         if (mapList.get("csDetId").equals("csDetNotSelected")) {
-            redirectAtt.addFlashAttribute("info", "To create new lesson topic select course details");
+            redirectAtt.addFlashAttribute("info", "Please select an option from course details list");
             return "redirect:/addLessonTopic";
         }
 

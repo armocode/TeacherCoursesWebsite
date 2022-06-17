@@ -282,7 +282,6 @@
                     <div class="header_box version_2">
                         <h2><i class="fa fa-file-text"></i>New Lesson Topic</h2>
 
-
                     </div>
                     <div th:if="${error}" class="alert">
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -305,15 +304,15 @@
                                     <option th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
                                 </select>
                             </div>
-                            <div class="col-md-5" th:object="${lesTop}">
+                            <div class="col-md-6" th:object="${lesTop}">
                                 <div class="form-group" >
-                                    <input th:field="*{name}" type="text" class="form-control" required placeholder="New lesson topic">
+                                    <input th:field="*{name}" minlength="6" type="text" class="form-control" required placeholder="New lesson topic">
                                     <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                 </div>
                             </div>
-                            <div class="col-md-2 form-group" th:object="${lesTop}">
+                            <div class="col-md-6 form-group" th:object="${lesTop}">
                                 <div class="center_b">
-                                    <input th:field="*{listNumber}" type="text" class="form-control" placeholder="List Number">
+                                    <input th:field="*{listNumber}" type="number" min="0" step="1" class="form-control" placeholder="List Number">
                                     <span class="has-error" th:if="${#fields.hasErrors('listNumber')}" th:errors="*{listNumber}"></span>
                                 </div>
                             </div>
@@ -326,7 +325,7 @@
                         <div >
                             <h5> Your lesson topics</h5>
                             <ul th:each="lp : ${lesson_top}">
-                                <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}"></li>
+                                <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}+', list number: '+${lp?.listNumber}"></li>
                             </ul>
                         </div>
                     </div>

@@ -90,7 +90,6 @@ public class CourseValidator implements Validator {
         if (matcher.find() == false) {
             errors.rejectValue("listNumber", "Size.lessonTopic.listNumber");
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
         if(lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
             errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
         }
