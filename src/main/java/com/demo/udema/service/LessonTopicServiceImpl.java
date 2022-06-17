@@ -46,4 +46,9 @@ public class LessonTopicServiceImpl implements LessonTopicService{
         return lessonTopicRepository.findByListNumber(listNumber);
     }
 
+    @Override
+    public String findByTopicName(String name) {
+        return lessonTopicRepository.findByTopicName(name);
+    }
+
 }

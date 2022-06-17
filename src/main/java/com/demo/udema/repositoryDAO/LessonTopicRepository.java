@@ -14,4 +14,7 @@ public interface LessonTopicRepository extends JpaRepository<LessonTopics, Integ
             " WHERE list_number = ?1", nativeQuery = true)
     String findByListNumber(String listNumber);
 
+    @Query(value = "SELECT name FROM lesson_topics" +
+            " WHERE name = ?1", nativeQuery = true)
+    String findByTopicName(String name);
 }

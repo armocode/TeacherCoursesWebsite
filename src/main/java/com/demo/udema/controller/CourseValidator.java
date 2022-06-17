@@ -85,6 +85,9 @@ public class CourseValidator implements Validator {
         if (lessonTopics.getName().length() < 3 || lessonTopics.getName().length() > 32) {
             errors.rejectValue("name", "Size.lessonTopic.name");
         }
+        if (lessonTopicService.findByTopicName(lessonTopics.getName()) != null) {
+            errors.rejectValue("name", "Duplicate.lessonTopic.name");
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(lessonTopics.getListNumber()));
         if (matcher.find() == false) {

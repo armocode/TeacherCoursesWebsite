@@ -166,8 +166,13 @@ public class HomeController implements ErrorController {
         courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
 
         if (lessonTopicResult.hasErrors()) {
-            redirectAtt.addFlashAttribute("error", "failed to create lesson topic");
-            return "redirect:/addLessonTopic";
+//            redirectAtt.addFlashAttribute("error", "failed to create lesson topic");
+            List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
+            model.addAttribute("lesson_top", lessonTopicsList);
+            List<CourseDetails> courseDetailsList = courseDetailService.findAll();
+            model.addAttribute("courseDet", courseDetailsList);
+            model.addAttribute("error", "Failed to create lesson topic");
+            return "add-lesson-topic";
         }
 
         if (mapList.get("csDetId").equals("csDetNotSelected")) {
@@ -175,10 +180,9 @@ public class HomeController implements ErrorController {
             return "redirect:/addLessonTopic";
         }
 
-        if (!mapList.get("csDetId").equals("csDetNotSelected")) {
             CourseDetails csDet = courseDetailService.findById(Integer.parseInt(mapList.get("csDetId")));
             lessonTopics.setCourseDetails(csDet);
-            redirectAtt.addFlashAttribute("message", "LESSON TOPIC saved successfully");
+            redirectAtt.addFlashAttribute("message", "Lesson topic saved successfully");
             lessonTopicService.save(lessonTopics);
 
             List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
@@ -186,11 +190,7 @@ public class HomeController implements ErrorController {
 
             System.out.println("Saved");
             return "redirect:/addLessonTopic";
-        }
 
-        model.addAttribute("message", "last scope");
-        System.out.println("Scope 3 last");
-        return "add-lesson-topic";
     }
 
 
