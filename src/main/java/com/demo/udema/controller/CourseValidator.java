@@ -3,8 +3,11 @@ package com.demo.udema.controller;
 import com.demo.udema.entity.Category;
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseDetails;
+import com.demo.udema.entity.LessonTopics;
 import com.demo.udema.service.CategoryService;
 import com.demo.udema.service.CourseService;
+import com.demo.udema.service.LessonService;
+import com.demo.udema.service.LessonTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -20,6 +23,10 @@ public class CourseValidator implements Validator {
     private CourseService courseService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private LessonTopicService lessonTopicService;
+    @Autowired
+    private LessonService lessonService;
 
     Pattern pattern = Pattern.compile("^\\d{0,8}(\\.\\d{1,2})?$");
 
@@ -32,7 +39,7 @@ public class CourseValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Course course = (Course) o;
 
-//----title----//
+//----Course title----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (course.getTitle().length() < 6 || course.getTitle().length() > 32) {
             errors.rejectValue("title", "Size.course.title");
@@ -41,7 +48,7 @@ public class CourseValidator implements Validator {
 //            errors.rejectValue("title", "Duplicate.course.title");
 //        }
 
-//----price----//
+//----Course price----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(course.getPrice()));
         if (matcher.find() == false) {
@@ -53,7 +60,7 @@ public class CourseValidator implements Validator {
     public void validateCourseDes(Object o, Errors errors) {
         CourseDetails courseDetails = (CourseDetails) o;
 
-//----description----//
+//----Course details description----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
         if (courseDetails.getDescription().length() < 6) {
             errors.rejectValue("description", "Size.course.description");
@@ -67,6 +74,23 @@ public class CourseValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (categoryService.findByTitle(category.getTitle()) != null) {
             errors.rejectValue("title", "Duplicate.category.title");
+        }
+    }
+
+    //----Lesson topic----//
+    public void validateLessonTopic(Object o, Errors errors) {
+        LessonTopics lessonTopics = (LessonTopics) o;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Size.lessonTopic.name");
+        if (lessonTopics.getName().length() < 3 || lessonTopics.getName().length() > 32) {
+            errors.rejectValue("name", "Size.course.title");
+        }
+
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "Size.lessonTopic.listNumber");
+        Matcher matcher = pattern.matcher(String.valueOf(lessonTopics.getListNumber()));
+        if (matcher.find() == false) {
+            errors.rejectValue("listNumber", "Matcher.course.price");
         }
     }
 }

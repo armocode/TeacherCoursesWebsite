@@ -35,10 +35,7 @@ public class HomeController implements ErrorController {
     private CourseDetailService courseDetailService;
     private LessonTopicService lessonTopicService;
     @Autowired
-    private LessonValidator lessonValidator;
-
-    @Autowired
-    public HomeController(UserService userService, CourseValidator courseValidator, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService, LessonValidator lessonValidator) {
+    public HomeController(UserService userService, CourseValidator courseValidator, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService) {
         this.userService = userService;
         this.courseValidator = courseValidator;
         this.categoryService = categoryService;
@@ -47,7 +44,6 @@ public class HomeController implements ErrorController {
         this.lessonService = lessonService;
         this.courseDetailService = courseDetailService;
         this.lessonTopicService = lessonTopicService;
-        this.lessonValidator = lessonValidator;
     }
 
     @GetMapping("/")
@@ -71,59 +67,7 @@ public class HomeController implements ErrorController {
         }
         return "index";
     }
-
-    @GetMapping("/reviews")
-    public String adminPageReviews(@ModelAttribute("orderReviews") String arrangement, Model model) {
-        List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime();
-        List<CourseReviews> latestReview = courseReviewService.findAllSortByLatest();
-
-        if (arrangement == null) {
-            model.addAttribute("review", oldestReview);
-            return "admin-page/reviews";
-        }
-        if (arrangement.equals("latest")) {
-            model.addAttribute("review", latestReview);
-            return "admin-page/reviews";
-        } else if (arrangement.equals("oldest")) {
-            model.addAttribute("review", oldestReview);
-            return "admin-page/reviews";
-        }
-        model.addAttribute("review", oldestReview);
-        return "admin-page/reviews";
-    }
-
-    @GetMapping("/coursesList")
-    public String coursesList(@RequestParam("categoryId") int id, Model model) {
-        model.addAttribute("catId", id);
-        Category category = categoryService.findById(id);
-        model.addAttribute("categories", category);
-        List<Course> course = courseService.findAllByCategoryId(id);
-        getCourseRatingAvgAndLenghtSum(course);
-        model.addAttribute("courses", course);
-        // Categories list
-        List<Category> categoriesList = categoryService.findAll();
-        model.addAttribute("categoriesList", categoriesList);
-        return "courses-list";
-    }
-
-    @GetMapping("/coursesDetails")
-    public String course(@RequestParam("courseTitle") String title, Model model) {
-
-        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
-
-        Course course = courseService.findByTitle(title);
-        model.addAttribute("coursesTit", course);
-
-        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-        model.addAttribute("reviewList", courseReviewsList);
-
-        courseReviewCountRatingByTitle(title, model);
-        courseReviewRatingByTitle(title, model);
-        lessonsSumByCourseTitle(title, model);
-        lessonsCountByCourseTitle(title, model);
-        return "course-detail";
-    }
-
+    
     @GetMapping("/addCourse")
     public String addCourse(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
@@ -214,16 +158,15 @@ public class HomeController implements ErrorController {
 
     @PostMapping("/addLessonTopic")
     public String addLessonTopic(@ModelAttribute("lesTop") LessonTopics lessonTopics,
+                                 BindingResult lessonTopicResult,
                                  @ModelAttribute("courseDet") CourseDetails courseDetails,
                                  Model model, RedirectAttributes redirectAtt,
-                                 BindingResult bindingResult,
                                  @RequestParam HashMap<String, String> mapList) {
 
-        lessonValidator.validate(lessonTopics, bindingResult);
+        courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
 
-        if (bindingResult.hasErrors()) {
-            redirectAtt.addFlashAttribute("error", "error122");
-            model.addAttribute("message", "message122");
+        if (lessonTopicResult.hasErrors()) {
+            redirectAtt.addFlashAttribute("error", "failed to create lesson topic");
             System.out.println("error");
             return "redirect:/addLessonTopic";
         }
@@ -315,6 +258,56 @@ public class HomeController implements ErrorController {
         categoryService.save(category);
         redirectAttributes.addFlashAttribute("message", "Category saved successfully");
         return "redirect:/addCategory";
+    }
+    @GetMapping("/coursesList")
+    public String coursesList(@RequestParam("categoryId") int id, Model model) {
+        model.addAttribute("catId", id);
+        Category category = categoryService.findById(id);
+        model.addAttribute("categories", category);
+        List<Course> course = courseService.findAllByCategoryId(id);
+        getCourseRatingAvgAndLenghtSum(course);
+        model.addAttribute("courses", course);
+        // Categories list
+        List<Category> categoriesList = categoryService.findAll();
+        model.addAttribute("categoriesList", categoriesList);
+        return "courses-list";
+    }
+
+    @GetMapping("/coursesDetails")
+    public String course(@RequestParam("courseTitle") String title, Model model) {
+
+        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+
+        Course course = courseService.findByTitle(title);
+        model.addAttribute("coursesTit", course);
+
+        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+        model.addAttribute("reviewList", courseReviewsList);
+
+        courseReviewCountRatingByTitle(title, model);
+        courseReviewRatingByTitle(title, model);
+        lessonsSumByCourseTitle(title, model);
+        lessonsCountByCourseTitle(title, model);
+        return "course-detail";
+    }
+    @GetMapping("/reviews")
+    public String adminPageReviews(@ModelAttribute("orderReviews") String arrangement, Model model) {
+        List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime();
+        List<CourseReviews> latestReview = courseReviewService.findAllSortByLatest();
+
+        if (arrangement == null) {
+            model.addAttribute("review", oldestReview);
+            return "admin-page/reviews";
+        }
+        if (arrangement.equals("latest")) {
+            model.addAttribute("review", latestReview);
+            return "admin-page/reviews";
+        } else if (arrangement.equals("oldest")) {
+            model.addAttribute("review", oldestReview);
+            return "admin-page/reviews";
+        }
+        model.addAttribute("review", oldestReview);
+        return "admin-page/reviews";
     }
 
     @GetMapping("/coursesListAll")
