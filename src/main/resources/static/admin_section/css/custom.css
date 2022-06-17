@@ -35,3 +35,18 @@ text-color {
 .hiddenRow {
     padding: 0 !important;
 }
+
+.btn-link:after {
+    content: '\2212';
+    font-size: 20px;
+    text-align: center;
+    left: 10px;
+    top: 7px;
+    position: absolute;
+    /*background-color: #0dcaf0;*/
+}
+
+.btn-link.collapsed:after
+{
+    content: '\002B';
+}
