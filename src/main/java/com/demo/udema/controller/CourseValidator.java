@@ -81,16 +81,18 @@ public class CourseValidator implements Validator {
     public void validateLessonTopic(Object o, Errors errors) {
         LessonTopics lessonTopics = (LessonTopics) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Size.lessonTopic.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
         if (lessonTopics.getName().length() < 3 || lessonTopics.getName().length() > 32) {
-            errors.rejectValue("name", "Size.course.title");
+            errors.rejectValue("name", "Size.lessonTopic.name");
         }
-
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "Size.lessonTopic.listNumber");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(lessonTopics.getListNumber()));
         if (matcher.find() == false) {
-            errors.rejectValue("listNumber", "Matcher.course.price");
+            errors.rejectValue("listNumber", "Size.lessonTopic.listNumber");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
+        if(lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
+            errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
         }
     }
 }

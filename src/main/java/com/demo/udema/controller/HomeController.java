@@ -163,6 +163,7 @@ public class HomeController implements ErrorController {
                                  Model model, RedirectAttributes redirectAtt,
                                  @RequestParam HashMap<String, String> mapList) {
 
+
         courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
 
         if (lessonTopicResult.hasErrors()) {
@@ -170,14 +171,9 @@ public class HomeController implements ErrorController {
             System.out.println("error");
             return "redirect:/addLessonTopic";
         }
-        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-        model.addAttribute("lesson_top", lessonTopicsList);
-
-        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
-        model.addAttribute("courseDet", courseDetailsList);
 
         if (mapList.get("csDetId").equals("csDetNotSelected")) {
-            redirectAtt.addFlashAttribute("message", "To create new lesson topic select course details");
+            redirectAtt.addFlashAttribute("info", "To create new lesson topic select course details");
             return "redirect:/addLessonTopic";
         }
 
@@ -186,10 +182,14 @@ public class HomeController implements ErrorController {
             lessonTopics.setCourseDetails(csDet);
             redirectAtt.addFlashAttribute("message", "LESSON TOPIC saved successfully");
             lessonTopicService.save(lessonTopics);
+
+            List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
+            model.addAttribute("lesson_top", lessonTopicsList);
+
+            System.out.println("Saved");
             return "redirect:/addLessonTopic";
         }
 
-        redirectAtt.addFlashAttribute("message", "Last scope");
         model.addAttribute("message", "last scope");
         System.out.println("Scope 3 last");
         return "add-lesson-topic";

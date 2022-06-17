@@ -9,4 +9,6 @@ public interface LessonTopicService {
     void save(LessonTopics lessonTopics);
 
     LessonTopics findById(int id);
+
+    String findByListNumber(String listNumber);
 }
