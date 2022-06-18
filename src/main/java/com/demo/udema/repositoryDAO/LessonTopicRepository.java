@@ -17,4 +17,14 @@ public interface LessonTopicRepository extends JpaRepository<LessonTopics, Integ
     @Query(value = "SELECT name FROM lesson_topics" +
             " WHERE name = ?1", nativeQuery = true)
     String findByTopicName(String name);
+
+    @Query(value = "SELECT * FROM lesson_topics" +
+            " WHERE lesson_topics.course_details_id IN" +
+            "(SELECT course_details.id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            "(SELECT courses.id FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            "(SELECT users.id FROM users" +
+            " WHERE users.username = ?1)))", nativeQuery = true)
+    List<LessonTopics> findAllTeacherLessonTopicByUsername(String username);
 }

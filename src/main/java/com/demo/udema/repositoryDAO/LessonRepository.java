@@ -33,6 +33,18 @@ public interface LessonRepository extends JpaRepository<Lessons, Integer> {
     @Query(value = "SELECT * FROM lessons " +
             "WHERE name = ?1", nativeQuery = true)
     String findByLessonName(String name);
+
+    @Query(value = "SELECT * FROM lessons" +
+            " WHERE lesson_topic_id IN" +
+            "(SELECT lesson_topics.id FROM lesson_topics" +
+            " WHERE lesson_topics.course_details_id IN" +
+            "(SELECT course_details.id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            "(SELECT courses.id FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            "(SELECT users.id FROM users" +
+            " WHERE users.username = ?1))))", nativeQuery = true)
+    List<Lessons> findAllTeacherLessonsByUsername(String username);
 }
 
 

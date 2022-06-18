@@ -59,4 +59,9 @@ public class LessonServiceImpl implements LessonService{
         return lessonRepository.findByLessonName(name);
     }
 
+    @Override
+    public List<Lessons> findAllTeacherLessonsByUsername(String username) {
+        return lessonRepository.findAllTeacherLessonsByUsername(username);
+    }
+
 }

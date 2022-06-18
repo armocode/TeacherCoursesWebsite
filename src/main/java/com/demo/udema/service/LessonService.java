@@ -13,5 +13,6 @@ public interface LessonService {
     void save(Lessons lessons);
     List<Lessons> findAll();
     String findByLessonName(String name);
+    List<Lessons> findAllTeacherLessonsByUsername(String username);
 
 }

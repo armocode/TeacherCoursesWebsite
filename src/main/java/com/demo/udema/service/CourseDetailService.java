@@ -10,6 +10,5 @@ public interface CourseDetailService {
 
     void save(CourseDetails details);
     CourseDetails findById(int id);
-
-
+    List<CourseDetails> findAllTeacherCourseDetailsByUsername(String username);
 }

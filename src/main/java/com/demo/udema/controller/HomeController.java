@@ -34,6 +34,7 @@ public class HomeController implements ErrorController {
     private LessonService lessonService;
     private CourseDetailService courseDetailService;
     private LessonTopicService lessonTopicService;
+
     @Autowired
     public HomeController(UserService userService, CourseValidator courseValidator, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService) {
         this.userService = userService;
@@ -67,7 +68,7 @@ public class HomeController implements ErrorController {
         }
         return "index";
     }
-    
+
     @GetMapping("/addCourse")
     public String addCourse(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
@@ -151,11 +152,16 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/addLessonTopic")
     public String addLessonTopic(Model model) {
-        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-        model.addAttribute("lesson_top", lessonTopicsList);
+//        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
+        List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
+        model.addAttribute("lesson_top", teacherLessonTopicList);
 
-        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
-        model.addAttribute("courseDet", courseDetailsList);
+        currentLoggedInUsername();
+
+        List<CourseDetails> teacherCourseDetList = courseDetailService.findAllTeacherCourseDetailsByUsername(currentLoggedInUsername());
+        model.addAttribute("courseDet", teacherCourseDetList);
+//        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
+
         model.addAttribute("lesTop", new LessonTopics());
         return "admin-page/add-lesson-topic";
     }
@@ -170,8 +176,10 @@ public class HomeController implements ErrorController {
         courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
 
         if (lessonTopicResult.hasErrors()) {
-            List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-            model.addAttribute("lesson_top", lessonTopicsList);
+
+            List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
+            model.addAttribute("lesson_top", teacherLessonTopicList);
+
             List<CourseDetails> courseDetailsList = courseDetailService.findAll();
             model.addAttribute("courseDet", courseDetailsList);
             model.addAttribute("error", "Failed to create lesson topic");
@@ -183,26 +191,27 @@ public class HomeController implements ErrorController {
             return "redirect:/addLessonTopic";
         }
 
-            CourseDetails csDet = courseDetailService.findById(Integer.parseInt(mapList.get("csDetId")));
-            lessonTopics.setCourseDetails(csDet);
-            redirectAtt.addFlashAttribute("message", "Lesson topic saved successfully");
-            lessonTopicService.save(lessonTopics);
+        CourseDetails csDet = courseDetailService.findById(Integer.parseInt(mapList.get("csDetId")));
+        lessonTopics.setCourseDetails(csDet);
+        redirectAtt.addFlashAttribute("message", "Lesson topic saved successfully");
+        lessonTopicService.save(lessonTopics);
 
-            List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-            model.addAttribute("lesson_top", lessonTopicsList);
 
-            System.out.println("Saved");
-            return "redirect:/addLessonTopic";
+        List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
+        model.addAttribute("lesson_top", teacherLessonTopicList);
+
+        System.out.println("Saved");
+        return "redirect:/addLessonTopic";
     }
 
     @GetMapping("/addLesson")
     public String addLesson(Model model) {
 
-        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-        model.addAttribute("lesson_top", lessonTopicsList);
+        List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
+        model.addAttribute("lesson_top", teacherLessonTopicList);
 
-        List<Lessons> lessonsList = lessonService.findAll();
-        model.addAttribute("lessons", lessonsList);
+        List<Lessons> teacherLessonList = lessonService.findAllTeacherLessonsByUsername(currentLoggedInUsername());
+        model.addAttribute("lessons", teacherLessonList);
         model.addAttribute("lesson", new Lessons());
         return "admin-page/add-lesson";
     }
@@ -216,11 +225,12 @@ public class HomeController implements ErrorController {
 
         courseValidator.validateLesson(lessons, lessonResult);
 
-        if(lessonResult.hasErrors()) {
-            List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
-            model.addAttribute("lesson_top", lessonTopicsList);
-            List<Lessons> lessonsList = lessonService.findAll();
-            model.addAttribute("lessons", lessonsList);
+        if (lessonResult.hasErrors()) {
+            List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
+            model.addAttribute("lesson_top", teacherLessonTopicList);
+
+            List<Lessons> teacherLessonList = lessonService.findAllTeacherLessonsByUsername(currentLoggedInUsername());
+            model.addAttribute("lessons", teacherLessonList);
             model.addAttribute("error", "Failed to create lesson");
             return "admin-page/add-lesson";
         }
@@ -230,12 +240,11 @@ public class HomeController implements ErrorController {
             return "redirect:/addLesson";
         }
 
-            LessonTopics lsTop = lessonTopicService.findById(Integer.parseInt(mapList.get("topicId")));
-            lessons.setLessonTopics(lsTop);
-            System.out.println(lessons.isFree());
-            redirectAtt.addFlashAttribute("message", "Lesson saved successfully");
-            lessonService.save(lessons);
-            return "redirect:/addLesson";
+        LessonTopics lsTop = lessonTopicService.findById(Integer.parseInt(mapList.get("topicId")));
+        lessons.setLessonTopics(lsTop);
+        redirectAtt.addFlashAttribute("message", "Lesson saved successfully");
+        lessonService.save(lessons);
+        return "redirect:/addLesson";
     }
 
     @GetMapping("/addCategory")
@@ -255,6 +264,7 @@ public class HomeController implements ErrorController {
         redirectAttributes.addFlashAttribute("message", "Category saved successfully");
         return "redirect:/addCategory";
     }
+
     @GetMapping("/coursesList")
     public String coursesList(@RequestParam("categoryId") int id, Model model) {
         model.addAttribute("catId", id);
@@ -286,6 +296,7 @@ public class HomeController implements ErrorController {
         lessonsCountByCourseTitle(title, model);
         return "course-detail";
     }
+
     @GetMapping("/reviews")
     public String adminPageReviews(@ModelAttribute("orderReviews") String arrangement, Model model) {
         List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime();

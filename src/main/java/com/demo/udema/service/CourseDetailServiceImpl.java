@@ -37,4 +37,9 @@ public class CourseDetailServiceImpl implements CourseDetailService {
         }
         return csdet;
     }
+
+    @Override
+    public List<CourseDetails> findAllTeacherCourseDetailsByUsername(String username) {
+        return courseDetailRepository.findAllTeacherCourseDetailsByUsername(username);
+    }
 }

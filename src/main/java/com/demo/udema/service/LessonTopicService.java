@@ -13,4 +13,6 @@ public interface LessonTopicService {
 
     String findByListNumber(String listNumber);
     String findByTopicName(String name);
+    List<LessonTopics> findAllTeacherLessonTopicByUsername(String username);
+
 }
