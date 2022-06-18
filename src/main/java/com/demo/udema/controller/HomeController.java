@@ -93,11 +93,11 @@ public class HomeController implements ErrorController {
                             @RequestParam HashMap<String, String> categoriesList,
                             Model model,
                             RedirectAttributes redirectAttributes) {
+        int tempId = course.getId();                                                // For redirect (/editCourse)
         courseValidator.validate(course, resultCourse);
         courseValidator.validateCourseDes(courseDetails, resultDetail);
-
         if (resultCourse.hasErrors() || resultDetail.hasErrors()) {
-            List<Category> categoriesList2 = categoryService.getAll();    // Is naujo uzkrauname kategoriju sarasa, po valid lieka tuscias
+            List<Category> categoriesList2 = categoryService.getAll();               // Is naujo uzkrauname kategoriju sarasa, po valid lieka tuscias
             model.addAttribute("categoriesList", categoriesList2);
             model.addAttribute("errormessage", "Failed to create course");
             return "admin-page/add-course";
@@ -117,6 +117,10 @@ public class HomeController implements ErrorController {
         Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiemame ka tik issaugoto kurso title (id)
         courseDetails.setCourse(newCourseTitle);                                    // Setinam id i details ->course_id
         courseDetailService.save(courseDetails);                                    // issaugom
+        if(tempId!=0){                                                              // Redirect (/editCourse)
+            redirectAttributes.addFlashAttribute("message", "Course update successfully");
+            return "redirect:/editCourse";
+        }
         redirectAttributes.addFlashAttribute("message", "Course saved successfully");
         return "redirect:/addCourse";
     }

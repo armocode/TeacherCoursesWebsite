@@ -315,7 +315,7 @@
                                     <tbody>
                                     <tr>
                                         <div class="col-md-12" >
-                                            <td class="col-md-3 btn-link collapsed accordion-toggle list-group-item-action" style="padding-left: 35px" data-toggle="collapse" th:href="${'#' + kk}" th:text="${cs.title}">Java pagrindai
+                                            <td class="col-md-3 btn-link collapsed accordion-toggle list-group-item-action" style="padding-left: 30px" data-toggle="collapse" th:href="${'#' + kk}" th:text="${cs.title}">Java pagrindai
                                             </td>
                                             <td class="col-md-1" th:text="${cs.price}">230€</td>
                                             <td class="col-md-2" th:text="${cs.category.title}">JAVA</td>
@@ -324,7 +324,6 @@
                                             <td class="col-md-2">
                                                 <a th:href="@{/showEditCourse/{courseId}/{detailsId} (courseId=${cs.id}, detailsId=${cs.courseDetails.idDet})}" class="text-white btn-dark btn-sm">Update</a>
                                                 <a href="#" class="text-white btn-danger btn-sm">Delete</a>
-
                                                 <!--                                                <a th:href="@{/showEditCourse(courseId=${cs.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>-->
                                             </td>
                                         </div>
@@ -334,24 +333,25 @@
                                             <div th:id="${kk}" class="accordian-body collapse">
                                                 <table class="table-sm" width="100%" cellspacing="0">
                                                     <thead>
-                                                        <tr class="text-white" style="background-color: #484e54;">
+                                                        <tr class="text-white bg-secondary">
                                                             <div class="col-md-12">
-                                                                <th class="col-md-10" style="padding-left: 50px">Lesson
+                                                                <th class="col-md-10" style="padding-left: 65px">Lesson
                                                                     Topic
                                                                 </th>
-                                                                <th class="col-md-2">Action</th>
+                                                                <th class="col-md-2" style="padding-left: 5px">Action</th>
                                                             </div>
                                                         </tr>
                                                     </thead>
                                                     <tbody th:each="csTop, countK : ${cs.courseDetails.lessonTopics}"
                                                            th:with="kkk=${countK.index + 1}">
-                                                    <tr class="list-group-item-action" data-toggle="collapse" th:href="${'#' + kk + 's' + kkk}">
+                                                    <tr>
                                                         <div class="col-md-12">
-                                                            <td class="col-md-10" style="padding-left: 50px"
-                                                                th:text="${csTop.name}">Java pagrindai
-                                                            </td>
+                                                            <td class="col-md-10 btn-link2 collapsed list-group-item-action"  data-toggle="collapse" th:href="${'#' + kk + 's' + kkk}" style="padding-left: 90px" th:text="${csTop.name}">Java pagrindai </td>
                                                             <td class="col-md-2">
-                                                                <a th:href="@{#}" type="button" class="btn btn-sm text-light btn-block" style="background-color: #484e54; width: 100px;">Update</a>
+                                                                <div style="padding-left: 5px">
+                                                                    <a th:href="@{#}" class="text-white bg-secondary btn-sm">Update</a>
+                                                                    <a href="#" class="text-white btn-danger btn-sm">Delete</a>
+                                                                </div>
                                                             </td>
                                                         </div>
                                                     </tr>
@@ -361,10 +361,10 @@
                                                                  class="accordian-body collapse">
                                                                 <table class="table-sm" width="100%" cellspacing="0">
                                                                     <thead>
-                                                                    <tr class="text-white bg-secondary">
+                                                                    <tr class="text-white" style="background-color: #c8cdd2;">
                                                                         <div class="col-md-12">
                                                                             <th class="col-md-3"
-                                                                                style="padding-left: 100px">Lesson Title
+                                                                                style="padding-left: 115px">Lesson Title
                                                                             </th>
                                                                             <th class="col-md-1">Length</th>
                                                                             <th class="col-md-2">URL</th>
@@ -377,7 +377,7 @@
                                                                     <tr>
                                                                         <div class="col-md-12">
                                                                             <td class="col-md-3"
-                                                                                style="padding-left: 100px"
+                                                                                style="padding-left: 115px"
                                                                                 th:text="${csTopLes.name}">name
                                                                             </td>
                                                                             <td class="col-md-1"

@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +35,7 @@ public class CourseValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+        List<Course> coursesList = courseService.findAll();
         Course course = (Course) o;
 
 //----Course title----//
@@ -41,9 +43,21 @@ public class CourseValidator implements Validator {
         if (course.getTitle().length() < 6 || course.getTitle().length() > 32) {
             errors.rejectValue("title", "Size.course.title");
         }
-//        if (courseService.findByTitle(course.getTitle()) != null) {
-//            errors.rejectValue("title", "Duplicate.course.title");
-//        }
+        if (course.getId() == 0) {
+            if (courseService.findByTitle(course.getTitle()) != null) {
+                errors.rejectValue("title", "Duplicate.course.title");
+            }
+        }
+        if (course.getId() != 0) {
+            for (Course cL : coursesList) {
+                if (cL.getId() != course.getId()) {
+                    if (cL.getTitle().equals(course.getTitle())) {
+                        errors.rejectValue("title", "Duplicate.course.title");
+                    }
+                }
+            }
+        }
+
 
 //----Course price----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "NotEmpty");
@@ -90,19 +104,20 @@ public class CourseValidator implements Validator {
         if (matcher.find() == false) {
             errors.rejectValue("listNumber", "Matcher.lessonTopic.listNumber");
         }
-        if(lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
+        if (lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
             errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
         }
     }
+
     //----Lessons----/
     public void validateLesson(Object o, Errors errors) {
         Lessons lessons = (Lessons) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
         if (lessons.getName().length() < 3 || lessons.getName().length() > 32) {
             errors.rejectValue("name", "Size.lesson.name");
         }
-        if(lessonService.findByLessonName(lessons.getName()) != null) {
+        if (lessonService.findByLessonName(lessons.getName()) != null) {
             errors.rejectValue("name", "Duplicate.lesson.name");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
@@ -115,11 +130,11 @@ public class CourseValidator implements Validator {
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "length", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(lessons.getLength()));
-            if (matcher.find() == false) {
-                errors.rejectValue("length", "Matcher.lesson.length");
-            }
+        if (matcher.find() == false) {
+            errors.rejectValue("length", "Matcher.lesson.length");
         }
     }
+}
 
 
 

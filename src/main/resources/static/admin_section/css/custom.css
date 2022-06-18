@@ -43,10 +43,23 @@ text-color {
     left: 10px;
     top: 7px;
     position: absolute;
-    /*background-color: #0dcaf0;*/
 }
 
 .btn-link.collapsed:after
+{
+    content: '\002B';
+}
+
+.btn-link2:after {
+    content: '\2212';
+    font-size: 20px;
+    text-align: center;
+    left: 65px;
+    top: 0px;
+    position: absolute;
+}
+
+.btn-link2.collapsed:after
 {
     content: '\002B';
 }
