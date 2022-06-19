@@ -272,6 +272,11 @@ public class HomeController implements ErrorController {
         lessonService.save(lessons);
         return "redirect:/addLesson";
     }
+    @GetMapping("deleteLesson/{id}")
+    public String deleteLesson(@PathVariable(value = "id") int id) {
+        this.lessonService.deleteLessonById(id);
+        return "redirect:/addLesson";
+    }
 
     @GetMapping("/addCategory")
     public String addCategory(Model model) {

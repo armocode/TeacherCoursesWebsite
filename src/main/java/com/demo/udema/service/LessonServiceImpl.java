@@ -64,4 +64,9 @@ public class LessonServiceImpl implements LessonService{
         return lessonRepository.findAllTeacherLessonsByUsername(username);
     }
 
+    @Override
+    public void deleteLessonById(int id) {
+        lessonRepository.deleteById(id);
+    }
+
 }
