@@ -1,6 +1,7 @@
 package com.demo.udema.repositoryDAO;
 
 import com.demo.udema.entity.Course;
+import com.demo.udema.entity.CourseDetails;
 import com.demo.udema.entity.CourseReviews;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,4 +29,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
             " GROUP BY course_reviews.id" +
             " ORDER BY course_reviews.data", nativeQuery = true)
     List<Course> findAllSortByAnyTime();
+
+    @Query(value = "SELECT * FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            "(SELECT users.id FROM users" +
+            " WHERE users.username = ?1)", nativeQuery = true)
+    List<Course> findAllTeacherCourseByUsername(String username);
 }

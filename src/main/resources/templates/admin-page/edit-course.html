@@ -287,9 +287,7 @@
             </div>
         </div>
 
-
         <!--        Lentele         -->
-
         <!-- /Navigation-->
         <div class="row">
             <div class="col-md-12">
@@ -322,7 +320,7 @@
                                             <td class="col-md-4 d-inline-block text-truncate" style="max-width: 550px;" th:text="${cs?.courseDetails.description}">long text
                                             </td>
                                             <td class="col-md-2">
-                                                <a th:href="@{/showEditCourse/{courseId}/{detailsId} (courseId=${cs.id}, detailsId=${cs.courseDetails.idDet})}" class="text-white btn-dark btn-sm">Update</a>
+                                                <a th:href="@{/showEditCourse(courseId=${cs.id})}" class="text-white btn-dark btn-sm">Update</a>
                                                 <a href="#" class="text-white btn-danger btn-sm">Delete</a>
                                                 <!--                                                <a th:href="@{/showEditCourse(courseId=${cs.id})}" type="button" class="btn btn-dark btn-sm btn-block" style="width: 100px;">Update</a>-->
                                             </td>

@@ -85,7 +85,6 @@ public class HomeController implements ErrorController {
     }
 
     @PostMapping("/addCourse")
-    // TODO validacija su Duplicate.course.title (pritaikyti ir save ir update)
     public String addCourse(@ModelAttribute("course") Course course,
                             BindingResult resultCourse,
                             @ModelAttribute("cDetails") CourseDetails courseDetails,
@@ -118,7 +117,7 @@ public class HomeController implements ErrorController {
         Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiemame ka tik issaugoto kurso title (id)
         courseDetails.setCourse(newCourseTitle);                                    // Setinam id i details ->course_id
         courseDetailService.save(courseDetails);                                    // issaugom
-        if(tempId!=0){                                                              // Redirect (/editCourse)
+        if (tempId != 0) {                                                              // Redirect (/editCourse)
             redirectAttributes.addFlashAttribute("message", "Course update successfully");
             return "redirect:/editCourse";
         }
@@ -127,27 +126,49 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("/editCourse")
-    public String editCourse(Model model) {
-        //Todo  Uzkrauti tuos kursus kurie priklauso prisjung teacher
-        List<Course> course = courseService.findAll();
-        model.addAttribute("courses", course);
-        return "admin-page/edit-course";
-    }
-
-    @GetMapping(value = "/showEditCourse/{courseId}/{detailsId}")
-    public String showEditCourse(@PathVariable("courseId") int courseId, @PathVariable("detailsId") int detailsId,
-                                 @AuthenticationPrincipal UserDetails loggerUser, Model model) {
+    public String editCourse(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
         User user = userService.findByUsername(username);
-        model.addAttribute("user", user);
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            List<Course> getAllCourses = courseService.findAll();
+            model.addAttribute("courses", getAllCourses);
+            return "admin-page/edit-course";
+        } else {
+            List<Course> getAllCoursesByTeacherUsername = courseService.findAllTeacherCourseByUsername(loggerUser.getUsername());
+            model.addAttribute("courses", getAllCoursesByTeacherUsername);
+            return "admin-page/edit-course";
+        }
+    }
 
+    @GetMapping(value = "/showEditCourse")
+    public String showEditCourse(@ModelAttribute("courseId") int courseId,
+                                 @AuthenticationPrincipal UserDetails loggerUser, Model model) {
+        String username = loggerUser.getUsername();
+
+        User user = userService.findByUsername(username);
         Course course = courseService.findById(courseId);
-        model.addAttribute("course", course);
-        model.addAttribute("cDetails", courseDetailService.findById(detailsId)); // course.getCourseDetails() - Galejom ir taip
         List<Category> categoriesList = categoryService.getAll();
-        model.addAttribute("categoriesList", categoriesList);
+        List<Course> courseByUsername = courseService.findAllTeacherCourseByUsername(username);
 
-        return "admin-page/add-course";
+        if (!user.getRole().equals("ROLE_ADMIN")) {
+            for (Course c : courseByUsername) {
+                if (c.getId() == courseId) {
+                    model.addAttribute("user", user);
+                    model.addAttribute("course", course);
+                    model.addAttribute("cDetails", course.getCourseDetails());
+                    model.addAttribute("categoriesList", categoriesList);
+                    return "admin-page/add-course";
+                }
+            }
+        } else {
+            model.addAttribute("user", user);
+            model.addAttribute("course", course);
+            model.addAttribute("cDetails", course.getCourseDetails());
+            model.addAttribute("categoriesList", categoriesList);
+            return "admin-page/add-course";
+        }
+        // Jei useriui nepriklauso kursas arba ivede nesamone, tai useri nusiuncia į /error pspl
+        return "redirect:/error";
     }
 
     @GetMapping("/addLessonTopic")

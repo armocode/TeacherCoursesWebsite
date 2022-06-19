@@ -46,6 +46,11 @@ public class CourseServiceImpl implements CourseService{
         return courseRepository.findById(id);
     }
 
+    @Override
+    public List<Course> findAllTeacherCourseByUsername(String username) {
+        return courseRepository.findAllTeacherCourseByUsername(username);
+    }
+
 
     @Override
     public void deleteByTitle(String title) {

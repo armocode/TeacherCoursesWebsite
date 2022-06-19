@@ -12,7 +12,7 @@ public interface CourseService {
     List<Course> findAllByTitle(String title);
     Course findByTitle(String title);
     Course findById(int id);
-
+    List<Course> findAllTeacherCourseByUsername(String username);
     void save(Course course);
     void deleteByTitle(String title);
     List<Course> findAllSortByAnyTime();

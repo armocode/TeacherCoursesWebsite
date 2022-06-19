@@ -33,12 +33,12 @@ public class CourseValidator implements Validator {
         return Course.class.equals(aClass);
     }
 
+    //----Course---//
     @Override
     public void validate(Object o, Errors errors) {
         List<Course> coursesList = courseService.findAll();
         Course course = (Course) o;
 
-//----Course title----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (course.getTitle().length() < 6 || course.getTitle().length() > 32) {
             errors.rejectValue("title", "Size.course.title");
@@ -68,20 +68,20 @@ public class CourseValidator implements Validator {
 
     }
 
+    //----Course details----//
     public void validateCourseDes(Object o, Errors errors) {
         CourseDetails courseDetails = (CourseDetails) o;
 
-//----Course details description----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
         if (courseDetails.getDescription().length() < 6) {
             errors.rejectValue("description", "Size.course.description");
         }
     }
 
+    //----Category----//
     public void validateCategory(Object o, Errors errors) {
         Category category = (Category) o;
 
-//----category----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (categoryService.findByTitle(category.getTitle()) != null) {
             errors.rejectValue("title", "Duplicate.category.title");
