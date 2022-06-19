@@ -56,4 +56,9 @@ public class LessonTopicServiceImpl implements LessonTopicService{
         return lessonTopicRepository.findAllTeacherLessonTopicByUsername(username);
     }
 
+    @Override
+    public void deleteLessonTopicById(int id) {
+        lessonTopicRepository.deleteById(id);
+    }
+
 }

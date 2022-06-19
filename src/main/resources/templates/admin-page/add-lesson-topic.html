@@ -321,12 +321,34 @@
 <!--                    <label> Space between </label>-->
                       </div>
                    </div>
-                        <div >
-                            <h5> Your lesson topics</h5>
-                            <ul th:each="lp : ${lesson_top}">
-                                <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}+', list number: '+${lp?.listNumber}"></li>
-                            </ul>
-                        </div>
+<!--                        <div >-->
+<!--                            <h5> Your lesson topics</h5>-->
+<!--&lt;!&ndash;                            <ul th:each="lp : ${lesson_top}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}+', list number: '+${lp?.listNumber}"></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--                        </div>-->
+                   <div>
+                        <table border="1" class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>Course details id</th>
+                            <th>Name</th>
+                            <th>List number</th>
+                            <th> Actions </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="lp : ${lesson_top}">
+                           <td th:text="${lp?.courseDetails?.idDet}"></td>
+                           <td th:text="${lp?.name}"></td>
+                           <td th:text="${lp?.listNumber}"></td>
+                           <td>
+                               <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn btn-danger">Delete</a>
+                           </td>
+                       </tr>
+                        </tbody>
+                        </table>
+                   </div>
                     </div>
                 </div>
             </div>

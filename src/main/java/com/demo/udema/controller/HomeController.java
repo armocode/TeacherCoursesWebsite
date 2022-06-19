@@ -203,6 +203,11 @@ public class HomeController implements ErrorController {
         System.out.println("Saved");
         return "redirect:/addLessonTopic";
     }
+    @GetMapping("/deleteLessonTopic/{id}")
+    public String deleteLessonTopic(@PathVariable(value = "id") int id) {
+        this.lessonTopicService.deleteLessonTopicById(id);
+        return "redirect:/addLessonTopic";
+    }
 
     @GetMapping("/addLesson")
     public String addLesson(Model model) {
