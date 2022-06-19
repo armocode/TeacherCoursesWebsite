@@ -16,5 +16,15 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "WHERE title LIKE ?1", nativeQuery = true)
     String findByTitle(String title);
 
+    @Query(value = "SELECT * FROM categories" +
+            " WHERE categories.id IN" +
+            "(SELECT courses.id FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            "(SELECT users.id FROM users" +
+            " WHERE users.username LIKE ?1))", nativeQuery = true)
+    List<Category> findAllTeacherCategoriesByUsername(String username);
 
+    @Query(value = "SELECT * FROM categories" +
+            " ORDER BY categories.id DESC", nativeQuery = true)
+    List<Category> findAllCategories();
 }

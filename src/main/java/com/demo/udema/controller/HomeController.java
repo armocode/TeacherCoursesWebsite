@@ -173,15 +173,10 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/addLessonTopic")
     public String addLessonTopic(Model model) {
-//        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
         List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
         model.addAttribute("lesson_top", teacherLessonTopicList);
-
-        currentLoggedInUsername();
-
         List<CourseDetails> teacherCourseDetList = courseDetailService.findAllTeacherCourseDetailsByUsername(currentLoggedInUsername());
         model.addAttribute("courseDet", teacherCourseDetList);
-//        List<CourseDetails> courseDetailsList = courseDetailService.findAll();
 
         model.addAttribute("lesTop", new LessonTopics());
         return "admin-page/add-lesson-topic";
@@ -216,15 +211,11 @@ public class HomeController implements ErrorController {
         lessonTopics.setCourseDetails(csDet);
         redirectAtt.addFlashAttribute("message", "Lesson topic saved successfully");
         lessonTopicService.save(lessonTopics);
-
-
         List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
         model.addAttribute("lesson_top", teacherLessonTopicList);
-
-        System.out.println("Saved");
         return "redirect:/addLessonTopic";
     }
-    @GetMapping("/deleteLessonTopic/{id}")
+    @GetMapping("deleteLessonTopic/{id}")
     public String deleteLessonTopic(@PathVariable(value = "id") int id) {
         this.lessonTopicService.deleteLessonTopicById(id);
         return "redirect:/addLessonTopic";
@@ -280,6 +271,9 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/addCategory")
     public String addCategory(Model model) {
+//        List<Category> teacherCategoryList = categoryService.findAllTeacherCategoriesByUsername(currentLoggedInUsername());
+        List<Category> categoriesList = categoryService.findAllCategories();
+        model.addAttribute("category", categoriesList);
         model.addAttribute("newCategory", new Category());
         return "admin-page/add-category";
     }
@@ -288,11 +282,19 @@ public class HomeController implements ErrorController {
     public String addCategory(@ModelAttribute("newCategory") Category category, BindingResult resultCat, Model model, RedirectAttributes redirectAttributes) {
         courseValidator.validateCategory(category, resultCat);
         if (resultCat.hasErrors()) {
+            List<Category> categoriesList = categoryService.findAllCategories();
+            model.addAttribute("category", categoriesList);
             model.addAttribute("errormessage", "Failed to create category");
             return "admin-page/add-category";
         }
+//        Category cat = category
         categoryService.save(category);
         redirectAttributes.addFlashAttribute("message", "Category saved successfully");
+        return "redirect:/addCategory";
+    }
+    @GetMapping("deleteCategory/{id}")
+    public String deleteCategory(@PathVariable(value = "id") int id) {
+        this.categoryService.deleteCategoryById(id);
         return "redirect:/addCategory";
     }
 

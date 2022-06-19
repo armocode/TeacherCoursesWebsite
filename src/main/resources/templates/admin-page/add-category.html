@@ -263,6 +263,58 @@
     </div>
 </nav>
 <!-- /Navigation-->
+<!--<form class="content-wrapper" th:action="@{/addCategory}" method="post" th:object="${newCategory}">-->
+<!--    <div class="container-fluid">-->
+<!--        &lt;!&ndash; Breadcrumbs&ndash;&gt;-->
+<!--        <ol class="breadcrumb">-->
+<!--            <li class="breadcrumb-item">-->
+<!--                <a href="#">Dashboard</a>-->
+<!--            </li>-->
+<!--            <li class="breadcrumb-item active">Add category</li>-->
+<!--        </ol>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <div th:if="${errormessage}" class="alert">-->
+<!--                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>-->
+<!--                    <span th:text="${errormessage}"></span>-->
+<!--                </div>-->
+<!--                <div th:if="${message}" class="alert success">-->
+<!--                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>-->
+<!--                    <span th:text="${message}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-md-12">-->
+<!--                <div class="box_general padding_bottom">-->
+<!--                    <div class="header_box version_2">-->
+<!--                        <h2><i class="fa fa-folder"></i>Category</h2>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-15">-->
+<!--                            <div class="form-group">-->
+<!--&lt;!&ndash;                                <label>Category title</label>&ndash;&gt;-->
+<!--                                <input th:field="*{title}" type="text" class="form-control"-->
+<!--                                       placeholder="Category title" required>-->
+<!--                                <span class="has-error" th:if="${#fields.hasErrors('title')}"-->
+<!--                                      th:errors="*{title}"></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-2 form-group">-->
+<!--                        <div class="center_b">-->
+<!--                            &lt;!&ndash;                    <label> Space between </label>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                   -->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; /box_general&ndash;&gt;-->
+<!--        <input class="btn_1 medium" type="submit" value="Save"/>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; /.container-fluid&ndash;&gt;-->
+<!--</form>-->
+<!-- /.container-wrapper-->
 <form class="content-wrapper" th:action="@{/addCategory}" method="post" th:object="${newCategory}">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
@@ -272,42 +324,67 @@
             </li>
             <li class="breadcrumb-item active">Add category</li>
         </ol>
+        <div th:if="${errormessage}" class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${errormessage}"></span>
+        </div>
+        <div th:if="${message}" class="alert success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${message}"></span>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
-                <div th:if="${errormessage}" class="alert">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <span th:text="${errormessage}"></span>
-                </div>
-                <div th:if="${message}" class="alert success">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <span th:text="${message}"></span>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="box_general padding_bottom">
+                <div class="box_general padding_bottom" >
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-folder"></i>Category</h2>
+                        <h2><i class="fa fa-file-text"></i>New Category</h2>
                     </div>
+                    <!-- /row-->
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Category title</label>
-                                <input th:field="*{title}" type="text" class="form-control"
-                                       placeholder="Title" required>
-                                <span class="has-error" th:if="${#fields.hasErrors('title')}"
-                                      th:errors="*{title}"></span>
+                        <div class="col-md-5">
+                            <div class="col-md-15" >
+                                <div class="form-group" >
+                                    <input th:field="*{title}" required type="text" class="form-control" placeholder="Category title">
+                                    <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <div class="center_b">
+                                <!--                    <label> Space between </label>-->
+                            </div>
+                        </div>
+
+                        <div>
+                            <table border="1" class="table table-striped table-responsive-md">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="c : ${category}">
+                                    <td th:text="${c?.id}"></td>
+                                    <td th:text="${c?.title}"></td>
+                                    <td>
+                                    <a th:href="@{/deleteCategory/{id}(id=${c.id})}" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /box_general-->
+
         <input class="btn_1 medium" type="submit" value="Save"/>
     </div>
     <!-- /.container-fluid-->
 </form>
-<!-- /.container-wrapper-->
+
 <footer class="sticky-footer">
     <div class="container">
         <div class="text-center">
