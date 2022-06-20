@@ -150,6 +150,9 @@ public class CourseValidator implements Validator {
         if (matcher.find() == false) {
             errors.rejectValue("length", "Matcher.lesson.length");
         }
+        if(lessonService.findByListNumber(String.valueOf(lessons.getListNumber())) != null) {
+            errors.rejectValue("listNumber", "Duplicate.lesson.listNumber");
+        }
     }
 }
 

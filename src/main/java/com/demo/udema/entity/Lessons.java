@@ -20,7 +20,6 @@ public class Lessons {
 
     @Column(name = "length")
     private Integer length;
-    // private Time length;
 
     @Column(name = "description", columnDefinition = "text")
     private String description;
@@ -31,9 +30,11 @@ public class Lessons {
     @Column(name = "is_free")
     private boolean isFree;
 
-    public Lessons()  {}
+    @Column(name = "list_number", unique=true, length = 3)
+    private Integer listNumber;
 
-    public Lessons(int id, LessonTopics lessonTopics, String name, Integer length, String description, String videoUrl, boolean isFree) {
+    public Lessons()  {}
+    public Lessons(int id, LessonTopics lessonTopics, String name, Integer length, String description, String videoUrl, boolean isFree, Integer listNumber) {
         this.id = id;
         this.lessonTopics = lessonTopics;
         this.name = name;
@@ -41,15 +42,16 @@ public class Lessons {
         this.description = description;
         this.videoUrl = videoUrl;
         this.isFree = isFree;
+        this.listNumber = listNumber;
     }
-
-    public Lessons(LessonTopics lessonTopics, String name, Integer length, String description, String videoUrl, boolean isFree) {
+    public Lessons(LessonTopics lessonTopics, String name, Integer length, String description, String videoUrl, boolean isFree, Integer listNumber) {
         this.lessonTopics = lessonTopics;
         this.name = name;
         this.length = length;
         this.description = description;
         this.videoUrl = videoUrl;
         this.isFree = isFree;
+        this.listNumber = listNumber;
     }
 
     public int getId() {
@@ -106,5 +108,13 @@ public class Lessons {
 
     public void setFree(boolean free) {
         isFree = free;
+    }
+
+    public Integer getListNumber() {
+        return listNumber;
+    }
+
+    public void setListNumber(Integer listNumber) {
+        this.listNumber = listNumber;
     }
 }

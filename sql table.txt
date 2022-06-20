@@ -31,15 +31,15 @@ INSERT INTO lesson_topics VALUES(1,10,'Pirmoji programa',1);
 INSERT INTO lesson_topics VALUES(2,20,'Funkcijos',2);
 INSERT INTO lesson_topics VALUES(3,30,'Masyvai',3);
 
-INSERT INTO lessons VALUES(1, 'Ciklai',1, 23540,'for loop','url',1);
-INSERT INTO lessons VALUES(2, 'Ciklai',0, 14532,'while loop','url',1);
-INSERT INTO lessons VALUES(3, 'Salygos',0, 31010,'Salyga if, else','url',1);
+INSERT INTO lessons VALUES(1, 'Ciklai',1, 23540,10,'for loop','url',1);
+INSERT INTO lessons VALUES(2, 'Ciklai',0, 14532,20,'while loop','url',1);
+INSERT INTO lessons VALUES(3, 'Salygos',0, 31010,30,'Salyga if, else','url',1);
 
-INSERT INTO lessons VALUES(4, 'Funkcijos',1, 24532,'grazinanti funkcija','url',2);
-INSERT INTO lessons VALUES(5, 'Funkcijos',0, 545533,'negrazinanti funkcija','url',2);
+INSERT INTO lessons VALUES(4, 'Funkcijos',1, 24532,40,'grazinanti funkcija','url',2);
+INSERT INTO lessons VALUES(5, 'Funkcijos',0, 545533,50,'negrazinanti funkcija','url',2);
 
-INSERT INTO lessons VALUES(6, 'Masyvai',0, 255533,'statiniai masyvai','url',3);
-INSERT INTO lessons VALUES(7, 'Masyvai',0, 155333,'dinaminiai masyvai','url',3);
+INSERT INTO lessons VALUES(6, 'Masyvai',0, 255533,60,'statiniai masyvai','url',3);
+INSERT INTO lessons VALUES(7, 'Masyvai',0, 155333,70,'dinaminiai masyvai','url',3);
 
 INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
 INSERT INTO orders VALUES(4,'url', 1, 80.99, '2023-05-23');

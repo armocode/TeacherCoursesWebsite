@@ -339,8 +339,16 @@
                                             </div>
                                         </div>
                                         <span class="has-error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>
+                                            <div class="col-md-15 form-group">
+                                                <div class="center_b">
+                                                    <input th:field="*{listNumber}" type="number" min="0" step="1" class="form-control" placeholder="List Number">
+                                                </div>
+                                            </div>
+                                            <span class="has-error" th:if="${#fields.hasErrors('listNumber')}" th:errors="*{listNumber}"></span>
                                     </div>
+                                        <input class="btn_1 medium" type="submit" value="Save"/>
                                     </div>
+
 
                                <div class="col-md-6">
                                    <div class="box_general padding_bottom" >
@@ -350,19 +358,15 @@
                                    <table border="1" class="table table-striped table-responsive-md">
                                        <thead>
                                        <tr>
-                                           <th>Id</th>
-                                           <th>Name</th>
-                                           <th>Length</th>
-                                           <th>Top id</th>
-                                           <th> Actions </th>
+                                           <th>Lesson name</th>
+                                           <th>Lesson topic name</th>
+                                           <th></th>
                                        </tr>
                                        </thead>
                                        <tbody>
                                        <tr th:each="ls : ${lessons}">
-                                           <td th:text="${ls?.id}"></td>
                                            <td th:text="${ls?.name}"></td>
-                                           <td th:text="${ls?.length}"></td>
-                                           <td th:text="${ls?.lessonTopics?.id}"></td>
+                                           <td th:text="${ls?.lessonTopics?.name}"></td>
                                            <td>
                                                <a th:href="@{/deleteLesson/{id}(id=${ls.id})}" class="btn btn-danger">Delete</a>
                                            </td>
@@ -374,7 +378,7 @@
                 </div>
 
         </div>
-        <input class="btn_1 medium" type="submit" value="Save"/>
+
     </div>
     <!-- /.container-fluid-->
 </form>

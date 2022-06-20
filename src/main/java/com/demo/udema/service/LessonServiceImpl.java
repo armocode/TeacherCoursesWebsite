@@ -69,4 +69,9 @@ public class LessonServiceImpl implements LessonService{
         lessonRepository.deleteById(id);
     }
 
+    @Override
+    public String findByListNumber(String listNumber) {
+        return lessonRepository.findByListNumber(listNumber);
+    }
+
 }
