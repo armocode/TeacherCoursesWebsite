@@ -359,9 +359,7 @@
                                        <tr>
                                            <th>Id</th>
                                            <th>Name</th>
-                                           <th>Video url</th>
                                            <th>Length</th>
-                                           <th>Free</th>
                                            <th>Top id</th>
                                            <th> Actions </th>
                                        </tr>
@@ -370,9 +368,7 @@
                                        <tr th:each="ls : ${lessons}">
                                            <td th:text="${ls?.id}"></td>
                                            <td th:text="${ls?.name}"></td>
-                                           <td th:text="${ls?.videoUrl}"></td>
                                            <td th:text="${ls?.length}"></td>
-                                           <td th:text="${ls?.free}"></td>
                                            <td th:text="${ls?.lessonTopics?.id}"></td>
                                            <td>
                                                <a th:href="@{/deleteLesson/{id}(id=${ls.id})}" class="btn btn-danger">Delete</a>

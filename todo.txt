@@ -1,0 +1,9 @@
+SELECT COURSE (vietoj details)
+Neturetu rodyt tuscio lessonTopic( /courseDetails)
+Virs topic lenteles parasyti Visu kursu sukurti topikai
+Virs pamoku lenteles taip pat.
+Lessons lenteleje Id nereikia, vietoj topic id atvaizduoti pavadinima topico, length ismesti.
+Papildyti pamoku lentele nauju stulpeliu eiles nr.
+CourseDetails surikiuoti topikus, pamokas, pagal eiles nr.
+Del topiko trynimo (galima istrinti TIK TOPIKA kuris neturi pamoku). Informuoti vartotoja kodel negali istrinti topic.
+Jeigu norime istrinti topika kuris turi pamoku, pirmiausia istriname pamokas, o tada topika.
