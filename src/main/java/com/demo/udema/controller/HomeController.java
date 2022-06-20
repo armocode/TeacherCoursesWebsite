@@ -129,6 +129,7 @@ public class HomeController implements ErrorController {
     public String editCourse(@AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
         User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
         if (user.getRole().equals("ROLE_ADMIN")) {
             List<Course> getAllCourses = courseService.findAll();
             model.addAttribute("courses", getAllCourses);
@@ -144,28 +145,17 @@ public class HomeController implements ErrorController {
     public String showEditCourse(@ModelAttribute("courseId") int courseId,
                                  @AuthenticationPrincipal UserDetails loggerUser, Model model) {
         String username = loggerUser.getUsername();
-
-        User user = userService.findByUsername(username);
         Course course = courseService.findById(courseId);
         List<Category> categoriesList = categoryService.getAll();
         List<Course> courseByUsername = courseService.findAllTeacherCourseByUsername(username);
-
-        if (!user.getRole().equals("ROLE_ADMIN")) {
-            for (Course c : courseByUsername) {
-                if (c.getId() == courseId) {
-                    model.addAttribute("user", user);
-                    model.addAttribute("course", course);
-                    model.addAttribute("cDetails", course.getCourseDetails());
-                    model.addAttribute("categoriesList", categoriesList);
-                    return "admin-page/add-course";
-                }
+        for (Course c : courseByUsername) {
+            if (c.getId() == courseId) {
+                model.addAttribute("user", userService.findByUsername(username));
+                model.addAttribute("course", course);
+                model.addAttribute("cDetails", course.getCourseDetails());
+                model.addAttribute("categoriesList", categoriesList);
+                return "admin-page/add-course";
             }
-        } else {
-            model.addAttribute("user", user);
-            model.addAttribute("course", course);
-            model.addAttribute("cDetails", course.getCourseDetails());
-            model.addAttribute("categoriesList", categoriesList);
-            return "admin-page/add-course";
         }
         // Jei useriui nepriklauso kursas arba ivede nesamone, tai useri nusiuncia į /error pspl
         return "redirect:/error";

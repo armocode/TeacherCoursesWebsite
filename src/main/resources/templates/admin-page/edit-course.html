@@ -305,7 +305,7 @@
                                         <th class="col-md-1">Price</th>
                                         <th class="col-md-2">Category</th>
                                         <th class="col-md-5">Description</th>
-                                        <th class="col-md-1">Action</th>
+                                        <th class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}">Action</th>
                                     </div>
                                 </tr>
                                 </thead>
@@ -319,7 +319,7 @@
                                             <td class="col-md-2" th:text="${cs.category.title}">JAVA</td>
                                             <td class="col-md-5 d-inline-block text-truncate" style="max-width: 640px;" th:text="${cs?.courseDetails.description}">long text
                                             </td>
-                                            <td class="col-md-1">
+                                            <td class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}">
                                                 <a th:href="@{/showEditCourse(courseId=${cs.id})}" class="text-white btn-dark btn-sm">Update</a>
 <!--                                                <a href="#" class="text-white btn-danger btn-sm">Delete</a>-->
                                             </td>
@@ -336,7 +336,7 @@
                                                                     Topic
                                                                 </th>
                                                                 <th class="col-md-8"></th>
-                                                                <th class="col-md-1" style="padding-left: 6px">Action</th>
+                                                                <th class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}" style="padding-left: 6px">Action</th>
                                                             </div>
                                                         </tr>
                                                     </thead>
@@ -346,7 +346,7 @@
                                                         <div class="col-md-12">
                                                             <td class="col-md-3 btn-link2 collapsed list-group-item-action"  data-toggle="collapse" th:href="${'#' + kk + 's' + kkk}" style="padding-left: 90px" th:text="${csTop.name}">Java pagrindai </td>
                                                             <th class="col-md-8"></th>
-                                                            <td class="col-md-1">
+                                                            <td class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}">
                                                                 <div style="padding-left: 5px">
                                                                     <a th:href="@{#}" class="text-white bg-secondary btn-sm">Update</a>
 <!--                                                                    <a href="#" class="text-white btn-danger btn-sm">Delete</a>-->
@@ -369,7 +369,7 @@
                                                                             <th class="col-md-2">URL</th>
                                                                             <th class="col-md-1">free/Cost</th>
                                                                             <th class="col-md-4">Description</th>
-                                                                            <th class="col-md-1">Action</th>
+                                                                            <th class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}" >Action</th>
                                                                         </div>
                                                                     </tr>
                                                                     </thead>
@@ -392,7 +392,7 @@
                                                                             <td class="col-md-4 d-inline-block text-truncate" style="max-width: 520px;" th:text="${csTopLes.description}">
                                                                                 Description
                                                                             </td>
-                                                                            <td class="col-md-1">
+                                                                            <td class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}">
                                                                                 <div style="padding-left: 5px">
                                                                                     <a th:href="@{#}" class="text-white btn-sm" style="background-color: #c8cdd2;">Update</a>
                                                                                 </div>
