@@ -290,18 +290,19 @@
             <span th:text="${message}"></span>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box_general padding_bottom" >
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-file-text"></i>New Lesson Topic</h2>
-                    </div>
+
+
                     <!-- /row-->
                     <div class="row" th:object="${lesTop}">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
+                        <div class="box_general padding_bottom" >
+                            <div class="header_box version_2">
+                                <h2><i class="fa fa-file-text"></i>New Lesson Topic</h2>
+                            </div>
+                        <div class="col-md-15">
                             <div class="form-group" style="padding-top: 10px; size: 10px">
                                 <select name="csDetId" class="selectbox" >
-                                    <option th:value="csDetNotSelected"> Select course details</option>
+                                    <option th:value="csDetNotSelected"> Select course</option>
                                     <option th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
                                 </select>
                             </div>
@@ -318,18 +319,16 @@
                             </div>
                             <span class="has-error" th:if="${#fields.hasErrors('listNumber')}" th:errors="*{listNumber}"></span>
                         </div>
-                   <div class="col-md-2 form-group">
-                      <div class="center_b">
-<!--                    <label> Space between </label>-->
-                      </div>
-                   </div>
-<!--                        <div >-->
-<!--                            <h5> Your lesson topics</h5>-->
-<!--&lt;!&ndash;                            <ul th:each="lp : ${lesson_top}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <li th:text="${lp?.courseDetails?.idDet}+' - '+${lp?.name}+', list number: '+${lp?.listNumber}"></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
-<!--                        </div>-->
-                   <div>
+                        </div>
+                        </div>
+
+
+                   <div class="col-md-6">
+                       <div class="box_general padding_bottom" >
+                           <div class="header_box version_2">
+                               <h2><i class="fa fa-file-text"></i>Your Lesson Topic</h2>
+                           </div>
+
                         <table border="1" class="table table-striped table-responsive-md">
                         <thead>
                         <tr>
@@ -353,8 +352,6 @@
                    </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
         <input class="btn_1 medium" type="submit" value="Save"/>
     </div>

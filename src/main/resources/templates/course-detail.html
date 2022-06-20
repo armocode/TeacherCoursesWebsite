@@ -168,11 +168,13 @@
                             </div>
                             <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">
                                 <div class="card" >
-                                    <div class="card-header" role="tab" id="headingOne">
-                                        <h5 class="mb-0">
+                                    <div class="card-header" role="tab" id="headingOne" >
+                                        <h5 class="mb-0" >
+<!--                                            th:each="les : ${cclt.lessonsList}" th:if="${les.id!=null}"-->
                                             <a th:text="${cclt?.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
                                                aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
+
                                     </div>
                                     <div id="collapseOne" class="collapse show" role="tabpanel"
                                          aria-labelledby="headingOne" data-bs-parent="#accordion_lessons" >

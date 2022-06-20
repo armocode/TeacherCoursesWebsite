@@ -281,15 +281,13 @@
             <span th:text="${message}"></span>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box_general padding_bottom" >
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-file-text"></i>New Category</h2>
-                    </div>
                     <!-- /row-->
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
+                            <div class="box_general padding_bottom" >
+                            <div class="header_box version_2">
+                                <h2><i class="fa fa-file-text"></i>New Category</h2>
+                            </div>
                             <div class="col-md-15" >
                                 <div class="form-group" >
                                     <input th:field="*{title}" required type="text" class="form-control" placeholder="Category title">
@@ -297,13 +295,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 form-group">
-                            <div class="center_b">
-                                <!--                    <label> Space between </label>-->
-                            </div>
                         </div>
 
-                        <div>
+
+                        <div class="col-md-6">
+                            <div class="box_general padding_bottom" >
+                            <div class="header_box version_2">
+                                <h2><i class="fa fa-file-text"></i>Categories list</h2>
+                            </div>
                             <table border="1" class="table table-striped table-responsive-md">
                                 <thead>
                                 <tr>
@@ -325,8 +324,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+
 
 
         <input class="btn_1 medium" type="submit" value="Save"/>
