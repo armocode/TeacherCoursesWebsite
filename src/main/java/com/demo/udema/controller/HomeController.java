@@ -161,6 +161,23 @@ public class HomeController implements ErrorController {
         return "redirect:/error";
     }
 
+    @GetMapping(value = "/showEditLessonTopic")
+    public String showEditLessonTopic(@ModelAttribute("lesTopId") int lessonTopicsId,
+                                      @AuthenticationPrincipal UserDetails loggerUser, Model model) {
+        String username = loggerUser.getUsername();
+        LessonTopics lessonTopicById = lessonTopicService.findById(lessonTopicsId);
+        List<LessonTopics> lessonsTopicsByUsername = lessonTopicService.findAllTeacherLessonTopicByUsername(loggerUser.getUsername());
+        for (LessonTopics l : lessonsTopicsByUsername) {
+            if (l.getId() == lessonTopicsId) {
+                model.addAttribute("courseDet", lessonTopicById.getCourseDetails());
+                model.addAttribute("lesTop", lessonTopicById);
+                model.addAttribute("lesson_top", lessonTopicService.findAllTeacherLessonTopicByUsername(username));
+                return "admin-page/add-lesson-topic";
+            }
+        }
+        return "redirect:/error";
+    }
+
     @GetMapping("/addLessonTopic")
     public String addLessonTopic(Model model) {
         List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
@@ -178,33 +195,51 @@ public class HomeController implements ErrorController {
                                  @ModelAttribute("courseDet") CourseDetails courseDetails,
                                  Model model, RedirectAttributes redirectAtt,
                                  @RequestParam HashMap<String, String> mapList) {
-
+        int tempId = lessonTopics.getId();
         courseValidator.validateLessonTopic(lessonTopics, lessonTopicResult);
+        List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
 
         if (lessonTopicResult.hasErrors()) {
-
-            List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
             model.addAttribute("lesson_top", teacherLessonTopicList);
 
-            List<CourseDetails> courseDetailsList = courseDetailService.findAll();
-            model.addAttribute("courseDet", courseDetailsList);
+            if (lessonTopics.getId() == 0) {
+                List<CourseDetails> teacherCourseDetList = courseDetailService.findAllTeacherCourseDetailsByUsername(currentLoggedInUsername());
+                model.addAttribute("courseDet", teacherCourseDetList);
+            } else {
+                LessonTopics lessonTopicById = lessonTopicService.findById(lessonTopics.getId());
+                model.addAttribute("courseDet", lessonTopicById.getCourseDetails());
+            }
+
             model.addAttribute("error", "Failed to create lesson topic");
             return "admin-page/add-lesson-topic";
         }
 
         if (mapList.get("csDetId").equals("csDetNotSelected")) {
-            redirectAtt.addFlashAttribute("error", "Please select an option from course details list");
-            return "redirect:/addLessonTopic";
+            model.addAttribute("lesson_top", teacherLessonTopicList);
+
+            if (lessonTopics.getId() == 0) {
+                List<CourseDetails> teacherCourseDetList = courseDetailService.findAllTeacherCourseDetailsByUsername(currentLoggedInUsername());
+                model.addAttribute("courseDet", teacherCourseDetList);
+            } else {
+                LessonTopics lessonTopicById = lessonTopicService.findById(lessonTopics.getId());
+                model.addAttribute("courseDet", lessonTopicById.getCourseDetails());
+            }
+
+            model.addAttribute("error", "Please select an option from course details list");
+            return "admin-page/add-lesson-topic";
         }
 
         CourseDetails csDet = courseDetailService.findById(Integer.parseInt(mapList.get("csDetId")));
         lessonTopics.setCourseDetails(csDet);
-        redirectAtt.addFlashAttribute("message", "Lesson topic saved successfully");
         lessonTopicService.save(lessonTopics);
-        List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
-        model.addAttribute("lesson_top", teacherLessonTopicList);
+        redirectAtt.addFlashAttribute("message", "Lesson topic saved successfully");
+        if (tempId != 0) {
+            redirectAtt.addFlashAttribute("message", "Lesson topic update successfully");
+            return "redirect:/editCourse";
+        }
         return "redirect:/addLessonTopic";
     }
+
     @GetMapping("deleteLessonTopic/{id}")
     public String deleteLessonTopic(@PathVariable(value = "id") int id) {
         this.lessonTopicService.deleteLessonTopicById(id);
@@ -253,6 +288,7 @@ public class HomeController implements ErrorController {
         lessonService.save(lessons);
         return "redirect:/addLesson";
     }
+
     @GetMapping("deleteLesson/{id}")
     public String deleteLesson(@PathVariable(value = "id") int id) {
         this.lessonService.deleteLessonById(id);
@@ -282,6 +318,7 @@ public class HomeController implements ErrorController {
         redirectAttributes.addFlashAttribute("message", "Category saved successfully");
         return "redirect:/addCategory";
     }
+
     @GetMapping("deleteCategory/{id}")
     public String deleteCategory(@PathVariable(value = "id") int id) {
         this.categoryService.deleteCategoryById(id);

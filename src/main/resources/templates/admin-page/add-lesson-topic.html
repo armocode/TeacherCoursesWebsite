@@ -274,6 +274,7 @@
 <!-- /Navigation-->
 <form class="content-wrapper" th:action="@{/addLessonTopic}" method="post" >
     <div class="container-fluid">
+        <input type="hidden" th:field="${lesTop.id}">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -290,8 +291,6 @@
             <span th:text="${message}"></span>
         </div>
 
-
-
                     <!-- /row-->
                     <div class="row" th:object="${lesTop}">
                         <div class="col-md-6">
@@ -299,13 +298,16 @@
                             <div class="header_box version_2">
                                 <h2><i class="fa fa-file-text"></i>New Lesson Topic</h2>
                             </div>
+
                         <div class="col-md-15">
                             <div class="form-group" style="padding-top: 10px; size: 10px">
                                 <select name="csDetId" class="selectbox" >
-                                    <option th:value="csDetNotSelected"> Select course</option>
-                                    <option th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
+                                    <option th:if="${lesTop.id == 0}" th:value="csDetNotSelected"> Select course</option>
+                                    <option th:if="${lesTop.id != 0}" th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
+                                    <option th:if="${lesTop.id == 0}" th:each="cd :${courseDet}" th:text="${cd?.course?.title}" th:value="${cd?.idDet}"></option>
                                 </select>
                             </div>
+
                             <div class="col-md-15" >
                                 <div class="form-group" >
                                     <input th:field="*{name}" minlength="6" type="text" class="form-control" required placeholder="New lesson topic">
@@ -321,7 +323,6 @@
                         </div>
                         </div>
                         </div>
-
 
                    <div class="col-md-6">
                        <div class="box_general padding_bottom" >
@@ -352,8 +353,8 @@
                    </div>
                     </div>
                 </div>
-
-        <input class="btn_1 medium" type="submit" value="Save"/>
+        <input th:if="${lesTop.id == 0}" class="btn_1 medium" type="submit" value="Save"/>
+        <input th:if="${lesTop.id != 0}" class="btn_1 medium" type="submit" value="Update"/>
     </div>
     <!-- /.container-fluid-->
 </form>

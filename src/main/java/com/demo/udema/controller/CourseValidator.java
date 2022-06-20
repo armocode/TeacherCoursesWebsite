@@ -58,7 +58,6 @@ public class CourseValidator implements Validator {
             }
         }
 
-
 //----Course price----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(course.getPrice()));
@@ -90,22 +89,40 @@ public class CourseValidator implements Validator {
 
     //----Lesson topics----//
     public void validateLessonTopic(Object o, Errors errors) {
+        List<LessonTopics> lessonTopicsList = lessonTopicService.findAll();
         LessonTopics lessonTopics = (LessonTopics) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
         if (lessonTopics.getName().length() < 3 || lessonTopics.getName().length() > 32) {
             errors.rejectValue("name", "Size.lessonTopic.name");
         }
-        if (lessonTopicService.findByTopicName(lessonTopics.getName()) != null) {
-            errors.rejectValue("name", "Duplicate.lessonTopic.name");
-        }
+
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
         Matcher matcher = pattern.matcher(String.valueOf(lessonTopics.getListNumber()));
         if (matcher.find() == false) {
             errors.rejectValue("listNumber", "Matcher.lessonTopic.listNumber");
         }
-        if (lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
-            errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+
+        if (lessonTopics.getId() == 0) {
+            if (lessonTopicService.findByTopicName(lessonTopics.getName()) != null) {
+                errors.rejectValue("name", "Duplicate.lessonTopic.name");
+            }
+            if (lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
+                errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+            }
+        }
+
+        if(lessonTopics.getId() != 0){
+            for (LessonTopics lTop : lessonTopicsList) {
+                if (lTop.getId() != lessonTopics.getId()) {
+                    if (lTop.getName().equals(lessonTopics.getName())) {
+                        errors.rejectValue("name", "Duplicate.lessonTopic.name");
+                    }
+                    if(lTop.getListNumber().equals(lessonTopics.getListNumber())){
+                        errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+                    }
+                }
+            }
         }
     }
 

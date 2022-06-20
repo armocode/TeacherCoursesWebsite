@@ -348,7 +348,7 @@
                                                             <th class="col-md-8"></th>
                                                             <td class="col-md-1" th:if="${user.role != 'ROLE_ADMIN'}">
                                                                 <div style="padding-left: 5px">
-                                                                    <a th:href="@{#}" class="text-white bg-secondary btn-sm">Update</a>
+                                                                    <a th:href="@{/showEditLessonTopic(lesTopId=${csTop.id})}" class="text-white bg-secondary btn-sm">Update</a>
 <!--                                                                    <a href="#" class="text-white btn-danger btn-sm">Delete</a>-->
                                                                 </div>
                                                             </td>
