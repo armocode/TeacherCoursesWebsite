@@ -15,5 +15,6 @@ public interface LessonTopicService {
     String findByTopicName(String name);
     List<LessonTopics> findAllTeacherLessonTopicByUsername(String username);
     void deleteLessonTopicById(int id);
+    Integer findLessonTopicIdByLessonFkId(int id);
 
 }

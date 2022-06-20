@@ -1,9 +1,0 @@
-
-1 . Neturetu rodyt tuscio lessonTopic( /courseDetails) 
-
-
-2. CourseDetails surikiuoti topikus, pamokas, pagal eiles nr.
-
-3. Del topiko trynimo (galima istrinti TIK TOPIKA kuris neturi pamoku). 
-Informuoti vartotoja kodel negali istrinti topic.
- - Jeigu norime istrinti topika kuris turi pamoku, pirmiausia istriname pamokas, o tada topika.

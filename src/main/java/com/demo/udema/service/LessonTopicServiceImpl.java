@@ -61,4 +61,9 @@ public class LessonTopicServiceImpl implements LessonTopicService{
         lessonTopicRepository.deleteById(id);
     }
 
+    @Override
+    public Integer findLessonTopicIdByLessonFkId(int id) {
+        return lessonTopicRepository.findLessonTopicIdByLessonFkId(id);
+    }
+
 }

@@ -241,14 +241,18 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("deleteLessonTopic/{id}")
-    public String deleteLessonTopic(@PathVariable(value = "id") int id) {
-        this.lessonTopicService.deleteLessonTopicById(id);
-        return "redirect:/addLessonTopic";
+    public String deleteLessonTopic(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
+        // If lesson Topic dont have any lesson - delete.
+        if(lessonTopicService.findLessonTopicIdByLessonFkId(id) == null) {
+            this.lessonTopicService.deleteLessonTopicById(id);
+            return "redirect:/addLessonTopic";
+        }
+            redirectAtt.addAttribute("error", "If you want to delete lesson topic at first you must delete lesson");
+            return "redirect:/addLessonTopic";
     }
 
     @GetMapping("/addLesson")
     public String addLesson(Model model) {
-
         List<LessonTopics> teacherLessonTopicList = lessonTopicService.findAllTeacherLessonTopicByUsername(currentLoggedInUsername());
         model.addAttribute("lesson_top", teacherLessonTopicList);
 

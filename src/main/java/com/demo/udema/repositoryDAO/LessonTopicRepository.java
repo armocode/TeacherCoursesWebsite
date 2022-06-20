@@ -27,4 +27,10 @@ public interface LessonTopicRepository extends JpaRepository<LessonTopics, Integ
             "(SELECT users.id FROM users" +
             " WHERE users.username = ?1)))", nativeQuery = true)
     List<LessonTopics> findAllTeacherLessonTopicByUsername(String username);
+
+    @Query(value = "SELECT lesson_topics.id FROM lesson_topics" +
+            " WHERE lesson_topics.id IN" +
+            "(SELECT lessons.lesson_topic_id FROM lessons" +
+            " WHERE lessons.lesson_topic_id = ?1)", nativeQuery = true)
+    Integer findLessonTopicIdByLessonFkId(int id);
 }

@@ -125,7 +125,10 @@ ON course_details.course_id = courses.id
 WHERE courses.title LIKE 'JAVA%';
 
 _______test__________________________________
-
+SELECT lesson_topics.id FROM lesson_topics
+WHERE lesson_topics.id IN
+(SELECT lessons.lesson_topic_id FROM lessons
+WHERE lessons.lesson_topic_id = 2)
 
 SELECT * FROM lessons
 WHERE lesson_topic_id IN
