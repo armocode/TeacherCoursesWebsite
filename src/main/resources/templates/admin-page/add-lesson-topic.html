@@ -333,7 +333,7 @@
                         <table border="1" class="table table-striped table-responsive-md">
                         <thead>
                         <tr>
-                            <th>Course details id</th>
+                            <th>Course details title</th>
                             <th>Name</th>
                             <th>List number</th>
                             <th></th>
@@ -341,7 +341,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="lp : ${lesson_top}">
-                           <td th:text="${lp?.courseDetails?.idDet}"></td>
+                           <td th:text="${lp?.courseDetails?.course?.title}"></td>
                            <td th:text="${lp?.name}"></td>
                            <td th:text="${lp?.listNumber}"></td>
                            <td>
