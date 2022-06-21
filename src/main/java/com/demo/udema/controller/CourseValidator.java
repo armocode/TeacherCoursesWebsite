@@ -112,13 +112,13 @@ public class CourseValidator implements Validator {
             }
         }
 
-        if(lessonTopics.getId() != 0){
+        if (lessonTopics.getId() != 0) {
             for (LessonTopics lTop : lessonTopicsList) {
                 if (lTop.getId() != lessonTopics.getId()) {
                     if (lTop.getName().equals(lessonTopics.getName())) {
                         errors.rejectValue("name", "Duplicate.lessonTopic.name");
                     }
-                    if(lTop.getListNumber().equals(lessonTopics.getListNumber())){
+                    if (lTop.getListNumber().equals(lessonTopics.getListNumber())) {
                         errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
                     }
                 }
@@ -128,15 +128,9 @@ public class CourseValidator implements Validator {
 
     //----Lessons----/
     public void validateLesson(Object o, Errors errors) {
+        List<Lessons> lessonList = lessonService.findAll();
         Lessons lessons = (Lessons) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if (lessons.getName().length() < 3 || lessons.getName().length() > 32) {
-            errors.rejectValue("name", "Size.lesson.name");
-        }
-        if (lessonService.findByLessonName(lessons.getName()) != null) {
-            errors.rejectValue("name", "Duplicate.lesson.name");
-        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
         if (lessons.getDescription().length() < 6) {
             errors.rejectValue("description", "Size.lesson.description");
@@ -150,9 +144,32 @@ public class CourseValidator implements Validator {
         if (matcher.find() == false) {
             errors.rejectValue("length", "Matcher.lesson.length");
         }
-        if(lessonService.findByListNumber(String.valueOf(lessons.getListNumber())) != null) {
-            errors.rejectValue("listNumber", "Duplicate.lesson.listNumber");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
+        if (lessons.getName().length() < 3 || lessons.getName().length() > 32) {
+            errors.rejectValue("name", "Size.lesson.name");
         }
+        if (lessons.getId() == 0) {
+            if (lessonService.findByLessonName(lessons.getName()) != null) {
+                errors.rejectValue("name", "Duplicate.lesson.name");
+            }
+            if (lessonService.findByListNumber(String.valueOf(lessons.getListNumber())) != null) {
+                errors.rejectValue("listNumber", "Duplicate.lesson.listNumber");
+            }
+        }
+        if (lessons.getId() != 0) {
+            for (Lessons l : lessonList) {
+                if (l.getId() != lessons.getId()) {
+                    if (l.getName().equals(lessons.getName())) {
+                        errors.rejectValue("name", "Duplicate.lesson.name");
+                    }
+                    if (l.getListNumber().equals(lessons.getListNumber())) {
+                        errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+                    }
+                }
+            }
+        }
+
     }
 }
 

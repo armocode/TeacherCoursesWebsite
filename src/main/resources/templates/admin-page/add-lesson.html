@@ -274,6 +274,7 @@
 <!-- /Navigation-->
 <form class="content-wrapper" th:action="@{/addLesson}" method="post" >
     <div class="container-fluid">
+        <input type="hidden" th:field="${lesson.id}">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -299,8 +300,9 @@
                                         </div>
                                         <div class="form-group" style="padding-top: 10px; size: 10px" th:object="${lesTop}">
                                             <select name="topicId" class="selectbox" >
-                                                <option th:value="lsTopNotSelected">Select lesson topic</option>
-                                                <option th:each="lst :${lesson_top}" th:text="${lst?.name}" th:value="${lst?.id}" >Topic</option>
+                                                <option th:if="${lesson.id == 0}" th:value="lsTopNotSelected">Select lesson topic</option>
+                                                <option th:if="${lesson.id == 0}" th:each="lst :${lesson_top}" th:text="${lst?.name}" th:value="${lst?.id}" >Topic</option>
+                                                <option th:if="${lesson.id != 0}" th:each="lst :${lesson_top}" th:text="${lst?.name}" th:value="${lst?.id}" >Topic</option>
                                             </select>
                                         </div>
                                         <div class="right_b switch-field" >
@@ -346,7 +348,8 @@
                                             </div>
                                             <span class="has-error" th:if="${#fields.hasErrors('listNumber')}" th:errors="*{listNumber}"></span>
                                     </div>
-                                        <input class="btn_1 medium" type="submit" value="Save"/>
+                                        <input th:if="${lesson.id == 0}" class="btn_1 medium" type="submit" value="Save"/>
+                                        <input th:if="${lesson.id != 0}" class="btn_1 medium" type="submit" value="Update"/>
                                     </div>
 
 
@@ -443,7 +446,8 @@
 <script>$('input.date-pick').datepicker();</script>
 
 <!--  SCRIPT -->
-<script>document.getElementById("TRUE").setAttribute("checked", "checked")</script>
+<script th:if="${lesson.isFree() == 'TRUE'}">document.getElementById("TRUE").setAttribute("checked", "checked")</script>
+<script th:if="${lesson.isFree() == 'FALSE'}">document.getElementById("FALSE").setAttribute("checked", "checked")</script>
 
 </body>
 </html>
