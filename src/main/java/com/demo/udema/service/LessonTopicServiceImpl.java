@@ -18,7 +18,6 @@ public class LessonTopicServiceImpl implements LessonTopicService{
         this.lessonTopicRepository = lessonTopicRepository;
     }
 
-
     @Override
     public List<LessonTopics> findAll() {
         return lessonTopicRepository.findAll();
@@ -28,7 +27,6 @@ public class LessonTopicServiceImpl implements LessonTopicService{
     public void save(LessonTopics lessonTopics) {
         lessonTopicRepository.save(lessonTopics);
     }
-
 
     @Override
     public LessonTopics findById(int id) {

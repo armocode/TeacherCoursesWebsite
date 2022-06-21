@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -360,8 +361,7 @@ public class HomeController implements ErrorController {
 
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
-
-        List<LessonTopics> lessonTopicsList = lessonTopicService.findAllLessonTopicByCourseTitle(title);
+        List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
         model.addAttribute("lesTopList", lessonTopicsList);
 
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
@@ -560,5 +560,19 @@ public class HomeController implements ErrorController {
             return true;
         }
         return false;
+    }
+
+    /**
+     * If LessonTopic don't have lessons inside, delete lessonTopic
+     */
+
+    public List<LessonTopics> deleteNullValuesOfLessonTopics(List<LessonTopics> list) {
+        Iterator<LessonTopics> it = list.iterator();
+        while (it.hasNext()) {
+            if(it.next().getLessonsList().isEmpty()) {
+                it.remove();
+            }
+        }
+        return list;
     }
 }

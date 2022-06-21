@@ -35,7 +35,6 @@ public class CourseServiceImpl implements CourseService{
     courseRepository.save(course);
     }
 
-
     public List<Course> findAllByTitle(String title) {
         return courseRepository.findAllByTitle(title);
     }
@@ -50,7 +49,6 @@ public class CourseServiceImpl implements CourseService{
         return courseRepository.findAllTeacherCourseByUsername(username);
     }
 
-
     @Override
     public void deleteByTitle(String title) {
         courseRepository.deleteByTitle(title);
@@ -64,14 +62,6 @@ public class CourseServiceImpl implements CourseService{
     public Course findByTitle(String title) {
         return courseRepository.findByTitle(title);
     }
-//    public void test(LinkedList<LessonTopics> list) {
-//        Iterator<LessonTopics> it = list.iterator();
-//        while (it.hasNext()) {
-//            if(it.next().getLessonsList().isEmpty()) {
-//                it.remove();
-//            }
-//        }
-//    }
 
 }
 
