@@ -11,4 +11,6 @@ public interface UserService {
     User findByEmail(String email);
     void saveNoPassword(User user);
     List<String> findUsersWhoBoughtCourseByCourseTitle(String title);
+    String findRoleByUsername(String username);
+
 }

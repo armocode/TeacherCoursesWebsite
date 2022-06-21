@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " WHERE courses.title LIKE ?1))", nativeQuery = true)
     List<String> findUsersWhoBoughtCourseByCourseTitle(String title);
 
+    @Query(value = "SELECT role FROM users" +
+            " WHERE username LIKE ?1", nativeQuery = true)
+    String findRoleByUsername(String username);
 }

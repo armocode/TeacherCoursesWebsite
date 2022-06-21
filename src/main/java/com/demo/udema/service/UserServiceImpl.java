@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
     public List<String> findUsersWhoBoughtCourseByCourseTitle(String title) {
         return userRepository.findUsersWhoBoughtCourseByCourseTitle(title);
     }
+
+    @Override
+    public String findRoleByUsername(String username) {
+        return userRepository.findRoleByUsername(username);
+    }
 }

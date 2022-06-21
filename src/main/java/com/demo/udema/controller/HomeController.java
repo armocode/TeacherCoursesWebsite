@@ -301,10 +301,13 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/addCategory")
     public String addCategory(Model model) {
-//        List<Category> teacherCategoryList = categoryService.findAllTeacherCategoriesByUsername(currentLoggedInUsername());
+//      List<Category> teacherCategoryList = categoryService.findAllTeacherCategoriesByUsername(currentLoggedInUsername());
         List<Category> categoriesList = categoryService.findAllCategories();
         model.addAttribute("category", categoriesList);
         model.addAttribute("newCategory", new Category());
+        String role = userService.findRoleByUsername(currentLoggedInUsername());
+        model.addAttribute("role" , role);
+
         return "admin-page/add-category";
     }
 
@@ -329,6 +332,7 @@ public class HomeController implements ErrorController {
     }
     @GetMapping("/updateCategory/{id}")
     public String updateCategory(@PathVariable(value = "id") int id, Model model) {
+
         Category category = categoryService.findById(id);
         model.addAttribute("newCategory", category);
 
