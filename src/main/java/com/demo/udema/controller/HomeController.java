@@ -82,6 +82,9 @@ public class HomeController implements ErrorController {
         model.addAttribute("cDetails", new CourseDetails());
 
         model.addAttribute("course", new Course());
+
+        model.addAttribute("coursesList", courseService.findAllTeacherCourseByUsername(username));
+
         return "admin-page/add-course";
     }
 

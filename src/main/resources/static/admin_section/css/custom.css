@@ -63,3 +63,16 @@ text-color {
 {
     content: '\002B';
 }
+
+.btn-link3:after {
+    font-family: 'FontAwesome';
+    content: '\f077';
+    font-size: 15px;
+    text-align: center;
+}
+
+.btn-link3.collapsed:after
+{
+
+    content: '\f078';
+}

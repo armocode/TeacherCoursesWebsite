@@ -268,7 +268,7 @@
 </nav>
 <!-- /Navigation-->
 <form class="content-wrapper" action="#" th:action="@{/addCourse}" method="post">
-    <div class="container-fluid">
+    <div> <!--  class="container-fluid"-->
         <!--LABAI SVARBUUUUU, jei nori dvieju id savo controleryje (forUpdate), butinai pakeisk kintamuju vardus-->
         <input type="hidden" th:field="${course.id}">
         <input type="hidden" th:field="${cDetails.idDet}">
@@ -293,6 +293,93 @@
         </div>
 
         <div class="col-md-12">
+
+            <!-- TESTAS -->
+            <div class="box_general padding_bottom">
+                <div class="header_box version_2" id="headingOne">
+                    <div>
+                        <h2><i class="fa fa-file"></i> My courses
+                            <span class="badge badge-pill badge-primary">
+                                <span class="btn-link3 collapsed"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></span>
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div> <!-- class="card-body"-->
+<!--                                LENTELE-->
+                                <!-- Example DataTables Card-->
+                                <div class="card mb-3">
+<!--                                    <div class="card-header">-->
+<!--                                        <i class="fa fa-table"></i> Data Table Example-->
+<!--                                    </div>-->
+                                    <div> <!-- class="card-body"-->
+                                        <div class="table-responsive">
+                                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                <tr class="thead-dark">
+                                                    <th>Course title</th>
+                                                    <th>Price</th>
+                                                    <th>Category</th>
+                                                    <th>Description</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tr>
+                                                    <th></th><th></th><th></th><th></th><th></th>
+                                                </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                <div th:each="cL : ${coursesList}">
+                                                    <tr>
+                                                        <td th:text="${cL.title}">title</td>
+                                                        <td th:text="${cL.price}">price</td>
+                                                        <td th:text="${cL.category.title}">category.title</td>
+                                                        <td th:text="${cL.courseDetails.description}">courseDetails.description</td>
+                                                        <td>
+                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>
+                                                        </td>
+                                                    </tr>
+                                                </div>
+<!--                                                <tr>-->
+<!--                                                    <td>Garrett Winters</td>-->
+<!--                                                    <td>Accountant</td>-->
+<!--                                                    <td>Tokyo</td>-->
+<!--                                                    <td>63</td>-->
+<!--                                                    <td>2011/07/25</td>-->
+<!--                                                </tr>-->
+<!--                                                <tr>-->
+<!--                                                    <td>Garrett Winters</td>-->
+<!--                                                    <td>Accountant</td>-->
+<!--                                                    <td>Tokyo</td>-->
+<!--                                                    <td>63</td>-->
+<!--                                                    <td>2011/07/25</td>-->
+<!--                                                </tr>-->
+<!--                                                <tr>-->
+<!--                                                    <td>Garrett Winters</td>-->
+<!--                                                    <td>Accountant</td>-->
+<!--                                                    <td>Tokyo</td>-->
+<!--                                                    <td>63</td>-->
+<!--                                                    <td>2011/07/25</td>-->
+<!--                                                </tr>-->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+<!--                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>-->
+                                </div>
+                                <!-- /tables-->
+<!--                                LENTELE-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TESTAS -->
+
             <div class="box_general padding_bottom">
                 <div class="header_box version_2">
                     <h2><i class="fa fa-file"></i>Course</h2>
@@ -445,9 +532,11 @@
 <script src="../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
 <!-- Custom scripts for this page-->
 <script src="../static/admin_section/vendor/dropzone.min.js" th:src="@{/admin_section/vendor/dropzone.min.js}"></script>
-<script src="../static/admin_section/vendor/bootstrap-datepicker.js"
-        th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
+<script src="../static/admin_section/vendor/bootstrap-datepicker.js" th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
+
 <script>$('input.date-pick').datepicker();</script>
+<!-- Custom scripts for this page-->
+<script src="../static/admin_section/js/admin-datatables.js" th:src="@{/admin_section/js/admin-datatables.js}"></script>
 
 <!--  SCRIPT -->
 <script>document.getElementById("TRUE").setAttribute("checked", "checked")</script>
