@@ -5,6 +5,7 @@ import org.hibernate.annotations.BatchSize;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -86,4 +87,6 @@ public LessonTopics(){}
     public void setLessonsList(List<Lessons> lessonsList) {
         this.lessonsList = lessonsList;
     }
+
+
 }

@@ -5,6 +5,7 @@ import com.demo.udema.entity.LessonTopics;
 import com.demo.udema.repositoryDAO.LessonTopicRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,4 +67,8 @@ public class LessonTopicServiceImpl implements LessonTopicService{
         return lessonTopicRepository.findLessonTopicIdByLessonFkId(id);
     }
 
+    @Override
+    public List<LessonTopics> findAllLessonTopicByCourseTitle(String title) {
+        return lessonTopicRepository.findAllLessonTopicByCourseTitle(title);
+    }
 }

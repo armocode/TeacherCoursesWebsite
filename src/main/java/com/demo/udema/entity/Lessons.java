@@ -2,6 +2,7 @@ package com.demo.udema.entity;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Comparator;
 
 @Entity
 @Table(name = "lessons")
@@ -117,4 +118,14 @@ public class Lessons {
     public void setListNumber(Integer listNumber) {
         this.listNumber = listNumber;
     }
+
+    // Implement comparable
+//    @Override
+//    public int compareTo(Object o) {
+//        return Comparator
+//                .comparing(Lessons::getListNumber)
+//                .reversed()
+//                .compare(this, (Lessons) o);
+//
+//    }
 }

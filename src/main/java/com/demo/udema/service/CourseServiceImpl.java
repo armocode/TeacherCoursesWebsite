@@ -2,9 +2,13 @@ package com.demo.udema.service;
 
 import com.demo.udema.entity.Course;
 import com.demo.udema.entity.CourseReviews;
+import com.demo.udema.entity.LessonTopics;
 import com.demo.udema.repositoryDAO.CourseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -37,11 +41,6 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course findByTitle(String title) {
-        return courseRepository.findByTitle(title);
-    }
-
-    @Override
     public Course findById(int id) {
         return courseRepository.findById(id);
     }
@@ -61,4 +60,18 @@ public class CourseServiceImpl implements CourseService{
     public List<Course> findAllSortByAnyTime() {
         return courseRepository.findAllSortByAnyTime();
     }
+    @Override
+    public Course findByTitle(String title) {
+        return courseRepository.findByTitle(title);
+    }
+//    public void test(LinkedList<LessonTopics> list) {
+//        Iterator<LessonTopics> it = list.iterator();
+//        while (it.hasNext()) {
+//            if(it.next().getLessonsList().isEmpty()) {
+//                it.remove();
+//            }
+//        }
+//    }
+
 }
+

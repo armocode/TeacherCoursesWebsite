@@ -307,7 +307,6 @@ public class HomeController implements ErrorController {
         model.addAttribute("newCategory", new Category());
         String role = userService.findRoleByUsername(currentLoggedInUsername());
         model.addAttribute("role" , role);
-
         return "admin-page/add-category";
     }
 
@@ -332,10 +331,8 @@ public class HomeController implements ErrorController {
     }
     @GetMapping("/updateCategory/{id}")
     public String updateCategory(@PathVariable(value = "id") int id, Model model) {
-
         Category category = categoryService.findById(id);
         model.addAttribute("newCategory", category);
-
         List<Category> categoriesList = categoryService.findAllCategories();
         model.addAttribute("category", categoriesList);
         return "admin-page/add-category";
@@ -363,6 +360,9 @@ public class HomeController implements ErrorController {
 
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
+
+        List<LessonTopics> lessonTopicsList = lessonTopicService.findAllLessonTopicByCourseTitle(title);
+        model.addAttribute("lesTopList", lessonTopicsList);
 
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);

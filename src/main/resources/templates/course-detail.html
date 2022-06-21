@@ -166,7 +166,8 @@
                                     <li th:text="${h}+' h '+${m}+' m '+${s}+' s '">01:02:10</li>
                                 </ul>
                             </div>
-                            <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each=" cclt:${coursesTit.courseDetails.lessonTopics}">
+<!--                            th:each=" cclt:${coursesTit.courseDetails.lessonTopics}"-->
+                            <div id="accordion_lessons" role="tablist" class="add_bottom_45" th:each="cclt: ${lesTopList}">
                                 <div class="card" >
                                     <div class="card-header" role="tab" id="headingOne" >
                                         <h5 class="mb-0" >
