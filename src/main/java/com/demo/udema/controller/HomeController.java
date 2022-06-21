@@ -317,7 +317,6 @@ public class HomeController implements ErrorController {
             model.addAttribute("errormessage", "Failed to create category");
             return "admin-page/add-category";
         }
-//        Category cat = category
         categoryService.save(category);
         redirectAttributes.addFlashAttribute("message", "Category saved successfully");
         return "redirect:/addCategory";
@@ -328,6 +327,16 @@ public class HomeController implements ErrorController {
         this.categoryService.deleteCategoryById(id);
         return "redirect:/addCategory";
     }
+    @GetMapping("/updateCategory/{id}")
+    public String updateCategory(@PathVariable(value = "id") int id, Model model) {
+        Category category = categoryService.findById(id);
+        model.addAttribute("newCategory", category);
+
+        List<Category> categoriesList = categoryService.findAllCategories();
+        model.addAttribute("category", categoriesList);
+        return "admin-page/add-category";
+    }
+
 
     @GetMapping("/coursesList")
     public String coursesList(@RequestParam("categoryId") int id, Model model) {

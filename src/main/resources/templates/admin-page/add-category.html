@@ -290,13 +290,16 @@
                             </div>
                             <div class="col-md-15" >
                                 <div class="form-group" >
+                                    <input th:type="hidden" th:field="*{id}">
                                     <input th:field="*{title}" required type="text" class="form-control" placeholder="Category title">
                                     <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                                 </div>
                             </div>
                         </div>
+                            <input th:if="${newCategory.title==null}" class="btn_1 medium" type="submit" value="Save"/>
+                            <input th:if="${newCategory.title!=null}" class="btn_1 medium" type="submit" value="Update"/>
+                            <input th:if="${newCategory.title!=null}" class="btn_1 medium" type="submit" value="Cancel" onclick="window.history.back();"/>
                         </div>
-
 
                         <div class="col-md-6">
                             <div class="box_general padding_bottom" >
@@ -317,17 +320,15 @@
                                     <td th:text="${c?.title}"></td>
                                     <td>
                                     <a th:href="@{/deleteCategory/{id}(id=${c.id})}" class="btn btn-danger" onclick="if(!(confirm('Are you sure, you want to delete this category?'))) return false">Delete</a>
+                                        <a th:href="@{/updateCategory/{id}(id=${c.id})}" class="btn btn-primary">Update</a>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+
+                        </div>
                 </div>
-
-
-
-        <input class="btn_1 medium" type="submit" value="Save"/>
     </div>
     <!-- /.container-fluid-->
 </form>
