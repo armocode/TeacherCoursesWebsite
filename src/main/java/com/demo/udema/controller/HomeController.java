@@ -248,11 +248,14 @@ public class HomeController implements ErrorController {
     public String deleteLessonTopic(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
         // If lesson Topic dont have any lesson - delete.
         if (lessonTopicService.findLessonTopicIdByLessonFkId(id) == null) {
+            redirectAtt.addFlashAttribute("message", "Lesson topic deleted successfully");
             this.lessonTopicService.deleteLessonTopicById(id);
             return "redirect:/addLessonTopic";
+        } else if(lessonTopicService.findLessonTopicIdByLessonFkId(id) != null) {
+            redirectAtt.addFlashAttribute("error", "If you want to delete lesson topic at first you must delete lesson");
+            return "redirect:/addLessonTopic";
         }
-        redirectAtt.addAttribute("error", "If you want to delete lesson topic at first you must delete lesson");
-        return "redirect:/addLessonTopic";
+        return "redirect:/error";
     }
 
     @GetMapping(value = "/showEditLesson")
@@ -332,7 +335,8 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("deleteLesson/{id}")
-    public String deleteLesson(@PathVariable(value = "id") int id) {
+    public String deleteLesson(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
+        redirectAtt.addFlashAttribute("message", "Lesson deleted successfully");
         this.lessonService.deleteLessonById(id);
         return "redirect:/addLesson";
     }
