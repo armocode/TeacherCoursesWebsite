@@ -29,6 +29,7 @@ public class HomeController implements ErrorController {
     private UserService userService;
     @Autowired
     private CourseValidator courseValidator;
+    private OrderService orderService;
     private CategoryService categoryService;
     private CourseService courseService;
     private CourseReviewService courseReviewService;
@@ -37,9 +38,10 @@ public class HomeController implements ErrorController {
     private LessonTopicService lessonTopicService;
 
     @Autowired
-    public HomeController(UserService userService, CourseValidator courseValidator, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService) {
+    public HomeController(UserService userService, CourseValidator courseValidator, OrderService orderService, CategoryService categoryService, CourseService courseService, CourseReviewService courseReviewService, LessonService lessonService, CourseDetailService courseDetailService, LessonTopicService lessonTopicService) {
         this.userService = userService;
         this.courseValidator = courseValidator;
+        this.orderService = orderService;
         this.categoryService = categoryService;
         this.courseService = courseService;
         this.courseReviewService = courseReviewService;
@@ -127,6 +129,32 @@ public class HomeController implements ErrorController {
         }
         redirectAttributes.addFlashAttribute("message", "Course saved successfully");
         return "redirect:/addCourse";
+    }
+
+    @GetMapping("/deleteCourse")
+    public String deleteCourse(@ModelAttribute("courseId") int courseId, RedirectAttributes redirectAtt) {
+        // TODO ideti valid nuo kitu useriu
+        Course getCourseById =  courseService.findById(courseId);
+        List<Orders> getOrdersListByCourseId = orderService.findAllByCourseId(courseId);
+        if(getCourseById.getCourseDetails().getLessonTopics().size() == 0){
+            // Triname orderius
+            if(getOrdersListByCourseId != null){
+                int tempId = 0;
+                for (Orders o : orderService.findAllByCourseId(courseId)){
+                    tempId = o.getCourseId();
+                }
+                orderService.deleteByCourseId(tempId);
+            }
+            // Triname Course details
+            courseDetailService.deleteById(getCourseById.getCourseDetails().getIdDet());
+            // Triname Course
+            courseService.deleteById(getCourseById.getId());
+            redirectAtt.addFlashAttribute("message", "Course deleted successfully");
+            return "redirect:/addCourse";
+        } else {
+            redirectAtt.addFlashAttribute("errormessage", "If you want to delete course at first you must delete lesson topic");
+            return "redirect:/addCourse";
+        }
     }
 
     @GetMapping("/editCourse")

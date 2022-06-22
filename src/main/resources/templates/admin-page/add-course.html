@@ -340,7 +340,7 @@
                                                         <td th:text="${cL.category.title}">category.title</td>
                                                         <td th:text="${cL.courseDetails.description}">courseDetails.description</td>
                                                         <td>
-                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>
+                                                            <a th:href="@{/deleteCourse(courseId=${cL.id})}" class="text-white bg-danger btn-sm">DELETE</a>
                                                         </td>
                                                     </tr>
                                                 </div>

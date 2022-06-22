@@ -27,6 +27,11 @@ public class CourseDetailServiceImpl implements CourseDetailService {
     }
 
     @Override
+    public void deleteById(int id) {
+        courseDetailRepository.deleteById(id);
+    }
+
+    @Override
     public CourseDetails findById(int id) {
         Optional<CourseDetails> result = courseDetailRepository.findById(id);
         CourseDetails csdet = null;

@@ -15,6 +15,7 @@ public interface CourseService {
     List<Course> findAllTeacherCourseByUsername(String username);
     void save(Course course);
     void deleteByTitle(String title);
+    void deleteById(int id);
     List<Course> findAllSortByAnyTime();
 
 }

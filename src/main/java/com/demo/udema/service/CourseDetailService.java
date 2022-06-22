@@ -9,6 +9,7 @@ public interface CourseDetailService {
     List<CourseDetails> findAll();
 
     void save(CourseDetails details);
+    void deleteById(int id);
     CourseDetails findById(int id);
     List<CourseDetails> findAllTeacherCourseDetailsByUsername(String username);
 }
