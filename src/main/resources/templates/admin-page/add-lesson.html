@@ -352,37 +352,86 @@
                                         <input th:if="${lesson.id != 0}" class="btn_1 medium" type="submit" value="Update"/>
                                     </div>
 
+<!--OLD TABLE -->
+<!--                               <div class="col-md-6">-->
+<!--                                   <div class="box_general padding_bottom" >-->
+<!--                                       <div class="header_box version_2">-->
+<!--                                           <h2><i class="fa fa-file-text"></i>Lessons of your courses</h2>-->
+<!--                                       </div>-->
+<!--                                   <table border="1" class="table table-striped table-responsive-md">-->
+<!--                                       <thead>-->
+<!--                                       <tr>-->
+<!--                                           <th>Lesson name</th>-->
+<!--                                           <th>Lesson topic name</th>-->
+<!--                                           <th></th>-->
+<!--                                       </tr>-->
+<!--                                       </thead>-->
+<!--                                       <tbody>-->
+<!--                                       <tr th:each="ls : ${lessons}">-->
+<!--                                           <td th:text="${ls?.name}"></td>-->
+<!--                                           <td th:text="${ls?.lessonTopics?.name}"></td>-->
+<!--                                           <td>-->
+<!--                                               <a th:href="@{/deleteLesson/{id}(id=${ls.id})}" class="btn btn-danger" onclick="if(!(confirm('Are you sure, you want to delete this lesson?'))) return false" >Delete</a>-->
+<!--                                           </td>-->
+<!--                                       </tr>-->
+<!--                                       </tbody>-->
+<!--                                   </table>-->
+<!--                                 </div>-->
+<!--                                </div>-->
+<!--OLD TABLE                                    -->
+                                    <!--                       NEW TABLE -->
+                                    <div class="col-md-6" >
+                                        <div class="box_general padding_bottom">
+                                            <div class="header_box version_2" id="headingOne">
+                                                <div>
+                                                    <h2><i class="fa fa-file"></i> Lessons of your courses</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <div class="card mb-3">
+                                                            <div>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                                                        <thead>
+                                                                        <tr class="thead-dark">
+                                                                            <th>Lesson name</th>
+                                                                            <th>Lesson topic name</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tfoot>
+                                                                        <tr>
+                                                                            <th></th><th></th><th></th><th></th><th></th>
+                                                                        </tr>
+                                                                        </tfoot>
+                                                                        <tbody>
+                                                                        <div th:each="ls : ${lessons}">
+                                                                            <tr>
+                                                                                <td th:text="${ls?.name}"></td>
+                                                                                <td th:text="${ls?.lessonTopics?.name}"></td>
+                                                                                <td>
+                                                                                    <a th:href="@{/deleteLesson/{id}(id=${ls.id})}" class="btn text-white bg-danger btn-sm"
+                                                                                       onclick="if(!(confirm('Are you sure, you want to delete this lesson?'))) return false">DELETE</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </div>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--              NEW TABLE  -->
 
-                               <div class="col-md-6">
-                                   <div class="box_general padding_bottom" >
-                                       <div class="header_box version_2">
-                                           <h2><i class="fa fa-file-text"></i>Lessons from your courses</h2>
-                                       </div>
-                                   <table border="1" class="table table-striped table-responsive-md">
-                                       <thead>
-                                       <tr>
-                                           <th>Lesson name</th>
-                                           <th>Lesson topic name</th>
-                                           <th></th>
-                                       </tr>
-                                       </thead>
-                                       <tbody>
-                                       <tr th:each="ls : ${lessons}">
-                                           <td th:text="${ls?.name}"></td>
-                                           <td th:text="${ls?.lessonTopics?.name}"></td>
-                                           <td>
-                                               <a th:href="@{/deleteLesson/{id}(id=${ls.id})}" class="btn btn-danger" onclick="if(!(confirm('Are you sure, you want to delete this lesson?'))) return false" >Delete</a>
-                                           </td>
-                                       </tr>
-                                       </tbody>
-                                   </table>
-                                 </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                </div>
-
-        </div>
-
     </div>
+
     <!-- /.container-fluid-->
 </form>
 <!-- /.container-wrapper-->
@@ -417,33 +466,29 @@
     </div>
 </div>
 <!-- Bootstrap core JavaScript-->
-<script src="../../static/admin_section/vendor/jquery/jquery.min.js"
+<script src="../static/admin_section/vendor/jquery/jquery.min.js"
         th:src="@{/admin_section/vendor/jquery/jquery.min.js}"></script>
-<script src="../../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js"
+<script src="../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js"
         th:src="@{/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- Core plugin JavaScript-->
-<script src="../../static/admin_section/vendor/jquery-easing/jquery.easing.min.js"
+<script src="../static/admin_section/vendor/jquery-easing/jquery.easing.min.js"
         th:src="@{/admin_section/vendor/jquery-easing/jquery.easing.min.js}"></script>
 <!-- Page level plugin JavaScript-->
-<script src="../../static/admin_section/vendor/chart.js/Chart.js"
-        th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
-<script src="../../static/admin_section/vendor/datatables/jquery.dataTables.js"
-        th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
-<script src="../../static/admin_section/vendor/datatables/dataTables.bootstrap4.js"
-        th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
-<script src="../../static/admin_section/vendor/jquery.selectbox-0.2.js"
-        th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
-<script src="../../static/admin_section/vendor/retina-replace.min.js"
-        th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
-<script src="../../static/admin_section/vendor/jquery.magnific-popup.min.js"
-        th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
+<script src="../static/admin_section/vendor/chart.js/Chart.js"  th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
+<script src="../static/admin_section/vendor/datatables/jquery.dataTables.js"    th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
+<script src="../static/admin_section/vendor/datatables/dataTables.bootstrap4.js"    th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
+<script src="../static/admin_section/vendor/jquery.selectbox-0.2.js"   th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
+<script src="../static/admin_section/vendor/retina-replace.min.js"    th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
+<script src="../static/admin_section/vendor/jquery.magnific-popup.min.js"   th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
 <!-- Custom scripts for all pages-->
-<script src="../../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
+<script src="../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
 <!-- Custom scripts for this page-->
-<script src="../../static/admin_section/vendor/dropzone.min.js" th:src="@{/admin_section/vendor/dropzone.min.js}"></script>
-<script src="../../static/admin_section/vendor/bootstrap-datepicker.js"
-        th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
+<script src="../static/admin_section/vendor/dropzone.min.js" th:src="@{/admin_section/vendor/dropzone.min.js}"></script>
+<script src="../static/admin_section/vendor/bootstrap-datepicker.js" th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
+
 <script>$('input.date-pick').datepicker();</script>
+<!-- Custom scripts for this page-->
+<script src="../static/admin_section/js/admin-datatables.js" th:src="@{/admin_section/js/admin-datatables.js}"></script>
 
 <!--  SCRIPT -->
 <script th:if="${lesson.isFree() == 'TRUE'}">document.getElementById("TRUE").setAttribute("checked", "checked")</script>

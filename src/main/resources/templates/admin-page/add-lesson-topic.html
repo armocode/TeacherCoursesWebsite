@@ -61,7 +61,11 @@
         padding-top: 13px;
     }</style>
 
-
+    <style>.has-error {
+        color: #D8000C;
+        background-color: #FFBABA;
+    }
+    </style>
 </head>
 
 <body sec:authorize="isAuthenticated()" class="fixed-nav sticky-footer" id="page-top">
@@ -325,7 +329,7 @@
                             <input th:if="${lesTop.id == 0}" class="btn_1 medium" type="submit" value="Save"/>
                             <input th:if="${lesTop.id != 0}" class="btn_1 medium" type="submit" value="Update"/>
                         </div>
-
+<!--OLD TABLE-->
 <!--                   <div class="col-md-6">-->
 <!--                       <div class="box_general padding_bottom" >-->
 <!--                           <div class="header_box version_2">-->
@@ -356,82 +360,73 @@
 <!--                        </table>-->
 <!--                      </div>-->
 <!--                   </div>-->
+<!--OLD TABLE-->
 
-                        <!--              NAUJA LENTELE -->
-                    </div>
-        <div class="col-md-12" >
-            <!-- TESTAS -->
-            <div class="box_general padding_bottom">
-                <div class="header_box version_2" id="headingOne">
-                    <div>
-                        <h2><i class="fa fa-file"></i> My courses
-                            <span class="badge badge-pill badge-primary">
-                                <span class="btn-link3 collapsed"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></span>
-                            </span>
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div> <!-- class="card-body"-->
-                                <!--                                LENTELE-->
-                                <!-- Example DataTables Card-->
-                                <div class="card mb-3">
-                                    <!--                                    <div class="card-header">-->
-                                    <!--                                        <i class="fa fa-table"></i> Data Table Example-->
-                                    <!--                                    </div>-->
-                                    <div> <!-- class="card-body"-->
-                                        <div class="table-responsive">
-                                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                <tr class="thead-dark">
-                                                    <th>Course title</th>
-                                                    <th>Name</th>
-                                                    <th>List number</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tfoot>
-                                                <tr>
-                                                    <th></th><th></th><th></th><th></th><th></th>
-                                                </tr>
-                                                </tfoot>
-                                                <tbody>
-                                                <div th:each="lp : ${lesson_top}">
-                                                    <tr>
-                                                        <td th:text="${lp.courseDetails.course.title}"></td>
-                                                        <td th:text="${lp.name}"></td>
-                                                        <td th:text="${lp.listNumber}"></td>
-<!--                                                        <td>-->
-<!--                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>-->
-<!--                                                        </td>-->
-                                                            <td>
-                                                             <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn btn-danger"
-                                                               onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">Delete</a>
-                                                             </td>
-                                                    </tr>
-                                                </div>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                        <!--                       NEW TABLE -->
+                        <div class="col-md-6" >
+                            <div class="box_general padding_bottom">
+                                <div class="header_box version_2" id="headingOne">
+                                    <div>
+                                        <h2><i class="fa fa-file"></i> Lesson topics of your courses
+<!--                                            COLAPSE -->
+<!--                                            <span class="badge badge-pill badge-primary">-->
+<!--                                <span class="btn-link3 collapsed"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></span>-->
+<!--                            </span>-->
+                                        </h2>
                                     </div>
                                 </div>
-                                <!-- /tables-->
-                                <!--                                LENTELE-->
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+<!--                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">-->
+                                            <div> <!-- class="card-body"-->
+                                                <div class="card mb-3">
+                                                    <div>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                                                <thead>
+                                                                <tr class="thead-dark">
+                                                                    <th>Course title</th>
+                                                                    <th>Name</th>
+                                                                    <th>List number</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <th></th><th></th><th></th><th></th><th></th>
+                                                                </tr>
+                                                                </tfoot>
+                                                                <tbody>
+                                                                <div th:each="lp : ${lesson_top}">
+                                                                    <tr>
+                                                                        <td th:text="${lp.courseDetails.course.title}"></td>
+                                                                        <td th:text="${lp.name}"></td>
+                                                                        <td th:text="${lp.listNumber}"></td>
+                                                                        <!--                                                        <td>-->
+                                                                        <!--                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>-->
+                                                                        <!--                                                        </td>-->
+                                                                        <td>
+                                                                            <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn text-white bg-danger btn-sm"
+                                                                               onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">DELETE</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </div>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        <!--              NEW TABLE  -->
+
+                                            </div>
+<!--                           Colapse             </div>-->
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- TESTAS -->
-        </div>
-
-
-
-
+                    </div>
+    </div>
 
     <!-- /.container-fluid-->
 </form>
@@ -469,33 +464,29 @@
     </div>
 </div>
 <!-- Bootstrap core JavaScript-->
-<script src="../../static/admin_section/vendor/jquery/jquery.min.js"
+<script src="../static/admin_section/vendor/jquery/jquery.min.js"
         th:src="@{/admin_section/vendor/jquery/jquery.min.js}"></script>
-<script src="../../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js"
+<script src="../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js"
         th:src="@{/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- Core plugin JavaScript-->
-<script src="../../static/admin_section/vendor/jquery-easing/jquery.easing.min.js"
+<script src="../static/admin_section/vendor/jquery-easing/jquery.easing.min.js"
         th:src="@{/admin_section/vendor/jquery-easing/jquery.easing.min.js}"></script>
 <!-- Page level plugin JavaScript-->
-<script src="../../static/admin_section/vendor/chart.js/Chart.js"
-        th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
-<script src="../../static/admin_section/vendor/datatables/jquery.dataTables.js"
-        th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
-<script src="../../static/admin_section/vendor/datatables/dataTables.bootstrap4.js"
-        th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
-<script src="../../static/admin_section/vendor/jquery.selectbox-0.2.js"
-        th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
-<script src="../../static/admin_section/vendor/retina-replace.min.js"
-        th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
-<script src="../../static/admin_section/vendor/jquery.magnific-popup.min.js"
-        th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
+<script src="../static/admin_section/vendor/chart.js/Chart.js"  th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
+<script src="../static/admin_section/vendor/datatables/jquery.dataTables.js"    th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
+<script src="../static/admin_section/vendor/datatables/dataTables.bootstrap4.js"    th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
+<script src="../static/admin_section/vendor/jquery.selectbox-0.2.js"   th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
+<script src="../static/admin_section/vendor/retina-replace.min.js"    th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
+<script src="../static/admin_section/vendor/jquery.magnific-popup.min.js"   th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
 <!-- Custom scripts for all pages-->
-<script src="../../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
+<script src="../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
 <!-- Custom scripts for this page-->
-<script src="../../static/admin_section/vendor/dropzone.min.js" th:src="@{/admin_section/vendor/dropzone.min.js}"></script>
-<script src="../../static/admin_section/vendor/bootstrap-datepicker.js"
-        th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
+<script src="../static/admin_section/vendor/dropzone.min.js" th:src="@{/admin_section/vendor/dropzone.min.js}"></script>
+<script src="../static/admin_section/vendor/bootstrap-datepicker.js" th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
+
 <script>$('input.date-pick').datepicker();</script>
+<!-- Custom scripts for this page-->
+<script src="../static/admin_section/js/admin-datatables.js" th:src="@{/admin_section/js/admin-datatables.js}"></script>
 
 <!--  SCRIPT -->
 <script>document.getElementById("TRUE").setAttribute("checked", "checked")</script>
