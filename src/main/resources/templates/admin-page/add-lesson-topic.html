@@ -326,105 +326,106 @@
                             <input th:if="${lesTop.id != 0}" class="btn_1 medium" type="submit" value="Update"/>
                         </div>
 
-                   <div class="col-md-6">
-                       <div class="box_general padding_bottom" >
-                           <div class="header_box version_2">
-                               <h2><i class="fa fa-file-text"></i>Lesson topics of your courses</h2>
-                           </div>
+<!--                   <div class="col-md-6">-->
+<!--                       <div class="box_general padding_bottom" >-->
+<!--                           <div class="header_box version_2">-->
+<!--                               <h2><i class="fa fa-file-text"></i>Lesson topics of your courses</h2>-->
+<!--                           </div>-->
 
-                        <table border="1" class="table table-striped table-responsive-md">
-                        <thead>
-                        <tr>
-                            <th>Course title</th>
-                            <th>Name</th>
-                            <th>List number</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="lp : ${lesson_top}">
-                           <td th:text="${lp?.courseDetails?.course?.title}"></td>
-                           <td th:text="${lp?.name}"></td>
-                           <td th:text="${lp?.listNumber}"></td>
-                           <td>
-<!--                               If you want to delete lesson topic at first you must delete lesson-->
-                               <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn btn-danger"
-                               onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">Delete</a>
-                           </td>
-                         </tr>
-                        </tbody>
-                        </table>
-                      </div>
-                   </div>
+<!--                        <table border="1" class="table table-striped table-responsive-md">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>Course title</th>-->
+<!--                            <th>Name</th>-->
+<!--                            <th>List number</th>-->
+<!--                            <th>Action</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr th:each="lp : ${lesson_top}">-->
+<!--                           <td th:text="${lp?.courseDetails?.course?.title}"></td>-->
+<!--                           <td th:text="${lp?.name}"></td>-->
+<!--                           <td th:text="${lp?.listNumber}"></td>-->
+<!--                           <td>-->
+<!--&lt;!&ndash;                               If you want to delete lesson topic at first you must delete lesson&ndash;&gt;-->
+<!--                               <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn btn-danger"-->
+<!--                               onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">Delete</a>-->
+<!--                           </td>-->
+<!--                         </tr>-->
+<!--                        </tbody>-->
+<!--                        </table>-->
+<!--                      </div>-->
+<!--                   </div>-->
 
                         <!--              NAUJA LENTELE -->
                     </div>
-<!--        <div class="col-md-12" >-->
-<!--            &lt;!&ndash; TESTAS &ndash;&gt;-->
-<!--            <div class="box_general padding_bottom">-->
-<!--                <div class="header_box version_2" id="headingOne">-->
-<!--                    <div>-->
-<!--                        <h2><i class="fa fa-file"></i> My courses-->
-<!--                            <span class="badge badge-pill badge-primary">-->
-<!--                                <span class="btn-link3 collapsed"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></span>-->
-<!--                            </span>-->
-<!--                        </h2>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">-->
-<!--                            <div> &lt;!&ndash; class="card-body"&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                LENTELE&ndash;&gt;-->
-<!--                                &lt;!&ndash; Example DataTables Card&ndash;&gt;-->
-<!--                                <div class="card mb-3">-->
-<!--                                    &lt;!&ndash;                                    <div class="card-header">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <i class="fa fa-table"></i> Data Table Example&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--                                    <div> &lt;!&ndash; class="card-body"&ndash;&gt;-->
-<!--                                        <div class="table-responsive">-->
-<!--                                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">-->
-<!--                                                <thead>-->
-<!--                                                <tr class="thead-dark">-->
-<!--                                                    <th>Course title</th>-->
-<!--                                                    <th>Name</th>-->
-<!--                                                    <th>List number</th>-->
-<!--                                                    <th>Action</th>-->
-<!--                                                </tr>-->
-<!--                                                </thead>-->
-<!--                                                <tfoot>-->
-<!--                                                <tr>-->
-<!--                                                    <th></th><th></th><th></th><th></th><th></th>-->
-<!--                                                </tr>-->
-<!--                                                </tfoot>-->
-<!--                                                <tbody>-->
-<!--                                                <div th:each="lp : ${lesson_top}">-->
-<!--                                                    <tr>-->
-<!--                                                        <td th:text="${lp.courseDetails.course.title}"></td>-->
-<!--                                                        <td th:text="${lp.name}"></td>-->
-<!--                                                        <td th:text="${lp.listNumber}"></td>-->
-<!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
-<!--                                                            <td>-->
-<!--                                                             <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn btn-danger"-->
-<!--                                                               onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">Delete</a>-->
-<!--                                                             </td>-->
-<!--                                                    </tr>-->
-<!--                                                </div>-->
+        <div class="col-md-12" >
+            <!-- TESTAS -->
+            <div class="box_general padding_bottom">
+                <div class="header_box version_2" id="headingOne">
+                    <div>
+                        <h2><i class="fa fa-file"></i> My courses
+                            <span class="badge badge-pill badge-primary">
+                                <span class="btn-link3 collapsed"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></span>
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div> <!-- class="card-body"-->
+                                <!--                                LENTELE-->
+                                <!-- Example DataTables Card-->
+                                <div class="card mb-3">
+                                    <!--                                    <div class="card-header">-->
+                                    <!--                                        <i class="fa fa-table"></i> Data Table Example-->
+                                    <!--                                    </div>-->
+                                    <div> <!-- class="card-body"-->
+                                        <div class="table-responsive">
+                                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                <tr class="thead-dark">
+                                                    <th>Course title</th>
+                                                    <th>Name</th>
+                                                    <th>List number</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tr>
+                                                    <th></th><th></th><th></th><th></th><th></th>
+                                                </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                <div th:each="lp : ${lesson_top}">
+                                                    <tr>
+                                                        <td th:text="${lp.courseDetails.course.title}"></td>
+                                                        <td th:text="${lp.name}"></td>
+                                                        <td th:text="${lp.listNumber}"></td>
+<!--                                                        <td>-->
+<!--                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>-->
+<!--                                                        </td>-->
+                                                            <td>
+                                                             <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn btn-danger"
+                                                               onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">Delete</a>
+                                                             </td>
+                                                    </tr>
+                                                </div>
 
-<!--                                                </tbody>-->
-<!--                                            </table>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /tables&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                LENTELE&ndash;&gt;-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /tables-->
+                                <!--                                LENTELE-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- TESTAS -->
         </div>
 

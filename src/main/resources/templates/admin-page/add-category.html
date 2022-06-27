@@ -309,7 +309,7 @@
 
                             <table border="1" class="table table-striped table-responsive-md">
                                 <thead>
-                                <tr >
+                                <tr class="thead-dark">
                                     <th>Id</th>
                                     <th>Title</th>
                                     <th>Action</th>
@@ -336,7 +336,7 @@
 
                                 <table border="1" class="table table-striped table-responsive-md">
                                     <thead>
-                                    <tr >
+                                    <tr class="thead-dark">
                                         <th>Id</th>
                                         <th>Title</th>
                                     </tr>
@@ -413,7 +413,8 @@
 <script src="../../static/admin_section/vendor/bootstrap-datepicker.js"
         th:src="@{/admin_section/vendor/bootstrap-datepicker.js}"></script>
 <script>$('input.date-pick').datepicker();</script>
-
+<!-- Custom scripts for this page-->
+<script src="../static/admin_section/js/admin-datatables.js" th:src="@{/admin_section/js/admin-datatables.js}"></script>
 <!--  SCRIPT -->
 <script>document.getElementById("TRUE").setAttribute("checked", "checked")</script>
 

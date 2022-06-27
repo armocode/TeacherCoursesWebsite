@@ -274,7 +274,6 @@ public class HomeController implements ErrorController {
 
     @GetMapping("deleteLessonTopic/{id}")
     public String deleteLessonTopic(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-        // If lesson Topic dont have any lesson - delete.
         if (lessonTopicService.findLessonTopicIdByLessonFkId(id) == null) {
             redirectAtt.addFlashAttribute("message", "Lesson topic deleted successfully");
             this.lessonTopicService.deleteLessonTopicById(id);
