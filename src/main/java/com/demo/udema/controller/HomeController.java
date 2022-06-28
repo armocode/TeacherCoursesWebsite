@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -431,13 +432,10 @@ public class HomeController implements ErrorController {
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
         List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
-       // Norint prieiti prie topiko pamoku, reikia ciklo cikle: 1. Pirmiausia pereiti per visu topiku sarasa,
-        //sito ciklo viduje kitas ciklas - pereiti per pamoku sarasa
-        // for each(LessonTopics lessonTopic : lessonTopicList)
-        // for each(Lessons lesson : lessonTopic.lessonList)
-        // Collection.sort(list_number);
+        for(LessonTopics lessonTopic : lessonTopicsList) {
+          Collections.sort(lessonTopic.getLessonsList());
+        }
         model.addAttribute("lesTopList", lessonTopicsList);
-
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
         model.addAttribute("reviewList", courseReviewsList);
 

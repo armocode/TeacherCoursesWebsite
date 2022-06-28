@@ -171,7 +171,6 @@
                                 <div class="card" >
                                     <div class="card-header" role="tab" id="headingOne" >
                                         <h5 class="mb-0" >
-<!--                                            th:each="les : ${cclt.lessonsList}" th:if="${les.id!=null}"-->
                                             <a th:text="${cclt?.name}" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true"
                                                aria-controls="collapseOne" ><i class="indicator ti-minus" ></i></a>
                                         </h5>
@@ -305,9 +304,7 @@
                                                 class="icon_star" ></i>
                                         </div>
                                         <div class="rev-info">
-<!--                                            th:text="${review?.users?.username}"-->
                                             <h5 th:text="${rl?.users?.username}">username</h5>
-
                                             <p >review</p>
                                         </div>
                                         <div class="rev-text" >

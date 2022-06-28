@@ -277,23 +277,24 @@
 </nav>
 <!-- /Navigation-->
 <form class="content-wrapper" th:action="@{/addLessonTopic}" method="post" >
-    <div class="container-fluid">
-        <input type="hidden" th:field="${lesTop.id}">
+        <div class="container-fluid">
+             <input type="hidden" th:field="${lesTop.id}">
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Add lesson topic</li>
-        </ol>
-        <div th:if="${error}" class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <span th:text="${error}"></span>
-        </div>
-        <div th:if="${message}" class="alert success">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <span th:text="${message}"></span>
-        </div>
+                </li>
+                 <li class="breadcrumb-item active">Add lesson topic</li>
+              </ol>
+
+             <div th:if="${error}" class="alert">
+                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                 <span th:text="${error}"></span>
+            </div>
+            <div th:if="${message}" class="alert success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <span th:text="${message}"></span>
+             </div>
 
                     <!-- /row-->
                     <div class="row" th:object="${lesTop}">
@@ -365,13 +366,14 @@
                         <!--                       NEW TABLE -->
                         <div class="col-md-6" >
                             <div class="box_general padding_bottom">
-                                <div class="header_box version_2" id="headingOne">
+                                <div class="header_box version_2" >
                                     <div>
                                         <h2><i class="fa fa-file"></i> Lesson topics of your courses
 <!--                                            COLAPSE -->
 <!--                                            <span class="badge badge-pill badge-primary">-->
 <!--                                <span class="btn-link3 collapsed"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"></span>-->
 <!--                            </span>-->
+
                                         </h2>
                                     </div>
                                 </div>
@@ -391,20 +393,13 @@
                                                                     <th>Action</th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tfoot>
-                                                                <tr>
-                                                                    <th></th><th></th><th></th><th></th><th></th>
-                                                                </tr>
-                                                                </tfoot>
+
                                                                 <tbody>
-                                                                <div th:each="lp : ${lesson_top}">
-                                                                    <tr>
+                                                                <div >
+                                                                    <tr th:each="lp : ${lesson_top}">
                                                                         <td th:text="${lp.courseDetails.course.title}"></td>
                                                                         <td th:text="${lp.name}"></td>
                                                                         <td th:text="${lp.listNumber}"></td>
-                                                                        <!--                                                        <td>-->
-                                                                        <!--                                                            <a href="#" class="text-white bg-danger btn-sm">DELETE</a>-->
-                                                                        <!--                                                        </td>-->
                                                                         <td>
                                                                             <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn text-white bg-danger btn-sm"
                                                                                onclick="if(!(confirm('Are you sure, you want to delete this lesson topic?'))) return false">DELETE</a>
@@ -418,7 +413,6 @@
                                                     </div>
                                                 </div>
                         <!--              NEW TABLE  -->
-
                                             </div>
 <!--                           Colapse             </div>-->
                         </div>

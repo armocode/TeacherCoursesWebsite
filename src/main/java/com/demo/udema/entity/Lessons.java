@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 @Entity
 @Table(name = "lessons")
-public class Lessons {
+public class Lessons implements Comparable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -119,13 +119,12 @@ public class Lessons {
         this.listNumber = listNumber;
     }
 
-    // Implement comparable
-//    @Override
-//    public int compareTo(Object o) {
-//        return Comparator
-//                .comparing(Lessons::getListNumber)
+    @Override
+    public int compareTo(Object o) {
+        return Comparator
+                .comparing(Lessons::getListNumber)
 //                .reversed()
-//                .compare(this, (Lessons) o);
-//
-//    }
+                .compare(this, (Lessons) o);
+
+    }
 }
