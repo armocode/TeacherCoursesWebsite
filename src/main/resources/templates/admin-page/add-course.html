@@ -333,62 +333,88 @@
                                                 </tr>
                                                 </tfoot>
                                                 <tbody>
-                                                <div th:each="cL : ${coursesList}">
-                                                    <tr>
-                                                        <td th:text="${cL.title}">title</td>
-                                                        <td th:text="${cL.price}">price</td>
-                                                        <td th:text="${cL.category.title}">category.title</td>
-                                                        <td th:text="${cL.courseDetails.description}">courseDetails.description</td>
-                                                        <td th:with="iddd=${cL.id}" >
-                                                            <a data-toggle="modal" data-target="#exampleModalLong" class="btn text-white bg-danger btn-sm">DELETE</a>
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLongTitle">Are you absolutely sure?</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <div>
-                                                                                This action cannot be undone. This will permanently delete the course.
+                                                    <div th:each="cL, count : ${coursesList}" th:with="someInput=${count.index + 1}">
+                                                        <tr>
+                                                            <td th:text="${cL.title}">title</td>
+                                                            <td th:text="${cL.price}">price</td>
+                                                            <td th:text="${cL.category.title}">category.title</td>
+                                                            <td th:text="${cL.courseDetails.description}">courseDetails.description</td>
+                                                            <td>
+                                                                <button type="button" class="btn text-white bg-danger" data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${cL.id}">Delete</button>
+
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" th:attr="id='recordDeleteModal'+${cL.id}" tabindex="-1" role="dialog" aria-labelledby="recordDeleteModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content" onfocusout="myFunction(document.querySelector('#someInput'), document.querySelector('#loginbutton'))">  <!-- onfocusout="myFunction(document.getElementById('someInput'), document.getElementById('loginbutton'))"-->
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="recordDeleteModalLabel">Delete Record</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
                                                                             </div>
-                                                                            <label for="text" class="col-form-label">Please type ... to confirm.:</label>
-                                                                            <input type="text" class="form-control" id="text">
-                                                                        </div>
-                                                                        <div class="modal-footer">
-<!--                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                                                                            <a type="button" class="btn btn-danger mx-auto" th:href="@{/deleteCourse(courseId=${iddd})}">I understand the consequences, delete this course</a>
+                                                                            <div class="modal-body">
+                                                                                <div>
+                                                                                    This action cannot be undone. This will permanently delete the course.
+                                                                                </div>
+                                                                                <label class="col-form-label">
+                                                                                    <span>
+                                                                                        Are you sure, you want to delete this course?
+                                                                                    </span>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-danger"><a class="text-white" th:attr="href=@{/deleteCourse(courseId=${cL.id})}">Delete</a></button>
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><a class="text-white" href="/" >Close</a></button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </div>
-<!--                                                <tr>-->
-<!--                                                    <td>Garrett Winters</td>-->
-<!--                                                    <td>Accountant</td>-->
-<!--                                                    <td>Tokyo</td>-->
-<!--                                                    <td>63</td>-->
-<!--                                                    <td>2011/07/25</td>-->
-<!--                                                </tr>-->
-<!--                                                <tr>-->
-<!--                                                    <td>Garrett Winters</td>-->
-<!--                                                    <td>Accountant</td>-->
-<!--                                                    <td>Tokyo</td>-->
-<!--                                                    <td>63</td>-->
-<!--                                                    <td>2011/07/25</td>-->
-<!--                                                </tr>-->
-<!--                                                <tr>-->
-<!--                                                    <td>Garrett Winters</td>-->
-<!--                                                    <td>Accountant</td>-->
-<!--                                                    <td>Tokyo</td>-->
-<!--                                                    <td>63</td>-->
-<!--                                                    <td>2011/07/25</td>-->
-<!--                                                </tr>-->
+                                                                <!-- Modal end -->
+
+                                                                <!-- Neveikiantis Modal -->
+<!--                                                                <div class="modal fade" th:attr="id='recordDeleteModal'+${cL.id}" tabindex="-1" role="dialog" aria-labelledby="recordDeleteModalLabel" aria-hidden="true">-->
+<!--                                                                    <div class="modal-dialog" role="document">-->
+<!--                                                                        <div class="modal-content" onfocusout="myFunction(document.querySelector('#someInput'), document.querySelector('#loginbutton'))">  &lt;!&ndash; onfocusout="myFunction(document.getElementById('someInput'), document.getElementById('loginbutton'))"&ndash;&gt;-->
+<!--                                                                            <div class="modal-header">-->
+<!--                                                                                <h5 class="modal-title" id="recordDeleteModalLabel">Delete Record</h5>-->
+<!--                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                                                    <span aria-hidden="true">&times;</span>-->
+<!--                                                                                </button>-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="modal-body">-->
+<!--                                                                                <div>-->
+<!--                                                                                    This action cannot be undone. This will permanently delete the course.-->
+<!--                                                                                </div>-->
+<!--                                                                                <label class="col-form-label">-->
+<!--                                                                                    <span>-->
+<!--                                                                                        Please type </span><b th:with="deTxt=${user.username + '/course=' + cL.id + ' '}" th:text="${deTxt}"></b><span> to confirm.:-->
+<!--                                                                                    </span>-->
+<!--                                                                                </label>-->
+
+<!--                                                                                <input type="text" class="form-control" id="someInput">-->
+<!--                                                                            </div>-->
+<!--                                                                            <div class="modal-footer">-->
+<!--                                                                                <div id="loginbutton" style="display:none"><a th:attr="href=@{/deleteCourse(courseId=${cL.id})}" class="btn btn-danger mx-auto">I understand the consequences, delete this repository</a></div>-->
+<!--                                                                            </div>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                    <script>-->
+<!--                                                                        function myFunction(textF, buttonshow) {-->
+<!--                                                                            // buttonshow = document.getElementById('loginbutton');-->
+<!--                                                                            if(textF.value === "111"){-->
+<!--                                                                                buttonshow.style.display = 'block';-->
+<!--                                                                            }-->
+<!--                                                                            console.log(textF);-->
+<!--                                                                            console.log(buttonshow);-->
+<!--                                                                        }-->
+<!--                                                                    </script>-->
+<!--                                                                </div>-->
+                                                                <!-- Neveikiantis Modal end -->
+
+
+                                                            </td>
+                                                        </tr>
+                                                    </div>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -564,6 +590,53 @@
 
 <!--  SCRIPT -->
 <script>document.getElementById("TRUE").setAttribute("checked", "checked")</script>
+
+<!--<script>-->
+<!--    var textF;-->
+<!--    var buttonshow;-->
+<!--    function myFunction() {-->
+<!--        textF  = document.getElementById('someInput');-->
+<!--        buttonshow = document.getElementById('loginbutton');-->
+<!--        if(textF.value === "111"){-->
+<!--            buttonshow.style.display = 'block';-->
+<!--        }-->
+<!--        console.log(textF);-->
+<!--        console.log(buttonshow);-->
+<!--    }-->
+<!--</script>-->
+
+<!--<script>-->
+<!--    function myFunction(textF, buttonshow) {-->
+<!--        // const textF  = document.getElementById('someInput');-->
+<!--        // const buttonshow = document.getElementById('loginbutton');-->
+<!--        if(textF.value === "111"){-->
+<!--            buttonshow.style.display = 'block';-->
+<!--        }-->
+<!--        console.log(textF);-->
+<!--        console.log(buttonshow);-->
+<!--    }-->
+<!--</script>-->
+
+<!--<script th:with="deTxt=${user.username + '/course=/' + course.id}" type="text/javascript">-->
+<!--    var inputtxt = document.getElementById('someInput');-->
+<!--    var appendLocation = document.getElementById('someDiv');-->
+
+<!--    const btn = document.getElementById('box');-->
+
+<!--    function show() {-->
+<!--        if(inputtxt.value === "yes") {-->
+<!--            appendLocation.innerHTML =  appendLocation.innerHTML + "<div>Success</div>";-->
+<!--            box.style.display = 'block';-->
+<!--        }-->
+<!--        else-->
+<!--        {-->
+<!--            box.style.display = 'none';-->
+<!--            appendLocation.innerHTML = appendLocation.innerHTML + "<div>No Luck!</div>";-->
+
+<!--        }-->
+
+<!--    }-->
+<!--</script>-->
 
 </body>
 </html>
