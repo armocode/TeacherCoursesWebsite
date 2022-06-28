@@ -1,7 +1,7 @@
 
 INSERT INTO users VALUES(1,'email@email.com',1,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas');
 INSERT INTO users VALUES(2,'gmail@email.com',0,'Petras','$2a$12$ar51Ym.9NCD0ZRCwr0D0/ulPSiDO2lt3erfFf0oH55lEmPpBhExuG','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
-INSERT INTO users VALUES(3,'asdf@email.com',0,'Jonas','jonas123','ROLE_TEACHER','Jonaitis', '2022.05.23','jonas123');
+INSERT INTO users VALUES(3,'jonas@email.com',0,'Jonas','jonas123','ROLE_TEACHER','Jonaitis', '2022.05.23','jonas123');
 INSERT INTO users VALUES(4,'linas@email.com',0,'Linas','linas123','ROLE_STUDENT','linas', '2022.05.24','linas123');
 INSERT INTO users VALUES(5,'random@gmail.com',0,'name','$2a$12$LuwVfc1u.rIRAT1wA794UOonvd.KXBrLuUTimx6YhV701cxpMqsAG','ROLE_ADMIN','surname','2000.05.05','admin123');
 INSERT INTO users VALUES(6,'tomas@gmail.com',0,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');

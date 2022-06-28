@@ -431,6 +431,11 @@ public class HomeController implements ErrorController {
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
         List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
+       // Norint prieiti prie topiko pamoku, reikia ciklo cikle: 1. Pirmiausia pereiti per visu topiku sarasa,
+        //sito ciklo viduje kitas ciklas - pereiti per pamoku sarasa
+        // for each(LessonTopics lessonTopic : lessonTopicList)
+        // for each(Lessons lesson : lessonTopic.lessonList)
+        // Collection.sort(list_number);
         model.addAttribute("lesTopList", lessonTopicsList);
 
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
