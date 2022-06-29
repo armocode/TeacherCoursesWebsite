@@ -448,8 +448,8 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/reviews")
     public String adminPageReviews(@ModelAttribute("orderReviews") String arrangement, Model model) {
-        List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime();
-        List<CourseReviews> latestReview = courseReviewService.findAllSortByLatest();
+        List<CourseReviews> oldestReview = courseReviewService.findAllSortByAnyTime(currentLoggedInUsername());
+        List<CourseReviews> latestReview = courseReviewService.findAllSortByLatest(currentLoggedInUsername());
 
         if (arrangement == null) {
             model.addAttribute("review", oldestReview);

@@ -31,12 +31,14 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     }
 
     @Override
-    public List<CourseReviews> findAllSortByAnyTime() {
-        return courseReviewRepository.findAllSortByAnyTime();
+    public List<CourseReviews> findAllSortByAnyTime(String teacherUsername) {
+        return courseReviewRepository.findAllSortByAnyTime(teacherUsername);
     }
 
     @Override
-    public List<CourseReviews> findAllSortByLatest() {
-        return courseReviewRepository.findAllSortByLatest();
+    public List<CourseReviews> findAllSortByLatest(String teacherUsername) {
+        return courseReviewRepository.findAllSortByLatest(teacherUsername);
     }
+
+
 }

@@ -29,19 +29,31 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE courses.title LIKE ?1", nativeQuery = true)
     Integer countRatingByTitle(String title);
 
-    @Query(value= "SELECT * FROM course_reviews" +
-            " JOIN Users ON course_reviews.user_id = users.id" +
-            " JOIN orders ON users.id = orders.user_id " +
-            " JOIN courses ON courses.id = orders.course_id " +
-            " GROUP BY course_reviews.data" +
-            " ORDER BY course_reviews.data ", nativeQuery = true)
-    List<CourseReviews> findAllSortByAnyTime();
+    @Query(value = "SELECT * FROM course_reviews" +
+            " WHERE course_reviews.course_details_id IN" +
+            " (SELECT id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            "(SELECT id FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            " (SELECT id FROM users" +
+            " WHERE users.username LIKE ?1)))" +
+            "ORDER BY course_reviews.data ", nativeQuery = true)
+    List<CourseReviews> findAllSortByAnyTime(String teacherUsername);
 
-    @Query(value= "SELECT * FROM course_reviews" +
-            " JOIN Users ON course_reviews.user_id = users.id" +
-            " JOIN orders ON users.id = orders.user_id " +
-            " JOIN courses ON courses.id = orders.course_id " +
-            " GROUP BY course_reviews.data" +
-            " ORDER BY course_reviews.data DESC", nativeQuery = true)
-    List<CourseReviews> findAllSortByLatest();
+    //    @Query(value= "SELECT * FROM course_reviews" +
+//            " JOIN Users ON course_reviews.user_id = users.id" +
+//            " JOIN orders ON users.id = orders.user_id " +
+//            " JOIN courses ON courses.id = orders.course_id " +
+//            " GROUP BY course_reviews.data" +
+//            " ORDER BY course_reviews.data DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM course_reviews" +
+            " WHERE course_reviews.course_details_id IN" +
+            " (SELECT id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            "(SELECT id FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            " (SELECT id FROM users" +
+            " WHERE users.username LIKE ?1)))" +
+            "ORDER BY course_reviews.data DESC", nativeQuery = true)
+    List<CourseReviews> findAllSortByLatest(String teacherUsername);
 }

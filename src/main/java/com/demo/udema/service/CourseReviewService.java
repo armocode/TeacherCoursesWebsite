@@ -10,6 +10,6 @@ public interface CourseReviewService {
     Double findRatingByTitle(String title);
     Integer countRatingByTitle(String title);
 
-    List<CourseReviews> findAllSortByAnyTime();
-    List<CourseReviews> findAllSortByLatest();
+    List<CourseReviews> findAllSortByAnyTime(String teacherUsername);
+    List<CourseReviews> findAllSortByLatest(String teacherUsername);
 }
