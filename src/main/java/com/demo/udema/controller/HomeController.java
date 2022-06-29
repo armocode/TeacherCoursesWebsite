@@ -133,29 +133,37 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("/deleteCourse")
-    public String deleteCourse(@ModelAttribute("courseId") int courseId, RedirectAttributes redirectAtt) {
-        // TODO ideti valid nuo kitu useriu
+    public String deleteCourse(@ModelAttribute("courseId") int courseId,
+                               @AuthenticationPrincipal UserDetails loggerUser,
+                               RedirectAttributes redirectAtt) {
         Course getCourseById =  courseService.findById(courseId);
         List<Orders> getOrdersListByCourseId = orderService.findAllByCourseId(courseId);
-        if(getCourseById.getCourseDetails().getLessonTopics().size() == 0){
-            // Triname orderius
-            if(getOrdersListByCourseId != null){
-                int tempId = 0;
-                for (Orders o : orderService.findAllByCourseId(courseId)){
-                    tempId = o.getCourseId();
+        // Jei nepriklauso teacher kursas, neleidziame jo trinti
+        List<Course> courseByUsername = courseService.findAllTeacherCourseByUsername(loggerUser.getUsername());
+        for (Course c : courseByUsername){
+            if (c.getId() == courseId){
+                if(getCourseById.getCourseDetails().getLessonTopics().size() == 0){
+                    // Triname orderius
+                    if(getOrdersListByCourseId != null){
+                        int tempId = 0;
+                        for (Orders o : orderService.findAllByCourseId(courseId)){
+                            tempId = o.getCourseId();
+                        }
+                        orderService.deleteByCourseId(tempId);
+                    }
+                    // Triname Course details
+                    courseDetailService.deleteById(getCourseById.getCourseDetails().getIdDet());
+                    // Triname Course
+                    courseService.deleteById(getCourseById.getId());
+                    redirectAtt.addFlashAttribute("message", "Course deleted successfully");
+                    return "redirect:/addCourse";
+                } else {
+                    redirectAtt.addFlashAttribute("errormessage", "If you want to delete course at first you must delete lesson topic");
+                    return "redirect:/addCourse";
                 }
-                orderService.deleteByCourseId(tempId);
             }
-            // Triname Course details
-            courseDetailService.deleteById(getCourseById.getCourseDetails().getIdDet());
-            // Triname Course
-            courseService.deleteById(getCourseById.getId());
-            redirectAtt.addFlashAttribute("message", "Course deleted successfully");
-            return "redirect:/addCourse";
-        } else {
-            redirectAtt.addFlashAttribute("errormessage", "If you want to delete course at first you must delete lesson topic");
-            return "redirect:/addCourse";
         }
+        return "redirect:/error";
     }
 
     @GetMapping("/editCourse")
