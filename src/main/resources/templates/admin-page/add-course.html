@@ -270,14 +270,13 @@
         <input type="hidden" th:field="${cDetails.idDet}">
 <!--        <input type="hidden" th:field="${user.id}">-->
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Add course</li>
-        </ol>
-
         <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Add course</li>
+            </ol>
             <div th:if="${errormessage}" class="alert">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <span th:text="${errormessage}"></span>
@@ -289,7 +288,6 @@
         </div>
 
         <div class="col-md-12">
-
             <!-- TESTAS -->
             <div th:if="${course.id == 0}" class="box_general padding_bottom">
                 <div class="header_box version_2" id="headingOne">
