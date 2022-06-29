@@ -32,6 +32,9 @@ public class CourseReviews {
     @Column(name = "review", nullable=true)
     private String review;
 
+    @Column(name = "is_reported")
+    private boolean isReported;
+
     @Value("#{new String('${orderReviews.latest}')}")
     @Transient
     public String latest ;
@@ -43,21 +46,23 @@ public class CourseReviews {
     public CourseReviews() {
     }
 
-    public CourseReviews(int id, User users, CourseDetails courseDetails, String timeStamp, double rating, String review) {
+    public CourseReviews(int id, User users, CourseDetails courseDetails, String timeStamp, Double rating, String review, boolean isReported) {
         this.id = id;
         this.users = users;
         this.courseDetails = courseDetails;
         this.timeStamp = timeStamp;
         this.rating = rating;
         this.review = review;
+        this.isReported = isReported;
     }
 
-    public CourseReviews(User users, CourseDetails courseDetails, String timeStamp, double rating, String review) {
+    public CourseReviews(User users, CourseDetails courseDetails, String timeStamp, Double rating, String review, boolean isReported) {
         this.users = users;
         this.courseDetails = courseDetails;
         this.timeStamp = timeStamp;
         this.rating = rating;
         this.review = review;
+        this.isReported = isReported;
     }
 
     public int getId() {
@@ -108,6 +113,14 @@ public class CourseReviews {
         this.review = review;
     }
 
+    public boolean isReported() {
+        return isReported;
+    }
+
+    public void setReported(boolean reported) {
+        isReported = reported;
+    }
+
     public String getLatest() {
         return latest;
     }
@@ -122,13 +135,5 @@ public class CourseReviews {
 
     public void setOldest(String oldest) {
         this.oldest = oldest;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseReviews{" +
-                "latest='" + latest + '\'' +
-                ", oldest='" + oldest + '\'' +
-                '}';
     }
 }

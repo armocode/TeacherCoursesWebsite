@@ -2,7 +2,9 @@ package com.demo.udema.repositoryDAO;
 
 import com.demo.udema.entity.CourseReviews;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,4 +58,23 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE users.username LIKE ?1)))" +
             "ORDER BY course_reviews.data DESC", nativeQuery = true)
     List<CourseReviews> findAllSortByLatest(String teacherUsername);
+
+    @Query(value = "SELECT * FROM course_reviews" +
+            " WHERE is_reported = 1", nativeQuery = true)
+    List<CourseReviews> findReportedReviewsByTeacher();
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM course_reviews" +
+            " WHERE id = ?1", nativeQuery = true)
+    void deleteCourseReviewById(int id);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE course_reviews" +
+            " SET is_reported = ?1" +
+            " WHERE id = ?1", nativeQuery = true)
+    void modifyCourseReviewById(boolean isReported, int id);
+
 }

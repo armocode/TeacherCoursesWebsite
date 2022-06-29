@@ -9,29 +9,48 @@
   <meta name="description" content="">
   <meta name="author" content="Ansonika">
   <title>UDEMA - Admin dashboard</title>
-	
+
   <!-- Favicons-->
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-  <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+  <link rel="shortcut icon" href="../../static/admin_section/img/favicon.ico" type="image/x-icon"
+        th:href="@{/admin_section/img/favicon.ico}">
+  <link rel="apple-touch-icon" type="image/x-icon"
+        href="../../static/admin_section/img/apple-touch-icon-57x57-precomposed.png"
+        th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+        href="../../static/admin_section/img/apple-touch-icon-72x72-precomposed.png"
+        th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+        href="../../static/admin_section/img/apple-touch-icon-114x114-precomposed.png"
+        th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+        href="../../static/admin_section/img/apple-touch-icon-144x144-precomposed.png"
+        th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
 
   <!-- GOOGLE WEB FONT -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
-	
+
   <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+        th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
   <!-- Main styles -->
-  <link href="css/admin.css" rel="stylesheet">
+  <link href="../../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">
   <!-- Icon fonts-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"
+        th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
   <!-- Plugin styles -->
-  <link href="vendor/animate.min.css" rel="stylesheet">
-  <link href="vendor/magnific-popup.css" rel="stylesheet">
+  <link href="../../static/admin_section/vendor/animate.min.css" rel="stylesheet"
+        th:href="@{/admin_section/vendor/animate.min.css}">
+  <link href="../../static/admin_section/vendor/magnific-popup.css" rel="stylesheet"
+        th:href="@{/admin_section/vendor/magnific-popup.css}">
   <!-- Your custom styles -->
-  <link href="css/custom.css" rel="stylesheet">
-	
+  <link href="../../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">
+  <!-- Nekeisti -->
+  <link href="../../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+  <link href="../static/css/icon_fonts/css/all_icons.min.css" rel="stylesheet" th:href="@{/css/icon_fonts/css/all_icons.min.css}">
+
+  <style>.report {color: yellow; opacity: 1.5;}  </style>
+  <style>.reported {color: red; opacity: 1.5;}  </style>
+
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -65,6 +84,12 @@
           <a class="nav-link" href="/reviews">
             <i class="fa fa-fw fa-star"></i>
             <span class="nav-link-text">Reviews</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews" >
+          <a class="nav-link" href="/reportedList">
+            <i class="ti-na"></i>
+            <span class="nav-link-text">Reported comments</span>
           </a>
         </li>
 		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
@@ -232,12 +257,10 @@
 			<div class="header_box" >
 				<h2 class="d-inline-block">Reviews List</h2>
 				<div class="filter" >
-					<select   name="orderby" class="selectbox" th:onchange="'window.location.href = \'' + @{/reviews} + '?orderReviews=\' + this.value ' " >
-
+					<select  name="orderby" class="selectbox" th:onchange="'window.location.href = \'' + @{/reviews} + '?orderReviews=\' + this.value ' " >
                         <option  disabled SELECTED>Arrangement</option>
                         <option  name="Latest" th:text="${'Latest'}" th:value="${'latest'}" >Latest</option>
                         <option  name="Oldest" th:text="${'Oldest'}" th:value="${'oldest'}">Oldest</option>
-
 					</select>
 
 				</div>
@@ -246,16 +269,22 @@
 			<div class="list_general reviews" th:each="rev :${review}">
 				<ul >
 					<li >
+
 						<span th:text="${rev.timeStamp}">June 15 2017</span>
                         <span th:text="${rev.rating+' | '}"></span>
 						<span class="rating"><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star"></i></span>
 
+
                       <figure><img src="img/course_1.jpg" alt=""></figure>
                         <small th:text="${rev.users.name}+' '+${rev.users.surname}"></small>
 						<h4 th:text="${rev.courseDetails.course.title}">Course title</h4>
-						<p th:text="${rev.review}">Lorem ipsum dolor sit amet, dolores mandamus moderatius ea ius, sed civibus vivendum imperdiet ei, amet tritani sea id. Ut veri diceret fierent mei, qui facilisi suavitate euripidis ad. In vim mucius menandri convenire, an brute zril vis. Ancillae delectus necessitatibus no eam, at porro solet veniam mel, ad everti nostrud vim. Eam no menandri pertinacia deterruisset.</p>
-						<p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
+                      <p th:text="${rev.review}">Lorem ipsum dolor sit amet, dolores mandamus moderatius ea ius, sed civibus vivendum imperdiet ei, amet tritani sea id. Ut veri diceret fierent mei, qui facilisi suavitate euripidis ad. In vim mucius menandri convenire, an brute zril vis. Ancillae delectus necessitatibus no eam, at porro solet veniam mel, ad everti nostrud vim. Eam no menandri pertinacia deterruisset.</p>
 
+                      <span th:if="${rev.reported==false}" class="ti-na"></span><span class="report"></span>
+                      <span th:if="${rev.reported==true}" th:text="${'reported '}" class="ti-trash"></span><span class="reported"></span>
+
+<!--                      <h1 class="ti-trash"></h1><span class="icon-name"> </span>-->
+                      <p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
                     </li>
 				</ul>
 			</div>
@@ -324,19 +353,29 @@
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	<script src="vendor/jquery.selectbox-0.2.js"></script>
-	<script src="vendor/retina-replace.min.js"></script>
-	<script src="vendor/jquery.magnific-popup.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/admin.js"></script>
-	
+  <script src="../static/admin_section/vendor/jquery/jquery.min.js"
+          th:src="@{/admin_section/vendor/jquery/jquery.min.js}"></script>
+  <script src="../static/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js"
+          th:src="@{/admin_section/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="../static/admin_section/vendor/jquery-easing/jquery.easing.min.js"
+          th:src="@{/admin_section/vendor/jquery-easing/jquery.easing.min.js}"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="../static/admin_section/vendor/chart.js/Chart.js"  th:src="@{/admin_section/vendor/chart.js/Chart.js}"></script>
+  <script src="../static/admin_section/vendor/datatables/jquery.dataTables.js"    th:src="@{/admin_section/vendor/datatables/jquery.dataTables.js}"></script>
+  <script src="../static/admin_section/vendor/datatables/dataTables.bootstrap4.js"    th:src="@{/admin_section/vendor/datatables/dataTables.bootstrap4.js}"></script>
+  <script src="../static/admin_section/vendor/jquery.selectbox-0.2.js"   th:src="@{/admin_section/vendor/jquery.selectbox-0.2.js}"></script>
+  <script src="../static/admin_section/vendor/retina-replace.min.js"    th:src="@{/admin_section/vendor/retina-replace.min.js}"></script>
+  <script src="../static/admin_section/vendor/jquery.magnific-popup.min.js"   th:src="@{/admin_section/vendor/jquery.magnific-popup.min.js}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="../static/admin_section/js/admin.js" th:src="@{/admin_section/js/admin.js}"></script>
+
+  <!-- COMMON SCRIPTS -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/common_scripts.js"></script>
+  <script src="js/main.js"></script>
+  <script src="assets/validate.js"></script>
+
+
 </body>
 </html>

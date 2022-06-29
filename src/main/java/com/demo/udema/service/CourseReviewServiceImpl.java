@@ -40,5 +40,25 @@ public class CourseReviewServiceImpl implements CourseReviewService {
         return courseReviewRepository.findAllSortByLatest(teacherUsername);
     }
 
+    @Override
+    public List<CourseReviews> findReportedReviewsByTeacher() {
+        return courseReviewRepository.findReportedReviewsByTeacher();
+    }
+
+    @Override
+    public void deleteCourseReviewById(int id) {
+        courseReviewRepository.deleteCourseReviewById(id);
+    }
+
+    @Override
+    public void modifyCourseReviewById(boolean isReported, int id) {
+        courseReviewRepository.modifyCourseReviewById(isReported, id);
+    }
+
+    @Override
+    public void save(CourseReviews courseReviews) {
+        courseReviewRepository.save(courseReviews);
+    }
+
 
 }

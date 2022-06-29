@@ -12,4 +12,10 @@ public interface CourseReviewService {
 
     List<CourseReviews> findAllSortByAnyTime(String teacherUsername);
     List<CourseReviews> findAllSortByLatest(String teacherUsername);
+    List<CourseReviews> findReportedReviewsByTeacher();
+    void deleteCourseReviewById(int id);
+    void modifyCourseReviewById(boolean isReported, int id);
+    void save(CourseReviews courseReviews);
+
+
 }
