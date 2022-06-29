@@ -122,7 +122,7 @@ public class UserController {
     }
 
     @GetMapping("/adminPage")
-    public String adminPage(@ModelAttribute("user") User user, Model model) {
+    public String adminPage() {
         return "admin-page/index";
     }
 }

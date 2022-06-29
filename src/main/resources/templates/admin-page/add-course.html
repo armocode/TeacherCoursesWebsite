@@ -11,39 +11,25 @@
     <title>UDEMA - Admin dashboard</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon"
-          th:href="@{/admin_section/img/favicon.ico}">
-    <link rel="apple-touch-icon" type="image/x-icon"
-          href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png"
-          th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
-          href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png"
-          th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-          href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png"
-          th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-          href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png"
-          th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
+    <link rel="shortcut icon" href="../static/admin_section/img/favicon.ico" type="image/x-icon" th:href="@{/admin_section/img/favicon.ico}">
+    <link rel="apple-touch-icon" type="image/x-icon" href="../static/admin_section/img/apple-touch-icon-57x57-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-57x57-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../static/admin_section/img/apple-touch-icon-72x72-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-72x72-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="../static/admin_section/img/apple-touch-icon-114x114-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-114x114-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="../static/admin_section/img/apple-touch-icon-144x144-precomposed.png" th:href="@{/img/admin_section/apple-touch-icon-144x144-precomposed.png}">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
 
     <!-- Bootstrap core CSS-->
-    <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
+    <link href="../static/admin_section/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/admin_section/vendor/bootstrap/css/bootstrap.min.css}">
     <!-- Main styles -->
     <link href="../static/admin_section/css/admin.css" rel="stylesheet" th:href="@{/admin_section/css/admin.css}">
     <!-- Icon fonts-->
-    <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"
-          th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
+    <link href="../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
     <!-- Plugin styles -->
-    <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"
-          th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">
-    <link href="../static/admin_section/vendor/dropzone.css" rel="stylesheet"
-          th:href="@{/admin_section/vendor/dropzone.css}">
-    <link href="../static/admin_section/css/date_picker.css" rel="stylesheet"
-          th:href="@{/admin_section/css/date_picker.css}">
+    <link href="../static/admin_section/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" th:href="@{/admin_section/vendor/datatables/dataTables.bootstrap4.css}">
+    <link href="../static/admin_section/vendor/dropzone.css" rel="stylesheet" th:href="@{/admin_section/vendor/dropzone.css}">
+    <link href="../static/admin_section/css/date_picker.css" rel="stylesheet" th:href="@{/admin_section/css/date_picker.css}">
     <!-- Your custom styles -->
     <link href="../static/admin_section/css/custom.css" rel="stylesheet" th:href="@{/admin_section/css/custom.css}">
     <!-- Nekeisti -->
@@ -75,35 +61,41 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/adminPage">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="messages.html">
-                    <i class="fa fa-fw fa-envelope-open"></i>
-                    <span class="nav-link-text">Messages</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-                <a class="nav-link" href="courses.html">
-                    <i class="fa fa-fw fa-archive"></i>
-                    <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>
-                </a>
-            </li>
+            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">-->
+            <!--          <a class="nav-link" href="messages.html">-->
+            <!--            <i class="fa fa-fw fa-envelope-open"></i>-->
+            <!--            <span class="nav-link-text">Messages</span>-->
+            <!--          </a>-->
+            <!--        </li>-->
+            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">-->
+            <!--          <a class="nav-link" href="courses.html">-->
+            <!--            <i class="fa fa-fw fa-archive"></i>-->
+            <!--            <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>-->
+            <!--          </a>-->
+            <!--        </li>-->
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                 <a class="nav-link" href="/reviews">
                     <i class="fa fa-fw fa-star"></i>
                     <span class="nav-link-text">Reviews</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                <a class="nav-link" href="bookmarks.html">
-                    <i class="fa fa-fw fa-heart"></i>
-                    <span class="nav-link-text">Bookmarks</span>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Reported comments">
+                <a class="nav-link" href="/reportedList">
+                    <i class="fa fa-fw ti-na"></i>
+                    <span class="nav-link-text"> Reported comments</span>
                 </a>
             </li>
+            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">-->
+            <!--          <a class="nav-link" href="bookmarks.html">-->
+            <!--            <i class="fa fa-fw fa-heart"></i>-->
+            <!--            <span class="nav-link-text">Bookmarks</span>-->
+            <!--          </a>-->
+            <!--        </li>-->
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
                 <a class="nav-link" th:href="@{/userPage}">
                     <i class="fa fa-fw fa-wrench"></i>
@@ -111,8 +103,7 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Create course">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCourse"
-                   data-parent="#exampleAccordion">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCourse" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-plus-circle"></i>
                     <span class="nav-link-text">Create course</span>
                 </a>
@@ -131,21 +122,26 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
-                   data-parent="#exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Edit course">
+                <a class="nav-link" href="editCourse">
                     <i class="fa fa-fw fa-gear"></i>
-                    <span class="nav-link-text">Components</span>
+                    <span class="nav-link-text">Edit course</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
-                    <li>
-                        <a href="charts.html">Charts</a>
-                    </li>
-                    <li>
-                        <a href="tables.html">Tables</a>
-                    </li>
-                </ul>
             </li>
+            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">-->
+            <!--          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">-->
+            <!--            <i class="fa fa-fw fa-gear"></i>-->
+            <!--            <span class="nav-link-text">Components</span>-->
+            <!--          </a>-->
+            <!--          <ul class="sidenav-second-level collapse" id="collapseComponents">-->
+            <!--            <li>-->
+            <!--              <a href="charts.html">Charts</a>-->
+            <!--            </li>-->
+            <!--			<li>-->
+            <!--              <a href="tables.html">Tables</a>-->
+            <!--            </li>-->
+            <!--          </ul>-->
+            <!--        </li>-->
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
   <meta charset="utf-8">
@@ -53,51 +53,56 @@
 
 </head>
 
-<body class="fixed-nav sticky-footer" id="page-top">
+<body sec:authorize="isAuthenticated()" class="fixed-nav sticky-footer" id="page-top">
+<!-- Logout form-->
+<form id="logoutForm" method="POST" th:action="@{/logout}">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+    <a class="navbar-brand" href="/"><img src="../static/admin_section/img/logo.png"  th:src="@{/admin_section/img/logo.png}" data-retina="true" alt="" width="163" height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="/">
+          <a class="nav-link" href="/adminPage">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-          <a class="nav-link" href="messages.html">
-            <i class="fa fa-fw fa-envelope-open"></i>
-            <span class="nav-link-text">Messages</span>
-          </a>
-        </li>
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-          <a class="nav-link" href="/coursesListAll">
-            <i class="fa fa-fw fa-archive"></i>
-            <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>
-          </a>
-        </li>
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
+        <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">-->
+        <!--          <a class="nav-link" href="messages.html">-->
+        <!--            <i class="fa fa-fw fa-envelope-open"></i>-->
+        <!--            <span class="nav-link-text">Messages</span>-->
+        <!--          </a>-->
+        <!--        </li>-->
+        <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">-->
+        <!--          <a class="nav-link" href="courses.html">-->
+        <!--            <i class="fa fa-fw fa-archive"></i>-->
+        <!--            <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>-->
+        <!--          </a>-->
+        <!--        </li>-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
           <a class="nav-link" href="/reviews">
             <i class="fa fa-fw fa-star"></i>
             <span class="nav-link-text">Reviews</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews" >
+        <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Reported comments">
           <a class="nav-link" href="/reportedList">
-            <i class="ti-na"></i>
-            <span class="nav-link-text">Reported comments</span>
+            <i class="fa fa-fw ti-na"></i>
+            <span class="nav-link-text"> Reported comments</span>
           </a>
         </li>
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-          <a class="nav-link" href="bookmarks.html">
-            <i class="fa fa-fw fa-heart"></i>
-            <span class="nav-link-text">Bookmarks</span>
-          </a>
-        </li>
+        <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">-->
+        <!--          <a class="nav-link" href="bookmarks.html">-->
+        <!--            <i class="fa fa-fw fa-heart"></i>-->
+        <!--            <span class="nav-link-text">Bookmarks</span>-->
+        <!--          </a>-->
+        <!--        </li>-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
           <a class="nav-link" th:href="@{/userPage}">
             <i class="fa fa-fw fa-wrench"></i>
@@ -124,20 +129,26 @@
             </li>
           </ul>
         </li>
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Edit course">
+          <a class="nav-link" href="editCourse">
             <i class="fa fa-fw fa-gear"></i>
-            <span class="nav-link-text">Components</span>
+            <span class="nav-link-text">Edit course</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="charts.html">Charts</a>
-            </li>
-			<li>
-              <a href="tables.html">Tables</a>
-            </li>
-          </ul>
         </li>
+        <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">-->
+        <!--          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">-->
+        <!--            <i class="fa fa-fw fa-gear"></i>-->
+        <!--            <span class="nav-link-text">Components</span>-->
+        <!--          </a>-->
+        <!--          <ul class="sidenav-second-level collapse" id="collapseComponents">-->
+        <!--            <li>-->
+        <!--              <a href="charts.html">Charts</a>-->
+        <!--            </li>-->
+        <!--			<li>-->
+        <!--              <a href="tables.html">Tables</a>-->
+        <!--            </li>-->
+        <!--          </ul>-->
+        <!--        </li>-->
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -339,24 +350,25 @@
 		</div>
 	</div>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="../login.html">Logout</a>
-          </div>
+  <!-- Logout Modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" onclick="document.forms['logoutForm'].submit()"><a>Logout</a></button>
         </div>
       </div>
     </div>
+  </div>
     <!-- Bootstrap core JavaScript-->
   <script src="../static/admin_section/vendor/jquery/jquery.min.js"
           th:src="@{/admin_section/vendor/jquery/jquery.min.js}"></script>
