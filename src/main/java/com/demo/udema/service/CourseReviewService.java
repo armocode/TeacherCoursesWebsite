@@ -16,6 +16,8 @@ public interface CourseReviewService {
     void deleteCourseReviewById(int id);
     void modifyCourseReviewById(boolean isReported, int id);
     void save(CourseReviews courseReviews);
+    void updateCourseReviewToFalse(int id);
+    void updateCourseReviewToTrue(int id);
 
 
 }

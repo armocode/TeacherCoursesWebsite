@@ -60,5 +60,13 @@ public class CourseReviewServiceImpl implements CourseReviewService {
         courseReviewRepository.save(courseReviews);
     }
 
+    @Override
+    public void updateCourseReviewToFalse(int id) {
+        courseReviewRepository.updateCourseReviewToFalse(id);
+    }
 
+    @Override
+    public void updateCourseReviewToTrue(int id) {
+        courseReviewRepository.updateCourseReviewToTrue(id);
+    }
 }

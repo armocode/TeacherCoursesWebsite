@@ -473,6 +473,11 @@ public class HomeController implements ErrorController {
         model.addAttribute("review", oldestReview);
         return "admin-page/reviews";
     }
+    @GetMapping("/setReportTrue/{id}")
+    public String updateReportTrue(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
+        courseReviewService.updateCourseReviewToTrue(id);
+        return "redirect:/reviews";
+    }
 
     @GetMapping("/coursesListAll")
     public String coursesListAll(Model model) {
@@ -509,38 +514,26 @@ public class HomeController implements ErrorController {
         model.addAttribute("categoriesList", categoriesList);
         return "courses-grid";
     }
-    @GetMapping("/reportedList")
+    @GetMapping("/reportedList")  //ReportedList
     public String reportedCommentList(Model model) {
         List<CourseReviews> reportedList = courseReviewService.findReportedReviewsByTeacher();
         model.addAttribute("list", reportedList);
-//        model.addAttribute("review", new CourseReviews());
         return "admin-page/reported-comment-list";
     }
 
-    @GetMapping("deleteReportedReview/{id}")
+    @GetMapping("deleteReportedReview/{id}")//ReportedList
         public String deleteReportedReview(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
             this.courseReviewService.deleteCourseReviewById(id);
             redirectAtt.addFlashAttribute("message", "Review deleted successfully");
             return "redirect:/reportedList";
     }
-    @GetMapping("/setReportFalse/{id}")
-    public String updateReportedReview(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-//        List<CourseReviews> reportedList = courseReviewService.findReportedReviewsByTeacher();
-//        model.addAttribute("list", reportedList);
-
-       courseReviewService.modifyCourseReviewById(false, id);
+    @GetMapping("/setReportFalse/{id}")  //ReportedList
+    public String updateReportedReviewFalse(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
+//       courseReviewService.modifyCourseReviewById(false, id);
+       courseReviewService.updateCourseReviewToFalse(id);
        redirectAtt.addFlashAttribute("message", "set as default");
-//        model.addAttribute("setDefault", updateReview);
         return "redirect:/reportedList";
     }
-
-//    @PostMapping("/reportedList")
-//    public String updateReported(@ModelAttribute("review") CourseReviews courseReview, Model model) {
-//
-//        model.addAttribute("message" , "Updated successfully");
-//        courseReviewService.save(courseReview);
-//        return "redirect:/reportedList";
-//    }
 
     @GetMapping("/coursesGridSidebar")
     public String coursesGridSidebar() {

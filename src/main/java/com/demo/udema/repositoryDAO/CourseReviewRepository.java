@@ -77,4 +77,17 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE id = ?1", nativeQuery = true)
     void modifyCourseReviewById(boolean isReported, int id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE course_reviews" +
+            " SET is_reported = 0" +
+            " WHERE id = ?1", nativeQuery = true)
+    void updateCourseReviewToFalse(int id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE course_reviews" +
+            " SET is_reported = 1" +
+            " WHERE id = ?1", nativeQuery = true)
+    void updateCourseReviewToTrue(int id);
 }
