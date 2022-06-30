@@ -531,7 +531,7 @@ public class HomeController implements ErrorController {
     public String updateReportedReviewFalse(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
 //       courseReviewService.modifyCourseReviewById(false, id);
        courseReviewService.updateCourseReviewToFalse(id);
-       redirectAtt.addFlashAttribute("message", "set as default");
+       redirectAtt.addFlashAttribute("message", "Review restored successfully");
         return "redirect:/reportedList";
     }
 
@@ -645,10 +645,8 @@ public class HomeController implements ErrorController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
-            System.out.println(username + "  - Logged");
         } else {
             username = principal.toString();
-            System.out.println(username);
         }
         return username;
     }
@@ -661,7 +659,6 @@ public class HomeController implements ErrorController {
 
         List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
         if (us.contains(currentLoggedInUsername())) {
-            System.out.println(currentLoggedInUsername() + " <-- Logged user - equals user -->" + us.contains(currentLoggedInUsername()));
             return true;
         }
         return false;

@@ -26,7 +26,7 @@ public class CourseReviews {
     @Column(name = "data")
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 
-    @Column(name = "rating") // columnDefinition = "double default 0" (Mysql palaiko, heroku-postgresql - nepalaiko)
+    @Column(name = "rating") // columnDefinition = "double default 0" (Postgresql - not support)
     private Double rating;
 
     @Column(name = "review", nullable=true)

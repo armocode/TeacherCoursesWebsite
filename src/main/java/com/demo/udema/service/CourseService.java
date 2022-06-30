@@ -6,7 +6,6 @@ import com.demo.udema.entity.CourseReviews;
 import java.util.List;
 
 public interface CourseService {
-
     List<Course> findAllByCategoryId(int id);
     List<Course> findAll();
     List<Course> findAllByTitle(String title);
@@ -14,8 +13,6 @@ public interface CourseService {
     Course findById(int id);
     List<Course> findAllTeacherCourseByUsername(String username);
     void save(Course course);
-    void deleteByTitle(String title);
     void deleteById(int id);
-    List<Course> findAllSortByAnyTime();
 
 }

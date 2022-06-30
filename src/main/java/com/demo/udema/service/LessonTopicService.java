@@ -14,6 +14,4 @@ public interface LessonTopicService {
     void deleteLessonTopicById(int id);
     Integer findLessonTopicIdByLessonFkId(int id);
     List<LessonTopics> findAllLessonTopicByCourseTitle(String title);
-
-
 }

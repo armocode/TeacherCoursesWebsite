@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
     List<Orders> findAllByCourseId(int id);
-
     @Modifying
     @Query(value = "DELETE FROM orders WHERE course_id = ?1", nativeQuery = true)
     void deleteByCourseId(int id);

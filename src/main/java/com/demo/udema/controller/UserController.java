@@ -72,7 +72,7 @@ public class UserController {
                     return "redirect:/userPage";
                 }
                 redirectAttributes.addFlashAttribute("message", "Name and Email saved successfully");
-                user.setEmail(user.getNewEmail()); // Naudojam, nes front end kilo problema
+                user.setEmail(user.getNewEmail()); // Using, because in front error
                 userService.saveNoPassword(user);
                 return "redirect:/userPage";
             } else {
@@ -108,7 +108,7 @@ public class UserController {
                 redirectAttributes.addFlashAttribute("error", "An error occurred while saving the changes (ALL)");
                 return "redirect:/userPage";
             }
-            user.setEmail(user.getNewEmail()); // Naudojam, nes front end kilo problema
+            user.setEmail(user.getNewEmail()); // Using, because in front error
             user.setPassword(user.getNewPassword());
             userService.save(user);
             redirectAttributes.addFlashAttribute("message", "Saved successfully");

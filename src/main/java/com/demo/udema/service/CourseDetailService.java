@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface CourseDetailService {
     List<CourseDetails> findAll();
-
     void save(CourseDetails details);
     void deleteById(int id);
     CourseDetails findById(int id);

@@ -21,8 +21,7 @@ public class SecurityServiceImpl implements SecurityService{
     private UserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
-
-    // Tikrina autentifikuma, jei esi prisijunges tai automatiskai numeta i index
+    // Checking is Authenticated, if true redirect to index
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
@@ -32,7 +31,7 @@ public class SecurityServiceImpl implements SecurityService{
         return authentication.isAuthenticated();
     }
 
-    // Po registracijos atlieka automatini prijungima prie tinklapio
+    // After registration automatically redirect to web
     @Override
     public void autoLogin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);

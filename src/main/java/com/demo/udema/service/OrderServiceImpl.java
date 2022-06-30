@@ -12,11 +12,9 @@ import java.util.List;
 @Transactional
 public class OrderServiceImpl implements OrderService {
     public OrderRepository orderRepository;
-
     public OrderServiceImpl(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
-
     @Override
     public void deleteByCourseId(int id) {
         orderRepository.deleteByCourseId(id);

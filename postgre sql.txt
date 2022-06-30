@@ -1,7 +1,7 @@
 finalProjectTest(SpringProject)
 
 !!! SVARBU ID palikti DEFAULT, kitaip nebeleis kūrti įrašų (užskaitys kaip dublikata)
-INSERT INTO users VALUES(DEFAULT, 'email@email.com',false,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas123');
+INSERT INTO users VALUES(DEFAULT, 'email@email.com',false,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas');
 INSERT INTO users VALUES(DEFAULT, 'petras@email.com',false,'Petras','$2a$12$ar51Ym.9NCD0ZRCwr0D0/ulPSiDO2lt3erfFf0oH55lEmPpBhExuG','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
 INSERT INTO users VALUES(DEFAULT, 'tomas@gmail.com',false,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');
 INSERT INTO users VALUES(DEFAULT, 'linas@email.com',false,'Linas','$2a$12$y6FxKc8Pg8BXYN5saFbJQOsvjif/ahQKZbY7ves2SgCHZ5zkHuFkG','ROLE_STUDENT','linas', '2022.05.24','linas123');
@@ -52,4 +52,4 @@ Table list: \dt
 __________________________________________
 
 ## SQL:
-DELETE FROM users WHERE id='4';
+DELETE FROM users WHERE id='?';

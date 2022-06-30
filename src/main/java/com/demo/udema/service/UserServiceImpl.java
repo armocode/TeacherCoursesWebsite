@@ -12,10 +12,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Override
     public void save(User user) {
         if (!user.getPassword().equals("")) {
@@ -27,12 +25,10 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.save(user);
     }
-
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);

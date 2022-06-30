@@ -42,12 +42,6 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "ORDER BY course_reviews.data ", nativeQuery = true)
     List<CourseReviews> findAllSortByAnyTime(String teacherUsername);
 
-    //    @Query(value= "SELECT * FROM course_reviews" +
-//            " JOIN Users ON course_reviews.user_id = users.id" +
-//            " JOIN orders ON users.id = orders.user_id " +
-//            " JOIN courses ON courses.id = orders.course_id " +
-//            " GROUP BY course_reviews.data" +
-//            " ORDER BY course_reviews.data DESC", nativeQuery = true)
     @Query(value = "SELECT * FROM course_reviews" +
             " WHERE course_reviews.course_details_id IN" +
             " (SELECT id FROM course_details" +
@@ -59,9 +53,9 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "ORDER BY course_reviews.data DESC", nativeQuery = true)
     List<CourseReviews> findAllSortByLatest(String teacherUsername);
 
-    // (Mysql palaiko 0,1, heroku-postgresql - palaiko true/false)
+    // (Mysql - 0,1 || Postgresql - true/false)
     @Query(value = "SELECT * FROM course_reviews" +
-            " WHERE is_reported = 'true'", nativeQuery = true)
+            " WHERE is_reported = true", nativeQuery = true)
     List<CourseReviews> findReportedReviewsByTeacher();
 
     @Modifying
@@ -70,27 +64,19 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE id = ?1", nativeQuery = true)
     void deleteCourseReviewById(int id);
 
-
+    // (Mysql - 0,1 || Postgresql - true/false)
     @Modifying
     @Transactional
     @Query(value = "UPDATE course_reviews" +
-            " SET is_reported = ?1" +
-            " WHERE id = ?1", nativeQuery = true)
-    void modifyCourseReviewById(boolean isReported, int id);
-
-    // (Mysql palaiko 0,1, heroku-postgresql - palaiko true/false)
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE course_reviews" +
-            " SET is_reported = 'false'" +
+            " SET is_reported = false" +
             " WHERE id = ?1", nativeQuery = true)
     void updateCourseReviewToFalse(int id);
 
-    // (Mysql palaiko 0,1, heroku-postgresql - palaiko true/false)
+    // (Mysql - 0,1 || Postgresql - true/false)
     @Modifying
     @Transactional
     @Query(value = "UPDATE course_reviews" +
-            " SET is_reported = 'true'" +
+            " SET is_reported = true" +
             " WHERE id = ?1", nativeQuery = true)
     void updateCourseReviewToTrue(int id);
 }

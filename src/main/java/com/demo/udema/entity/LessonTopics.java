@@ -20,20 +20,17 @@ public class LessonTopics {
     @ManyToOne()
     @JoinColumn(name = "course_details_id") //FK
     private CourseDetails courseDetails;
-
-//    @NotEmpty(message = "Field can't be empty!")
-//    @Size(min = 5, message = "test")
-    @Column(name = "name", unique=true, length = 512)
+    @Column(name = "name", unique = true, length = 512)
     private String name;
 
-    @Column(name = "list_number", unique=true, length = 3)
+    @Column(name = "list_number", unique = true, length = 3)
     private Integer listNumber;
 
     @OneToMany(mappedBy = "lessonTopics", cascade = CascadeType.ALL) //PK
     private List<Lessons> lessonsList;
 
-
-public LessonTopics(){}
+    public LessonTopics() {
+    }
 
     public LessonTopics(int id, CourseDetails courseDetails, String name, Integer listNumber) {
         this.id = id;

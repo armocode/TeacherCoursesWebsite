@@ -44,13 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
     }
 
-
-
-    @Override
-    public List<Category> findAllByOrderByTitleAsc() {
-        return categoryRepository.findAllByOrderByTitleAsc();
-    }
-
     @Override
     public String findByTitle(String title) {
         return categoryRepository.findByTitle(title);
@@ -59,11 +52,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategoryById(int id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Category> findAllTeacherCategoriesByUsername(String username) {
-        return categoryRepository.findAllTeacherCategoriesByUsername(username);
     }
 
     @Override

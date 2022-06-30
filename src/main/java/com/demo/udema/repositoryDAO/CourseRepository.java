@@ -13,13 +13,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     List<Course> findAllByCategoryId(int id);
     List<Course> findAll();
     void deleteByTitle(String title);
-
-    //Neiseina surikiuoti pagal list number, neuzpildyti puslapiai sugriuna.
-//    @Query(value = "SELECT * FROM courses" +
-//            " JOIN course_details ON courses.id = course_details.course_id" +
-//            " JOIN lesson_topics ON course_details.id = lesson_topics.course_details_id" +
-//            " WHERE courses.title LIKE ?1" +
-//            " ORDER BY lesson_topics.list_number DESC", nativeQuery = true)
     Course findByTitle(String title);
 
     Course findById(int id);

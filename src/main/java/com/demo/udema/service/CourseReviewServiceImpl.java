@@ -51,11 +51,6 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     }
 
     @Override
-    public void modifyCourseReviewById(boolean isReported, int id) {
-        courseReviewRepository.modifyCourseReviewById(isReported, id);
-    }
-
-    @Override
     public void save(CourseReviews courseReviews) {
         courseReviewRepository.save(courseReviews);
     }

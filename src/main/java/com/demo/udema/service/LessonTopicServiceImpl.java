@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class LessonTopicServiceImpl implements LessonTopicService{
-
     public LessonTopicRepository lessonTopicRepository;
 
     public LessonTopicServiceImpl(LessonTopicRepository lessonTopicRepository) {

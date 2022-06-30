@@ -27,27 +27,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-                .antMatchers("/assets/**", "/coming_soon/**", "/css/**", "/img/**", "/js/**", "/layerslider/**", "/sass/**", "/video/**", "/registration" ,"/login").permitAll()
+                .authorizeRequests()
+                .antMatchers("/assets/**", "/coming_soon/**", "/css/**", "/img/**", "/js/**", "/layerslider/**", "/sass/**", "/video/**", "/registration", "/login").permitAll()
 //                .anyRequest().authenticated()
-                .antMatchers("/adminPage/**").hasAnyRole("STUDENT","TEACHER", "ADMIN")
+                .antMatchers("/adminPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .antMatchers("/userPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .antMatchers("/addCategory/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/addLesson/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/addLessonTopic/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/addCourse/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/editCourse/**").hasAnyRole("TEACHER", "ADMIN")
-                .antMatchers("/reviews/**").hasAnyRole("TEACHER","ADMIN")
+                .antMatchers("/reviews/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/reportedList/**").hasAnyRole("ADMIN")
 //                .antMatchers("/adminPage/**").access("hasRole('0') and hasRole('1')")
                 .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
-            .logout().permitAll()
+                .logout().permitAll()
                 .and()
-            .exceptionHandling()
+                .exceptionHandling()
                 .accessDeniedPage("/404");
     }
 

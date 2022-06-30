@@ -169,7 +169,6 @@ public class CourseValidator implements Validator {
                 }
             }
         }
-
     }
 }
 

@@ -47,12 +47,11 @@ public class User {
     //-----------ManyToMany---users-orders-courses--------------------
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "orders",                                         // Table
-            joinColumns = {@JoinColumn(name = "user_id")},              //PK FK
+            joinColumns = {@JoinColumn(name = "user_id")},              // PK
             inverseJoinColumns = {@JoinColumn(name = "course_id")})     // FK
 
             Set<Course> courses = new HashSet<>();
     //----------------------------------------------------------------
-
 
     @Transient
     private String passwordConfirm;
