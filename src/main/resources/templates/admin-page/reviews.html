@@ -296,7 +296,8 @@
                       <span th:text="${' - reported to admin'}" class="ti-na"></span><span class="reported"></span>
                       </div>
                       <div th:if="${rev.reported==false}">
-                        <span><h1><a th:href="@{/setReportTrue/{id}(id=${rev.id})}" class="ti-na"></a></h1><span class="report"></span></span>
+                        <span><h1><a th:href="@{/setReportTrue/{id}(id=${rev.id})}" class="ti-na"
+                                     onclick="if(!(confirm('Are you sure, you want to report this comment?'))) return false"></a></h1><span class="report"></span></span>
                       </div>
 
 <!--                      <h1 class="ti-trash"></h1><span class="icon-name"> </span>-->

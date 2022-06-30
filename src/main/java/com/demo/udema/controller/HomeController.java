@@ -473,8 +473,8 @@ public class HomeController implements ErrorController {
         model.addAttribute("review", oldestReview);
         return "admin-page/reviews";
     }
-    @GetMapping("/setReportTrue/{id}")
-    public String updateReportTrue(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
+    @GetMapping("/setReportTrue/{id}") //Reviews
+    public String updateReportTrue(@PathVariable(value = "id") int id) {
         courseReviewService.updateCourseReviewToTrue(id);
         return "redirect:/reviews";
     }
