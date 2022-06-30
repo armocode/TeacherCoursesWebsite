@@ -1,9 +1,0 @@
-
-url heroku app
-git public
-
-readme kas per aplikacija, duomenu bazes prisijungimo vardas slaptazodis (heroku)
-jeigu naudosite mysql localhost, parasyti ka reikia pakeist
-
-(kaip ikelti i heroku, kaip prijungti db)
-
