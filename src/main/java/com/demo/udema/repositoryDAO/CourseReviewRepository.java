@@ -59,8 +59,9 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "ORDER BY course_reviews.data DESC", nativeQuery = true)
     List<CourseReviews> findAllSortByLatest(String teacherUsername);
 
+    // (Mysql palaiko 0,1, heroku-postgresql - palaiko true/false)
     @Query(value = "SELECT * FROM course_reviews" +
-            " WHERE is_reported = 1", nativeQuery = true)
+            " WHERE is_reported = 'true'", nativeQuery = true)
     List<CourseReviews> findReportedReviewsByTeacher();
 
     @Modifying
@@ -77,17 +78,19 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE id = ?1", nativeQuery = true)
     void modifyCourseReviewById(boolean isReported, int id);
 
+    // (Mysql palaiko 0,1, heroku-postgresql - palaiko true/false)
     @Modifying
     @Transactional
     @Query(value = "UPDATE course_reviews" +
-            " SET is_reported = 0" +
+            " SET is_reported = 'false'" +
             " WHERE id = ?1", nativeQuery = true)
     void updateCourseReviewToFalse(int id);
 
+    // (Mysql palaiko 0,1, heroku-postgresql - palaiko true/false)
     @Modifying
     @Transactional
     @Query(value = "UPDATE course_reviews" +
-            " SET is_reported = 1" +
+            " SET is_reported = 'true'" +
             " WHERE id = ?1", nativeQuery = true)
     void updateCourseReviewToTrue(int id);
 }

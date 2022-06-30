@@ -1,0 +1,55 @@
+finalProjectTest(SpringProject)
+
+!!! SVARBU ID palikti DEFAULT, kitaip nebeleis kūrti įrašų (užskaitys kaip dublikata)
+INSERT INTO users VALUES(DEFAULT, 'email@email.com',false,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas123');
+INSERT INTO users VALUES(DEFAULT, 'petras@email.com',false,'Petras','$2a$12$ar51Ym.9NCD0ZRCwr0D0/ulPSiDO2lt3erfFf0oH55lEmPpBhExuG','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
+INSERT INTO users VALUES(DEFAULT, 'tomas@gmail.com',false,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');
+INSERT INTO users VALUES(DEFAULT, 'linas@email.com',false,'Linas','$2a$12$y6FxKc8Pg8BXYN5saFbJQOsvjif/ahQKZbY7ves2SgCHZ5zkHuFkG','ROLE_STUDENT','linas', '2022.05.24','linas123');
+INSERT INTO users VALUES(DEFAULT, 'admin@udema.com',false,'ADMIN','$2a$12$LuwVfc1u.rIRAT1wA794UOonvd.KXBrLuUTimx6YhV701cxpMqsAG','ROLE_ADMIN','ADMIN','2000.05.05','admin123');
+
+INSERT INTO categories VALUES(DEFAULT, 'JAVA');
+INSERT INTO categories VALUES(DEFAULT, 'JavaScript');
+INSERT INTO categories VALUES(DEFAULT, 'C');
+INSERT INTO categories VALUES(DEFAULT, 'C++');
+INSERT INTO categories VALUES(DEFAULT, 'PHP');
+INSERT INTO categories VALUES(DEFAULT, 'PYTHON');
+
+INSERT INTO courses VALUES(DEFAULT,150.80,'2022-05-20','Java pagrindai',1,1);
+INSERT INTO courses VALUES(DEFAULT,99.99,'2022-05-21','C pagrindai',3,1);
+INSERT INTO courses VALUES(DEFAULT,309.99,'2022-05-20','Java pazengusiems',1,1);
+INSERT INTO courses VALUES(DEFAULT,199.99,'2022-05-23','C pazengusiems',3,1);
+INSERT INTO course_details VALUES(DEFAULT,'Cia galite ismokti Java pagrindu', 1);
+INSERT INTO course_details VALUES(DEFAULT,'Cia galite ismokti Java pazengusiuju pagrindu', 3);
+INSERT INTO course_details VALUES(DEFAULT,'Cia galite ismokti C pazengusiuju pagrindu', 4);
+INSERT INTO course_details VALUES(DEFAULT,'Cia galite ismokti C pagrindu', 2);
+
+INSERT INTO lesson_topics VALUES(DEFAULT,10,'Pirmoji programa',1);
+INSERT INTO lesson_topics VALUES(DEFAULT,20,'Funkcijos',2);
+INSERT INTO lesson_topics VALUES(DEFAULT,30,'Masyvai',3);
+
+INSERT INTO lessons VALUES(DEFAULT, 'Ciklai',true, 23540,10,'for loop','url',1);
+INSERT INTO lessons VALUES(DEFAULT, 'Ciklai',false, 14532,20,'while loop','url',1);
+INSERT INTO lessons VALUES(DEFAULT, 'Salygos',false, 31010,30,'Salyga if, else','url',1);
+INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',true, 24532,40,'grazinanti funkcija','url',2);
+INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',false, 545533,50,'negrazinanti funkcija','url',2);
+INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 255533,60,'statiniai masyvai','url',3);
+INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 155333,70,'dinaminiai masyvai','url',3);
+
+INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
+INSERT INTO orders VALUES(4,'url', 1, 80.99, '2023-05-23');
+INSERT INTO orders VALUES(4,'url', 3, '309.99', '2023-07-15');
+INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
+
+INSERT INTO course_reviews VALUES(DEFAULT, false, 1,'neivienos pazystamos neatradau','2023-12-12',1,2);
+INSERT INTO course_reviews VALUES(DEFAULT, false, 5, 'Puikus java pagrindu kursas','2023-12-13',1, 4);
+INSERT INTO course_reviews VALUES(DEFAULT, false, 4, 'puikus java pazengusiuju funkciju kursas', '2023-12-14', 2,4);
+INSERT INTO course_reviews VALUES(DEFAULT, false, 5, 'puikus java pazengusiuju kursas','2023-12-30',2,3);
+
+__________________________________________
+
+## SQL Shell commands:
+Table list: \dt
+__________________________________________
+
+## SQL:
+DELETE FROM users WHERE id='4';
