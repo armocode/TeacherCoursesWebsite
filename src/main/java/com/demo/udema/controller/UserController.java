@@ -59,7 +59,7 @@ public class UserController {
         String username = loggerUser.getUsername();
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
-        return "/admin-page/user-profile";
+        return "admin-page/user-profile";
     }
 
     @PostMapping("/userPage/update")
