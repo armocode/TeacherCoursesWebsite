@@ -1,6 +1,4 @@
-finalProjectTest(SpringProject)
 
-!!! SVARBU ID palikti DEFAULT, kitaip nebeleis kūrti įrašų (užskaitys kaip dublikata)
 INSERT INTO users VALUES(DEFAULT, 'email@email.com',false,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas');
 INSERT INTO users VALUES(DEFAULT, 'petras@email.com',false,'Petras','$2a$12$ar51Ym.9NCD0ZRCwr0D0/ulPSiDO2lt3erfFf0oH55lEmPpBhExuG','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
 INSERT INTO users VALUES(DEFAULT, 'tomas@gmail.com',false,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');

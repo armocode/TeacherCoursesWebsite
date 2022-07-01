@@ -283,13 +283,15 @@ public class HomeController implements ErrorController {
 
     @GetMapping("deleteLessonTopic/{id}")
     public String deleteLessonTopic(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-        if (lessonTopicService.findLessonTopicIdByLessonFkId(id) == null) {
-            redirectAtt.addFlashAttribute("message", "Lesson topic deleted successfully");
-            this.lessonTopicService.deleteLessonTopicById(id);
-            return "redirect:/addLessonTopic";
-        } else if(lessonTopicService.findLessonTopicIdByLessonFkId(id) != null) {
-            redirectAtt.addFlashAttribute("error", "If you want to delete lesson topic at first you must delete lesson");
-            return "redirect:/addLessonTopic";
+        if (checkTeacherLessonTopicsIdByTeacherUsername(id)) {
+            if (lessonTopicService.findLessonTopicIdByLessonFkId(id) == null) {
+                redirectAtt.addFlashAttribute("message", "Lesson topic deleted successfully");
+                this.lessonTopicService.deleteLessonTopicById(id);
+                return "redirect:/addLessonTopic";
+            } else if (lessonTopicService.findLessonTopicIdByLessonFkId(id) != null) {
+                redirectAtt.addFlashAttribute("error", "If you want to delete lesson topic at first you must delete lesson");
+                return "redirect:/addLessonTopic";
+            }
         }
         return "redirect:/error";
     }
@@ -372,14 +374,16 @@ public class HomeController implements ErrorController {
 
     @GetMapping("deleteLesson/{id}")
     public String deleteLesson(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-        redirectAtt.addFlashAttribute("message", "Lesson deleted successfully");
-        this.lessonService.deleteLessonById(id);
-        return "redirect:/addLesson";
+        if(checkTeacherLessonsIdByTeacherUsername(id)) {
+            redirectAtt.addFlashAttribute("message", "Lesson deleted successfully");
+            this.lessonService.deleteLessonById(id);
+            return "redirect:/addLesson";
+        }
+        return "redirect:/error";
     }
 
     @GetMapping("/addCategory")
     public String addCategory(Model model) {
-//      List<Category> teacherCategoryList = categoryService.findAllTeacherCategoriesByUsername(currentLoggedInUsername());
         List<Category> categoriesList = categoryService.findAllCategories();
         model.addAttribute("category", categoriesList);
         model.addAttribute("newCategory", new Category());
@@ -404,17 +408,25 @@ public class HomeController implements ErrorController {
 
     @GetMapping("deleteCategory/{id}")
     public String deleteCategory(@PathVariable(value = "id") int id) {
-        this.categoryService.deleteCategoryById(id);
-        return "redirect:/addCategory";
+        String role = userService.findRoleByUsername(currentLoggedInUsername());
+        if(role.equals("ROLE_ADMIN")) {
+            this.categoryService.deleteCategoryById(id);
+            return "redirect:/addCategory";
+        }
+        return "redirect:/error";
     }
 
     @GetMapping("/updateCategory/{id}")
     public String updateCategory(@PathVariable(value = "id") int id, Model model) {
-        Category category = categoryService.findById(id);
-        model.addAttribute("newCategory", category);
-        List<Category> categoriesList = categoryService.findAllCategories();
-        model.addAttribute("category", categoriesList);
-        return "admin-page/add-category";
+        String role = userService.findRoleByUsername(currentLoggedInUsername());
+        if(role.equals("ROLE_ADMIN")) {
+            Category category = categoryService.findById(id);
+            model.addAttribute("newCategory", category);
+            List<Category> categoriesList = categoryService.findAllCategories();
+            model.addAttribute("category", categoriesList);
+            return "admin-page/add-category";
+        }
+        return "redirect:/error";
     }
 
 
@@ -475,8 +487,11 @@ public class HomeController implements ErrorController {
     }
     @GetMapping("/setReportTrue/{id}") //Reviews
     public String updateReportTrue(@PathVariable(value = "id") int id) {
-        courseReviewService.updateCourseReviewToTrue(id);
-        return "redirect:/reviews";
+        if(checkTeacherCourseReviewsIdByTeacherUsername(id)) {
+            courseReviewService.updateCourseReviewToTrue(id);
+            return "redirect:/reviews";
+        }
+        return "redirect:/error";
     }
 
     @GetMapping("/coursesListAll")
@@ -656,7 +671,6 @@ public class HomeController implements ErrorController {
      * @return true if bought course, else false
      */
     public Boolean usersBoughtCourse(String courseTitle) {
-
         List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
         if (us.contains(currentLoggedInUsername())) {
             return true;
@@ -665,9 +679,41 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * If LessonTopic don't have lessons inside, delete lessonTopic
+     *  Teacher can report only his own courses reviews comments to admin
      */
+    public Boolean checkTeacherCourseReviewsIdByTeacherUsername(int id) {
+        List<Integer> l = courseReviewService.checkReviewsIdByTeacherUsername(currentLoggedInUsername());
+        if (l.contains(id)) {
+            return true;
+        }
+        return false;
+    }
 
+    /**
+     *  Teacher can delete only his own lesson topics
+     */
+    public Boolean checkTeacherLessonTopicsIdByTeacherUsername(int id) {
+        List<Integer> l = lessonTopicService.findLessonTopicIdByTeacherUsername(currentLoggedInUsername());
+        if (l.contains(id)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *  Teacher can delete only his own lessons
+     */
+    public Boolean checkTeacherLessonsIdByTeacherUsername(int id) {
+        List<Integer> l = lessonService.findLessonsIdByTeacherUsername(currentLoggedInUsername());
+        if (l.contains(id)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * If LessonTopic don't have lessons inside, hide lessonTopic
+     */
     public List<LessonTopics> deleteNullValuesOfLessonTopics(List<LessonTopics> list) {
         Iterator<LessonTopics> it = list.iterator();
         while (it.hasNext()) {

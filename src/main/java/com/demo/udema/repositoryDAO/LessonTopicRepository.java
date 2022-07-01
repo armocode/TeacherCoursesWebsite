@@ -42,4 +42,14 @@ public interface LessonTopicRepository extends JpaRepository<LessonTopics, Integ
             " WHERE courses.title LIKE ?1))" +
             " ORDER BY lesson_topics.list_number", nativeQuery = true)
     List<LessonTopics> findAllLessonTopicByCourseTitle(String title);
+
+    @Query(value = "SELECT id FROM lesson_topics" +
+            " WHERE lesson_topics.course_details_id IN" +
+            "(SELECT id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            " (SELECT id FROM courses" +
+            "  WHERE courses.teacher_id IN" +
+            "  (SELECT id FROM users" +
+            "   WHERE users.username LIKE ?1)))", nativeQuery = true)
+    List<Integer> findLessonTopicIdByTeacherUsername(String username);
 }

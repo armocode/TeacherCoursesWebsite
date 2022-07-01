@@ -68,4 +68,9 @@ public class LessonTopicServiceImpl implements LessonTopicService{
     public List<LessonTopics> findAllLessonTopicByCourseTitle(String title) {
         return lessonTopicRepository.findAllLessonTopicByCourseTitle(title);
     }
+
+    @Override
+    public List<Integer> findLessonTopicIdByTeacherUsername(String username) {
+        return lessonTopicRepository.findLessonTopicIdByTeacherUsername(username);
+    }
 }

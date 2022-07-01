@@ -15,6 +15,8 @@ public interface CourseReviewService {
     void save(CourseReviews courseReviews);
     void updateCourseReviewToFalse(int id);
     void updateCourseReviewToTrue(int id);
+    List<Integer> checkReviewsIdByTeacherUsername(String username);
+
 
 
 }

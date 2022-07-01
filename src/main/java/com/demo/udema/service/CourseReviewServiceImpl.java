@@ -64,4 +64,10 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     public void updateCourseReviewToTrue(int id) {
         courseReviewRepository.updateCourseReviewToTrue(id);
     }
+
+    @Override
+    public List<Integer> checkReviewsIdByTeacherUsername(String username) {
+        return courseReviewRepository.checkReviewsIdByTeacherUsername(username);
+    }
+
 }

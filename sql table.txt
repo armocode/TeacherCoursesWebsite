@@ -53,6 +53,8 @@ INSERT INTO course_reviews VALUES(4, 0, 5, 'puikus java pazengusiuju kursas','20
 
 
 _________test_________________________________________
+INSERT INTO course_reviews VALUES(5, 0, 1, 'prastas kursas naujas','2011-11-30',5,3);
+
 INSERT INTO orders VALUES(4, 'url',3,'309.99', '2022-12-12');
 
 INSERT INTO lessons VALUES(8,'test desc',0,123,'test','url',3);

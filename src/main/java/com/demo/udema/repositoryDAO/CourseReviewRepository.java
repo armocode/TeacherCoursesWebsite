@@ -42,6 +42,16 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "ORDER BY course_reviews.data ", nativeQuery = true)
     List<CourseReviews> findAllSortByAnyTime(String teacherUsername);
 
+    @Query(value = "SELECT course_reviews.id FROM course_reviews" +
+            " WHERE course_reviews.course_details_id IN" +
+            " (SELECT id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            "(SELECT id FROM courses" +
+            " WHERE courses.teacher_id IN" +
+            " (SELECT id FROM users" +
+            " WHERE users.username LIKE ?1)))", nativeQuery = true)
+    Integer findCourseReviewIdByUsername(String teacherUsername);
+
     @Query(value = "SELECT * FROM course_reviews" +
             " WHERE course_reviews.course_details_id IN" +
             " (SELECT id FROM course_details" +
@@ -79,4 +89,14 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " SET is_reported = true" +
             " WHERE id = ?1", nativeQuery = true)
     void updateCourseReviewToTrue(int id);
+
+    @Query(value = "SELECT id FROM course_reviews" +
+            " WHERE course_details_id IN" +
+            "(SELECT id FROM course_details" +
+            " WHERE course_id IN" +
+            " (SELECT id FROM courses" +
+            "  WHERE teacher_id IN" +
+            "   (SELECT id FROM users" +
+            "    WHERE users.username LIKE ?1)))", nativeQuery = true)
+    List<Integer> checkReviewsIdByTeacherUsername(String username);
 }

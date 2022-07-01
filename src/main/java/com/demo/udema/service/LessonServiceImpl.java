@@ -73,4 +73,9 @@ public class LessonServiceImpl implements LessonService{
         return lessonRepository.findByListNumber(listNumber);
     }
 
+    @Override
+    public List<Integer> findLessonsIdByTeacherUsername(String username) {
+        return lessonRepository.findLessonsIdByTeacherUsername(username);
+    }
+
 }
