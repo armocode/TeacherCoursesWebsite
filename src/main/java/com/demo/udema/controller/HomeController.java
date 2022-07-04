@@ -467,11 +467,15 @@ public class HomeController implements ErrorController {
         return "course-detail";
     }
     @GetMapping("/test") // buyCourse
-    public String addOrders(@ModelAttribute Orders orders) {
+    public String addOrders(@ModelAttribute Orders orders,
+//                            @RequestParam("courseTitle") String title,
+                            Model model) {
         Integer userId = userService.findIdByUsername(currentLoggedInUsername());
-//        Integer courseId = courseService.findIdByCourseTitle(course.getTitle());
+//        Integer courseId = courseService.findIdByCourseTitle(title);
+
         if(userId != null) {
 //            model.addAttribute("orders", orders);
+            System.out.println(userId);
 
             orders.setUserId(userId);
 //            orders.setCourseId(courseId);

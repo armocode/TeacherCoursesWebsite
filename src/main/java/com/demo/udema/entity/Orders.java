@@ -7,11 +7,13 @@ import java.util.Date;
 @Entity
 @Table(name = "orders")
 public class Orders {
+
     @Id
     @GeneratedValue
+    private int id;
+
     @Column(name = "user_id")  // PK
     private int userId;
-
     @Column(name = "course_id") // PK FK
     private int courseId;
 

@@ -33,17 +33,21 @@ INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',false, 545533,50,'negrazinanti f
 INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 255533,60,'statiniai masyvai','url',3);
 INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 155333,70,'dinaminiai masyvai','url',3);
 
-INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
-INSERT INTO orders VALUES(4,'url', 1, 80.99, '2023-05-23');
-INSERT INTO orders VALUES(4,'url', 3, '309.99', '2023-07-15');
-INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
+INSERT INTO orders VALUES(DEFAULT, 'url', 1, 80.99, '2023-12-12', 2);
+INSERT INTO orders VALUES(DEFAULT, 'url', 1, 80.99, '2023-05-23', 4);
+INSERT INTO orders VALUES(DEFAULT, 'url', 3, '309.99', '2023-07-15', 4);
+INSERT INTO orders VALUES(DEFAULT, 'url', 3, '309.99', '2022-11-30', 3);
 
 INSERT INTO course_reviews VALUES(DEFAULT, false, 1,'neivienos pazystamos neatradau','2023-12-12',1,2);
 INSERT INTO course_reviews VALUES(DEFAULT, false, 5, 'Puikus java pagrindu kursas','2023-12-13',1, 4);
 INSERT INTO course_reviews VALUES(DEFAULT, false, 4, 'puikus java pazengusiuju funkciju kursas', '2023-12-14', 2,4);
 INSERT INTO course_reviews VALUES(DEFAULT, false, 5, 'puikus java pazengusiuju kursas','2023-12-30',2,3);
 
-__________________________________________
+_______test___________________________________
+INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
+INSERT INTO orders VALUES(4,'url', 1, 80.99, '2023-05-23');
+INSERT INTO orders VALUES(4,'url', 3, '309.99', '2023-07-15');
+INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
 
 ## SQL Shell commands:
 Table list: \dt
