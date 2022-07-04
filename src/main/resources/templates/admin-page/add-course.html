@@ -280,7 +280,9 @@
                 <li class="breadcrumb-item">
                     <a href="#">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Add course</li>
+                <li th:if="${cDetails.idDet == 0}" class="breadcrumb-item active">Add course</li>
+                <li th:if="${cDetails.idDet != 0}" class="breadcrumb-item active"><a href="/editCourse">Edit course</a><li th:if="${cDetails.idDet != 0}" class="breadcrumb-item active">Update course</li></li>
+
             </ol>
             <div th:if="${errormessage}" class="alert">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>

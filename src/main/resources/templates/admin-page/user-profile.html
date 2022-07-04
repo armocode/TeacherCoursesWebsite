@@ -249,6 +249,7 @@
   <form  th:action="@{/userPage/update}" method="post" th:object = "${user}" class="content-wrapper">
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{email}">
+      <input type="hidden" th:field="*{role}">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
         <div class="row">
@@ -315,9 +316,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" th:with="myRole=${user.role}">
                                         <label>Role</label>
-                                        <input type="text" class="form-control" th:field="*{role}" readonly="readonly">
+                                        <input th:if="${myRole == 'ROLE_STUDENT'}" class="form-control" th:value="${'Student'}" readonly="readonly">
+                                        <input th:if="${myRole == 'ROLE_ADMIN'}" class="form-control" th:value="${'Administrator'}" readonly="readonly">
+                                        <input th:if="${myRole == 'ROLE_TEACHER'}" class="form-control" th:value="${'Teacher'}" readonly="readonly">
                                     </div>
                                 </div>
                             </div>
