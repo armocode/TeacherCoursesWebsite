@@ -63,7 +63,6 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "ORDER BY course_reviews.data DESC", nativeQuery = true)
     List<CourseReviews> findAllSortByLatest(String teacherUsername);
 
-    // (Mysql - 0,1 || Postgresql - true/false)
     @Query(value = "SELECT * FROM course_reviews" +
             " WHERE is_reported = true", nativeQuery = true)
     List<CourseReviews> findReportedReviewsByTeacher();
@@ -74,7 +73,6 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE id = ?1", nativeQuery = true)
     void deleteCourseReviewById(int id);
 
-    // (Mysql - 0,1 || Postgresql - true/false)
     @Modifying
     @Transactional
     @Query(value = "UPDATE course_reviews" +
@@ -82,7 +80,6 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE id = ?1", nativeQuery = true)
     void updateCourseReviewToFalse(int id);
 
-    // (Mysql - 0,1 || Postgresql - true/false)
     @Modifying
     @Transactional
     @Query(value = "UPDATE course_reviews" +

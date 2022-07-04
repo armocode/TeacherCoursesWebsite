@@ -265,11 +265,9 @@ public class HomeController implements ErrorController {
                 LessonTopics lessonTopicById = lessonTopicService.findById(lessonTopics.getId());
                 model.addAttribute("courseDet", lessonTopicById.getCourseDetails());
             }
-
             model.addAttribute("error", "Please select an option from course details list");
             return "admin-page/add-lesson-topic";
         }
-
         CourseDetails csDet = courseDetailService.findById(Integer.parseInt(mapList.get("csDetId")));
         lessonTopics.setCourseDetails(csDet);
         lessonTopicService.save(lessonTopics);
@@ -544,7 +542,6 @@ public class HomeController implements ErrorController {
     }
     @GetMapping("/setReportFalse/{id}")  //ReportedList
     public String updateReportedReviewFalse(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-//       courseReviewService.modifyCourseReviewById(false, id);
        courseReviewService.updateCourseReviewToFalse(id);
        redirectAtt.addFlashAttribute("message", "Review restored successfully");
         return "redirect:/reportedList";
