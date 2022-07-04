@@ -12,5 +12,7 @@ public interface UserService {
     void saveNoPassword(User user);
     List<String> findUsersWhoBoughtCourseByCourseTitle(String title);
     String findRoleByUsername(String username);
+    Integer findIdByUsername(String username);
+
 
 }

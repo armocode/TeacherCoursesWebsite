@@ -24,4 +24,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> findAllByCourseId(int id) {
         return orderRepository.findAllByCourseId(id);
     }
+
+    @Override
+    public void save(Orders orders) {
+        orderRepository.save(orders);
+    }
+
+    @Override
+    public void saveUserIdCourseId(int userId, int courseId, int price) {
+        orderRepository.saveUserIdCourseId(userId, courseId, price);
+    }
 }

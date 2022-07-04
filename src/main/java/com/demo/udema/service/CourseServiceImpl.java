@@ -45,6 +45,12 @@ public class CourseServiceImpl implements CourseService{
     public void deleteById(int id) {
         courseRepository.deleteById(id);
     }
+
+    @Override
+    public Integer findIdByCourseTitle(String title) {
+        return courseRepository.findIdByCourseTitle(title);
+    }
+
     @Override
     public Course findByTitle(String title) {
         return courseRepository.findByTitle(title);

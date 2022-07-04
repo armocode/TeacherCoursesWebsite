@@ -444,6 +444,9 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
+                             // userId, cerUrl, courseId, price, data
+//      INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
+        model.addAttribute("orders", new Orders());
 
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
 
@@ -463,6 +466,29 @@ public class HomeController implements ErrorController {
         lessonsCountByCourseTitle(title, model);
         return "course-detail";
     }
+    @GetMapping("/test") // buyCourse
+    public String addOrders(@ModelAttribute Orders orders) {
+        Integer userId = userService.findIdByUsername(currentLoggedInUsername());
+//        Integer courseId = courseService.findIdByCourseTitle(course.getTitle());
+        if(userId != null) {
+//            model.addAttribute("orders", orders);
+
+            orders.setUserId(userId);
+//            orders.setCourseId(courseId);
+//            orderService.saveUserIdCourseId(userId, 1, 54);
+            orders.setCertificate_url("naujas test");
+            orders.setCourseId(1);
+            orders.setPrice(5000);
+
+            orderService.save(orders);
+            System.out.println("post");
+            return "redirect:/coursesDetails";
+        }
+
+        System.out.println("scope 2");
+        return "redirect:/error";
+    }
+
 
     @GetMapping("/reviews")
     public String adminPageReviews(@ModelAttribute("orderReviews") String arrangement, Model model) {

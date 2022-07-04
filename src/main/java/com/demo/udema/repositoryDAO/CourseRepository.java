@@ -34,4 +34,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
             "(SELECT users.id FROM users" +
             " WHERE users.username = ?1)", nativeQuery = true)
     List<Course> findAllTeacherCourseByUsername(String username);
+
+    @Query(value = "SELECT id FROM courses" +
+            " WHERE courses.title LIKE ?1", nativeQuery = true)
+    Integer findIdByCourseTitle(String title);
 }

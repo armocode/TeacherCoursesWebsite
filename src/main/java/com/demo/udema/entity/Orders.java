@@ -12,7 +12,7 @@ public class Orders {
     @Column(name = "user_id")  // PK
     private int userId;
 
-    @Column(name = "course_id") // FK
+    @Column(name = "course_id") // PK FK
     private int courseId;
 
     @Column(name = "data")
@@ -39,6 +39,11 @@ public Orders() {}
         this.timeStamp = timeStamp;
         this.price = price;
         this.certificate_url = certificate_url;
+    }
+
+    public Orders(int userId, int courseId) {
+        this.userId = userId;
+        this.courseId = courseId;
     }
 
     public int getUserId() {

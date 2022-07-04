@@ -189,7 +189,7 @@
                                                         <div th:if="${ccltles.free==true}">
                                                             <div class="free-lesson">
                                                             <i class="icon-ok-circled"></i> <span class="free-lesson"></span>
-                                                            <a  th:text="${' WATCH FREE LESSON!'}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video"> </a>
+                                                            <a  th:text="${' WATCH FREE LESSON!'}" th:href="${ccltles.videoUrl}" class="video"> </a>
                                                             </div>
 
                                                         </div>
@@ -200,7 +200,7 @@
                                                             </div>
                                                             <div th:if="${userBoughtCourse==true}" class="free-lesson">
                                                                 <i class="icon-ok-circled"></i> <span class="free-lesson"></span>
-                                                                <a th:text="${' Watch lesson '}" href="https://www.youtube.com/watch?v=LDgd_gUcqCw" class="video">Watch</a>
+                                                                <a th:text="${' Watch lesson '}" th:href="${ccltles.videoUrl}" class="video">Watch</a>
                                                             </div>
                                                         </div>
                                                         <span th:text="${hours}+' h '+${min}+' m '+${sec}+' s '">00:59</span>
@@ -334,7 +334,21 @@
                             <div class="price" th:text="${coursesTit.price+' €'}">
                                 $29<span class="original_price"><em>$49</em>60% discount price</span>
                             </div>
-                            <a href="#0" class="btn_1 full-width">Purchase</a>
+
+<!--                            <form action="#" th:action="@{/coursesDetails}" th:object="${orders}" method="post">-->
+<!--                                <input th:type="hidden" th:field="*{courseId}">-->
+<!--                                <input th:type="hidden" th:field="*{userId}">-->
+<!--                                <input th:type="hidden" th:field="*{certificate_url}">-->
+<!--                                <input th:type="hidden" th:field="*{price}">-->
+<!--                                <input th:type="hidden" th:field="*{timeStamp}">-->
+
+<!--                                <p><input type="submit" value="submit"></p>-->
+
+<!--&lt;!&ndash;                            <a th:href="@{/coursesDetails/{id}(id=${coursesTit.id})}" href="#0" class="btn_1 full-width">Purchase</a>&ndash;&gt;-->
+<!--                            </form>-->
+
+                            <a th:href="@{/test}" href="#0" class="btn_1 full-width">Purchase</a>
+
                             <a href="#0" class="btn_1 full-width outline"><i class="icon_heart"></i> Add to wishlist</a>
                             <div id="list_feat">
                                 <h3>What's includes</h3>

@@ -47,8 +47,8 @@ public class User {
     //-----------ManyToMany---users-orders-courses--------------------
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "orders",                                         // Table
-            joinColumns = {@JoinColumn(name = "user_id")},              // PK
-            inverseJoinColumns = {@JoinColumn(name = "course_id")})     // FK
+            joinColumns = {@JoinColumn(name = "user_id")},              // PK FK
+            inverseJoinColumns = {@JoinColumn(name = "course_id")})     // PK FK
 
             Set<Course> courses = new HashSet<>();
     //----------------------------------------------------------------
