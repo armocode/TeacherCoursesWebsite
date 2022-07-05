@@ -332,14 +332,14 @@
                                         src="http://via.placeholder.com/800x533/ccc/fff/course_1.jpg" alt=""
                                         class="img-fluid"><span>View course preview</span></a>
                             </figure>
-                            <div class="price" th:text="${coursesTit.price+' €'}">
+                            <div class="price" th:text="${coursesTit?.price+' €'}">
                                 $29<span class="original_price"><em>$49</em>60% discount price</span>
                             </div>
-                            <div th:if="${ordUserId == null}">
+                            <div th:if="${userBoughtCourse == false}">
                             <a th:href="@{/test(courseTitle=${coursesTit.title})}" href="#0" class="btn_1 full-width">Purchase</a>
                             </div>
-                            <div th:if="${ordUserId != null}">
-                                <span class="purchased"></span><a href="#0" class="btn_1 full-width">Purchased</a>
+                            <div th:if="${userBoughtCourse == true}">
+                                <span class="purchased"></span><a class="btn_1 full-width">Purchased</a>
                             </div>
 
                             <a href="#0" class="btn_1 full-width outline"><i class="icon_heart"></i> Add to wishlist</a>

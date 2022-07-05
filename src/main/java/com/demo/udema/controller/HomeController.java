@@ -444,10 +444,10 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
-                             // userId, cerUrl, courseId, price, data
-//      INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
-        Integer ordUserId = orderService.findOrderUrlByUsername(currentLoggedInUsername());
-        model.addAttribute("ordUserId", ordUserId);
+
+        if(title!=null || title.equals("")) {
+            System.out.println("courseTitle null");
+        }
 
         model.addAttribute("orders", new Orders());
 
@@ -476,8 +476,6 @@ public class HomeController implements ErrorController {
         Integer userId = userService.findIdByUsername(currentLoggedInUsername());
         Integer courseId = courseService.findIdByCourseTitle(title);
 
-
-        if(userId != null) {
             model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
             Course course = courseService.findByTitle(title);
             model.addAttribute("coursesTit", course);
@@ -494,7 +492,7 @@ public class HomeController implements ErrorController {
             lessonsSumByCourseTitle(title, model);
             lessonsCountByCourseTitle(title, model);
             //--------------------------------------
-
+        if(userId != null) {
             orders.setUserId(userId);
             orders.setCertificate_url("url");
             orders.setCourseId(courseId);
