@@ -33,7 +33,6 @@
     <style>.lesson-des {padding-left:25pt; padding-top: 5pt; padding-right: 5pt}</style>
     <style>.free-lesson {color: green; }</style>
     <style>.not-free-lesson {color: red; opacity: 0.9;}</style>
-    <style>.purchased {color:green;}</style>
 
 </head>
 
@@ -335,8 +334,9 @@
                             <div class="price" th:text="${coursesTit?.price+' €'}">
                                 $29<span class="original_price"><em>$49</em>60% discount price</span>
                             </div>
+                            <p th:text="${error}"></p>
                             <div th:if="${userBoughtCourse == false}">
-                            <a th:href="@{/test(courseTitle=${coursesTit.title})}" href="#0" class="btn_1 full-width">Purchase</a>
+                            <a th:href="@{/buyCourse(courseTitle=${coursesTit.title})}" href="#0" class="btn_1 full-width">Purchase</a>
                             </div>
                             <div th:if="${userBoughtCourse == true}">
                                 <span><a class="btn_22 full-width">Purchased</a></span>

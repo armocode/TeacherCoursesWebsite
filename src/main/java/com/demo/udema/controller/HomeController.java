@@ -445,12 +445,6 @@ public class HomeController implements ErrorController {
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
 
-        if(title!=null || title.equals("")) {
-            System.out.println("courseTitle null");
-        }
-
-        model.addAttribute("orders", new Orders());
-
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
 
         Course course = courseService.findByTitle(title);
@@ -469,12 +463,10 @@ public class HomeController implements ErrorController {
         lessonsCountByCourseTitle(title, model);
         return "course-detail";
     }
-    @GetMapping("/test") // buyCourse
+    @GetMapping("/buyCourse") // /coursesDetails
     public String addOrders(@RequestParam("courseTitle") String title,
                             @ModelAttribute Orders orders,
                             Model model) {
-        Integer userId = userService.findIdByUsername(currentLoggedInUsername());
-        Integer courseId = courseService.findIdByCourseTitle(title);
 
             model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
             Course course = courseService.findByTitle(title);
@@ -491,7 +483,10 @@ public class HomeController implements ErrorController {
             courseReviewRatingByTitle(title, model);
             lessonsSumByCourseTitle(title, model);
             lessonsCountByCourseTitle(title, model);
-            //--------------------------------------
+
+        Integer userId = userService.findIdByUsername(currentLoggedInUsername());
+        Integer courseId = courseService.findIdByCourseTitle(title);
+
         if(userId != null) {
             orders.setUserId(userId);
             orders.setCertificate_url("url");
@@ -499,13 +494,11 @@ public class HomeController implements ErrorController {
             orders.setPrice(course.getPrice());
 
             orderService.save(orders);
-            System.out.println("post");
-            return "course-detail";
-//            return "redirect:/coursesDetails";
+            return "redirect:/coursesDetails?courseTitle="+title;
         }
         model.addAttribute("error", "Please login if you want to buy course");
-        System.out.println("scope 2");
         return "course-detail";
+
 //        return "redirect:/error";
     }
 
