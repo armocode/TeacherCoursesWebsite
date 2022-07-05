@@ -427,7 +427,6 @@ public class HomeController implements ErrorController {
         return "redirect:/error";
     }
 
-
     @GetMapping("/coursesList")
     public String coursesList(@RequestParam("categoryId") int id, Model model) {
         model.addAttribute("catId", id);
@@ -444,6 +443,8 @@ public class HomeController implements ErrorController {
 
     @GetMapping("/coursesDetails")
     public String course(@RequestParam("courseTitle") String title, Model model) {
+
+        model.addAttribute("newComment", new CourseReviews());
 
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
 
@@ -463,6 +464,42 @@ public class HomeController implements ErrorController {
         lessonsCountByCourseTitle(title, model);
         return "course-detail";
     }
+    @PostMapping("/coursesDetails")
+    public String addComment(@RequestParam("courseTitle") String title,
+                             @ModelAttribute("newComment") CourseReviews courseReviews,
+                             Model model) {
+        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+
+        Course course = courseService.findByTitle(title);
+        model.addAttribute("coursesTit", course);
+        List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
+        for(LessonTopics lessonTopic : lessonTopicsList) {
+            Collections.sort(lessonTopic.getLessonsList());
+        }
+        model.addAttribute("lesTopList", lessonTopicsList);
+        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+        model.addAttribute("reviewList", courseReviewsList);
+
+        courseReviewCountRatingByTitle(title, model);
+        courseReviewRatingByTitle(title, model);
+        lessonsSumByCourseTitle(title, model);
+        lessonsCountByCourseTitle(title, model);
+//        //---------------------------------------------------------------------
+
+        User user = userService.findByUsername(currentLoggedInUsername());
+        CourseDetails courseDetails = courseDetailService.findCourseDetailsByCourseTitle(title);
+        if(user!=null) {
+            courseReviews.setUsers(user);
+            courseReviews.setCourseDetails(courseDetails);
+
+            courseReviewService.save(courseReviews);
+
+            return "redirect:/coursesDetails?courseTitle=" + title;
+        }
+        model.addAttribute("error", "Error comment");
+        return "course-detail";
+    }
+
     @GetMapping("/buyCourse") // /coursesDetails
     public String addOrders(@RequestParam("courseTitle") String title,
                             @ModelAttribute Orders orders,

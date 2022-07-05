@@ -14,4 +14,10 @@ public interface CourseDetailRepository extends JpaRepository<CourseDetails, Int
             "(SELECT users.id FROM users" +
             " WHERE users.username = ?1))", nativeQuery = true)
     List<CourseDetails> findAllTeacherCourseDetailsByUsername(String username);
+
+    @Query(value = "SELECT * FROM course_details " +
+            "WHERE course_id IN" +
+            "(SELECT id FROM courses " +
+            "WHERE courses.title LIKE ?1)", nativeQuery = true)
+    CourseDetails findCourseDetailsByCourseTitle(String title);
 }

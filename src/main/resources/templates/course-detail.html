@@ -317,6 +317,28 @@
                                     </div>
                                 </div>
                             </div>
+<!--                            th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}"-->
+                            <form th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}" class="content-wrapper"  method="post" th:object="${newComment}">
+                                <div class="container-fluid">
+                                    <div class="box_general padding_bottom" >
+                                        <div class="header_box version_2">
+                                              <p><i class="fa fa-file-text"></i>Leave a comment</p>
+                                         </div>
+                                        <div class="col-md-15">
+                                            <div class="form-group">
+                                                 <input th:type="hidden" th:field="*{id}">
+                                                 <input th:field="*{rating}" required type="number" class="form-control" placeholder="Rating">
+                                                <textarea th:field="*{review}" required type="text" class="form-control" placeholder="Leaving review I understand that my offensive comments or spam can be reported and deleted"></textarea>
+                                             </div>
+                                        </div>
+                                        <div>
+                                            <input class="btn_1 medium" type="submit" value="Save">
+                                        </div>
+                                     </div>
+                                </div>
+                            </form>
+
+
                             <!-- /review-container -->
                         </section>
                         <!-- /section -->

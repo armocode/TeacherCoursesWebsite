@@ -6,7 +6,9 @@ a. spring.datasource.url=jdbc:mysql://localhost:3306/yourDatabaseName
 b. Turn on your database server (I using XAMPP) 
 c. Open your browser, go to localhost/phpmyadmin -> SQL
 d. 'CREATE DATABASE yourDatabaseName'
-e. Back to project, uncomment autocreate rows and start the project
+e. Back to project, uncomment autocreate rows and start the project.
+(In terminal you can get exception saying couldn't create 'course reviews' table.
+Restarting project should fix this issue.(PostgreSQL))
 3. Go to localhost/phpmyadmin -> yourDatabaseName -> SQL 
 4. Open postgresql.txt, insert all rows which contains INSERT..
 5. Go to localhost:8080 in your browser

@@ -11,4 +11,6 @@ public interface CourseDetailService {
     void deleteById(int id);
     CourseDetails findById(int id);
     List<CourseDetails> findAllTeacherCourseDetailsByUsername(String username);
+    CourseDetails findCourseDetailsByCourseTitle(String title);
+
 }

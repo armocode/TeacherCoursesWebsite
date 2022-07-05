@@ -46,4 +46,9 @@ public class CourseDetailServiceImpl implements CourseDetailService {
     public List<CourseDetails> findAllTeacherCourseDetailsByUsername(String username) {
         return courseDetailRepository.findAllTeacherCourseDetailsByUsername(username);
     }
+
+    @Override
+    public CourseDetails findCourseDetailsByCourseTitle(String title) {
+        return courseDetailRepository.findCourseDetailsByCourseTitle(title);
+    }
 }
