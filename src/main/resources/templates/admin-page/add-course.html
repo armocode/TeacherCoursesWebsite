@@ -60,6 +60,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <a class="nav-link" href="/adminPage">
                     <i class="fa fa-fw fa-dashboard"></i>
@@ -78,7 +79,7 @@
             <!--            <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>-->
             <!--          </a>-->
             <!--        </li>-->
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
+            <li sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                 <a class="nav-link" href="/reviews">
                     <i class="fa fa-fw fa-star"></i>
                     <span class="nav-link-text">Reviews</span>
@@ -102,29 +103,30 @@
                     <span class="nav-link-text">My profile</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Create course">
+            <li sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Create course">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCourse" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-plus-circle"></i>
-                    <span class="nav-link-text">Create course</span>
+                    <i class="fa fa-fw animI"></i>
+                    <!--            <span class="nav-link-text">Create, check, delete course</span>-->
+                    <span class="nav-link-text"><span class="animT"> </span> course</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseCourse">
                     <li>
-                        <a href="/addCategory">Add category</a>
+                        <a href="/addCategory">Category</a>
                     </li>
                     <li>
-                        <a href="/addCourse">Add course</a>
+                        <a href="/addCourse">Course</a>
                     </li>
                     <li>
-                        <a href="/addLesson">Add lesson</a>
+                        <a href="/addLessonTopic">Lesson topic</a>
                     </li>
                     <li>
-                        <a href="/addLessonTopic">Add lesson topic</a>
+                        <a href="/addLesson">Lesson</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Edit course">
+            <li sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Edit course">
                 <a class="nav-link" href="editCourse">
-                    <i class="fa fa-fw fa-gear"></i>
+                    <i class="fa fa-fw icon-edit-1"></i>
                     <span class="nav-link-text">Edit course</span>
                 </a>
             </li>
@@ -278,7 +280,7 @@
         <div class="col-md-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
+                    <a href="/adminPage">Dashboard</a>
                 </li>
                 <li th:if="${cDetails.idDet == 0}" class="breadcrumb-item active">Add course</li>
                 <li th:if="${cDetails.idDet != 0}" class="breadcrumb-item active"><a href="/editCourse">Edit course</a><li th:if="${cDetails.idDet != 0}" class="breadcrumb-item active">Update course</li></li>

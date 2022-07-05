@@ -76,3 +76,41 @@ text-color {
 
     content: '\f078';
 }
+
+/*---animation for text---*/
+.animT::before {
+    content: "Create";
+    animation: animate infinite 10s;
+    /*padding-left: 10px;*/
+}
+
+@keyframes animate {
+
+    0% {
+        content: "Check";
+    }
+
+    50% {
+        content: "Delete";
+    }
+}
+/*---animation for text---*/
+
+/*---animation for icon---*/
+.animI::before {
+    content: "\f055";
+    animation: animateI infinite 10s;
+    /*padding-left: 10px;*/
+}
+
+@keyframes animateI {
+
+    0% {
+        content: "\f058";
+    }
+
+    50% {
+        content: "\f056";
+    }
+}
+/*---animation for icon---*/
