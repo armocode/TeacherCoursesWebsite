@@ -496,7 +496,7 @@ public class HomeController implements ErrorController {
 
             return "redirect:/coursesDetails?courseTitle=" + title;
         }
-        model.addAttribute("error", "Error comment");
+        model.addAttribute("comError", "Error comment");
         return "course-detail";
     }
 

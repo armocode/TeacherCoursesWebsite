@@ -317,6 +317,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div th:if="${userBoughtCourse==true}">
 <!--                            th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}"-->
                             <form th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}" class="content-wrapper"  method="post" th:object="${newComment}">
                                 <div class="container-fluid">
@@ -326,6 +327,7 @@
                                          </div>
                                         <div class="col-md-15">
                                             <div class="form-group">
+                                                <p th:text="${comError}"></p>
                                                  <input th:type="hidden" th:field="*{id}">
                                                  <input th:field="*{rating}" required type="number" class="form-control" placeholder="Rating">
                                                 <textarea th:field="*{review}" required type="text" class="form-control" placeholder="Leaving review I understand that my offensive comments or spam can be reported and deleted"></textarea>
@@ -337,6 +339,7 @@
                                      </div>
                                 </div>
                             </form>
+                            </div>
 
 
                             <!-- /review-container -->
