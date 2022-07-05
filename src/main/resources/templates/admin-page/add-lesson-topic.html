@@ -319,7 +319,8 @@
                         <div class="col-md-6">
                         <div class="box_general padding_bottom" >
                             <div class="header_box version_2">
-                                <h2><i class="fa fa-file-text"></i>Lesson Topic</h2>
+<!--                                <h2><i class="fa fa-file-text"></i>Lesson Topic</h2>-->
+                                <h2><i class="fa fa-file"></i>Lesson Topic<span class="icon-info-circled-2" data-toggle="tooltip" data-placement="right" data-html="true" title="One <b>lesson topic</b> can have multiple <b>lessons</b> inside"></span></h2>
                             </div>
 
                         <div class="col-md-15">
@@ -333,7 +334,7 @@
 
                             <div class="col-md-15" >
                                 <div class="form-group" >
-                                    <input th:field="*{name}" minlength="6" type="text" class="form-control" required placeholder="New lesson topic">
+                                    <input th:field="*{name}" minlength="6" type="text" class="form-control" required placeholder="Lesson topic title">
                                     <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                 </div>
                             </div>
@@ -405,8 +406,8 @@
                                                             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                                                                 <thead>
                                                                 <tr class="thead-dark">
+                                                                    <th>Lesson topic name</th>
                                                                     <th>Course title</th>
-                                                                    <th>Name</th>
                                                                     <th>List number</th>
                                                                     <th>Action</th>
                                                                 </tr>
@@ -415,8 +416,8 @@
                                                                 <tbody>
                                                                 <div >
                                                                     <tr th:each="lp : ${lesson_top}">
-                                                                        <td th:text="${lp.courseDetails.course.title}"></td>
                                                                         <td th:text="${lp.name}"></td>
+                                                                        <td th:text="${lp.courseDetails.course.title}"></td>
                                                                         <td th:text="${lp.listNumber}"></td>
                                                                         <td>
                                                                             <a th:href="@{/deleteLessonTopic/{id}(id=${lp.id})}" class="btn text-white bg-danger btn-sm"

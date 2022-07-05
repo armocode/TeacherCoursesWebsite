@@ -332,7 +332,7 @@
 
                                         <div class="col-md-15" >
                                             <div class="form-group" >
-                                                <input th:field="*{name}" required minlength="6" type="text" class="form-control" placeholder="New lesson">
+                                                <input th:field="*{name}" required minlength="6" type="text" class="form-control" placeholder="Lesson title">
                                                 <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                                             </div>
                                         </div>
@@ -348,20 +348,20 @@
 
                                         <div class="col-md-15">
                                             <div class="form-group">
-                                                <input th:field="*{videoUrl}" required type="text" class="form-control" placeholder="URL">
+                                                <input th:field="*{videoUrl}" required type="text" class="form-control" placeholder="Url need to start with 'https://www.'">
                                                 <span class="has-error" th:if="${#fields.hasErrors('videoUrl')}" th:errors="*{videoUrl}"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-15 form-group">
                                             <div class="center_b">
 
-                                                <input th:field="*{length}" type="number" min="0" step="1" class="form-control" placeholder="Length">
+                                                <input th:field="*{length}" type="number" min="0" step="1" class="form-control" placeholder="Your lesson length in seconds">
                                             </div>
                                         </div>
                                         <span class="has-error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>
                                             <div class="col-md-15 form-group">
                                                 <div class="center_b">
-                                                    <input th:field="*{listNumber}" type="number" min="0" step="1" class="form-control" placeholder="List Number">
+                                                    <input th:field="*{listNumber}" type="number" min="0" step="1" class="form-control" placeholder="List number for arranging your lessons in ascending order (1 - will be the first lessons)">
                                                 </div>
                                             </div>
                                             <span class="has-error" th:if="${#fields.hasErrors('listNumber')}" th:errors="*{listNumber}"></span>
