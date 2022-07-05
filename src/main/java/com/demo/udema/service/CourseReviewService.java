@@ -16,6 +16,9 @@ public interface CourseReviewService {
     void updateCourseReviewToFalse(int id);
     void updateCourseReviewToTrue(int id);
     List<Integer> checkReviewsIdByTeacherUsername(String username);
+    Integer findCourseReviewIdByStudentUsername(String username);
+    List<Integer> findCourseReviewIdByCourseTitle(String title);
+
 
 
 

@@ -96,4 +96,19 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "   (SELECT id FROM users" +
             "    WHERE users.username LIKE ?1)))", nativeQuery = true)
     List<Integer> checkReviewsIdByTeacherUsername(String username);
+
+    @Query(value = "SELECT id FROM course_reviews" +
+            " WHERE course_reviews.user_id IN" +
+            "(SELECT id FROM users" +
+            " WHERE username LIKE ?1)", nativeQuery = true)
+    Integer findCourseReviewIdByStudentUsername(String username);
+
+
+    @Query(value = "SELECT id FROM course_reviews" +
+            " WHERE course_reviews.course_details_id IN" +
+            "(SELECT id FROM course_details" +
+            " WHERE course_details.course_id IN" +
+            " (SELECT id FROM courses " +
+            "  WHERE courses.title LIKE ?1))", nativeQuery = true)
+    List<Integer> findCourseReviewIdByCourseTitle(String title);
 }

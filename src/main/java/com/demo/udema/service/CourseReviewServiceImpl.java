@@ -70,4 +70,14 @@ public class CourseReviewServiceImpl implements CourseReviewService {
         return courseReviewRepository.checkReviewsIdByTeacherUsername(username);
     }
 
+    @Override
+    public Integer findCourseReviewIdByStudentUsername(String username) {
+        return courseReviewRepository.findCourseReviewIdByStudentUsername(username);
+    }
+
+    @Override
+    public List<Integer> findCourseReviewIdByCourseTitle(String title) {
+        return courseReviewRepository.findCourseReviewIdByCourseTitle(title);
+    }
+
 }

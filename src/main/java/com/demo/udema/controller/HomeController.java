@@ -447,6 +447,7 @@ public class HomeController implements ErrorController {
         model.addAttribute("newComment", new CourseReviews());
 
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+        model.addAttribute("userCanLeaveFeedback", userCanLeaveFeedback(title));
 
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
@@ -468,34 +469,18 @@ public class HomeController implements ErrorController {
     public String addComment(@RequestParam("courseTitle") String title,
                              @ModelAttribute("newComment") CourseReviews courseReviews,
                              Model model) {
-//        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
-//
-//        Course course = courseService.findByTitle(title);
-//        model.addAttribute("coursesTit", course);
-//        List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
-//        for(LessonTopics lessonTopic : lessonTopicsList) {
-//            Collections.sort(lessonTopic.getLessonsList());
-//        }
-//        model.addAttribute("lesTopList", lessonTopicsList);
-//        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-//        model.addAttribute("reviewList", courseReviewsList);
-//
-//        courseReviewCountRatingByTitle(title, model);
-//        courseReviewRatingByTitle(title, model);
-//        lessonsSumByCourseTitle(title, model);
-//        lessonsCountByCourseTitle(title, model);
-//        //---------------------------------------------------------------------
+        Integer comId =  courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
 
         User user = userService.findByUsername(currentLoggedInUsername());
         CourseDetails courseDetails = courseDetailService.findCourseDetailsByCourseTitle(title);
-        if(user!=null) {
+        if(user!=null && comId == null) {
             courseReviews.setUsers(user);
             courseReviews.setCourseDetails(courseDetails);
 
             courseReviewService.save(courseReviews);
-
             return "redirect:/coursesDetails?courseTitle=" + title;
         }
+
         model.addAttribute("comError", "Error comment");
         return "course-detail";
     }
@@ -504,6 +489,7 @@ public class HomeController implements ErrorController {
     public String addOrders(@RequestParam("courseTitle") String title,
                             @ModelAttribute Orders orders,
                             Model model) {
+            String role = userService.findRoleByUsername(currentLoggedInUsername());
 
             model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
             Course course = courseService.findByTitle(title);
@@ -524,7 +510,7 @@ public class HomeController implements ErrorController {
         Integer userId = userService.findIdByUsername(currentLoggedInUsername());
         Integer courseId = courseService.findIdByCourseTitle(title);
 
-        if(userId != null) {
+        if(userId != null && role.equals("ROLE_STUDENT")) {
             orders.setUserId(userId);
             orders.setCertificate_url("url");
             orders.setCourseId(courseId);
@@ -533,7 +519,7 @@ public class HomeController implements ErrorController {
             orderService.save(orders);
             return "redirect:/coursesDetails?courseTitle="+title;
         }
-        model.addAttribute("error", "Please login if you want to buy course");
+        model.addAttribute("error", "Please login as student to buy course");
         return "course-detail";
 
 //        return "redirect:/error";
@@ -724,8 +710,6 @@ public class HomeController implements ErrorController {
 
 
     /**
-     * Check if user logged in or anonymous
-     *
      * @return logged username or anonymous
      */
     public String currentLoggedInUsername() {
@@ -749,6 +733,18 @@ public class HomeController implements ErrorController {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return True if user can leave a feedback about course
+     */
+    public Boolean userCanLeaveFeedback(String title) {
+        List<Integer> l = courseReviewService.findCourseReviewIdByCourseTitle(title);
+        Integer id = courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
+        if(l.contains(id)) {
+            return false;
+        }
+        return true;
     }
 
     /**
