@@ -468,22 +468,22 @@ public class HomeController implements ErrorController {
     public String addComment(@RequestParam("courseTitle") String title,
                              @ModelAttribute("newComment") CourseReviews courseReviews,
                              Model model) {
-        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
-
-        Course course = courseService.findByTitle(title);
-        model.addAttribute("coursesTit", course);
-        List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
-        for(LessonTopics lessonTopic : lessonTopicsList) {
-            Collections.sort(lessonTopic.getLessonsList());
-        }
-        model.addAttribute("lesTopList", lessonTopicsList);
-        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-        model.addAttribute("reviewList", courseReviewsList);
-
-        courseReviewCountRatingByTitle(title, model);
-        courseReviewRatingByTitle(title, model);
-        lessonsSumByCourseTitle(title, model);
-        lessonsCountByCourseTitle(title, model);
+//        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+//
+//        Course course = courseService.findByTitle(title);
+//        model.addAttribute("coursesTit", course);
+//        List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
+//        for(LessonTopics lessonTopic : lessonTopicsList) {
+//            Collections.sort(lessonTopic.getLessonsList());
+//        }
+//        model.addAttribute("lesTopList", lessonTopicsList);
+//        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+//        model.addAttribute("reviewList", courseReviewsList);
+//
+//        courseReviewCountRatingByTitle(title, model);
+//        courseReviewRatingByTitle(title, model);
+//        lessonsSumByCourseTitle(title, model);
+//        lessonsCountByCourseTitle(title, model);
 //        //---------------------------------------------------------------------
 
         User user = userService.findByUsername(currentLoggedInUsername());

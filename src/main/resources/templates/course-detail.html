@@ -329,7 +329,7 @@
                                             <div class="form-group">
                                                 <p th:text="${comError}"></p>
                                                  <input th:type="hidden" th:field="*{id}">
-                                                 <input th:field="*{rating}" required type="number" class="form-control" placeholder="Rating">
+                                                 <input th:field="*{rating}" min="1" max="5" type="number" class="form-control" placeholder="Rating">
                                                 <textarea th:field="*{review}" required type="text" class="form-control" placeholder="Leaving review I understand that my offensive comments or spam can be reported and deleted"></textarea>
                                              </div>
                                         </div>
