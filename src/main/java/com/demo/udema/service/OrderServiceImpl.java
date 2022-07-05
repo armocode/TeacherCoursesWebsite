@@ -34,4 +34,9 @@ public class OrderServiceImpl implements OrderService {
     public void saveUserIdCourseId(int userId, int courseId, int price) {
         orderRepository.saveUserIdCourseId(userId, courseId, price);
     }
+
+    @Override
+    public Integer findOrderUrlByUsername(String username) {
+        return orderRepository.findOrderUserIdByUsername(username);
+    }
 }

@@ -13,11 +13,15 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Modifying
     @Query(value = "DELETE FROM orders WHERE course_id = ?1", nativeQuery = true)
     void deleteByCourseId(int id);
-
-    //INSERT INTO orders(user_id, course_id) VALUES(5,1)
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO orders(user_id, course_id, price)" +
             "VALUES(?1, ?1, ?1)", nativeQuery = true)
     void saveUserIdCourseId(int userId, int courseId, int price);
+
+    @Query(value = "SELECT user_id FROM orders " +
+            "WHERE user_id IN " +
+            "(SELECT id FROM users" +
+            " WHERE username LIKE ?1)", nativeQuery = true)
+    Integer findOrderUserIdByUsername(String username);
 }

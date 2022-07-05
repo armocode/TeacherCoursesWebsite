@@ -446,6 +446,9 @@ public class HomeController implements ErrorController {
     public String course(@RequestParam("courseTitle") String title, Model model) {
                              // userId, cerUrl, courseId, price, data
 //      INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
+        Integer ordUserId = orderService.findOrderUrlByUsername(currentLoggedInUsername());
+        model.addAttribute("ordUserId", ordUserId);
+
         model.addAttribute("orders", new Orders());
 
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
@@ -467,30 +470,45 @@ public class HomeController implements ErrorController {
         return "course-detail";
     }
     @GetMapping("/test") // buyCourse
-    public String addOrders(@ModelAttribute Orders orders,
-//                            @RequestParam("courseTitle") String title,
+    public String addOrders(@RequestParam("courseTitle") String title,
+                            @ModelAttribute Orders orders,
                             Model model) {
         Integer userId = userService.findIdByUsername(currentLoggedInUsername());
-//        Integer courseId = courseService.findIdByCourseTitle(title);
+        Integer courseId = courseService.findIdByCourseTitle(title);
+
 
         if(userId != null) {
-//            model.addAttribute("orders", orders);
-            System.out.println(userId);
+            model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+            Course course = courseService.findByTitle(title);
+            model.addAttribute("coursesTit", course);
+            List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
+            for(LessonTopics lessonTopic : lessonTopicsList) {
+                Collections.sort(lessonTopic.getLessonsList());
+            }
+            model.addAttribute("lesTopList", lessonTopicsList);
+            List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+            model.addAttribute("reviewList", courseReviewsList);
+
+            courseReviewCountRatingByTitle(title, model);
+            courseReviewRatingByTitle(title, model);
+            lessonsSumByCourseTitle(title, model);
+            lessonsCountByCourseTitle(title, model);
+            //--------------------------------------
 
             orders.setUserId(userId);
-//            orders.setCourseId(courseId);
-//            orderService.saveUserIdCourseId(userId, 1, 54);
-            orders.setCertificate_url("naujas test");
-            orders.setCourseId(1);
-            orders.setPrice(5000);
+            orders.setCertificate_url("url");
+            orders.setCourseId(courseId);
+            orders.setPrice(course.getPrice());
 
             orderService.save(orders);
             System.out.println("post");
-            return "redirect:/coursesDetails";
+            return "course-detail";
+//            return "redirect:/coursesDetails";
         }
-
+        model.addAttribute("error", "Please login if you want to buy course");
         System.out.println("scope 2");
-        return "redirect:/error";
+        return "course-detail";
+//        return "redirect:/error";
     }
 
 
