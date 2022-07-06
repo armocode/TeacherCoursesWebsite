@@ -228,11 +228,15 @@
                                     <div class="col-lg-3" >
                                         <div id="review_summary" >
                                                 <strong th:text="${rating}"></strong>
-                                            <div class="rating">
-                                                <i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                    class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                    class="icon_star"></i>
+
+                                            <!--RATING-->
+                                            <div class="rating" th:with="length=${#numbers.formatInteger(rating, 1)}">
+                                                <div th:with="result=${5 }-${ length}">
+                                                    <i th:if="${rating >= 0.55}" th:each="i : ${#numbers.sequence(1, length)}" class="rating"><i class="icon_star voted"></i></i><i th:if="${result > 0}" th:each="i : ${#numbers.sequence(1, result)}" class="rating"><i class="icon_star"></i></i>
+                                                </div>
                                             </div>
+                                            <!--                                        RATING -->
+
                                             <small th:text="${'Based on '+countRating+' reviews'}">Based on 4 reviews</small>
                                         </div>
                                     </div>
