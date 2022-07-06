@@ -2,6 +2,7 @@ package com.demo.udema.service;
 
 import com.demo.udema.entity.CourseReviews;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CourseReviewService {
@@ -16,8 +17,8 @@ public interface CourseReviewService {
     void updateCourseReviewToFalse(int id);
     void updateCourseReviewToTrue(int id);
     List<Integer> checkReviewsIdByTeacherUsername(String username);
-    Integer findCourseReviewIdByStudentUsername(String username);
-    List<Integer> findCourseReviewIdByCourseTitle(String title);
+    Collection<Integer> findCourseReviewIdByStudentUsername(String username);
+    Collection<Integer> findCourseReviewIdByCourseTitle(String title);
 
 
 

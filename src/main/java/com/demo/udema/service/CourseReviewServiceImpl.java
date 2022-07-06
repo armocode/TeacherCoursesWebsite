@@ -4,6 +4,7 @@ import com.demo.udema.entity.CourseReviews;
 import com.demo.udema.repositoryDAO.CourseReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -71,12 +72,12 @@ public class CourseReviewServiceImpl implements CourseReviewService {
     }
 
     @Override
-    public Integer findCourseReviewIdByStudentUsername(String username) {
+    public Collection<Integer> findCourseReviewIdByStudentUsername(String username) {
         return courseReviewRepository.findCourseReviewIdByStudentUsername(username);
     }
 
     @Override
-    public List<Integer> findCourseReviewIdByCourseTitle(String title) {
+    public Collection<Integer> findCourseReviewIdByCourseTitle(String title) {
         return courseReviewRepository.findCourseReviewIdByCourseTitle(title);
     }
 

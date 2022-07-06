@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CourseReviewRepository extends JpaRepository<CourseReviews, Double> {
@@ -97,11 +98,13 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             "    WHERE users.username LIKE ?1)))", nativeQuery = true)
     List<Integer> checkReviewsIdByTeacherUsername(String username);
 
+
+    // Integer findCou...
     @Query(value = "SELECT id FROM course_reviews" +
             " WHERE course_reviews.user_id IN" +
             "(SELECT id FROM users" +
             " WHERE username LIKE ?1)", nativeQuery = true)
-    Integer findCourseReviewIdByStudentUsername(String username);
+    Collection<Integer> findCourseReviewIdByStudentUsername(String username);
 
 
     @Query(value = "SELECT id FROM course_reviews" +
@@ -110,5 +113,5 @@ public interface CourseReviewRepository extends JpaRepository<CourseReviews, Dou
             " WHERE course_details.course_id IN" +
             " (SELECT id FROM courses " +
             "  WHERE courses.title LIKE ?1))", nativeQuery = true)
-    List<Integer> findCourseReviewIdByCourseTitle(String title);
+    Collection<Integer> findCourseReviewIdByCourseTitle(String title);
 }

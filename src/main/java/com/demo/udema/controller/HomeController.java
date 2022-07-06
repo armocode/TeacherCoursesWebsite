@@ -19,10 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController implements ErrorController {
@@ -470,11 +467,11 @@ public class HomeController implements ErrorController {
     public String addComment(@RequestParam("courseTitle") String title,
                              @ModelAttribute("newComment") CourseReviews courseReviews,
                              Model model) {
-        Integer comId =  courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
-
+        
         User user = userService.findByUsername(currentLoggedInUsername());
         CourseDetails courseDetails = courseDetailService.findCourseDetailsByCourseTitle(title);
-        if(user!=null && comId == null) {
+
+        if(user != null) {
             courseReviews.setUsers(user);
             courseReviews.setCourseDetails(courseDetails);
 
@@ -740,11 +737,12 @@ public class HomeController implements ErrorController {
      * @return True if user can leave a feedback about course
      */
     public Boolean userCanLeaveFeedback(String title) {
-        List<Integer> l = courseReviewService.findCourseReviewIdByCourseTitle(title);
-        Integer id = courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
+        Collection<Integer> l = courseReviewService.findCourseReviewIdByCourseTitle(title);
+        Collection<Integer> id = courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
         System.out.println("findCourseReviewIdByCourseTitle : "+l);
         System.out.println("findCourseReviewIdByStudentUsername : "+id);
-        if(l.contains(id)) {
+
+        if(id.removeAll(l)) {
             return false;
         }
         return true;

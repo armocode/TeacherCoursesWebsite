@@ -318,7 +318,7 @@
                                 </div>
                             </div>
                             <div th:if="${userCanLeaveFeedback==true}" >
-                            <form  th:if="${userBoughtCourse==true}" th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}" class="content-wrapper"  method="post" th:object="${newComment}">
+                            <form th:if="${userBoughtCourse==true}" th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}" class="content-wrapper"  method="post" th:object="${newComment}">
                                 <div class="container-fluid">
                                     <div class="box_general padding_bottom" >
                                         <div class="header_box version_2">
