@@ -39,7 +39,8 @@ public class Course {
     @Transient
     private int sumLessonsLenght;
 
-
+    @Transient
+    private double fiveStars, fourStars, threeStars, twoStars, oneStars, sumStar;
 
     @OneToOne(mappedBy = "course") // PK
     private CourseDetails courseDetails;
@@ -110,6 +111,54 @@ public class Course {
 
     public String getTitle() {
         return title;
+    }
+
+    public double getFiveStars() {
+        return fiveStars;
+    }
+
+    public void setFiveStars(double fiveStars) {
+        this.fiveStars = fiveStars;
+    }
+
+    public double getFourStars() {
+        return fourStars;
+    }
+
+    public void setFourStars(double fourStars) {
+        this.fourStars = fourStars;
+    }
+
+    public double getThreeStars() {
+        return threeStars;
+    }
+
+    public void setThreeStars(double threeStars) {
+        this.threeStars = threeStars;
+    }
+
+    public double getTwoStars() {
+        return twoStars;
+    }
+
+    public void setTwoStars(double twoStars) {
+        this.twoStars = twoStars;
+    }
+
+    public double getOneStars() {
+        return oneStars;
+    }
+
+    public void setOneStars(double oneStars) {
+        this.oneStars = oneStars;
+    }
+
+    public double getSumStar() {
+        return sumStar;
+    }
+
+    public void setSumStar(double sumStar) {
+        this.sumStar = sumStar;
     }
 
     public void setTitle(String title) {

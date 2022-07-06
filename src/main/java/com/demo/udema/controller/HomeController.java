@@ -133,17 +133,17 @@ public class HomeController implements ErrorController {
     public String deleteCourse(@ModelAttribute("courseId") int courseId,
                                @AuthenticationPrincipal UserDetails loggerUser,
                                RedirectAttributes redirectAtt) {
-        Course getCourseById =  courseService.findById(courseId);
+        Course getCourseById = courseService.findById(courseId);
         List<Orders> getOrdersListByCourseId = orderService.findAllByCourseId(courseId);
         // Jei nepriklauso teacher kursas, neleidziame jo trinti
         List<Course> courseByUsername = courseService.findAllTeacherCourseByUsername(loggerUser.getUsername());
-        for (Course c : courseByUsername){
-            if (c.getId() == courseId){
-                if(getCourseById.getCourseDetails().getLessonTopics().size() == 0){
+        for (Course c : courseByUsername) {
+            if (c.getId() == courseId) {
+                if (getCourseById.getCourseDetails().getLessonTopics().size() == 0) {
                     // Triname orderius
-                    if(getOrdersListByCourseId != null){
+                    if (getOrdersListByCourseId != null) {
                         int tempId = 0;
-                        for (Orders o : orderService.findAllByCourseId(courseId)){
+                        for (Orders o : orderService.findAllByCourseId(courseId)) {
                             tempId = o.getCourseId();
                         }
                         orderService.deleteByCourseId(tempId);
@@ -369,7 +369,7 @@ public class HomeController implements ErrorController {
 
     @GetMapping("deleteLesson/{id}")
     public String deleteLesson(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-        if(checkTeacherLessonsIdByTeacherUsername(id)) {
+        if (checkTeacherLessonsIdByTeacherUsername(id)) {
             redirectAtt.addFlashAttribute("message", "Lesson deleted successfully");
             this.lessonService.deleteLessonById(id);
             return "redirect:/addLesson";
@@ -404,7 +404,7 @@ public class HomeController implements ErrorController {
     @GetMapping("deleteCategory/{id}")
     public String deleteCategory(@PathVariable(value = "id") int id) {
         String role = userService.findRoleByUsername(currentLoggedInUsername());
-        if(role.equals("ROLE_ADMIN")) {
+        if (role.equals("ROLE_ADMIN")) {
             this.categoryService.deleteCategoryById(id);
             return "redirect:/addCategory";
         }
@@ -414,7 +414,7 @@ public class HomeController implements ErrorController {
     @GetMapping("/updateCategory/{id}")
     public String updateCategory(@PathVariable(value = "id") int id, Model model) {
         String role = userService.findRoleByUsername(currentLoggedInUsername());
-        if(role.equals("ROLE_ADMIN")) {
+        if (role.equals("ROLE_ADMIN")) {
             Category category = categoryService.findById(id);
             model.addAttribute("newCategory", category);
             List<Category> categoriesList = categoryService.findAllCategories();
@@ -450,8 +450,8 @@ public class HomeController implements ErrorController {
         Course course = courseService.findByTitle(title);
         model.addAttribute("coursesTit", course);
         List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
-        for(LessonTopics lessonTopic : lessonTopicsList) {
-          Collections.sort(lessonTopic.getLessonsList());
+        for (LessonTopics lessonTopic : lessonTopicsList) {
+            Collections.sort(lessonTopic.getLessonsList());
         }
         model.addAttribute("lesTopList", lessonTopicsList);
         List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
@@ -461,8 +461,11 @@ public class HomeController implements ErrorController {
         courseReviewRatingByTitle(title, model);
         lessonsSumByCourseTitle(title, model);
         lessonsCountByCourseTitle(title, model);
+        courseReviewCountStarByTitle(title);
+
         return "course-detail";
     }
+
     @PostMapping("/coursesDetails")
     public String addComment(@RequestParam("courseTitle") String title,
                              @ModelAttribute("newComment") CourseReviews courseReviews,
@@ -471,7 +474,7 @@ public class HomeController implements ErrorController {
         User user = userService.findByUsername(currentLoggedInUsername());
         CourseDetails courseDetails = courseDetailService.findCourseDetailsByCourseTitle(title);
 
-        if(user != null) {
+        if (user != null) {
             courseReviews.setUsers(user);
             courseReviews.setCourseDetails(courseDetails);
 
@@ -486,35 +489,35 @@ public class HomeController implements ErrorController {
     public String addOrders(@RequestParam("courseTitle") String title,
                             @ModelAttribute Orders orders,
                             Model model) {
-            String role = userService.findRoleByUsername(currentLoggedInUsername());
+        String role = userService.findRoleByUsername(currentLoggedInUsername());
 
-            model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
-            Course course = courseService.findByTitle(title);
-            model.addAttribute("coursesTit", course);
-            List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
-            for(LessonTopics lessonTopic : lessonTopicsList) {
-                Collections.sort(lessonTopic.getLessonsList());
-            }
-            model.addAttribute("lesTopList", lessonTopicsList);
-            List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
-            model.addAttribute("reviewList", courseReviewsList);
+        model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+        Course course = courseService.findByTitle(title);
+        model.addAttribute("coursesTit", course);
+        List<LessonTopics> lessonTopicsList = deleteNullValuesOfLessonTopics(lessonTopicService.findAllLessonTopicByCourseTitle(title));
+        for (LessonTopics lessonTopic : lessonTopicsList) {
+            Collections.sort(lessonTopic.getLessonsList());
+        }
+        model.addAttribute("lesTopList", lessonTopicsList);
+        List<CourseReviews> courseReviewsList = courseReviewService.findAllByTitle(title);
+        model.addAttribute("reviewList", courseReviewsList);
 
-            courseReviewCountRatingByTitle(title, model);
-            courseReviewRatingByTitle(title, model);
-            lessonsSumByCourseTitle(title, model);
-            lessonsCountByCourseTitle(title, model);
+        courseReviewCountRatingByTitle(title, model);
+        courseReviewRatingByTitle(title, model);
+        lessonsSumByCourseTitle(title, model);
+        lessonsCountByCourseTitle(title, model);
 
         Integer userId = userService.findIdByUsername(currentLoggedInUsername());
         Integer courseId = courseService.findIdByCourseTitle(title);
 
-        if(userId != null && role.equals("ROLE_STUDENT")) {
+        if (userId != null && role.equals("ROLE_STUDENT")) {
             orders.setUserId(userId);
             orders.setCertificate_url("url");
             orders.setCourseId(courseId);
             orders.setPrice(course.getPrice());
 
             orderService.save(orders);
-            return "redirect:/coursesDetails?courseTitle="+title;
+            return "redirect:/coursesDetails?courseTitle=" + title;
         }
         model.addAttribute("error", "Please login as student to buy course");
         return "course-detail";
@@ -542,9 +545,10 @@ public class HomeController implements ErrorController {
         model.addAttribute("review", oldestReview);
         return "admin-page/reviews";
     }
+
     @GetMapping("/setReportTrue/{id}") //Reviews
     public String updateReportTrue(@PathVariable(value = "id") int id) {
-        if(checkTeacherCourseReviewsIdByTeacherUsername(id)) {
+        if (checkTeacherCourseReviewsIdByTeacherUsername(id)) {
             courseReviewService.updateCourseReviewToTrue(id);
             return "redirect:/reviews";
         }
@@ -586,6 +590,7 @@ public class HomeController implements ErrorController {
         model.addAttribute("categoriesList", categoriesList);
         return "courses-grid";
     }
+
     @GetMapping("/reportedList")  //ReportedList
     public String reportedCommentList(Model model) {
         List<CourseReviews> reportedList = courseReviewService.findReportedReviewsByTeacher();
@@ -594,15 +599,16 @@ public class HomeController implements ErrorController {
     }
 
     @GetMapping("deleteReportedReview/{id}")//ReportedList
-        public String deleteReportedReview(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-            this.courseReviewService.deleteCourseReviewById(id);
-            redirectAtt.addFlashAttribute("message", "Review deleted successfully");
-            return "redirect:/reportedList";
+    public String deleteReportedReview(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
+        this.courseReviewService.deleteCourseReviewById(id);
+        redirectAtt.addFlashAttribute("message", "Review deleted successfully");
+        return "redirect:/reportedList";
     }
+
     @GetMapping("/setReportFalse/{id}")  //ReportedList
     public String updateReportedReviewFalse(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
-       courseReviewService.updateCourseReviewToFalse(id);
-       redirectAtt.addFlashAttribute("message", "Review restored successfully");
+        courseReviewService.updateCourseReviewToFalse(id);
+        redirectAtt.addFlashAttribute("message", "Review restored successfully");
         return "redirect:/reportedList";
     }
 
@@ -650,7 +656,7 @@ public class HomeController implements ErrorController {
             int sumL = 0;
             double sum = 0;
             double k = 0;
-            double average = 0;
+            double average;
             if (c.getCourseDetails() != null) {
                 for (CourseReviews cD : c.getCourseDetails().getCourseReviews()) {
                     sum += cD.getRating();
@@ -705,6 +711,30 @@ public class HomeController implements ErrorController {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
     }
 
+    /**
+     * @param title for count the stars (/coursesDetails)
+     */
+    public void courseReviewCountStarByTitle(String title) {
+        List<Course> getCourseByTitle = courseService.findAllByTitle(title);
+        for (Course c : getCourseByTitle) {
+            double sumStar = 0;
+            double fiveStars = 0, fourStars = 0, threeStars = 0, twoStars = 0, oneStars = 0;
+            for (CourseReviews cD : c.getCourseDetails().getCourseReviews()) {
+                if (cD.getRating() == 5) fiveStars++;
+                if (cD.getRating() == 4) fourStars++;
+                if (cD.getRating() == 3) threeStars++;
+                if (cD.getRating() == 2) twoStars++;
+                if (cD.getRating() == 1) oneStars++;
+                sumStar++;
+            }
+            c.setSumStar(sumStar);
+            c.setFiveStars((fiveStars / sumStar) * 100.0);
+            c.setFourStars((fourStars / sumStar) * 100.0);
+            c.setThreeStars((threeStars / sumStar) * 100.0);
+            c.setTwoStars((twoStars / sumStar) * 100.0);
+            c.setOneStars((oneStars / sumStar) * 100.0);
+        }
+    }
 
     /**
      * @return logged username or anonymous
@@ -738,17 +768,17 @@ public class HomeController implements ErrorController {
     public Boolean userCanLeaveFeedback(String title) {
         Collection<Integer> l = courseReviewService.findCourseReviewIdByCourseTitle(title);
         Collection<Integer> id = courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
-        System.out.println("findCourseReviewIdByCourseTitle : "+l);
-        System.out.println("findCourseReviewIdByStudentUsername : "+id);
+        System.out.println("findCourseReviewIdByCourseTitle : " + l);
+        System.out.println("findCourseReviewIdByStudentUsername : " + id);
 
-        if(id.removeAll(l)) {
+        if (id.removeAll(l)) {
             return false;
         }
         return true;
     }
 
     /**
-     *  Teacher can report only his own courses reviews comments to admin
+     * Teacher can report only his own courses reviews comments to admin
      */
     public Boolean checkTeacherCourseReviewsIdByTeacherUsername(int id) {
         List<Integer> l = courseReviewService.checkReviewsIdByTeacherUsername(currentLoggedInUsername());
@@ -759,7 +789,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     *  Teacher can delete only his own lesson topics
+     * Teacher can delete only his own lesson topics
      */
     public Boolean checkTeacherLessonTopicsIdByTeacherUsername(int id) {
         List<Integer> l = lessonTopicService.findLessonTopicIdByTeacherUsername(currentLoggedInUsername());
@@ -770,7 +800,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     *  Teacher can delete only his own lessons
+     * Teacher can delete only his own lessons
      */
     public Boolean checkTeacherLessonsIdByTeacherUsername(int id) {
         List<Integer> l = lessonService.findLessonsIdByTeacherUsername(currentLoggedInUsername());
