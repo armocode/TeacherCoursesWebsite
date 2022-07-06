@@ -28,6 +28,10 @@
     <link href="css/vendors.css" rel="stylesheet">
     <link href="css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
 
+    <!-- Icon admin fonts-->
+    <link href="../../static/admin_section/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css" th:href="@{/admin_section/vendor/font-awesome/css/font-awesome.min.css}">
+
     <!-- YOUR CUSTOM CSS -->
     <link href="css/custom.css" rel="stylesheet">
     <style>.lesson-des {padding-left:25pt; padding-top: 5pt; padding-right: 5pt}</style>
@@ -318,22 +322,37 @@
                                 </div>
                             </div>
                             <div th:if="${userCanLeaveFeedback==true}" >
-                            <form th:if="${userBoughtCourse==true}" th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}" class="content-wrapper"  method="post" th:object="${newComment}">
-                                <div class="container-fluid">
+                            <form th:if="${userBoughtCourse==true}" th:action="@{/coursesDetails(courseTitle=${coursesTit.title})}" method="post" th:object="${newComment}">
+                                <div><!-- class="container-fluid"-->
                                     <div class="box_general padding_bottom" >
                                         <div class="header_box version_2">
-                                              <p><i class="fa fa-file-text"></i>Leave a comment</p>
+                                              <h6><i class="fa fa-file-text"></i> Leave a comment</h6>
                                          </div>
-                                        <div class="col-md-15">
-                                            <div class="form-group">
-                                                <p th:text="${comError}"></p>
-                                                 <input th:type="hidden" th:field="*{id}">
-                                                 <input th:field="*{rating}" min="1" max="5" type="number" class="form-control" placeholder="Rating">
-                                                <textarea th:field="*{review}" required type="text" class="form-control" placeholder="Leaving review I understand that my offensive comments or spam can be reported and deleted"></textarea>
-                                             </div>
+                                        <div class="row">
+                                            <div class="col-md-15">
+                                                <div class="form-group">
+                                                    <span th:text="${comError}"></span>
+                                                     <input th:type="hidden" th:field="*{id}">
+    <!--                                                 <input th:field="*{rating}" min="1" max="5" type="number" class="form-control" placeholder="Rating">-->
+                                                    <fieldset th:field="*{rating}" class="rating-input">
+                                                        <input type="radio" value="5" id="stars-star5" name="rating">
+                                                        <label for="stars-star5" title="5 Stars"></label>
+                                                        <input type="radio" value="4" id="stars-star4" name="rating">
+                                                        <label for="stars-star4" title="4 Stars"></label>
+                                                        <input type="radio" value="3" id="stars-star3" name="rating">
+                                                        <label for="stars-star3" title="3 Stars"></label>
+                                                        <input type="radio" value="2" id="stars-star2" name="rating">
+                                                        <label for="stars-star2" title="2 Stars"></label>
+                                                        <input type="radio" value="1" id="stars-star1" name="rating">
+                                                        <label for="stars-star1" title="1 Stars"></label>
+                                                    </fieldset>
+
+                                                    <textarea th:field="*{review}" required type="text" class="form-control" placeholder="Leaving review I understand that my offensive comments or spam can be reported and deleted"></textarea>
+                                                 </div>
+                                            </div>
                                         </div>
                                         <div>
-                                            <input class="btn_1 medium" type="submit" value="Save">
+                                            <input class="btn_1 medium" type="submit" value="Submit"><br>
                                         </div>
                                      </div>
                                 </div>
@@ -461,6 +480,8 @@
 <script src="js/common_scripts.js"></script>
 <script src="js/main.js"></script>
 <script src="assets/validate.js"></script>
+
+<script>document.getElementById("stars-star1").setAttribute("checked", "checked")</script>
 
 
 </body>
