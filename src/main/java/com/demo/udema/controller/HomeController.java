@@ -467,7 +467,7 @@ public class HomeController implements ErrorController {
     public String addComment(@RequestParam("courseTitle") String title,
                              @ModelAttribute("newComment") CourseReviews courseReviews,
                              Model model) {
-        
+
         User user = userService.findByUsername(currentLoggedInUsername());
         CourseDetails courseDetails = courseDetailService.findCourseDetailsByCourseTitle(title);
 
@@ -478,7 +478,6 @@ public class HomeController implements ErrorController {
             courseReviewService.save(courseReviews);
             return "redirect:/coursesDetails?courseTitle=" + title;
         }
-
         model.addAttribute("comError", "Error comment");
         return "course-detail";
     }

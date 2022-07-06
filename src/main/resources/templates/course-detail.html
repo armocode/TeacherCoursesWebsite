@@ -300,13 +300,20 @@
                                             src="http://via.placeholder.com/150x150/ccc/fff/avatar1.jpg" alt="">
                                     </figure>
                                     <div class="rev-content" >
-                                        <div class="rating" >
-
-                                            <span th:text="${rl?.rating}"></span>
-                                            <i  class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star" ></i>
+<!--                                        <div class="rating" >-->
+<!--                                            <span th:text="${rl?.rating}"></span>-->
+<!--                                            <i class="icon_star voted"></i><i class="icon_star voted"></i><i-->
+<!--                                                class="icon_star voted"></i><i class="icon_star voted"></i><i-->
+<!--                                                class="icon_star" ></i>-->
+<!--                                        </div>-->
+                                        <!--RATING-->
+                                        <div th:with="length=${#numbers.formatInteger(rl?.rating, 1)}">
+                                            <div th:with="result=${5 }-${ length}">
+                                                <i th:if="${rl?.rating >= 0.55}" th:each="i : ${#numbers.sequence(1, length)}" class="rating"><i class="icon_star voted"></i></i><i th:if="${result > 0}" th:each="i : ${#numbers.sequence(1, result)}" class="rating"><i class="icon_star"></i></i>
+                                            </div>
                                         </div>
+<!--                                        RATING -->
+
                                         <div class="rev-info">
                                             <h5 th:text="${rl?.users?.username}">username</h5>
                                             <p >review</p>
