@@ -447,6 +447,7 @@ public class HomeController implements ErrorController {
         model.addAttribute("newComment", new CourseReviews());
 
         model.addAttribute("userBoughtCourse", usersBoughtCourse(title));
+
         model.addAttribute("userCanLeaveFeedback", userCanLeaveFeedback(title));
 
         Course course = courseService.findByTitle(title);
@@ -741,6 +742,8 @@ public class HomeController implements ErrorController {
     public Boolean userCanLeaveFeedback(String title) {
         List<Integer> l = courseReviewService.findCourseReviewIdByCourseTitle(title);
         Integer id = courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
+        System.out.println("findCourseReviewIdByCourseTitle : "+l);
+        System.out.println("findCourseReviewIdByStudentUsername : "+id);
         if(l.contains(id)) {
             return false;
         }
