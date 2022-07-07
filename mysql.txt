@@ -1,9 +1,9 @@
 
 INSERT INTO users VALUES(1,'email@email.com',1,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas');
 INSERT INTO users VALUES(2,'gmail@email.com',0,'Petras','$2a$12$ar51Ym.9NCD0ZRCwr0D0/ulPSiDO2lt3erfFf0oH55lEmPpBhExuG','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
-INSERT INTO users VALUES(3,'jonas@email.com',0,'Jonas','jonas123','ROLE_TEACHER','Jonaitis', '2022.05.23','jonas123');
-INSERT INTO users VALUES(4,'linas@email.com',0,'Linas','linas123','ROLE_STUDENT','linas', '2022.05.24','linas123');
-INSERT INTO users VALUES(5,'random@gmail.com',0,'name','$2a$12$LuwVfc1u.rIRAT1wA794UOonvd.KXBrLuUTimx6YhV701cxpMqsAG','ROLE_ADMIN','surname','2000.05.05','admin123');
+INSERT INTO users VALUES(3,'jonas@email.com',0,'Jonas','$2a$12$Qquw6DN4/WvlDqUrnR6hfuV2edeAYLQDbTUd/B7Hlk/Uz9MLPIdAO','ROLE_TEACHER','Jonaitis', '2022.05.23','jonas123');
+INSERT INTO users VALUES(4,'linas@email.com',0,'Linas','$2a$12$tTxJb6uAL0l0yl2a1KuyzeRn0M.SXaFK3UX7pYB/FN5iXNujOPcDS','ROLE_STUDENT','linas', '2022.05.24','linas123');
+INSERT INTO users VALUES(5,'admin@gmail.com',0,'admin','$2a$12$LuwVfc1u.rIRAT1wA794UOonvd.KXBrLuUTimx6YhV701cxpMqsAG','ROLE_ADMIN','admin','2000.05.05','admin123');
 INSERT INTO users VALUES(6,'tomas@gmail.com',0,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');
 
 INSERT INTO categories VALUES(1, 'JAVA');
@@ -31,15 +31,15 @@ INSERT INTO lesson_topics VALUES(1,10,'Pirmoji programa',1);
 INSERT INTO lesson_topics VALUES(2,20,'Funkcijos',2);
 INSERT INTO lesson_topics VALUES(3,30,'Masyvai',3);
 
-INSERT INTO lessons VALUES(1, 'Ciklai',1, 23540,10,'for loop','url',1);
-INSERT INTO lessons VALUES(2, 'Ciklai',0, 14532,20,'while loop','url',1);
-INSERT INTO lessons VALUES(3, 'Salygos',0, 31010,30,'Salyga if, else','url',1);
+INSERT INTO lessons VALUES(1, 'Ciklai',1, 23540,10,'for loop','https://www.youtube.com/watch?v=SAh611hDVCc',1);
+INSERT INTO lessons VALUES(2, 'Ciklai',0, 14532,20,'while loop','https://www.youtube.com/watch?v=CqGoBKaOIj0',1);
+INSERT INTO lessons VALUES(3, 'Salygos',0, 31010,30,'Salyga if, else','https://www.youtube.com/watch?v=07g5NFALjQs',1);
 
-INSERT INTO lessons VALUES(4, 'Funkcijos',1, 24532,40,'grazinanti funkcija','url',2);
-INSERT INTO lessons VALUES(5, 'Funkcijos',0, 545533,50,'negrazinanti funkcija','url',2);
+INSERT INTO lessons VALUES(4, 'Funkcijos',1, 24532,40,'grazinanti funkcija','https://www.youtube.com/watch?v=xyX0XdUsbMs',2);
+INSERT INTO lessons VALUES(5, 'Funkcijos',0, 545533,50,'negrazinanti funkcija','https://www.youtube.com/watch?v=0L0swXNa1kE',2);
 
-INSERT INTO lessons VALUES(6, 'Masyvai',0, 255533,60,'statiniai masyvai','url',3);
-INSERT INTO lessons VALUES(7, 'Masyvai',0, 155333,70,'dinaminiai masyvai','url',3);
+INSERT INTO lessons VALUES(6, 'Masyvai',0, 255533,60,'statiniai masyvai','https://www.youtube.com/watch?v=6k9TSukHsVo',3);
+INSERT INTO lessons VALUES(7, 'Masyvai',0, 155333,70,'dinaminiai masyvai','https://www.youtube.com/watch?v=YbcoIsFTfUw',3);
 
 INSERT INTO orders VALUES(1, 'url', 1, 80.99, '2023-12-12', 2);
 INSERT INTO orders VALUES(2, 'url', 1, 80.99, '2023-05-23', 4);

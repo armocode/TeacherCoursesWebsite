@@ -193,7 +193,7 @@
 
                                                 <ul class="col-lg-12">
                                                     <li th:if="${ccltles.free==true}">
-                                                        <button type="button" class="col-lg-1 btn btn-success btn-sm">FREE</button>
+                                                        <button type="button" th:href="${ccltles.videoUrl}" class="col-lg-1 video btn btn-success btn-sm">FREE</button>
                                                         <a style="padding-left: 10px;"></a><a th:href="${ccltles.videoUrl}" class="video text-uppercase" th:text="${ccltles.name}"></a><a th:text="${ccltles.description}" style="padding-left: 35px;"></a>
                                                         <span th:text="${hours}+'h '+${min}+'m '+${sec}+'s'" style="padding-right: 10px;">00:59</span>
                                                     </li>
@@ -205,7 +205,7 @@
                                                             <span th:text="${hours}+'h '+${min}+'m '+${sec}+'s'" style="padding-right: 10px;">00:59</span>
                                                         </div>
                                                         <div th:if="${userBoughtCourse==true}">
-                                                            <button type="button" class="col-lg-1 btn btn-success btn-sm">Bought</button>
+                                                            <button type="button" th:href="${ccltles.videoUrl}" class="col-lg-1 video btn btn-success btn-sm">Bought</button>
                                                             <a style="padding-left: 10px;"></a><a th:href="${ccltles.videoUrl}" class="video text-uppercase" th:text="${ccltles.name}"></a><a th:text="${ccltles.description}" style="padding-left: 35px;"></a>
                                                             <span th:text="${hours}+'h '+${min}+'m '+${sec}+'s'" style="padding-right: 10px;">00:59</span>
                                                         </div>
