@@ -123,7 +123,6 @@ public class Lessons implements Comparable{
     public int compareTo(Object o) {
         return Comparator
                 .comparing(Lessons::getListNumber)
-//                .reversed()
                 .compare(this, (Lessons) o);
 
     }

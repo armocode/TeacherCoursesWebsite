@@ -9,18 +9,14 @@ import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
     public CategoryRepository categoryRepository;
-
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
-
     @Override
     public List<Category> getAll() {
         return categoryRepository.findAllByOrderByTitleAsc();
@@ -28,7 +24,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(int id) {
-        // https://www.baeldung.com/java-optional
         Optional<Category> result = categoryRepository.findById(id);
         Category category = null;
         if (result.isPresent()) {
@@ -43,21 +38,16 @@ public class CategoryServiceImpl implements CategoryService {
     public void save(Category category) {
         categoryRepository.save(category);
     }
-
     @Override
     public String findByTitle(String title) {
         return categoryRepository.findByTitle(title);
     }
-
     @Override
     public void deleteCategoryById(int id) {
         categoryRepository.deleteById(id);
     }
-
     @Override
     public List<Category> findAllCategories() {
         return categoryRepository.findAllCategories();
     }
-
-
 }

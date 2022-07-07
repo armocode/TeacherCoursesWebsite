@@ -272,10 +272,8 @@
 <!-- /Navigation-->
 <form class="content-wrapper" action="#" th:action="@{/addCourse}" method="post">
     <div> <!--  class="container-fluid"-->
-        <!--LABAI SVARBUUUUU, jei nori dvieju id savo controleryje (forUpdate), butinai pakeisk kintamuju vardus-->
         <input type="hidden" th:field="${course.id}">
         <input type="hidden" th:field="${cDetails.idDet}">
-<!--        <input type="hidden" th:field="${user.id}">-->
         <!-- Breadcrumbs-->
         <div class="col-md-12">
             <ol class="breadcrumb">

@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 @Table(name = "course_details")
 public class CourseDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,7 +23,6 @@ public class CourseDetails {
 
     @OneToMany(mappedBy = "courseDetails", cascade = CascadeType.ALL) // PK
     private List<CourseReviews> courseReviews;
-
 
     public CourseDetails() {}
 

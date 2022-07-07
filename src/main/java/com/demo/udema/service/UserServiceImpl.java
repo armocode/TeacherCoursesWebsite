@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userTempPassword);
         userRepository.save(user);
     }
-
     @Override
     public List<String> findUsersWhoBoughtCourseByCourseTitle(String title) {
         return userRepository.findUsersWhoBoughtCourseByCourseTitle(title);

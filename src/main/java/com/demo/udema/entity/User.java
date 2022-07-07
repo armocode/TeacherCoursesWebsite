@@ -16,25 +16,18 @@ public class User {
 
     @Column(name = "data")
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-
     @Column(name = "name", length = 64)
     private String name;
-
     @Column(name = "surname", length = 64)
     private String surname;
-
     @Column(name = "username", unique = true, length = 64)
     private String username;
-
     @Column(name = "password", length = 128)
     private String password;
-
     @Column(name = "email", unique = true, length = 128)
     private String email;
-
     @Column(name = "role", length = 16)
     private String role;
-
     @Column(name = "isEnabled")
     private boolean isEnabled;
 
@@ -49,28 +42,21 @@ public class User {
     @JoinTable(name = "orders",                                         // Table
             joinColumns = {@JoinColumn(name = "user_id")},              // PK FK
             inverseJoinColumns = {@JoinColumn(name = "course_id")})     // PK FK
-
             Set<Course> courses = new HashSet<>();
     //----------------------------------------------------------------
 
     @Transient
     private String passwordConfirm;
-
     @Transient
     private String oldPassword;
-
     @Transient
     private String newPassword;
-
     @Transient
     private String passwordNewConfirm;
-
     @Transient
     private String oldEmail;
-
     @Transient
     private String newEmail;
-
     @Transient
     private String emailConfirm;
 

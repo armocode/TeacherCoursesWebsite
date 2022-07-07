@@ -286,18 +286,15 @@
 			<div class="list_general reviews" th:each="rev :${review}">
 				<ul >
 					<li >
-
 						<span th:text="${rev.timeStamp}">June 15 2017</span>
                         <span th:text="${rev.rating+' | '}"></span>
 						<span class="rating"><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star"></i></span>
-
 
                       <figure><img src="img/course_1.jpg" alt=""></figure>
                         <small th:text="${rev.users.name}+' '+${rev.users.surname}"></small>
 						<h4 th:text="${rev.courseDetails.course.title}">Course title</h4>
                       <p th:text="${rev.review}">Lorem ipsum dolor sit amet, dolores mandamus moderatius ea ius, sed civibus vivendum imperdiet ei, amet tritani sea id. Ut veri diceret fierent mei, qui facilisi suavitate euripidis ad. In vim mucius menandri convenire, an brute zril vis. Ancillae delectus necessitatibus no eam, at porro solet veniam mel, ad everti nostrud vim. Eam no menandri pertinacia deterruisset.</p>
 
-<!--                      <a th:href="@{/setReportTrue/{id}(id=${rev.id})}" class="ti-trash"></a><span class="report"></span>-->
                       <div th:if="${rev.reported==true}">
                       <span th:text="${' - reported to admin'}" class="ti-na"></span><span class="reported"></span>
                       </div>
@@ -305,8 +302,6 @@
                         <span><h1><a th:href="@{/setReportTrue/{id}(id=${rev.id})}" class="ti-na"
                                      onclick="if(!(confirm('Are you sure, you want to report this comment?'))) return false"></a></h1><span class="report"></span></span>
                       </div>
-
-<!--                      <h1 class="ti-trash"></h1><span class="icon-name"> </span>-->
                       <p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
                     </li>
 				</ul>

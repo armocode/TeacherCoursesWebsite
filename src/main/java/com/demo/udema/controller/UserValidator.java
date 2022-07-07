@@ -23,8 +23,8 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
-        User fromDbEmail = userService.findByUsername(user.getUsername()); // Gaunam Old email is DB
-        User fromDbPassword = userService.findByUsername(user.getUsername()); // Gaunam Old password is DB
+        User fromDbEmail = userService.findByUsername(user.getUsername());
+        User fromDbPassword = userService.findByUsername(user.getUsername());
 
 //----username----//
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");

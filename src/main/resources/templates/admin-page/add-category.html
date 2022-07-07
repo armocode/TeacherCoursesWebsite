@@ -90,6 +90,7 @@
             <!--            <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>-->
             <!--          </a>-->
             <!--        </li>-->
+
             <li sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                 <a class="nav-link" href="/reviews">
                     <i class="fa fa-fw fa-star"></i>

@@ -11,7 +11,6 @@ public class Orders {
     @Id
     @GeneratedValue
     private int id;
-
     @Column(name = "user_id")  // PK
     private int userId;
     @Column(name = "course_id") // PK FK
@@ -19,10 +18,8 @@ public class Orders {
 
     @Column(name = "data")
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-
     @Column(name = "price")
     private double price;
-
     @Column(name = "certificate_url", length = 512)
     private String certificate_url;
 

@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name = "courses")
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,19 +34,17 @@ public class Course {
 
     @Transient
     private double avgRating = 0;
-
     @Transient
     private int sumLessonsLenght;
-
     @Transient
     private double fiveStars, fourStars, threeStars, twoStars, oneStars, sumStar;
 
     @OneToOne(mappedBy = "course") // PK
     private CourseDetails courseDetails;
-    //       -----------ManyToMany---users-orders-courses---------------
+    //------------------ManyToMany---users-orders-courses---------------
     @ManyToMany(mappedBy = "courses") // 2x PK
     private Set<User> user = new HashSet<>();
-    // -----------------------------------------------------------------
+    //------------------------------------------------------------------
 
     public Course() {
     }

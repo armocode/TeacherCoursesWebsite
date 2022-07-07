@@ -23,9 +23,7 @@ import java.util.*;
 
 @Controller
 public class HomeController implements ErrorController {
-    @Autowired
     private UserService userService;
-    @Autowired
     private CourseValidator courseValidator;
     private OrderService orderService;
     private CategoryService categoryService;
@@ -97,11 +95,11 @@ public class HomeController implements ErrorController {
                             @RequestParam HashMap<String, String> categoriesList,
                             Model model,
                             RedirectAttributes redirectAttributes) {
-        int tempId = course.getId();                                                // For redirect (/editCourse)
+        int tempId = course.getId();                                // For redirect (/editCourse)
         courseValidator.validate(course, resultCourse);
         courseValidator.validateCourseDes(courseDetails, resultDetail);
         if (resultCourse.hasErrors() || resultDetail.hasErrors()) {
-            List<Category> categoriesList2 = categoryService.getAll();               // Is naujo uzkrauname kategoriju sarasa, po valid lieka tuscias
+            List<Category> categoriesList2 = categoryService.getAll();
             model.addAttribute("categoriesList", categoriesList2);
             model.addAttribute("errormessage", "Failed to create course");
             return "admin-page/add-course";
@@ -113,15 +111,15 @@ public class HomeController implements ErrorController {
             model.addAttribute("errormessage", "Failed to create course");
             return "admin-page/add-course";
         }
-        User searchUser = userService.findByUsername(user.getUsername());           // Pasiemu Vartotjo ID ir setinu i course
+        User searchUser = userService.findByUsername(user.getUsername());
         course.setUsers(searchUser);
         Category searchCategory = categoryService.findById(Integer.parseInt(categoriesList.get("catId")));
         course.setCategory(searchCategory);
         courseService.save(course);
-        Course newCourseTitle = courseService.findByTitle(course.getTitle());       // Pasiemame ka tik issaugoto kurso title (id)
-        courseDetails.setCourse(newCourseTitle);                                    // Setinam id i details ->course_id
-        courseDetailService.save(courseDetails);                                    // issaugom
-        if (tempId != 0) {                                                              // Redirect (/editCourse)
+        Course newCourseTitle = courseService.findByTitle(course.getTitle());
+        courseDetails.setCourse(newCourseTitle);
+        courseDetailService.save(courseDetails);
+        if (tempId != 0) {                                              // For redirect (/editCourse)
             redirectAttributes.addFlashAttribute("message", "Course update successfully");
             return "redirect:/editCourse";
         }
@@ -135,12 +133,11 @@ public class HomeController implements ErrorController {
                                RedirectAttributes redirectAtt) {
         Course getCourseById = courseService.findById(courseId);
         List<Orders> getOrdersListByCourseId = orderService.findAllByCourseId(courseId);
-        // Jei nepriklauso teacher kursas, neleidziame jo trinti
+
         List<Course> courseByUsername = courseService.findAllTeacherCourseByUsername(loggerUser.getUsername());
         for (Course c : courseByUsername) {
             if (c.getId() == courseId) {
                 if (getCourseById.getCourseDetails().getLessonTopics().size() == 0) {
-                    // Triname orderius
                     if (getOrdersListByCourseId != null) {
                         int tempId = 0;
                         for (Orders o : orderService.findAllByCourseId(courseId)) {
@@ -148,9 +145,7 @@ public class HomeController implements ErrorController {
                         }
                         orderService.deleteByCourseId(tempId);
                     }
-                    // Triname Course details
                     courseDetailService.deleteById(getCourseById.getCourseDetails().getIdDet());
-                    // Triname Course
                     courseService.deleteById(getCourseById.getId());
                     redirectAtt.addFlashAttribute("message", "Course deleted successfully");
                     return "redirect:/addCourse";
@@ -195,7 +190,6 @@ public class HomeController implements ErrorController {
                 return "admin-page/add-course";
             }
         }
-        // Jei useriui nepriklauso kursas arba ivede nesamone, tai useri nusiuncia į /error pspl
         return "redirect:/error";
     }
 
@@ -432,7 +426,7 @@ public class HomeController implements ErrorController {
         List<Course> course = courseService.findAllByCategoryId(id);
         getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
-        // Categories list
+
         List<Category> categoriesList = categoryService.findAll();
         model.addAttribute("categoriesList", categoriesList);
         return "courses-list";
@@ -481,7 +475,7 @@ public class HomeController implements ErrorController {
             courseReviewService.save(courseReviews);
             return "redirect:/coursesDetails?courseTitle=" + title;
         }
-        model.addAttribute("comError", "Error comment");
+        model.addAttribute("comError", "Something wrong, try to reload page and try again");
         return "course-detail";
     }
 
@@ -524,8 +518,7 @@ public class HomeController implements ErrorController {
         }
         model.addAttribute("error", "Please login as student to buy course");
         return "course-detail";
-
-//        return "redirect:/error";
+//      return "redirect:/error";
     }
 
 
@@ -574,7 +567,7 @@ public class HomeController implements ErrorController {
         List<Course> course = courseService.findAll();
         getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
-        // Categories list
+
         List<Category> categoriesList = categoryService.findAll();
         model.addAttribute("categoriesList", categoriesList);
         return "courses-grid";
@@ -588,27 +581,27 @@ public class HomeController implements ErrorController {
         List<Course> course = courseService.findAllByCategoryId(id);
         getCourseRatingAvgAndLenghtSum(course);
         model.addAttribute("courses", course);
-        // Categories list
+
         List<Category> categoriesList = categoryService.findAll();
         model.addAttribute("categoriesList", categoriesList);
         return "courses-grid";
     }
 
-    @GetMapping("/reportedList")  //ReportedList
+    @GetMapping("/reportedList")
     public String reportedCommentList(Model model) {
         List<CourseReviews> reportedList = courseReviewService.findReportedReviewsByTeacher();
         model.addAttribute("list", reportedList);
         return "admin-page/reported-comment-list";
     }
 
-    @GetMapping("deleteReportedReview/{id}")//ReportedList
+    @GetMapping("deleteReportedReview/{id}")
     public String deleteReportedReview(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
         this.courseReviewService.deleteCourseReviewById(id);
         redirectAtt.addFlashAttribute("message", "Review deleted successfully");
         return "redirect:/reportedList";
     }
 
-    @GetMapping("/setReportFalse/{id}")  //ReportedList
+    @GetMapping("/setReportFalse/{id}")
     public String updateReportedReviewFalse(@PathVariable(value = "id") int id, RedirectAttributes redirectAtt) {
         courseReviewService.updateCourseReviewToFalse(id);
         redirectAtt.addFlashAttribute("message", "Review restored successfully");
@@ -637,7 +630,6 @@ public class HomeController implements ErrorController {
 
     @RequestMapping("/error")
     public ModelAndView handleError() {
-        // https://www.techiedelight.com/display-custom-error-pages-in-spring-boot/
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404");
         return modelAndView;
@@ -651,7 +643,6 @@ public class HomeController implements ErrorController {
 
     /**
      * Course average rating
-     *
      * @param courses
      */
     public void getCourseRatingAvgAndLenghtSum(List<Course> courses) {
@@ -766,14 +757,11 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * @return True if user can leave a feedback about course
+     * @return True if user can leave a feedback about teacher course
      */
     public Boolean userCanLeaveFeedback(String title) {
         Collection<Integer> l = courseReviewService.findCourseReviewIdByCourseTitle(title);
         Collection<Integer> id = courseReviewService.findCourseReviewIdByStudentUsername(currentLoggedInUsername());
-        System.out.println("findCourseReviewIdByCourseTitle : " + l);
-        System.out.println("findCourseReviewIdByStudentUsername : " + id);
-
         if (id.removeAll(l)) {
             return false;
         }

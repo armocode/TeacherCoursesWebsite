@@ -9,35 +9,29 @@ import java.util.Date;
 @Entity
 @Table(name = "course_reviews")
 public class CourseReviews {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
     @ManyToOne()
     @JoinColumn(name = "user_id") //FK
     private User users;
-
     @ManyToOne()
     @JoinColumn(name = "course_details_id") //FK
     private CourseDetails courseDetails;
 
     @Column(name = "data")
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-
     @Column(name = "rating") // columnDefinition = "double default 0" (Postgresql - not support)
     private Double rating;
-
-    @Column(name = "review", nullable=true)
+    @Column(name = "review", nullable = true)
     private String review;
-
     @Column(name = "is_reported")
     private boolean isReported;
 
     @Value("#{new String('${orderReviews.latest}')}")
     @Transient
-    public String latest ;
+    public String latest;
 
     @Value("#{new String('${orderReviews.oldest}')}")
     @Transient

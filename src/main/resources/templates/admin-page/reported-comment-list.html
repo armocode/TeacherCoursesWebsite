@@ -76,18 +76,7 @@
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">-->
-            <!--          <a class="nav-link" href="messages.html">-->
-            <!--            <i class="fa fa-fw fa-envelope-open"></i>-->
-            <!--            <span class="nav-link-text">Messages</span>-->
-            <!--          </a>-->
-            <!--        </li>-->
-            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">-->
-            <!--          <a class="nav-link" href="courses.html">-->
-            <!--            <i class="fa fa-fw fa-archive"></i>-->
-            <!--            <span class="nav-link-text">Courses <span class="badge badge-pill badge-primary">6 New</span></span>-->
-            <!--          </a>-->
-            <!--        </li>-->
+
             <li sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')" class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                 <a class="nav-link" href="/reviews">
                     <i class="fa fa-fw fa-star"></i>
@@ -100,12 +89,7 @@
                     <span class="nav-link-text"> Reported comments</span>
                 </a>
             </li>
-            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">-->
-            <!--          <a class="nav-link" href="bookmarks.html">-->
-            <!--            <i class="fa fa-fw fa-heart"></i>-->
-            <!--            <span class="nav-link-text">Bookmarks</span>-->
-            <!--          </a>-->
-            <!--        </li>-->
+
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
                 <a class="nav-link" href="/userPage">
                     <i class="fa fa-fw fa-wrench"></i>
@@ -139,20 +123,7 @@
                     <span class="nav-link-text">Edit course</span>
                 </a>
             </li>
-            <!--		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">-->
-            <!--          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">-->
-            <!--            <i class="fa fa-fw fa-gear"></i>-->
-            <!--            <span class="nav-link-text">Components</span>-->
-            <!--          </a>-->
-            <!--          <ul class="sidenav-second-level collapse" id="collapseComponents">-->
-            <!--            <li>-->
-            <!--              <a href="charts.html">Charts</a>-->
-            <!--            </li>-->
-            <!--			<li>-->
-            <!--              <a href="tables.html">Tables</a>-->
-            <!--            </li>-->
-            <!--          </ul>-->
-            <!--        </li>-->
+
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
@@ -280,7 +251,6 @@
 </nav>
 <!-- /Navigation-->
 <form class="content-wrapper"  >
-<!--    th:action="@{/reportedList}" method="post" th:object="${review}"-->
     <div class="container-fluid">
         <input type="hidden" >
         <!-- Breadcrumbs-->
@@ -299,10 +269,7 @@
             <span th:text="${message}"></span>
         </div>
 
-        <!-- /box_general-->
-                                <!-- /row-->
                                 <div class="row" >
-
                                     <!--                       NEW TABLE -->
                                     <div class="col-md-12" >
                                         <div class="box_general padding_bottom">
@@ -315,10 +282,6 @@
 
                                                 <div class="col-md-12">
                                                     <div>
-<!--                                                        <div class="form-group">-->
-<!--                                                            <input th:type="hidden" th:field="*{id}">-->
-<!--                                                        </div>-->
-
                                                         <div class="card mb-3">
                                                             <div>
                                                                 <div class="table-responsive" th:object="${list}">
@@ -349,8 +312,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--              NEW TABLE  -->
-
                                                     </div>
                                                 </div>
                                             </div>

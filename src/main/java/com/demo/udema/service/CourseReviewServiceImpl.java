@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class CourseReviewServiceImpl implements CourseReviewService {
-
     public CourseReviewRepository courseReviewRepository;
 
     public CourseReviewServiceImpl(CourseReviewRepository courseReviewRepository) {

@@ -29,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/assets/**", "/coming_soon/**", "/css/**", "/img/**", "/js/**", "/layerslider/**", "/sass/**", "/video/**", "/registration", "/login").permitAll()
-//                .anyRequest().authenticated()
                 .antMatchers("/adminPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .antMatchers("/userPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .antMatchers("/addCategory/**").hasAnyRole("TEACHER", "ADMIN")
@@ -39,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/editCourse/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/reviews/**").hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/reportedList/**").hasAnyRole("ADMIN")
-//                .antMatchers("/adminPage/**").access("hasRole('0') and hasRole('1')")
                 .and()
                 .formLogin()
                 .loginPage("/login")
