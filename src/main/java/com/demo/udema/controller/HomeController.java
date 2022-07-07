@@ -519,6 +519,9 @@ public class HomeController implements ErrorController {
             orderService.save(orders);
             return "redirect:/coursesDetails?courseTitle=" + title;
         }
+        if(userId == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("error", "Please login as student to buy course");
         return "course-detail";
 
