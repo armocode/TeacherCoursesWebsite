@@ -287,8 +287,13 @@
 				<ul >
 					<li >
 						<span th:text="${rev.timeStamp}">June 15 2017</span>
-                        <span th:text="${rev.rating+' | '}"></span>
-						<span class="rating"><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star yellow"></i><i class="fa fa-fw fa-star"></i></span>
+                      <!--RATING-->
+                      <span><div class="rating" th:with="length=${#numbers.formatInteger(rev.rating, 1)}">
+                        <div th:with="result=${5 }-${ length}">
+                          <i th:if="${rev.rating >= 0.55}" th:each="i : ${#numbers.sequence(1, length)}" class="rating"><i class="icon_star voted"></i></i><i th:if="${result > 0}" th:each="i : ${#numbers.sequence(1, result)}" class="rating"><i class="icon_star"></i></i>
+                        </div>
+                      </div></span>
+                      <!--                                        RATING -->
 
                       <figure><img src="img/course_1.jpg" alt=""></figure>
                         <small th:text="${rev.users.name}+' '+${rev.users.surname}"></small>
