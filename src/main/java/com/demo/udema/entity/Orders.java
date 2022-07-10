@@ -9,12 +9,8 @@ import java.util.Date;
 public class Orders {
 
 
-    //    @Id
-//    @GeneratedValue
-//    private int id;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue
     private int id;
     @Column(name = "user_id")  // PK
     private int userId;
