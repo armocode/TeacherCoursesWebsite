@@ -8,8 +8,13 @@ import java.util.Date;
 @Table(name = "orders")
 public class Orders {
 
+
+    //    @Id
+//    @GeneratedValue
+//    private int id;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
     @Column(name = "user_id")  // PK
     private int userId;
@@ -23,7 +28,8 @@ public class Orders {
     @Column(name = "certificate_url", length = 512)
     private String certificate_url;
 
-public Orders() {}
+    public Orders() {
+    }
 
     public Orders(int userId, int courseId, String timeStamp, double price, String certificate_url) {
         this.userId = userId;
