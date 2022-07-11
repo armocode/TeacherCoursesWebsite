@@ -80,17 +80,17 @@ text-color {
 /*---animation for text---*/
 .animT::before {
     content: "Create";
-    animation: animate infinite 10s;
+    animation: animate infinite 5s;
     /*padding-left: 10px;*/
 }
 
 @keyframes animate {
 
-    0% {
+    33% {
         content: "Check";
     }
 
-    50% {
+    66% {
         content: "Delete";
     }
 }
@@ -99,17 +99,17 @@ text-color {
 /*---animation for icon---*/
 .animI::before {
     content: "\f055";
-    animation: animateI infinite 10s;
+    animation: animateI infinite 5s;
     /*padding-left: 10px;*/
 }
 
 @keyframes animateI {
 
-    0% {
+    33% {
         content: "\f058";
     }
 
-    50% {
+    66% {
         content: "\f056";
     }
 }
