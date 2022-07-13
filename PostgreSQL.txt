@@ -33,7 +33,7 @@ INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 255533,60,'statiniai masyva
 INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 155333,70,'dinaminiai masyvai','https://www.youtube.com/watch?v=YbcoIsFTfUw',3);
 
 ___________________________________________________________________
-  These inserts don't work  anymore on PostgreSQL(temporary), because of orders table update.
+  These inserts will not work anymore on PostgreSQL(temporary), because of orders table update.
 To solve it, login as a student, go to any course, press 'purchase' and write a review.
 Repeat these steps as many times as you need to test it.
 
