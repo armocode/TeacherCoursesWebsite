@@ -1,4 +1,3 @@
-
 INSERT INTO users VALUES(DEFAULT, 'email@email.com',false,'Antanas','$2a$12$3TOAn4p1B9BDdPrOQghU2ehS/2O0u9hBx7AqQgsqhRmPDSrzMS/K6','ROLE_TEACHER','Antanaitis', '2022.05.20','antanas');
 INSERT INTO users VALUES(DEFAULT, 'petras@email.com',false,'Petras','$2a$12$ar51Ym.9NCD0ZRCwr0D0/ulPSiDO2lt3erfFf0oH55lEmPpBhExuG','ROLE_STUDENT','Petraitis', '2022.05.20','petras123');
 INSERT INTO users VALUES(DEFAULT, 'tomas@gmail.com',false,'Tomas','$2a$12$9AZycpYjiAINt3nuqbXAkO2N/lFe3lmDizAbE.feFY5pduD1Jii8G','ROLE_STUDENT','Tomas','2022.11.11','tomas123');
@@ -25,13 +24,19 @@ INSERT INTO lesson_topics VALUES(DEFAULT,10,'Pirmoji programa',1);
 INSERT INTO lesson_topics VALUES(DEFAULT,20,'Funkcijos',2);
 INSERT INTO lesson_topics VALUES(DEFAULT,30,'Masyvai',3);
 
-INSERT INTO lessons VALUES(DEFAULT, 'Ciklai',true, 23540,10,'for loop','url',1);
-INSERT INTO lessons VALUES(DEFAULT, 'Ciklai',false, 14532,20,'while loop','url',1);
-INSERT INTO lessons VALUES(DEFAULT, 'Salygos',false, 31010,30,'Salyga if, else','url',1);
-INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',true, 24532,40,'grazinanti funkcija','url',2);
-INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',false, 545533,50,'negrazinanti funkcija','url',2);
-INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 255533,60,'statiniai masyvai','url',3);
-INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 155333,70,'dinaminiai masyvai','url',3);
+INSERT INTO lessons VALUES(DEFAULT, 'Ciklai',true, 23540,10,'for loop','https://www.youtube.com/watch?v=SAh611hDVCc',1);
+INSERT INTO lessons VALUES(DEFAULT, 'Ciklai',false, 14532,20,'while loop','https://www.youtube.com/watch?v=CqGoBKaOIj0',1);
+INSERT INTO lessons VALUES(DEFAULT, 'Salygos',false, 31010,30,'Salyga if, else','https://www.youtube.com/watch?v=07g5NFALjQs',1);
+INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',true, 24532,40,'grazinanti funkcija','https://www.youtube.com/watch?v=xyX0XdUsbMs',2);
+INSERT INTO lessons VALUES(DEFAULT, 'Funkcijos',false, 545533,50,'negrazinanti funkcija','https://www.youtube.com/watch?v=0L0swXNa1kE',2);
+INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 255533,60,'statiniai masyvai','https://www.youtube.com/watch?v=6k9TSukHsVo',3);
+INSERT INTO lessons VALUES(DEFAULT, 'Masyvai',false, 155333,70,'dinaminiai masyvai','https://www.youtube.com/watch?v=YbcoIsFTfUw',3);
+
+___________________________________________________________________
+  These inserts don't work  anymore on PostgreSQL(temporary), because of orders table update.
+To solve it, login as a student, go to any course, press 'purchase' and write a review.
+Repeat these steps as many times as you need to test it.
+
 
 INSERT INTO orders VALUES(DEFAULT, 'url', 1, 80.99, '2023-12-12', 2);
 INSERT INTO orders VALUES(DEFAULT, 'url', 1, 80.99, '2023-05-23', 4);
@@ -42,16 +47,6 @@ INSERT INTO course_reviews VALUES(DEFAULT, false, 1,'neivienos pazystamos neatra
 INSERT INTO course_reviews VALUES(DEFAULT, false, 5, 'Puikus java pagrindu kursas','2023-12-13',1, 4);
 INSERT INTO course_reviews VALUES(DEFAULT, false, 4, 'puikus java pazengusiuju funkciju kursas', '2023-12-14', 2,4);
 INSERT INTO course_reviews VALUES(DEFAULT, false, 5, 'puikus java pazengusiuju kursas','2023-12-30',2,3);
-
-_______test___________________________________
-INSERT INTO orders VALUES(2,'url', 1, 80.99, '2023-12-12');
-INSERT INTO orders VALUES(4,'url', 1, 80.99, '2023-05-23');
-INSERT INTO orders VALUES(4,'url', 3, '309.99', '2023-07-15');
-INSERT INTO orders VALUES(3,'url', 3, '309.99', '2022-11-30');
-
+___________________________________________________________________
 ## SQL Shell commands:
 Table list: \dt
-__________________________________________
-
-## SQL:
-DELETE FROM users WHERE id='?';
