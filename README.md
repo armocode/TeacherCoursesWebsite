@@ -1,22 +1,10 @@
-# Link to application
+# Launch application
 If application won’t  start, just wait a little bit more  and reload the page,
 disorder might be because is free heroku server and mostly used for tests.
 
 https://finalprojectnew.herokuapp.com/
 
-# Guidelines for localhost
+### Installation
 
-1. Clone this repository
-2. Open project -> application.properties -> change your data:
-* a. spring.datasource.url=jdbc:mysql://localhost:3306/yourDatabaseName
-* b. Turn on your database server (I using XAMPP)
-* c. Open your browser, go to localhost/phpmyadmin -> SQL
-* d. 'CREATE DATABASE yourDatabaseName'
-* e. Back to the project, uncomment autocreate rows and start the project.
-(In the terminal you can get an exception saying you couldn't create a 'course reviews' table.
-Restarting project should fix this issue.(PostgreSQL))
-3. Go to localhost/phpmyadmin -> yourDatabaseName -> SQL
-4. Open MySQL.txt, insert all rows which contains INSERT..
-5. Go to localhost:8080 in your browser
-6. After these steps you can test the application.
+Properties for [localhost](https://github.com/InFM8/SpringProject/wiki/Guidelines-for-localhost)
 
