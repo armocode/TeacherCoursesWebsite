@@ -802,7 +802,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * If LessonTopic don't have lessons inside, hide lessonTopic
+     * If LessonTopic don't have lessons inside - hide lessonTopic
      */
     public List<LessonTopics> deleteNullValuesOfLessonTopics(List<LessonTopics> list) {
         Iterator<LessonTopics> it = list.iterator();

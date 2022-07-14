@@ -8,7 +8,6 @@ import java.util.Date;
 @Table(name = "orders")
 public class Orders {
 
-
     @Id
     @GeneratedValue
     private int id;
