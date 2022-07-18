@@ -40,7 +40,7 @@ public class LessonTopicServiceImpl implements LessonTopicService{
     }
 
     @Override
-    public String findByListNumber(String listNumber) {
+    public String findByListNumber(int listNumber) {
         return lessonTopicRepository.findByListNumber(listNumber);
     }
 

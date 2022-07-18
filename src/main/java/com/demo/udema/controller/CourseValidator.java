@@ -102,13 +102,14 @@ public class CourseValidator implements Validator {
         if (matcher.find() == false) {
             errors.rejectValue("listNumber", "Matcher.lessonTopic.listNumber");
         }
-
         if (lessonTopics.getId() == 0) {
             if (lessonTopicService.findByTopicName(lessonTopics.getName()) != null) {
                 errors.rejectValue("name", "Duplicate.lessonTopic.name");
             }
-            if (lessonTopicService.findByListNumber(String.valueOf(lessonTopics.getListNumber())) != null) {
-                errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+            if(lessonTopics.getListNumber() != null){
+                if (lessonTopicService.findByListNumber(lessonTopics.getListNumber()) != null) {
+                    errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+                }
             }
         }
 
