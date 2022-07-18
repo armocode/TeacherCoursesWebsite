@@ -69,7 +69,7 @@ public class LessonServiceImpl implements LessonService{
     }
 
     @Override
-    public String findByListNumber(String listNumber) {
+    public String findByListNumber(int listNumber) {
         return lessonRepository.findByListNumber(listNumber);
     }
 

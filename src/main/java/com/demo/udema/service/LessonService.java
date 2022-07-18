@@ -15,7 +15,7 @@ public interface LessonService {
     String findByLessonName(String name);
     List<Lessons> findAllTeacherLessonsByUsername(String username);
     void deleteLessonById(int id);
-    String findByListNumber(String listNumber);
+    String findByListNumber(int listNumber);
     List<Integer> findLessonsIdByTeacherUsername(String username);
 
 }

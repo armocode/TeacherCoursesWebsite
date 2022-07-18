@@ -150,12 +150,20 @@ public class CourseValidator implements Validator {
         if (lessons.getName().length() < 3 || lessons.getName().length() > 32) {
             errors.rejectValue("name", "Size.lesson.name");
         }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "listNumber", "NotEmpty");
+        Matcher matcher2 = pattern.matcher(String.valueOf(lessons.getListNumber()));
+        if (matcher2.find() == false) {
+            errors.rejectValue("listNumber", "Matcher.lessonTopic.listNumber");
+        }
         if (lessons.getId() == 0) {
             if (lessonService.findByLessonName(lessons.getName()) != null) {
                 errors.rejectValue("name", "Duplicate.lesson.name");
             }
-            if (lessonService.findByListNumber(String.valueOf(lessons.getListNumber())) != null) {
-                errors.rejectValue("listNumber", "Duplicate.lesson.listNumber");
+            if(lessons.getListNumber() != null){
+                if (lessonService.findByListNumber(lessons.getListNumber()) != null) {
+                    errors.rejectValue("listNumber", "Duplicate.lesson.listNumber");
+                }
             }
         }
         if (lessons.getId() != 0) {
@@ -164,8 +172,10 @@ public class CourseValidator implements Validator {
                     if (l.getName().equals(lessons.getName())) {
                         errors.rejectValue("name", "Duplicate.lesson.name");
                     }
-                    if (l.getListNumber().equals(lessons.getListNumber())) {
-                        errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+                    if(lessons.getListNumber() != null) {
+                        if (l.getListNumber().equals(lessons.getListNumber())) {
+                            errors.rejectValue("listNumber", "Duplicate.lessonTopic.listNumber");
+                        }
                     }
                 }
             }
