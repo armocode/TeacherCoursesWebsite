@@ -30,7 +30,7 @@ Properties for [localhost](https://github.com/InFM8/SpringProject/wiki/Guideline
 ### License
 This project is under MIT license described in detail [here](https://github.com/InFM8/TeacherOnlineCourses/blob/master/LICENSE.txt).
 
-#### [Project details](https://github.com/InFM8/SpringProject/wiki/About)
+### [Project details](https://github.com/InFM8/SpringProject/wiki/About)
 
 
 
