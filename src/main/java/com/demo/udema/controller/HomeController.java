@@ -643,7 +643,6 @@ public class HomeController implements ErrorController {
 
     /**
      * Course average rating
-     * @param courses
      */
     public void getCourseRatingAvgAndLenghtSum(List<Course> courses) {
         for (Course c : courses) {
@@ -669,7 +668,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * @param title SELECT AVG(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT AVG(rating) FROM reviews JOIN... WHERE c.title LIKE ?
      * @param model If null, default rating is 0
      */
     public void courseReviewRatingByTitle(String title, Model model) {
@@ -681,7 +680,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * @param title SELECT COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT COUNT(rating) FROM reviews JOIN... WHERE c.title LIKE ?
      */
     public void courseReviewCountRatingByTitle(String title, Model model) {
         if (courseReviewService.findRatingByTitle(title) == null) {
@@ -692,14 +691,14 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * @param title SELECT SUM(length) FROM lessons JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT SUM(length) FROM lessons JOIN... WHERE c.title LIKE ?
      */
     public void lessonsSumByCourseTitle(String title, Model model) {
         model.addAttribute("sumLessons", lessonService.findLessonsSumByTitle(title));
     }
 
     /**
-     * @param title SELECT COUNT(id) FROM lessons JOIN... WHERE c.title LIKE c.?
+     * @param title SELECT COUNT(id) FROM lessons JOIN... WHERE c.title LIKE ?
      */
     public void lessonsCountByCourseTitle(String title, Model model) {
         model.addAttribute("countLessons", lessonService.countLessonsByTitle(title));
@@ -745,8 +744,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * @param courseTitle, Check logged user who bought course by c.title
-     * @return true if bought course, else false
+     * Check logged user who bought course by c.title
      */
     public Boolean usersBoughtCourse(String courseTitle) {
         List<String> us = userService.findUsersWhoBoughtCourseByCourseTitle(courseTitle);
@@ -769,7 +767,7 @@ public class HomeController implements ErrorController {
     }
 
     /**
-     * Teacher can report only his own courses reviews comments to admin
+     * Teacher can report only his own courses reviews to admin
      */
     public Boolean checkTeacherCourseReviewsIdByTeacherUsername(int id) {
         List<Integer> l = courseReviewService.checkReviewsIdByTeacherUsername(currentLoggedInUsername());
