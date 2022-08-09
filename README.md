@@ -16,7 +16,7 @@
 
 
 #
-#### [Application](https://finalprojectnew.herokuapp.com/) hosted on heroku.
+### [Here](https://finalprojectnew.herokuapp.com/) is a link to a web application.
 
 If the application doesn't  launch, just wait a little more and reload the page,
 the problem might be because it is a free [heroku server](https://www.heroku.com/free) and mostly used for tests.
