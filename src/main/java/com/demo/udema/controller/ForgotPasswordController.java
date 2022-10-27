@@ -68,7 +68,7 @@ public class ForgotPasswordController {
         helper.setFrom("contact@udema.com", "Udema Support");
         helper.setTo(email);
 
-        String subject = "Here's the link to reset your password for Udema website login.";
+        String subject = "Here's the link to reset your password for Udema website login";
         String content = "<p>Hello,</p>" +
                 "<p>You have requested to reset the password</p>" +
                 "<p>Click the link below to change your password:</p>" +

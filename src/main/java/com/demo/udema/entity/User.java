@@ -32,6 +32,8 @@ public class User {
     private boolean isEnabled;
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
+    @Column(name = "verification_token", updatable = false)
+    private String verificationToken;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)// PK
     private List<Course> courses2;
@@ -263,5 +265,13 @@ public class User {
 
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
     }
 }

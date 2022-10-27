@@ -2,14 +2,24 @@ package com.demo.udema.controller;
 
 import com.demo.udema.entity.User;
 import com.demo.udema.service.*;
+import com.demo.udema.utility.Utility;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 
 @Controller
@@ -20,6 +30,8 @@ public class UserController {
     private SecurityService securityService;
     @Autowired
     private UserValidator userValidator;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -31,15 +43,59 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, Model model, BindingResult bindingResult, HttpServletRequest request) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
         userService.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-        return "redirect:/adminPage";
+        String email = userForm.getEmail();
+        String verificationToken = RandomString.make(64);
+
+        try {
+            userForm.setVerificationToken(verificationToken);
+            String verifyAccountLink = Utility.getSiteURL(request) + "/verification?token=" + verificationToken;
+            sendEmailForVerification(email, verifyAccountLink);
+        } catch (MessagingException e) {
+            model.addAttribute("error", e.getMessage());
+        } catch (UnsupportedEncodingException e) {
+            model.addAttribute("error", "Error while sending email!");
+        }
+        //securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        return "redirect:registrationMessage";
+    }
+
+    private void sendEmailForVerification(String email, String verifyAccountLink) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("contact@udema.com", "Udema Support");
+        helper.setTo(email);
+
+        String subject = "Here's the link to verify your Udema account";
+        String content = "<p>Hello,</p>" +
+                "<p>You have created an account in Udema!</p>" +
+                "<p>Click the link below to verify it:</p>" +
+                "<p><b><a href=\""+ verifyAccountLink + "\">Verify account</a><b></p>" +
+                "<p>Or manually copy and paste this URL to a new web browser's tab and enter the page: </p>" +  verifyAccountLink +
+                "<p>Ignore this if you have not requested your password reset</p>" +
+                "<br><br>" +
+                "<p>Regards,</p>" +
+                "<p>Udema</p>";
+
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+    @GetMapping("/registrationMessage")
+    public ModelAndView registrationMessage(RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/message");
+        redirectAttributes.addFlashAttribute("title", "Registration Confirmation");
+        redirectAttributes.addFlashAttribute("message", "Verification link has been sent to your email. Please check and verify.");
+        return modelAndView;
     }
 
     @GetMapping("/login")
