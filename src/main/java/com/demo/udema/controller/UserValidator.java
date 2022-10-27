@@ -9,12 +9,18 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class UserValidator implements Validator {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserService userService;
+    private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+
     @Override
     public boolean supports(Class<?> aClass) {
         return User.class.equals(aClass);
@@ -111,5 +117,22 @@ public class UserValidator implements Validator {
             }
         }
 
+    }
+
+    public String validateResetPassword(String password, String confirmPassword) {
+        if (password == "" || confirmPassword == "") {
+            return "You must enter both fields!";
+        }
+        if (!password.equals(confirmPassword)) {
+            return "Passwords do not match!";
+        }
+        if (password.length() < 8) {
+            return "Password must be at least 8 characters long!";
+        }
+        Matcher matcher = pattern.matcher(password);
+        if (!matcher.matches()) {
+            return "Password must have at least 1 number, 1 uppercase letter and 1 special symbol!";
+        }
+        return null;
     }
 }

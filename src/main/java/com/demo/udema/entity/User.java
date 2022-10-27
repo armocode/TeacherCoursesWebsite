@@ -30,6 +30,8 @@ public class User {
     private String role;
     @Column(name = "isEnabled")
     private boolean isEnabled;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)// PK
     private List<Course> courses2;
@@ -253,5 +255,13 @@ public class User {
 
     public void setEmailConfirm(String emailConfirm) {
         this.emailConfirm = emailConfirm;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 }

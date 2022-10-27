@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT id FROM users" +
             " WHERE username LIKE ?1", nativeQuery = true)
     Integer findIdByUsername(String username);
+
+    public User findByResetPasswordToken(String token);
 }

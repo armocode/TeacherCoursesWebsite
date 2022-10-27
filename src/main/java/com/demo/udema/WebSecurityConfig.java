@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/assets/**", "/coming_soon/**", "/css/**", "/img/**", "/js/**", "/layerslider/**", "/sass/**", "/video/**", "/registration", "/login").permitAll()
+                .antMatchers("/assets/**", "/coming_soon/**", "/css/**", "/img/**", "/js/**", "/layerslider/**", "/sass/**", "/video/**", "/registration", "/login", "/forgotPassword", "/resetPassword").permitAll()
                 .antMatchers("/adminPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .antMatchers("/userPage/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                 .antMatchers("/addCategory/**").hasAnyRole("TEACHER", "ADMIN")

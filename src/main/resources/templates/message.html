@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Udema a modern educational site template">
+    <meta name="author" content="Ansonika">
+    <title>UDEMA | Reset Password</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <link rel="apple-touch-icon" type="image/x-icon" href="../static/img/apple-touch-icon-57x57-precomposed.png"
+          th:href="@{/img/apple-touch-icon-57x57-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+          href="../static/img/apple-touch-icon-72x72-precomposed.png"
+          th:href="@{/img/apple-touch-icon-72x72-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+          href="../static/img/apple-touch-icon-114x114-precomposed.png"
+          th:href="@{/img/apple-touch-icon-114x114-precomposed.png}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+          href="../static/img/apple-touch-icon-144x144-precomposed.png"
+          th:href="@{/img/apple-touch-icon-144x144-precomposed.png}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="../static/css/vendors.css" rel="stylesheet" th:href="@{/css/vendors.css}">
+    <link href="../static/css/icon_fonts/css/all_icons.min.css" rel="stylesheet"
+          th:href="@{/css/icon_fonts/css/all_icons.min.css}">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.css}">
+    <style>.has-error {
+        color: #D8000C;
+        background-color: #FFBABA;
+    }</style>
+
+</head>
+<body id="message_bg">
+<nav id="menu" class="fake_menu"></nav>
+
+<div id="preloader">
+    <div data-loader="circle-side"></div>
+</div>
+<div id="message">
+    <aside>
+        <figure>
+            <a href="../">
+                <img src="../static/img/logo.png" width="149" height="42" th:src="@{/img/logo.png}" alt="">
+            </a>
+        </figure>
+        <div class="text-center">
+            <p th:text="${title}"></p>
+            <div>
+                <p class="text-success" th:text="${message}"></p>
+                <p style="color:red; border-top-width: 0px; margin-top: 30px;" th:text="${warning}"></p>
+            </div>
+        </div>
+        <a class="btn_1 rounded full-width add_top_60" href="login" style="margin-top: 35vh;">Login</a>
+        <div class="copy">© 2021 Udema</div>
+    </aside>
+</div>
+<script src="../static/js/jquery-3.6.0.min.js" th:src="@{/js/jquery-3.6.0.min.js}" ></script>
+<script src="../static/js/common_scripts.js" th:src="@{/js/common_scripts.js}"></script>
+<script src="../static/js/main.js" th:src="@{/js/main.js}" ></script>
+<script src="../static/assets/validate.js" th:src="@{/assets/validate.js}"></script>
+</body>
+</html>

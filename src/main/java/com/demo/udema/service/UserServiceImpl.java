@@ -1,5 +1,6 @@
 package com.demo.udema.service;
 
+import com.demo.udema.controller.UserNotFoundException;
 import com.demo.udema.entity.User;
 import com.demo.udema.repositoryDAO.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer findIdByUsername(String username) {
         return userRepository.findIdByUsername(username);
+    }
+
+    public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException("Could not find this user");
+        }
+    }
+
+    public User get(String resetPasswordToken) {
+        return userRepository.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword =  passwordEncoder.encode(newPassword);
+
+        user.setPassword(encodedPassword);
+        user.setResetPasswordToken(null);
+
+        userRepository.save(user);
     }
 }

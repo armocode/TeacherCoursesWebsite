@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/udema/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE and TYPOGRAPHY
 - 1.1 Typography
@@ -3702,8 +3702,8 @@ section#reviews {
   transform: scale(1.3);
 }
 
-/*-------- 2.5 Login/register/admission--------*/
-#login_bg, #register_bg, #admission_bg {
+/*-------- 2.5 Login/register/admission/forgot_password/reset_password/message--------*/
+#login_bg, #register_bg, #admission_bg, #forgot_password_bg, #reset_password_bg, #message_bg {
   background: url(http://via.placeholder.com/1600x1067/ccc/fff/bg_login.jpg) center center no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -3729,7 +3729,7 @@ section#reviews {
   background-size: cover;
 }
 
-#login figure, #register figure {
+#login figure, #register figure, #forgot_password figure, #reset_password figure, #message figure {
   text-align: center;
   margin-bottom: 30px;
   background: #480048;
@@ -3739,12 +3739,12 @@ section#reviews {
   padding: 20px 60px 25px 60px;
 }
 @media (max-width: 767px) {
-  #login figure, #register figure {
+  #login figure, #register figure, #forgot_password figure, #message figure {
     margin: -30px -30px 20px -30px;
     padding: 15px 60px 20px 60px;
   }
 }
-#login aside, #register aside {
+#login aside, #register aside, #forgot_password aside, #reset_password aside, #message aside {
   width: 430px;
   padding: 45px 60px 60px 60px;
   position: absolute;
@@ -3755,16 +3755,16 @@ section#reviews {
   min-height: 100vh;
 }
 @media (max-width: 767px) {
-  #login aside, #register aside {
+  #login aside, #register aside, #forgot_password aside, #reset_password aside, #message aside {
     width: 100%;
     padding: 30px;
   }
 }
-#login aside form, #register aside form {
+#login aside form, #register aside form, #forgot_password aside form, #reset_password aside form {
   margin-bottom: 60px;
   display: block;
 }
-#login aside .copy, #register aside .copy {
+#login aside .copy, #register aside .copy, #forgot_password aside .copy, #reset_password aside .copy, #message aside .copy {
   text-align: center;
   position: absolute;
   height: 30px;
