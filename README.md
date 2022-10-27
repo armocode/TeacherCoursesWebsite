@@ -30,6 +30,14 @@ Properties for [localhost](https://github.com/InFM8/SpringProject/wiki/Guideline
 ### License
 This project is under MIT license described in detail [here](https://github.com/InFM8/TeacherOnlineCourses/blob/master/LICENSE.txt).
 
+### Email service activation using Gmail SMTP
+In order to activate email sending using SMTP there must be configured
+[application.properties](https://github.com/armocode/TeacherOnlineCourses/blob/main/src/main/resources/application.properties) file.
+As it shown [here](https://github.com/armocode/TeacherOnlineCourses/blob/main/gmailsmtp.png), please add gmail address and generated password
+for SMTP service that can be found in gmail settings.
+Check this [link](https://www.youtube.com/watch?v=ugIUObNHZdo&t=233s) to find all
+instructions in detail.
+
 ### [Project details](https://github.com/InFM8/SpringProject/wiki/About)
 
 
