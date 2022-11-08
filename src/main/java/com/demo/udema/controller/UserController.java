@@ -5,6 +5,7 @@ import com.demo.udema.service.*;
 import com.demo.udema.utility.Utility;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +27,8 @@ import java.io.UnsupportedEncodingException;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
     @Autowired
     private SecurityService securityService;
     @Autowired
@@ -50,14 +53,21 @@ public class UserController {
             return "registration";
         }
         userService.save(userForm);
+        User user = userService.findByEmail(userForm.getEmail());
+        System.out.println(user.getUsername());
+
         String email = userForm.getEmail();
         String verificationToken = RandomString.make(64);
+        user.setVerificationToken(verificationToken);
 
         try {
-            userForm.setVerificationToken(verificationToken);
+            userServiceImpl.updateVerificationToken(verificationToken, email);
+
             String verifyAccountLink = Utility.getSiteURL(request) + "/verification?token=" + verificationToken;
             sendEmailForVerification(email, verifyAccountLink);
         } catch (MessagingException e) {
+            model.addAttribute("error", e.getMessage());
+        } catch (UserNotFoundException e) {
             model.addAttribute("error", e.getMessage());
         } catch (UnsupportedEncodingException e) {
             model.addAttribute("error", "Error while sending email!");
@@ -98,6 +108,21 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/verification")
+    public String verifyAccount(@Param(value = "token") String token, Model model) {
+        User user = userServiceImpl.getByVerificationToken(token);
+        if (user == null) {
+            model.addAttribute("title", "Account Verification");
+            model.addAttribute("warning", "This link is no longer valid! You might have activated your account before." +
+                    " Please try to log in. Contact our Support Center at Udema if you have any problems.");
+            return "message";
+        }
+        userServiceImpl.verifyAccount(user, token);
+        model.addAttribute("title", "Account Verification");
+        model.addAttribute("message", "Your account has been verified!");
+        return "message";
+    }
+
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (securityService.isAuthenticated()) {
@@ -105,6 +130,7 @@ public class UserController {
         }
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
+        //This account is not activated! Please check your email for verification details.
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
         return "login";

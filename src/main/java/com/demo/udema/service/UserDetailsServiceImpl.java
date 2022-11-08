@@ -28,4 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
+
+    //sukurti metoda, kuris grazintu ar vartotojas yra verifikuotas ar ne(0 ar 1)
+    //metoda, kuriam parametruose pateikiamas username ir psw
 }

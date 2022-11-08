@@ -32,7 +32,7 @@ public class User {
     private boolean isEnabled;
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
-    @Column(name = "verification_token", updatable = false)
+    @Column(name = "verification_token")
     private String verificationToken;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)// PK

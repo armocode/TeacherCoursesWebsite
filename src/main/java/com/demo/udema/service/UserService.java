@@ -13,5 +13,4 @@ public interface UserService {
     List<String> findUsersWhoBoughtCourseByCourseTitle(String title);
     String findRoleByUsername(String username);
     Integer findIdByUsername(String username);
-
 }

@@ -68,6 +68,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public void updateVerificationToken(String verificationToken, String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            user.setVerificationToken(verificationToken);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException("Could not find this user");
+        }
+    }
+
     public User get(String resetPasswordToken) {
         return userRepository.findByResetPasswordToken(resetPasswordToken);
     }
@@ -79,6 +90,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
         user.setResetPasswordToken(null);
 
+        userRepository.save(user);
+    }
+
+    public User getByVerificationToken(String verificationToken) {
+        return userRepository.findByVerificationToken(verificationToken);
+    }
+
+    public void verifyAccount(User user, String verificationToken) {
+        user.setVerificationToken(null);
+        user.setEnabled(true);
         userRepository.save(user);
     }
 }
