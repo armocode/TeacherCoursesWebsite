@@ -1,5 +1,6 @@
 package com.demo.udema.service;
 
+import com.demo.udema.controller.UserDisabledException;
 import com.demo.udema.entity.User;
 import com.demo.udema.repositoryDAO.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if (user == null) throw new UsernameNotFoundException(username);
 
+        if (!user.isEnabled()) try {
+            throw new UserDisabledException(username);
+        } catch (UserDisabledException e) {
+            throw new RuntimeException(e);
+        }
+
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
-
-    //sukurti metoda, kuris grazintu ar vartotojas yra verifikuotas ar ne(0 ar 1)
-    //metoda, kuriam parametruose pateikiamas username ir psw
 }

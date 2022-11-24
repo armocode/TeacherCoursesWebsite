@@ -124,13 +124,16 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error, String errorDisabled, String logout) {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
-        if (error != null)
+        if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
-        //This account is not activated! Please check your email for verification details.
+        }
+        if (errorDisabled != null) {
+            model.addAttribute("error", "Account is disabled!");
+        }
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
         return "login";
